@@ -1,0 +1,181 @@
+(1/9) Running Source Navigator
+
+
+/home/nix/Stuff/Projects/JaarProj/Smells/tests/AssertionRoulette/cpp/SixAssertNoMessageMacro/src
+
+Scanning Project...
+Scanning: cppunit/config-auto.h
+Scanning: cppunit/config-bcb5.h
+Scanning: cppunit/config-msvc6.h
+Scanning: cppunit/Exception.h
+Scanning: cppunit/extensions/AutoRegisterSuite.h
+Scanning: cppunit/extensions/HelperMacros.h
+Scanning: cppunit/extensions/Orthodox.h
+Scanning: cppunit/extensions/RepeatedTest.h
+Scanning: cppunit/extensions/TestDecorator.h
+Scanning: cppunit/extensions/TestFactory.h
+Scanning: cppunit/extensions/TestFactoryRegistry.h
+Scanning: cppunit/extensions/TestSetUp.h
+Scanning: cppunit/extensions/TestSuiteBuilder.h
+Scanning: cppunit/extensions/TestSuiteFactory.h
+Scanning: cppunit/extensions/TypeInfoHelper.h
+Scanning: cppunit/NotEqualException.h
+Scanning: cppunit/Portability.h
+Scanning: cppunit/Test.h
+Scanning: cppunit/TestAssert.h
+Scanning: cppunit/TestCaller.h
+Scanning: cppunit/TestCase.h
+Scanning: cppunit/TestFailure.h
+Scanning: cppunit/TestListener.h
+Scanning: cppunit/TestRegistry.h
+Scanning: cppunit/TestResult.h
+Scanning: cppunit/TestSuite.h
+Scanning: cppunit/TextTestResult.h
+Scanning: cppunit/TextTestRunner.h
+Scanning: testStuff.cxx
+Scanning: testStuff.h
+Scanning: testSuite.cxx
+Waiting for cross-referencing to complete
+Project has been built
+(2/9) Dumping SN database
+* SourceNavigator project path check
+	- SourceNavigator project path /home/nix/JaarProj/Smells/tests/AssertionRoulette/cpp/SixAssertNoMessageMacro/src exists ... OK
+	- SourceNavigator /home/nix/JaarProj/Smells/tests/AssertionRoulette/cpp/SixAssertNoMessageMacro/src/src.proj project file exists ... OK
+	- SourceNavigator .snprj dir /home/nix/JaarProj/Smells/tests/AssertionRoulette/cpp/SixAssertNoMessageMacro/src/.snprj exists ... OK
+	- dbdump destination dir /home/nix/JaarProj/Smells/tests/AssertionRoulette/cpp/SixAssertNoMessageMacro/src/dbdump exists ... OK
+	- dbdump utilities' path /opt/sourcenav/bin/dbdump exists ... OK 
+	DONE
+* Dumping SourceNavigator's src database ... Done
+* Sanitize dumped tables ... Done
+(3/9) Collecting conditional compilation and macro definition directives
+(4/9) Collecting include directives
+(4/9) Collecting namespace declarations and uses
+(5/9) Calculating metrics via Pmccabe
+(6/9) Cleaning temporary files
+(7/9) Running snavtofamix
+11/25/07 18:47:33.045 DEBUG main [get_instance] Class main instantiated
+11/25/07 18:47:33.169 DEBUG accessdictionary [get_instance] Class accessdictionary instantiated
+11/25/07 18:47:33.179 INFO main [<module>] Parsing files ...
+11/25/07 18:47:33.180 INFO main [<module>] Parsing ALTERNATIVE includes...
+11/25/07 18:47:33.182 DEBUG includedictionary [get_instance] Class includedictionary instantiated
+11/25/07 18:47:33.185 DEBUG transitiveincludedictionary [get_instance] Class transitiveincludedictionary instantiated
+11/25/07 18:47:33.186 INFO main [<module>] Parsing conditional compilation directives ...
+11/25/07 18:47:33.186 INFO main [<module>] Parsing macro definition directives ...
+11/25/07 18:47:33.187 INFO main [<module>] Entering famix Level 1
+11/25/07 18:47:33.187 INFO main [<module>] Parsing namespaces...
+11/25/07 18:47:33.188 INFO main [<module>] Parsed 0 namespaces
+11/25/07 18:47:33.188 INFO main [<module>] Parsing namespace usages...
+11/25/07 18:47:33.189 INFO main [<module>] Parsed 0 namespace usages
+11/25/07 18:47:33.190 INFO main [<module>] Parsing class usages...
+11/25/07 18:47:33.191 INFO main [<module>] Parsed 7 class usages
+11/25/07 18:47:33.191 INFO main [<module>] Parsing classes ...
+11/25/07 18:47:33.191 DEBUG classdictionary [get_instance] Class classdictionary instantiated
+11/25/07 18:47:33.208 INFO main [<module>] Parsing typedefs ...
+11/25/07 18:47:33.209 DEBUG typedefdictionary [get_instance] Class typedefdictionary instantiated
+11/25/07 18:47:33.210 DEBUG inheritancedictionary [get_instance] Class inheritancedictionary instantiated
+11/25/07 18:47:33.211 DEBUG transitiveinheritancedictionary [get_instance] Class transitiveinheritancedictionary instantiated
+11/25/07 18:47:33.212 DEBUG classcollector [get_instance] Class classcollector instantiated
+11/25/07 18:47:33.214 DEBUG classselector [get_instance] Class classselector instantiated
+11/25/07 18:47:33.217 INFO main [<module>] Parsing inheritance relations ...
+11/25/07 18:47:33.218 WARNING main [parseInheritance] Superclass-problem: no class with name "std::exception" known from file cppunit/Exception.h
+11/25/07 18:47:33.218 WARNING main [parseInheritance] Superclass-problem: no class with name "Exception" known from file cppunit/NotEqualException.h
+11/25/07 18:47:33.219 WARNING main [parseInheritance] Superclass-problem: no class with name "std::ostrstream" known from file cppunit/Portability.h
+11/25/07 18:47:33.220 WARNING main [parseInheritance] Superclass-problem: no class with name "TestCase" known from file cppunit/extensions/Orthodox.h
+11/25/07 18:47:33.220 WARNING main [parseInheritance] Superclass-problem: no class with name "TestDecorator" known from file cppunit/extensions/RepeatedTest.h
+11/25/07 18:47:33.221 WARNING main [parseInheritance] Superclass-problem: no class with name "TestCase" known from file cppunit/TestCaller.h
+11/25/07 18:47:33.221 WARNING main [parseInheritance] Superclass-problem: no class with name "Test" known from file cppunit/TestCase.h
+11/25/07 18:47:33.222 WARNING main [parseInheritance] Superclass-problem: no class with name "Test" known from file cppunit/extensions/TestDecorator.h
+11/25/07 18:47:33.223 WARNING main [parseInheritance] Superclass-problem: no class with name "TestFactory" known from file cppunit/extensions/TestFactoryRegistry.h
+11/25/07 18:47:33.223 WARNING main [parseInheritance] Superclass-problem: no class with name "TestDecorator" known from file cppunit/extensions/TestSetUp.h
+11/25/07 18:47:33.224 WARNING main [parseInheritance] Superclass-problem: no class with name "Test" known from file cppunit/TestSuite.h
+11/25/07 18:47:33.225 WARNING main [parseInheritance] Superclass-problem: no class with name "TestFactory" known from file cppunit/extensions/TestSuiteFactory.h
+11/25/07 18:47:33.225 WARNING main [parseInheritance] Superclass-problem: no class with name "TestResult" known from file cppunit/TextTestResult.h
+11/25/07 18:47:33.226 INFO main [<module>] Parsing methods ...
+11/25/07 18:47:33.226 DEBUG invokeableentitydictionary [get_instance] Class invokeableentitydictionary instantiated
+11/25/07 18:47:33.228 DEBUG invokeableentitydictionaryfiller [get_instance] Class invokeableentitydictionaryfiller instantiated
+11/25/07 18:47:33.229 DEBUG timer [get_instance] Class timer instantiated
+11/25/07 18:47:33.230 DEBUG methodentity [get_instance] Class methodentity instantiated
+11/25/07 18:47:33.324 INFO timer [log] Parsing method declarations took 94 ms for 176 work items, or 0.53409090909090906 ms per item.
+11/25/07 18:47:33.344 WARNING main [parseMethods] Method-owner-problem: no class with name "TestSumFormula" known from file testStuff.cxx@3.
+11/25/07 18:47:33.346 INFO timer [log] Parsing method definitions took 21 ms for 58 work items, or 0.36206896551724138 ms per item.
+11/25/07 18:47:33.347 INFO main [<module>] Parsing functions ...
+11/25/07 18:47:33.348 DEBUG functionentity [get_instance] Class functionentity instantiated
+11/25/07 18:47:33.348 INFO timer [log] Parsing function declarations took 1 ms for 1 work items, or 1.0 ms per item.
+11/25/07 18:47:33.350 INFO timer [log] Parsing function definitions took 1 ms for 7 work items, or 0.14285714285714285 ms per item.
+11/25/07 18:47:33.351 INFO main [<module>] Generating invokable entities ...
+11/25/07 18:47:33.419 INFO main [<module>] Entering famix Level 2
+11/25/07 18:47:33.419 INFO main [<module>] Parsing attributes ...
+11/25/07 18:47:33.420 DEBUG attributedictionary [get_instance] Class attributedictionary instantiated
+11/25/07 18:47:33.421 DEBUG attributeentity [get_instance] Class attributeentity instantiated
+11/25/07 18:47:33.438 INFO main [<module>] Parsing global variables ...
+11/25/07 18:47:33.439 INFO main [<module>] Entering famix Level 3
+11/25/07 18:47:33.439 INFO main [<module>] Parsing accesses ...
+11/25/07 18:47:33.453 DEBUG alternativeinvokeableentityresolver [get_instance] Class alternativeinvokeableentityresolver instantiated
+11/25/07 18:47:33.456 DEBUG accessresolutionreport [get_instance] Class accessresolutionreport instantiated
+11/25/07 18:47:33.491 INFO timer [log] Parsing accesses took 51 ms for 106 work items, or 0.48113207547169812 ms per item.
+11/25/07 18:47:33.492 INFO main [<module>] Parsing invocations ...
+11/25/07 18:47:33.494 DEBUG invocationresolutionreport [get_instance] Class invocationresolutionreport instantiated
+11/25/07 18:47:33.497 DEBUG invocationresolutionreport [log] Failed to resolve Undefined: # CPPUNIT_ASSERT fd Orthodox <ClassUnderTest>runTest mi r 000061 cppunit/extensions/Orthodox.h;{boolean} {}
+11/25/07 18:47:33.498 DEBUG invocationresolutionreport [log] Found 0 potential destinations.
+11/25/07 18:47:33.500 DEBUG invocationresolutionreport [log] Failed to resolve Undefined: # CPPUNIT_ASSERT fd Orthodox <ClassUnderTest>runTest mi r 000065 cppunit/extensions/Orthodox.h;{boolean} {}
+11/25/07 18:47:33.501 DEBUG invocationresolutionreport [log] Found 0 potential destinations.
+11/25/07 18:47:33.502 DEBUG invocationresolutionreport [log] Failed to resolve Undefined: # CPPUNIT_ASSERT fd Orthodox <ClassUnderTest>runTest mi r 000069 cppunit/extensions/Orthodox.h;{boolean} {}
+11/25/07 18:47:33.503 DEBUG invocationresolutionreport [log] Found 0 potential destinations.
+11/25/07 18:47:33.505 DEBUG invocationresolutionreport [log] Failed to resolve Undefined: # CPPUNIT_ASSERT fd Orthodox <ClassUnderTest>runTest mi r 000076 cppunit/extensions/Orthodox.h;{boolean} {}
+11/25/07 18:47:33.506 DEBUG invocationresolutionreport [log] Found 0 potential destinations.
+11/25/07 18:47:33.507 DEBUG invocationresolutionreport [log] Failed to resolve Undefined: # CPPUNIT_ASSERT fd Orthodox <ClassUnderTest>runTest mi r 000079 cppunit/extensions/Orthodox.h;{boolean} {}
+11/25/07 18:47:33.508 DEBUG invocationresolutionreport [log] Found 0 potential destinations.
+11/25/07 18:47:33.525 DEBUG invocationresolutionreport [log] Failed to resolve Undefined: # getName ud TestCaller toString mi r 000174 cppunit/TestCaller.h;{} {}
+11/25/07 18:47:33.526 DEBUG invocationresolutionreport [log] Found 2 potential destinations.
+11/25/07 18:47:33.528 DEBUG invocationresolutionreport [log] Failed to resolve Undefined: # getName ud TestSuiteBuilder makeTestName mi r 000075 cppunit/extensions/TestSuiteBuilder.h;{} {const std::string &}
+11/25/07 18:47:33.529 DEBUG invocationresolutionreport [log] Found 2 potential destinations.
+11/25/07 18:47:33.535 DEBUG invocationresolutionreport [log] Failed to resolve Undefined: # operator= ud Orthodox <ClassUnderTest>runTest mi r 000064 cppunit/extensions/Orthodox.h;{unknown} {}
+11/25/07 18:47:33.536 DEBUG invocationresolutionreport [log] Found 5 potential destinations.
+11/25/07 18:47:33.541 DEBUG invocationresolutionreport [log] Failed to resolve Undefined: Exception Exception mi ExpectedExceptionTraits expectedException mi r 000035 cppunit/TestCaller.h;{std::string,long,std::string} {}
+11/25/07 18:47:33.542 DEBUG invocationresolutionreport [log] Found 0 potential destinations.
+11/25/07 18:47:33.544 DEBUG invocationresolutionreport [log] Failed to resolve Undefined: ExpectedExceptionTraits<ExpectedException> expectedException ud TestCaller runTest mi r 000159 cppunit/TestCaller.h;{} {}
+11/25/07 18:47:33.545 DEBUG invocationresolutionreport [log] Found 0 potential destinations.
+11/25/07 18:47:33.552 DEBUG invocationresolutionreport [log] Failed to resolve Undefined: TestCaseType suite ud TestSuiteFactory makeTest mi r 000016 cppunit/extensions/TestSuiteFactory.h;{} {}
+11/25/07 18:47:33.553 DEBUG invocationresolutionreport [log] Found 0 potential destinations.
+11/25/07 18:47:33.559 DEBUG invocationresolutionreport [log] Failed to resolve Undefined: TestDecorator run mi TestSetUp run mi r 000033 cppunit/extensions/TestSetUp.h;{TestResult *} {TestResult *}
+11/25/07 18:47:33.560 DEBUG invocationresolutionreport [log] Found 0 potential destinations.
+11/25/07 18:47:33.563 DEBUG invocationresolutionreport [log] Failed to resolve Undefined: TestFactoryRegistry getRegistry mi AutoRegisterSuite AutoRegisterSuite mi r 000029 cppunit/extensions/AutoRegisterSuite.h;{} {}
+11/25/07 18:47:33.564 DEBUG invocationresolutionreport [log] Found 0 potential destinations.
+11/25/07 18:47:33.566 DEBUG invocationresolutionreport [log] Failed to resolve Undefined: TestFactoryRegistry getRegistry mi AutoRegisterSuite AutoRegisterSuite mi r 000038 cppunit/extensions/AutoRegisterSuite.h;{} {const std::string &}
+11/25/07 18:47:33.567 DEBUG invocationresolutionreport [log] Found 0 potential destinations.
+11/25/07 18:47:33.569 DEBUG invocationresolutionreport [log] Failed to resolve Undefined: TestFactoryRegistry registerFactory mi AutoRegisterSuite AutoRegisterSuite mi r 000029 cppunit/extensions/AutoRegisterSuite.h;{TestFactory *} {}
+11/25/07 18:47:33.570 DEBUG invocationresolutionreport [log] Found 0 potential destinations.
+11/25/07 18:47:33.572 DEBUG invocationresolutionreport [log] Failed to resolve Undefined: TestFactoryRegistry registerFactory mi AutoRegisterSuite AutoRegisterSuite mi r 000038 cppunit/extensions/AutoRegisterSuite.h;{TestFactory *} {const std::string &}
+11/25/07 18:47:33.573 DEBUG invocationresolutionreport [log] Found 0 potential destinations.
+11/25/07 18:47:33.578 DEBUG invocationresolutionreport [log] Failed to resolve Undefined: TestStuff suite mi # main fu p 000012 testSuite.cxx;{} {int,char *[]}
+11/25/07 18:47:33.579 DEBUG invocationresolutionreport [log] Found 0 potential destinations.
+11/25/07 18:47:33.582 DEBUG invocationresolutionreport [log] Failed to resolve Undefined: TestSuite addTest mi # main fu r 000012 testSuite.cxx;{Test *} {int,char *[]}
+11/25/07 18:47:33.583 DEBUG invocationresolutionreport [log] Found 0 potential destinations.
+11/25/07 18:47:33.585 DEBUG invocationresolutionreport [log] Failed to resolve Undefined: TestSuite run mi # main fu r 000013 testSuite.cxx;{TestResult *} {int,char *[]}
+11/25/07 18:47:33.586 DEBUG invocationresolutionreport [log] Found 0 potential destinations.
+11/25/07 18:47:33.598 DEBUG invocationresolutionreport [log] Failed to resolve Undefined: TypeInfoHelper getClassName mi ExpectedExceptionTraits expectedException mi r 000030 cppunit/TestCaller.h;{const std::type_info &} {}
+11/25/07 18:47:33.599 DEBUG invocationresolutionreport [log] Found 0 potential destinations.
+11/25/07 18:47:33.601 DEBUG invocationresolutionreport [log] Failed to resolve Undefined: std::ostrstream str ud OStringStream str mi r 000066 cppunit/Portability.h;{} {}
+11/25/07 18:47:33.602 DEBUG invocationresolutionreport [log] Found 0 potential destinations.
+11/25/07 18:47:33.603 INFO timer [log] Parsing invocations took 109 ms for 57 work items, or 1.9122807017543859 ms per item.
+11/25/07 18:47:33.603 INFO main [<module>] Entering famix Level 4
+11/25/07 18:47:33.604 INFO main [<module>] Parsing formal parameters ...
+11/25/07 18:47:33.622 INFO main [<module>] Parsing pmccabe metrics ...
+11/25/07 18:47:33.628 INFO timer [log] Parsing measurements took 4 ms for 4 work items, or 1.0 ms per item.
+11/25/07 18:47:33.629 INFO main [checkFileExists] database /home/nix/JaarProj/Smells/tests/AssertionRoulette/cpp/SixAssertNoMessageMacro/src/dbdump/src.vcs does not exist
+(8/9) Running CDIF2RSF
+Reading from file /home/nix/JaarProj/Smells/tests/AssertionRoulette/cpp/SixAssertNoMessageMacro/src.cdif,...
+	Files... [ok]
+	Includes... [ok]
+	Conditional Compilation... [ok]
+	Classes... [ok]
+	Inheritance... [ok]
+	Methods... [ok]
+	Attributes... [ok]
+	Functions... [ok]
+	Accesses... [ok]
+	Invocations... [ok]
+	Size and Complexity Metrics... [ok]
+	Change Frequency Metrics... [ok]
+Merging output... [ok]
+Output written to /home/nix/JaarProj/Smells/tests/AssertionRoulette/cpp/SixAssertNoMessageMacro/src.rsf

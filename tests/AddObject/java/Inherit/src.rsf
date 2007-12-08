@@ -1,0 +1,10 @@
+Module	1	"/"
+File	1	"MySub.java"
+File	2	"MySuper.java"
+FileBelongsToModule	1	1
+FileBelongsToModule	2	1
+Class	1	"MySub"
+Class	2	"MySuper"
+ClassBelongsToFile	1	1	1
+ClassBelongsToFile	2	2	1
+InheritsFrom	3	"MySub->MySuper"	1	2

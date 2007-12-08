@@ -1,0 +1,31 @@
+Exception UNKNOWNFILENAME 000046.029 cppunit/Exception.h;46.44 0xc {const std::string} {} {} {}
+Exception UNKNOWNLINENUMBER 000047.022 cppunit/Exception.h;47.39 0xc {const long} {} {} {}
+Exception m_fileName 000062.016 cppunit/Exception.h;62.26 0x1 {std::string} {} {} {}
+Exception m_lineNumber 000061.009 cppunit/Exception.h;61.21 0x1 {long} {} {} {}
+Exception m_message 000060.016 cppunit/Exception.h;60.25 0x1 {std::string} {} {} {}
+ExclusiveZone m_syncObject 000071.035 cppunit/TestResult.h;71.47 0x1 {SynchronizationObject *} {} {} {}
+NotEqualException m_actual 000041.016 cppunit/NotEqualException.h;41.24 0x1 {std::string} {} {} {}
+NotEqualException m_expected 000040.016 cppunit/NotEqualException.h;40.26 0x1 {std::string} {} {} {}
+RepeatedTest m_timesRepeat 000032.014 cppunit/extensions/RepeatedTest.h;32.27 0x1 {const int} {} {} {}
+TestCaller m_fixture 000183.015 cppunit/TestCaller.h;183.24 0x1 {Fixture *} {} {} {}
+TestCaller m_ownFixture 000182.015 cppunit/TestCaller.h;182.27 0x1 {bool} {} {} {}
+TestCaller m_test 000184.015 cppunit/TestCaller.h;184.21 0x1 {TestMethod} {} {} {}
+TestCase m_name 000142.024 cppunit/TestCase.h;142.30 0x1 {const std::string} {} {} {}
+TestDecorator m_test 000031.017 cppunit/extensions/TestDecorator.h;31.23 0x2 {Test *} {} {} {}
+TestFactoryRegistry m_factories 000067.014 cppunit/extensions/TestFactoryRegistry.h;67.25 0x1 {Factories} {} {} {}
+TestFactoryRegistry m_name 000071.016 cppunit/extensions/TestFactoryRegistry.h;71.22 0x1 {std::string} {} {} {}
+TestFailure m_failedTest 000033.018 cppunit/TestFailure.h;33.30 0x2 {Test *} {} {} {}
+TestFailure m_thrownException 000034.018 cppunit/TestFailure.h;34.35 0x2 {Exception *} {} {} {}
+TestRegistry m_registry_names 000032.031 cppunit/TestRegistry.h;32.47 0x1 {std::vector<std::string>} {} {} {}
+TestRegistry m_registry_tests 000033.025 cppunit/TestRegistry.h;33.41 0x1 {std::vector<Test*>} {} {} {}
+TestResult m_errors 000085.034 cppunit/TestResult.h;85.42 0x2 {std::vector<TestFailure*>} {} {} {}
+TestResult m_failures 000086.034 cppunit/TestResult.h;86.44 0x2 {std::vector<TestFailure*>} {} {} {}
+TestResult m_listeners 000087.034 cppunit/TestResult.h;87.45 0x2 {std::vector<TestListener*>} {} {} {}
+TestResult m_runTests 000088.034 cppunit/TestResult.h;88.44 0x2 {int} {} {} {}
+TestResult m_stop 000089.034 cppunit/TestResult.h;89.40 0x2 {bool} {} {} {}
+TestResult m_syncObject 000090.035 cppunit/TestResult.h;90.47 0x2 {SynchronizationObject *} {} {} {}
+TestSuite m_name 000054.024 cppunit/TestSuite.h;54.30 0x1 {const std::string} {} {} {}
+TestSuite m_tests 000053.024 cppunit/TestSuite.h;53.31 0x1 {std::vector<Test*>} {} {} {}
+TestSuiteBuilder m_suite 000079.031 cppunit/extensions/TestSuiteBuilder.h;79.38 0x1 {std::auto_ptr<TestSuite>} {} {} {}
+TextTestRunner m_suite 000047.015 cppunit/TextTestRunner.h;47.22 0x2 {TestSuite *} {} {} {}
+Type m_type 000028.026 cppunit/Exception.h;28.32 0x1 {const std::string} {} {} {}

@@ -1,0 +1,376 @@
+(1/7) Running Source Navigator
+
+
+/home/nix/Stuff/Projects/JaarProj/Smells/tests/TestEntities/java/TwoTestCases/src
+/home/nix/Stuff/Projects/JaarProj/Smells/tests/TestEntities/java/TwoTestCases/src/junit/org
+
+Scanning Project...
+Scanning: junit/org/TestCase.java
+Scanning: MySecondTest.java
+Scanning: MyTest.java
+Waiting for cross-referencing to complete
+Project has been built
+(2/7) Dumping SN database
+* SourceNavigator project path check
+	- SourceNavigator project path /home/nix/Stuff/Projects/JaarProj/Smells/tests/TestEntities/java/TwoTestCases/src exists ... OK
+	- SourceNavigator /home/nix/Stuff/Projects/JaarProj/Smells/tests/TestEntities/java/TwoTestCases/src/src.proj project file exists ... OK
+	- SourceNavigator .snprj dir /home/nix/Stuff/Projects/JaarProj/Smells/tests/TestEntities/java/TwoTestCases/src/.snprj exists ... OK
+	- dbdump destination dir /home/nix/Stuff/Projects/JaarProj/Smells/tests/TestEntities/java/TwoTestCases/src/dbdump exists ... OK
+	- dbdump utilities' path /opt/sourcenav/bin/dbdump exists ... OK 
+	DONE
+* Dumping SourceNavigator's src database ... Done
+* Sanitize dumped tables ... Done
+(3a/7) Grabbing all functions/methods
+(3/7) Collecting package information
+(4/7) Collecting attribute type information ...
+(4b/7) Collecting size and complexity metrics ...
+(5/7) Cleaning temporary files ...
+(6/7) Running snavtofamix ...
+ Entering famix Level 1
+  - parsing packages ...
+  - parsing classes ...
+  - parsing imports ...
+  - parsing inheritance relations ...
+ Entering famix Level 2
+  - parsing methods ...
+{'junit::org::TestCase.assertNotNull(java.lang.Object)': ['junit/org/TestCase.java:26'], 'junit::org::TestCase.assertEquals(java.lang.String,float,float,float)': ['junit/org/TestCase.java:17'], 'junit::org::TestCase.assertEquals(short,short)': ['junit/org/TestCase.java:12'], 'junit::org::TestCase.assertEquals(char,char)': ['junit/org/TestCase.java:6'], 'junit::org::TestCase.failNotSame(java.lang.String,java.lang.Object,java.lang.Object)': ['junit/org/TestCase.java:39'], 'junit::org::TestCase.assertEquals(float,float,float)': ['junit/org/TestCase.java:8'], 'junit::org::TestCase.format(java.lang.String,java.lang.Object,java.lang.Object)': ['junit/org/TestCase.java:41'], 'junit::org::TestCase.assertEquals(java.lang.String,short,short)': ['junit/org/TestCase.java:21'], 'junit::org::TestCase.fail(java.lang.String)': ['junit/org/TestCase.java:37'], 'junit::org::TestCase.assertEquals(java.lang.String,byte,byte)': ['junit/org/TestCase.java:14'], 'junit::org::TestCase.assertEquals(java.lang.String,int,int)': ['junit/org/TestCase.java:18'], 'junit::org::TestCase.assertFalse(java.lang.String,boolean)': ['junit/org/TestCase.java:25'], 'junit::org::TestCase.assertNull(java.lang.Object)': ['junit/org/TestCase.java:30'], 'junit::org::TestCase.assertEquals(java.lang.String,java.lang.String)': ['junit/org/TestCase.java:22'], 'junit::org::TestCase.assertSame(java.lang.String,java.lang.Object,java.lang.Object)': ['junit/org/TestCase.java:33'], 'junit::org::TestCase.assertSame(java.lang.Object,java.lang.Object)': ['junit/org/TestCase.java:32'], 'junit::org::TestCase.assertEquals(int,int)': ['junit/org/TestCase.java:9'], 'junit::org::TestCase.assertNotNull(java.lang.String,java.lang.Object)': ['junit/org/TestCase.java:27'], 'junit::org::TestCase.assertTrue(boolean)': ['junit/org/TestCase.java:34'], 'junit::org::TestCase.assertEquals(java.lang.String,char,char)': ['junit/org/TestCase.java:15'], 'junit::org::TestCase.fail()': ['junit/org/TestCase.java:36'], 'junit::org::TestCase.assertNotSame(java.lang.Object,java.lang.Object)': ['junit/org/TestCase.java:28'], 'junit::org::TestCase.assertEquals(java.lang.String,double,double,double)': ['junit/org/TestCase.java:16'], 'junit::org::TestCase.assertEquals(java.lang.String,boolean,boolean)': ['junit/org/TestCase.java:13'], 'junit::org::TestCase.assertEquals(java.lang.String,java.lang.Object,java.lang.Object)': ['junit/org/TestCase.java:20'], 'junit::org::TestCase.failSame(java.lang.String)': ['junit/org/TestCase.java:40'], 'junit::org::TestCase.assertEquals(double,double,double)': ['junit/org/TestCase.java:7'], 'junit::org::TestCase.assertNull(java.lang.String,java.lang.Object)': ['junit/org/TestCase.java:31'], 'junit::org::TestCase.assertTrue(java.lang.String,boolean)': ['junit/org/TestCase.java:35'], 'junit::org::TestCase.assertEquals(boolean,boolean)': ['junit/org/TestCase.java:4'], 'junit::org::TestCase.assertEquals(java.lang.Object,java.lang.Object)': ['junit/org/TestCase.java:11'], 'junit::org::TestCase.assertNotSame(java.lang.String,java.lang.Object,java.lang.Object)': ['junit/org/TestCase.java:29'], 'junit::org::TestCase.failNotEquals(java.lang.String,java.lang.Object,java.lang.Object)': ['junit/org/TestCase.java:38'], 'junit::org::TestCase.assertEquals(byte,byte)': ['junit/org/TestCase.java:5'], 'junit::org::TestCase.assertEquals(java.lang.String,java.lang.String,java.lang.String)': ['junit/org/TestCase.java:23'], 'junit::org::TestCase.assertEquals(long,long)': ['junit/org/TestCase.java:10'], 'junit::org::TestCase.assertEquals(java.lang.String,long,long)': ['junit/org/TestCase.java:19'], 'junit::org::TestCase.assertFalse(boolean)': ['junit/org/TestCase.java:24']}
+  - parsing attributes ...
+ Entering famix Level 3
+  - parsing invocations ...
+junit/org/TestCase.java:4 static public void     assertEquals(boolean expected, boolean actual){}
+ENTERING EXPLORE
+static public void     assertEquals
+not a method
+junit/org/TestCase.java:4 static public void     assertEquals(boolean expected, boolean actual){}
+ENTERING EXPLORE
+boolean expected, boolean actual){}
+not a method
+junit/org/TestCase.java:5 static public void     assertEquals(byte expected, byte actual){}
+ENTERING EXPLORE
+static public void     assertEquals
+not a method
+junit/org/TestCase.java:5 static public void     assertEquals(byte expected, byte actual){}
+ENTERING EXPLORE
+byte expected, byte actual){}
+not a method
+junit/org/TestCase.java:6 static public void     assertEquals(char expected, char actual){}
+ENTERING EXPLORE
+static public void     assertEquals
+not a method
+junit/org/TestCase.java:6 static public void     assertEquals(char expected, char actual){}
+ENTERING EXPLORE
+char expected, char actual){}
+not a method
+junit/org/TestCase.java:7 static public void     assertEquals(double expected, double actual, double delta){}
+ENTERING EXPLORE
+static public void     assertEquals
+not a method
+junit/org/TestCase.java:7 static public void     assertEquals(double expected, double actual, double delta){}
+ENTERING EXPLORE
+double expected, double actual, double delta){}
+not a method
+junit/org/TestCase.java:8 static public void     assertEquals(float expected, float actual, float delta){}
+ENTERING EXPLORE
+static public void     assertEquals
+not a method
+junit/org/TestCase.java:8 static public void     assertEquals(float expected, float actual, float delta){}
+ENTERING EXPLORE
+float expected, float actual, float delta){}
+not a method
+junit/org/TestCase.java:9 static public void     assertEquals(int expected, int actual){}
+ENTERING EXPLORE
+static public void     assertEquals
+not a method
+junit/org/TestCase.java:9 static public void     assertEquals(int expected, int actual){}
+ENTERING EXPLORE
+int expected, int actual){}
+not a method
+junit/org/TestCase.java:10 static public void     assertEquals(long expected, long actual){}
+ENTERING EXPLORE
+static public void     assertEquals
+not a method
+junit/org/TestCase.java:10 static public void     assertEquals(long expected, long actual){}
+ENTERING EXPLORE
+long expected, long actual){}
+not a method
+junit/org/TestCase.java:11 static public void     assertEquals(java.lang.Object expected, java.lang.Object actual){}
+ENTERING EXPLORE
+static public void     assertEquals
+not a method
+junit/org/TestCase.java:11 static public void     assertEquals(java.lang.Object expected, java.lang.Object actual){}
+ENTERING EXPLORE
+java.lang.Object expected, java.lang.Object actual){}
+not a method
+junit/org/TestCase.java:12 static public void     assertEquals(short expected, short actual){}
+ENTERING EXPLORE
+static public void     assertEquals
+not a method
+junit/org/TestCase.java:12 static public void     assertEquals(short expected, short actual){}
+ENTERING EXPLORE
+short expected, short actual){}
+not a method
+junit/org/TestCase.java:13 static public void     assertEquals(java.lang.String message, boolean expected, boolean actual){}
+ENTERING EXPLORE
+static public void     assertEquals
+not a method
+junit/org/TestCase.java:13 static public void     assertEquals(java.lang.String message, boolean expected, boolean actual){}
+ENTERING EXPLORE
+java.lang.String message, boolean expected, boolean actual){}
+not a method
+junit/org/TestCase.java:14 static public void     assertEquals(java.lang.String message, byte expected, byte actual){}
+ENTERING EXPLORE
+static public void     assertEquals
+not a method
+junit/org/TestCase.java:14 static public void     assertEquals(java.lang.String message, byte expected, byte actual){}
+ENTERING EXPLORE
+java.lang.String message, byte expected, byte actual){}
+not a method
+junit/org/TestCase.java:15 static public void     assertEquals(java.lang.String message, char expected, char actual){}
+ENTERING EXPLORE
+static public void     assertEquals
+not a method
+junit/org/TestCase.java:15 static public void     assertEquals(java.lang.String message, char expected, char actual){}
+ENTERING EXPLORE
+java.lang.String message, char expected, char actual){}
+not a method
+junit/org/TestCase.java:16 static public void     assertEquals(java.lang.String message, double expected, double actual, double delta){}
+ENTERING EXPLORE
+static public void     assertEquals
+not a method
+junit/org/TestCase.java:16 static public void     assertEquals(java.lang.String message, double expected, double actual, double delta){}
+ENTERING EXPLORE
+java.lang.String message, double expected, double actual, double delta){}
+not a method
+junit/org/TestCase.java:17 static public void     assertEquals(java.lang.String message, float expected, float actual, float delta){}
+ENTERING EXPLORE
+static public void     assertEquals
+not a method
+junit/org/TestCase.java:17 static public void     assertEquals(java.lang.String message, float expected, float actual, float delta){}
+ENTERING EXPLORE
+java.lang.String message, float expected, float actual, float delta){}
+not a method
+junit/org/TestCase.java:18 static public void     assertEquals(java.lang.String message, int expected, int actual){}
+ENTERING EXPLORE
+static public void     assertEquals
+not a method
+junit/org/TestCase.java:18 static public void     assertEquals(java.lang.String message, int expected, int actual){}
+ENTERING EXPLORE
+java.lang.String message, int expected, int actual){}
+not a method
+junit/org/TestCase.java:19 static public void     assertEquals(java.lang.String message, long expected, long actual){}
+ENTERING EXPLORE
+static public void     assertEquals
+not a method
+junit/org/TestCase.java:19 static public void     assertEquals(java.lang.String message, long expected, long actual){}
+ENTERING EXPLORE
+java.lang.String message, long expected, long actual){}
+not a method
+junit/org/TestCase.java:20 static public void     assertEquals(java.lang.String message, java.lang.Object expected, java.lang.Object actual){}
+ENTERING EXPLORE
+static public void     assertEquals
+not a method
+junit/org/TestCase.java:20 static public void     assertEquals(java.lang.String message, java.lang.Object expected, java.lang.Object actual){}
+ENTERING EXPLORE
+java.lang.String message, java.lang.Object expected, java.lang.Object actual){}
+not a method
+junit/org/TestCase.java:21 static public void     assertEquals(java.lang.String message, short expected, short actual){}
+ENTERING EXPLORE
+static public void     assertEquals
+not a method
+junit/org/TestCase.java:21 static public void     assertEquals(java.lang.String message, short expected, short actual){}
+ENTERING EXPLORE
+java.lang.String message, short expected, short actual){}
+not a method
+junit/org/TestCase.java:22 static public void     assertEquals(java.lang.String expected, java.lang.String actual){}
+ENTERING EXPLORE
+static public void     assertEquals
+not a method
+junit/org/TestCase.java:22 static public void     assertEquals(java.lang.String expected, java.lang.String actual){}
+ENTERING EXPLORE
+java.lang.String expected, java.lang.String actual){}
+not a method
+junit/org/TestCase.java:23 static public void     assertEquals(java.lang.String message, java.lang.String expected, java.lang.String actual){}
+ENTERING EXPLORE
+static public void     assertEquals
+not a method
+junit/org/TestCase.java:23 static public void     assertEquals(java.lang.String message, java.lang.String expected, java.lang.String actual){}
+ENTERING EXPLORE
+java.lang.String message, java.lang.String expected, java.lang.String actual){}
+not a method
+junit/org/TestCase.java:24 static public void     assertFalse(boolean condition){}
+ENTERING EXPLORE
+static public void     assertFalse
+not a method
+junit/org/TestCase.java:24 static public void     assertFalse(boolean condition){}
+ENTERING EXPLORE
+boolean condition){}
+not a method
+junit/org/TestCase.java:25 static public void     assertFalse(java.lang.String message, boolean condition){}
+ENTERING EXPLORE
+static public void     assertFalse
+not a method
+junit/org/TestCase.java:25 static public void     assertFalse(java.lang.String message, boolean condition){}
+ENTERING EXPLORE
+java.lang.String message, boolean condition){}
+not a method
+junit/org/TestCase.java:26 static public void     assertNotNull(java.lang.Object object){}
+ENTERING EXPLORE
+static public void     assertNotNull
+not a method
+junit/org/TestCase.java:26 static public void     assertNotNull(java.lang.Object object){}
+ENTERING EXPLORE
+java.lang.Object object){}
+not a method
+junit/org/TestCase.java:27 static public void     assertNotNull(java.lang.String message, java.lang.Object object){}
+ENTERING EXPLORE
+static public void     assertNotNull
+not a method
+junit/org/TestCase.java:27 static public void     assertNotNull(java.lang.String message, java.lang.Object object){}
+ENTERING EXPLORE
+java.lang.String message, java.lang.Object object){}
+not a method
+junit/org/TestCase.java:28 static public void     assertNotSame(java.lang.Object expected, java.lang.Object actual){}
+ENTERING EXPLORE
+static public void     assertNotSame
+not a method
+junit/org/TestCase.java:28 static public void     assertNotSame(java.lang.Object expected, java.lang.Object actual){}
+ENTERING EXPLORE
+java.lang.Object expected, java.lang.Object actual){}
+not a method
+junit/org/TestCase.java:29 static public void     assertNotSame(java.lang.String message, java.lang.Object expected, java.lang.Object actual){}
+ENTERING EXPLORE
+static public void     assertNotSame
+not a method
+junit/org/TestCase.java:29 static public void     assertNotSame(java.lang.String message, java.lang.Object expected, java.lang.Object actual){}
+ENTERING EXPLORE
+java.lang.String message, java.lang.Object expected, java.lang.Object actual){}
+not a method
+junit/org/TestCase.java:30 static public void     assertNull(java.lang.Object object){}
+ENTERING EXPLORE
+static public void     assertNull
+not a method
+junit/org/TestCase.java:30 static public void     assertNull(java.lang.Object object){}
+ENTERING EXPLORE
+java.lang.Object object){}
+not a method
+junit/org/TestCase.java:31 static public void     assertNull(java.lang.String message, java.lang.Object object){}
+ENTERING EXPLORE
+static public void     assertNull
+not a method
+junit/org/TestCase.java:31 static public void     assertNull(java.lang.String message, java.lang.Object object){}
+ENTERING EXPLORE
+java.lang.String message, java.lang.Object object){}
+not a method
+junit/org/TestCase.java:32 static public void     assertSame(java.lang.Object expected, java.lang.Object actual){}
+ENTERING EXPLORE
+static public void     assertSame
+not a method
+junit/org/TestCase.java:32 static public void     assertSame(java.lang.Object expected, java.lang.Object actual){}
+ENTERING EXPLORE
+java.lang.Object expected, java.lang.Object actual){}
+not a method
+junit/org/TestCase.java:33 static public void     assertSame(java.lang.String message, java.lang.Object expected, java.lang.Object actual){}
+ENTERING EXPLORE
+static public void     assertSame
+not a method
+junit/org/TestCase.java:33 static public void     assertSame(java.lang.String message, java.lang.Object expected, java.lang.Object actual){}
+ENTERING EXPLORE
+java.lang.String message, java.lang.Object expected, java.lang.Object actual){}
+not a method
+junit/org/TestCase.java:34 static public void     assertTrue(boolean condition){}
+ENTERING EXPLORE
+static public void     assertTrue
+not a method
+junit/org/TestCase.java:34 static public void     assertTrue(boolean condition){}
+ENTERING EXPLORE
+boolean condition){}
+not a method
+junit/org/TestCase.java:35 static public void     assertTrue(java.lang.String message, boolean condition){}
+ENTERING EXPLORE
+static public void     assertTrue
+not a method
+junit/org/TestCase.java:35 static public void     assertTrue(java.lang.String message, boolean condition){}
+ENTERING EXPLORE
+java.lang.String message, boolean condition){}
+not a method
+junit/org/TestCase.java:36 static public void     fail(){}
+ENTERING EXPLORE
+static public void     fail
+not a method
+junit/org/TestCase.java:36 static public void     fail(){}
+ENTERING EXPLORE
+){}
+not a method
+junit/org/TestCase.java:37 static public void     fail(java.lang.String message){}
+ENTERING EXPLORE
+static public void     fail
+not a method
+junit/org/TestCase.java:37 static public void     fail(java.lang.String message){}
+ENTERING EXPLORE
+java.lang.String message){}
+not a method
+junit/org/TestCase.java:38 private static void     failNotEquals(java.lang.String message, java.lang.Object expected, java.lang.Object 	actual){}
+ENTERING EXPLORE
+private static void     failNotEquals
+not a method
+junit/org/TestCase.java:38 private static void     failNotEquals(java.lang.String message, java.lang.Object expected, java.lang.Object 	actual){}
+ENTERING EXPLORE
+java.lang.String message, java.lang.Object expected, java.lang.Object 	actual){}
+not a method
+junit/org/TestCase.java:39 private static void     failNotSame(java.lang.String message, java.lang.Object expected, java.lang.Object 	actual){}
+ENTERING EXPLORE
+private static void     failNotSame
+not a method
+junit/org/TestCase.java:39 private static void     failNotSame(java.lang.String message, java.lang.Object expected, java.lang.Object 	actual){}
+ENTERING EXPLORE
+java.lang.String message, java.lang.Object expected, java.lang.Object 	actual){}
+not a method
+junit/org/TestCase.java:40 private static void     failSame(java.lang.String message){}
+ENTERING EXPLORE
+private static void     failSame
+not a method
+junit/org/TestCase.java:40 private static void     failSame(java.lang.String message){}
+ENTERING EXPLORE
+java.lang.String message){}
+not a method
+junit/org/TestCase.java:41 static java.lang.String       format(java.lang.String message, java.lang.Object expected, java.lang.Object actual) { return "";}
+ENTERING EXPLORE
+static java.lang.String       format
+not a method
+junit/org/TestCase.java:41 static java.lang.String       format(java.lang.String message, java.lang.Object expected, java.lang.Object actual) { return "";}
+ENTERING EXPLORE
+java.lang.String message, java.lang.Object expected, java.lang.Object actual) { return "";}
+not a method
+  - parsing accesses ...
+11/30/07 20:11:13.569 DEBUG main [get_instance] Class main instantiated
+11/30/07 20:11:13.665 INFO main [<module>] Parsing files ...
+11/30/07 20:11:13.666 DEBUG packagedictionary [get_instance] Class packagedictionary instantiated
+11/30/07 20:11:13.669 DEBUG classdictionary [get_instance] Class classdictionary instantiated
+11/30/07 20:11:13.672 DEBUG importdictionary [get_instance] Class importdictionary instantiated
+11/30/07 20:11:13.675 DEBUG inheritanceentity [get_instance] Class inheritanceentity instantiated
+11/30/07 20:11:13.679 DEBUG methoddictionary [get_instance] Class methoddictionary instantiated
+11/30/07 20:11:13.680 DEBUG methodsourcedictionary [get_instance] Class methodsourcedictionary instantiated
+11/30/07 20:11:13.682 DEBUG methodentity [get_instance] Class methodentity instantiated
+11/30/07 20:11:13.759 DEBUG attributedictionary [get_instance] Class attributedictionary instantiated
+11/30/07 20:11:13.761 DEBUG methodinvocationentity [get_instance] Class methodinvocationentity instantiated
+11/30/07 20:11:13.770 DEBUG attributereferenceentity [get_instance] Class attributereferenceentity instantiated
+11/30/07 20:11:13.773 INFO main [<module>] Parsing javancss metrics ...
+11/30/07 20:11:13.774 DEBUG timer [get_instance] Class timer instantiated
+11/30/07 20:11:13.775 INFO timer [log] Parsing ncss measurements took 0 ms for 0 work items, or 0 ms per item.
+11/30/07 20:11:13.777 INFO main [checkFileExists] database /home/nix/Stuff/Projects/JaarProj/Smells/tests/TestEntities/java/TwoTestCases/src/dbdump/src.vcs does not exist
+(7/7) Running CDIF2RSF ...
+Reading from file /home/nix/Stuff/Projects/JaarProj/Smells/tests/TestEntities/java/TwoTestCases/src.cdif,...
+	Files... [ok]
+	Includes... [ok]
+	Conditional Compilation... [ok]
+	Classes... [ok]
+	Inheritance... [ok]
+	Methods... [ok]
+	Attributes... [ok]
+	Functions... [ok]
+	Accesses... [ok]
+	Invocations... [ok]
+	Size and Complexity Metrics... [ok]
+	Change Frequency Metrics... [ok]
+Merging output... [ok]
+Output written to /home/nix/Stuff/Projects/JaarProj/Smells/tests/TestEntities/java/TwoTestCases/src.rsf

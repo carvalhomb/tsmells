@@ -1,0 +1,42 @@
+/**
+ * Print out all invoke -> invokee
+ **/
+
+
+IndirInvokes(id,x,y) := Invokes(id,x,y) 
+					| EX(z, DefinitionForDeclaration(z,y) & Invokes(id,x,z)) 
+					| EX(z, DefinitionForDeclaration(z,x) & Invokes(id,z,y)) 
+					| EX(u,v, DefinitionForDeclaration(u,x) & DefinitionForDeclaration(v,y) & Invokes(id,u,v));
+
+PureInvokes(id,x,y) := IndirInvokes(id,x,y) & (Method(x, _) | Function(x,_)) & (Method(y, _) | Function(y,_));
+
+FOR i IN PureInvokes(_,x,_) {
+	FOR j IN PureInvokes(_,i,y) {
+		PRINT i, " => ", j, " || ";
+		InvokerName(n) := Method(i, n);
+		IF (#(InvokerName(n)) = 0) {
+			InvokerName(n) := Function(i, n);
+		}
+		FOR l IN InvokerName(n) {
+			PRINT l, " ==INVOKES==> ";
+		}
+
+		InvokeeName(n) := Method(j, n);
+		IF (#(InvokeeName(n)) = 0) {
+			InvokeeName(n) := Function(j,n);
+		}
+		FOR m IN InvokeeName(n) {
+			PRINT m, ENDL;
+		}
+	}
+}
+
+PRINT "*****************************************", ENDL;
+PRINT Invokes(x,y,z);
+PRINT "*****************************************", ENDL;
+//PRINT IndirInvokes(x,y,z);
+//PRINT "*****************************************", ENDL;
+PRINT PureInvokes(x,y,z);
+PRINT "*****************************************", ENDL;
+PRINT "#Invokes:", #(Invokes(x,y,z)), ENDL;
+PRINT "#PureInvokes:", #(PureInvokes(x,y,z)), ENDL;

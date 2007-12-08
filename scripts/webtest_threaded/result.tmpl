@@ -1,0 +1,39 @@
+## Result page
+
+#extends master
+
+#attr $result = None
+#attr $color = "#666699"
+#attr $width = "600"
+
+#block body
+
+#if $result == None
+	unknown test or not run yet
+#else
+
+## Display test name
+<h2>$result.name</h2>
+
+<b>command</b>
+<table bgcolor=$color width=$width><tr><td>$result.cmd</td></tr></table>
+<br>
+<b>expected</b>
+<table bgcolor=$color width=$width><tr><td>$result.exp</td></tr></table>
+<br>
+<b>got</b>
+<table bgcolor=$color width=$width><tr><td>$result.got</td></tr></table>
+<br>
+<br><b>what</b>
+<table bgcolor=$color width=$width><tr><td>$result.what</td></tr></table>
+<br>
+<b>testdata</b><br>
+#for src in $result.sources:
+	$src[0]
+	<table bgcolor=$color width=$width><tr><td>$src[1]</td></tr></table>
+	<br>
+#end for
+
+#end if
+
+#end block body

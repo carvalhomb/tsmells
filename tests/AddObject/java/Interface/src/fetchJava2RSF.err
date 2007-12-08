@@ -1,0 +1,65 @@
+(1/7) Running Source Navigator
+
+
+/home/nix/Stuff/Projects/JaarProj/Smells/tests/AddObject/java/TwoClassesInterface/src
+
+Scanning Project...
+Scanning: MyClass.java
+Scanning: MyInterface.java
+Project has been built
+(2/7) Dumping SN database
+* SourceNavigator project path check
+	- SourceNavigator project path /home/nix/Stuff/Projects/JaarProj/Smells/tests/AddObject/java/TwoClassesInterface/src exists ... OK
+	- SourceNavigator /home/nix/Stuff/Projects/JaarProj/Smells/tests/AddObject/java/TwoClassesInterface/src/src.proj project file exists ... OK
+	- SourceNavigator .snprj dir /home/nix/Stuff/Projects/JaarProj/Smells/tests/AddObject/java/TwoClassesInterface/src/.snprj exists ... OK
+	- dbdump destination dir /home/nix/Stuff/Projects/JaarProj/Smells/tests/AddObject/java/TwoClassesInterface/src/dbdump exists ... OK
+	- dbdump utilities' path /opt/sourcenav/bin/dbdump exists ... OK 
+	DONE
+* Dumping SourceNavigator's src database ... Done
+* Sanitize dumped tables ... Done
+(3a/7) Grabbing all functions/methods
+(3/7) Collecting package information
+(4/7) Collecting attribute type information ...
+(4b/7) Collecting size and complexity metrics ...
+(5/7) Cleaning temporary files ...
+(6/7) Running snavtofamix ...
+ Entering famix Level 1
+  - parsing packages ...
+  - parsing classes ...
+  - parsing imports ...
+  - parsing inheritance relations ...
+ Entering famix Level 2
+  - parsing methods ...
+{}
+  - parsing attributes ...
+ Entering famix Level 3
+  - parsing invocations ...
+  - parsing accesses ...
+12/01/07 18:39:37.679 DEBUG main [get_instance] Class main instantiated
+12/01/07 18:39:37.743 INFO main [<module>] Parsing files ...
+12/01/07 18:39:37.744 DEBUG packagedictionary [get_instance] Class packagedictionary instantiated
+12/01/07 18:39:37.748 DEBUG classdictionary [get_instance] Class classdictionary instantiated
+12/01/07 18:39:37.751 DEBUG importdictionary [get_instance] Class importdictionary instantiated
+12/01/07 18:39:37.753 DEBUG methoddictionary [get_instance] Class methoddictionary instantiated
+12/01/07 18:39:37.754 DEBUG methodsourcedictionary [get_instance] Class methodsourcedictionary instantiated
+12/01/07 18:39:37.756 DEBUG attributedictionary [get_instance] Class attributedictionary instantiated
+12/01/07 18:39:37.758 INFO main [<module>] Parsing javancss metrics ...
+12/01/07 18:39:37.759 DEBUG timer [get_instance] Class timer instantiated
+12/01/07 18:39:37.761 INFO timer [log] Parsing ncss measurements took 0 ms for 0 work items, or 0 ms per item.
+12/01/07 18:39:37.762 INFO main [checkFileExists] database /home/nix/Stuff/Projects/JaarProj/Smells/tests/AddObject/java/TwoClassesInterface/src/dbdump/src.vcs does not exist
+(7/7) Running CDIF2RSF ...
+Reading from file /home/nix/Stuff/Projects/JaarProj/Smells/tests/AddObject/java/TwoClassesInterface/src.cdif,...
+	Files... [ok]
+	Includes... [ok]
+	Conditional Compilation... [ok]
+	Classes... [ok]
+	Inheritance... [ok]
+	Methods... [ok]
+	Attributes... [ok]
+	Functions... [ok]
+	Accesses... [ok]
+	Invocations... [ok]
+	Size and Complexity Metrics... [ok]
+	Change Frequency Metrics... [ok]
+Merging output... [ok]
+Output written to /home/nix/Stuff/Projects/JaarProj/Smells/tests/AddObject/java/TwoClassesInterface/src.rsf

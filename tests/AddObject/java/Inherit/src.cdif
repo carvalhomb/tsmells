@@ -1,0 +1,67 @@
+CDIF, SYNTAX "SYNTAX.1" "02.00.00", ENCODING "ENCODING.1" "02.00.00"
+#| FAMOOS Information Exchange (FAMIX) Model, see http://www.iam.unibe.ch/~famoos/FAMIX/ |#
+
+
+(:HEADER
+	(:SUMMARY
+		(ExporterName  "snavtofamix")
+		(ExporterVersion  "537")
+		(ExporterDate "2007/12/01")
+		(ExporterTime "18:39:40")
+		(PublisherName "unknown")
+		(ParsedSystemName "src")
+		(ReificationLevel "1")
+		(SourceLanguage "C++")
+	)
+)
+
+(:META-MODEL
+	(:SUBJECTAREAREFERENCE Foundation
+		(:VERSIONNUMBER "01.00")
+	)
+	(:SUBJECTAREAREFERENCE FAMIX     
+		(:VERSIONNUMBER "2.2"  )
+	)
+)
+
+
+
+(:MODEL
+
+
+(Model FM0
+	(exporterName "snavtofamix")
+	(exporterVersion "537")
+	(exporterDate "2007/12/01")
+	(exporterTime "18:39:40")
+	(publisherName "unknown")
+	(parsedSystemName "src")
+	(extractionLevel "4")
+	(sourceLanguage "Java")
+	(sourceDialect "")
+)
+
+(Class FM1
+	(name "MySub")
+	(uniqueName "MySub")
+	(isAbstract -FALSE-)
+	(sourceAnchor #[file "MySub.java" start 1 end 1|]#)
+)
+
+(Class FM2
+	(name "MySuper")
+	(uniqueName "MySuper")
+	(isAbstract -FALSE-)
+	(sourceAnchor #[file "MySuper.java" start 1 end 1|]#)
+)
+
+(InheritanceDefinition FM3
+	(subclass "MySub")
+	(superclass "MySuper")
+	(accessControlQualifier "public")
+	(sourceAnchor #[file "MySub.java" start 1 end 1|]#)
+	(superclassSourceAnchor #[file "MySuper.java" start 1 end 1|]#)
+)
+
+)
+

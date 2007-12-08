@@ -1,0 +1,73 @@
+(1/7) Running Source Navigator
+
+
+/home/nix/Stuff/Projects/JaarProj/Smells/tests/AssertionRoulette/java/FourDescLessAsserts/src
+/home/nix/Stuff/Projects/JaarProj/Smells/tests/AssertionRoulette/java/FourDescLessAsserts/src/junit/org
+
+Scanning Project...
+Scanning: junit/org/TestCase.java
+Scanning: MyTest.java
+Scanning: MyUUT.java
+Waiting for cross-referencing to complete
+Project has been built
+(2/7) Dumping SN database
+* SourceNavigator project path check
+	- SourceNavigator project path /home/nix/JaarProj/Smells/tests/AssertionRoulette/java/FourDescLessAsserts/src exists ... OK
+	- SourceNavigator /home/nix/JaarProj/Smells/tests/AssertionRoulette/java/FourDescLessAsserts/src/src.proj project file exists ... OK
+	- SourceNavigator .snprj dir /home/nix/JaarProj/Smells/tests/AssertionRoulette/java/FourDescLessAsserts/src/.snprj exists ... OK
+	- dbdump destination dir /home/nix/JaarProj/Smells/tests/AssertionRoulette/java/FourDescLessAsserts/src/dbdump exists ... OK
+	- dbdump utilities' path /opt/sourcenav/bin/dbdump exists ... OK 
+	DONE
+* Dumping SourceNavigator's src database ... Done
+* Sanitize dumped tables ... Done
+(3a/7) Grabbing all functions/methods
+(3/7) Collecting package information
+(4/7) Collecting attribute type information ...
+(4b/7) Collecting size and complexity metrics ...
+(5/7) Cleaning temporary files ...
+(6/7) Running snavtofamix ...
+ Entering famix Level 1
+  - parsing packages ...
+  - parsing classes ...
+  - parsing imports ...
+  - parsing inheritance relations ...
+ Entering famix Level 2
+  - parsing methods ...
+  - parsing attributes ...
+ Entering famix Level 3
+  - parsing invocations ...
+  - parsing accesses ...
+11/29/07 21:26:50.058 DEBUG main [get_instance] Class main instantiated
+11/29/07 21:26:50.158 INFO main [<module>] Parsing files ...
+11/29/07 21:26:50.159 DEBUG packagedictionary [get_instance] Class packagedictionary instantiated
+11/29/07 21:26:50.162 DEBUG classdictionary [get_instance] Class classdictionary instantiated
+11/29/07 21:26:50.165 DEBUG importdictionary [get_instance] Class importdictionary instantiated
+11/29/07 21:26:50.168 DEBUG inheritanceentity [get_instance] Class inheritanceentity instantiated
+11/29/07 21:26:50.172 DEBUG methoddictionary [get_instance] Class methoddictionary instantiated
+11/29/07 21:26:50.173 DEBUG methodsourcedictionary [get_instance] Class methodsourcedictionary instantiated
+11/29/07 21:26:50.175 DEBUG methodentity [get_instance] Class methodentity instantiated
+11/29/07 21:26:50.255 DEBUG attributedictionary [get_instance] Class attributedictionary instantiated
+11/29/07 21:26:50.256 DEBUG attributeentity [get_instance] Class attributeentity instantiated
+11/29/07 21:26:50.259 DEBUG methodinvocationentity [get_instance] Class methodinvocationentity instantiated
+11/29/07 21:26:50.291 DEBUG attributereferenceentity [get_instance] Class attributereferenceentity instantiated
+11/29/07 21:26:50.295 INFO main [<module>] Parsing javancss metrics ...
+11/29/07 21:26:50.296 DEBUG timer [get_instance] Class timer instantiated
+11/29/07 21:26:50.298 DEBUG ncssmetricentity [get_instance] Class ncssmetricentity instantiated
+11/29/07 21:26:50.300 INFO timer [log] Parsing ncss measurements took 2 ms for 0 work items, or 0 ms per item.
+11/29/07 21:26:50.301 INFO main [checkFileExists] database /home/nix/JaarProj/Smells/tests/AssertionRoulette/java/FourDescLessAsserts/src/dbdump/src.vcs does not exist
+(7/7) Running CDIF2RSF ...
+Reading from file /home/nix/JaarProj/Smells/tests/AssertionRoulette/java/FourDescLessAsserts/src.cdif,...
+	Files... [ok]
+	Includes... [ok]
+	Conditional Compilation... [ok]
+	Classes... [ok]
+	Inheritance... [ok]
+	Methods... [ok]
+	Attributes... [ok]
+	Functions... [ok]
+	Accesses... [ok]
+	Invocations... [ok]
+	Size and Complexity Metrics... [ok]
+	Change Frequency Metrics... [ok]
+Merging output... [ok]
+Output written to /home/nix/JaarProj/Smells/tests/AssertionRoulette/java/FourDescLessAsserts/src.rsf

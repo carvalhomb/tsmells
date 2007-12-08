@@ -1,0 +1,27 @@
+The OutputTest class found in outputtest.py is meant to facilitate testing
+the output of commandline programs. It allows you to simply specify a 
+command and the expected output, either directly or through a file. 
+Only for processes which finish (ie not for checking interactivly *)
+
+It [ab]uses pythons builtin PyUnit framework, by subclassing 
+unittest.TestCase. Two asserts provide the functionality:
+  + assertOutputEqual(self, command, expected, message, timeout)
+  + assertOutputEqual(self, command, filename, message, timeout)
+
+Example usage:
+
+>import outputtest, unittest
+>
+>class MyOutputTest(outputtest.OutputTest):
+>    def testMyCommand(self):
+>        self.assertOutputEqual("mycommand", "expectedOutput")
+>
+>if __name__ == '__main__':
+>    unittest.main()
+
+testOutputTest.py contains some unittests for OutputTest.
+sunny.txt and fail.txt are used by those tests. Run them
+with ``python testOutputTest.py''
+
+
+* get expect or pexpect if you want to do that.

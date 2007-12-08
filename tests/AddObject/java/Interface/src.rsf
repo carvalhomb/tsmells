@@ -1,0 +1,9 @@
+Module	1	"/"
+File	1	"MyClass.java"
+File	2	"MyInterface.java"
+FileBelongsToModule	1	1
+FileBelongsToModule	2	1
+Class	1	"MyClass"
+Class	2	"MyInterface"
+ClassBelongsToFile	1	1	1
+ClassBelongsToFile	2	2	1

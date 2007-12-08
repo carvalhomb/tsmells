@@ -1,0 +1,84 @@
+/**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+/**
+ * Append xUnit framework checker methods!
+ * No checker method defined = all tests marked as smelly ...
+ *
+ * TestEntities: + writeCppTestEntities.rml
+ *               + writeJavaTestEntities.rml
+ * 
+ * eg: appendJavaTE.sh rsf/SingleTCNoAssert.rsf  | \
+ *			crocopat ${TSMELLS}/src/AssertionLess.rml
+ *
+ **/
+
+// make sure all these relations exist to suppress crocopat warnings
+//TestCommand("-1","-2");
+TestHelper("-3","-4");
+Stimulates("-5", "-6");
+ProductionMethod("-7", "-8");
+Function("-9","-10");
+TestChecker("-11","-12");
+CheckerInvoke("-13","-14");
+
+// fake it
+//PRINT "MyTest.testCommand()", ENDL;
+
+/**
+ * helper relation for PureInvokes
+ * @col id: invoke ID
+ * @col x:  caller
+ * @col y:  callee
+ */
+IndirInvokes(id,x,y) := Invokes(id,x,y) 
+					| EX(z, DefinitionForDeclaration(z,y) & Invokes(id,x,z)) 
+					| EX(z, DefinitionForDeclaration(z,x) & Invokes(id,z,y)) 
+					| EX(u,v, DefinitionForDeclaration(u,x) & DefinitionForDeclaration(v,y) & Invokes(id,u,v));
+
+/**
+ * contains a cleaned invoke relation. gets rid of the DefinitionForDeclaration step
+ * @col id: invoke ID
+ * @col x:  x caller
+ * @col y:  y callee
+ */
+PureInvokes(id,x,y) := IndirInvokes(id,x,y) & (Method(x, _) | Function(x,_)) & (Method(y, _) | Function(y,_));
+
+
+TestInvokes(x,y) := PureInvokes(_,x,y) & (TestCommand(x,_) | TestHelper(x,_));
+TCTestInvokes(x,y) := TC(TestInvokes(x,y)); 
+
+//PRINT TCTestInvokes(x,y), ENDL;
+
+FOR tc IN TestCommand(x,_) {
+	// direct checker invokes in testcommand?
+	num := #(CheckerInvoke(x,tc,y));
+	IF ( num = 0 ) {
+		// indirect checker invokes through testhelpers?
+		AssertInHelper(x):=EX(y, CheckerInvoke(x,y,_) & TCTestInvokes(tc,y) & TestHelper(y,_));
+		num2 := #(AssertInHelper(x));
+		IF ( num2 = 0 ) {
+			CmdName(x) := TestCommand(tc,x);
+			FOR i IN CmdName(x) {
+				PRINT i, ENDL;
+			}
+		}
+	}
+}

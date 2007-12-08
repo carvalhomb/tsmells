@@ -1,0 +1,3 @@
+MysteryBlacklist	"file"	"getline(istream,string)"
+MysteryBlacklist	"file"	"fgets(char*,int,FILE*)"
+MysteryBlacklist	"file"	"read(int,void*,size_t)"

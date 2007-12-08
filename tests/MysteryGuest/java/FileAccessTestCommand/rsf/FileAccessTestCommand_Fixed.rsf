@@ -1,0 +1,1008 @@
+Module	1	"/source/file"
+Module	2	"/"
+Module	3	"/source"
+Module	4	"/source/junit"
+ModuleBelongsToModule	1	3
+ModuleBelongsToModule	3	2
+ModuleBelongsToModule	4	3
+File	1	"source/file/BufferedInputStream.java"
+File	2	"source/MyUnitUnderTest.java"
+File	3	"source/FileAccessTest.java"
+File	4	"source/junit/TestCase.java"
+File	5	"source/file/BufferedReader.java"
+File	6	"source/file/File.java"
+File	7	"source/file/FileInputStream.java"
+File	8	"source/file/FileReader.java"
+FileBelongsToModule	1	1
+FileBelongsToModule	2	3
+FileBelongsToModule	3	3
+FileBelongsToModule	4	4
+FileBelongsToModule	5	1
+FileBelongsToModule	6	1
+FileBelongsToModule	7	1
+FileBelongsToModule	8	1
+Class	5	"java::io::BufferedInputStream"
+Class	6	"java::io::BufferedReader"
+Class	7	"java::io::File"
+Class	8	"mine::tests::FileAccessTest"
+Class	9	"java::io::FileInputStream"
+Class	10	"java::io::FileReader"
+Class	11	"mine::uut::MyUnitUnderTest"
+Class	12	"junit::org::TestCase"
+ClassBelongsToFile	5	1	41
+ClassBelongsToFile	6	5	41
+ClassBelongsToFile	7	6	53
+ClassBelongsToFile	8	3	8
+ClassBelongsToFile	9	7	47
+ClassBelongsToFile	10	8	43
+ClassBelongsToFile	11	2	3
+ClassBelongsToFile	12	4	3
+InheritsFrom	15	"mine::tests::FileAccessTest->junit::org::TestCase"	8	12
+Method	18	"java::io::BufferedInputStream.BufferedInputStream(InputStream)"
+Method	21	"java::io::BufferedInputStream.BufferedInputStream(InputStream,int)"
+Method	25	"java::io::BufferedInputStream.available()"
+Method	27	"java::io::BufferedInputStream.close()"
+Method	29	"java::io::BufferedInputStream.fill()"
+Method	31	"java::io::BufferedInputStream.getBufIfOpen()"
+Method	33	"java::io::BufferedInputStream.getInIfOpen()"
+Method	35	"java::io::BufferedInputStream.mark(int)"
+Method	38	"java::io::BufferedInputStream.markSupported()"
+Method	40	"java::io::BufferedInputStream.read()"
+Method	42	"java::io::BufferedInputStream.read(byte[],int,int)"
+Method	47	"java::io::BufferedInputStream.read1(byte[],int,int)"
+Method	52	"java::io::BufferedInputStream.reset()"
+Method	54	"java::io::BufferedInputStream.skip(long)"
+Method	57	"java::io::BufferedReader.BufferedReader(Reader,int)"
+Method	61	"java::io::BufferedReader.BufferedReader(Reader)"
+Method	64	"java::io::BufferedReader.close()"
+Method	66	"java::io::BufferedReader.ensureOpen()"
+Method	68	"java::io::BufferedReader.fill()"
+Method	70	"java::io::BufferedReader.mark(int)"
+Method	73	"java::io::BufferedReader.markSupported()"
+Method	75	"java::io::BufferedReader.read()"
+Method	77	"java::io::BufferedReader.read(char[],int,int)"
+Method	82	"java::io::BufferedReader.read1(char[],int,int)"
+Method	87	"java::io::BufferedReader.readLine()"
+Method	89	"java::io::BufferedReader.ready()"
+Method	91	"java::io::BufferedReader.reset()"
+Method	93	"java::io::BufferedReader.skip(long)"
+Method	96	"java::io::File.File(String,int)"
+Method	100	"java::io::File.File(String,File)"
+Method	104	"java::io::File.File(String)"
+Method	107	"java::io::File.File(String,String)"
+Method	111	"java::io::File.File(File,String)"
+Method	115	"java::io::File.File(URI)"
+Method	118	"java::io::File.canExecute()"
+Method	120	"java::io::File.canRead()"
+Method	122	"java::io::File.canWrite()"
+Method	124	"java::io::File.checkAndCreate(String,SecurityManager)"
+Method	128	"java::io::File.compareTo(File)"
+Method	131	"java::io::File.createNewFile()"
+Method	133	"java::io::File.createTempFile(String,String,File)"
+Method	138	"java::io::File.createTempFile(String,String)"
+Method	142	"java::io::File.delete()"
+Method	144	"java::io::File.deleteOnExit()"
+Method	146	"java::io::File.equals(Object)"
+Method	149	"java::io::File.exists()"
+Method	151	"java::io::File.generateFile(String,String,File)"
+Method	156	"java::io::File.getAbsoluteFile()"
+Method	158	"java::io::File.getAbsolutePath()"
+Method	160	"java::io::File.getCanonicalFile()"
+Method	162	"java::io::File.getCanonicalPath()"
+Method	164	"java::io::File.getFreeSpace()"
+Method	166	"java::io::File.getName()"
+Method	168	"java::io::File.getParent()"
+Method	170	"java::io::File.getParentFile()"
+Method	172	"java::io::File.getPath()"
+Method	174	"java::io::File.getTempDir()"
+Method	176	"java::io::File.getTotalSpace()"
+Method	178	"java::io::File.getUsableSpace()"
+Method	180	"java::io::File.hashCode()"
+Method	182	"java::io::File.isAbsolute()"
+Method	184	"java::io::File.isDirectory()"
+Method	186	"java::io::File.isFile()"
+Method	188	"java::io::File.isHidden()"
+Method	190	"java::io::File.lastModified()"
+Method	192	"java::io::File.length()"
+Method	194	"java::io::File.list()"
+Method	196	"java::io::File.list(FilenameFilter)"
+Method	199	"java::io::File.listFiles()"
+Method	201	"java::io::File.listFiles(FilenameFilter)"
+Method	204	"java::io::File.listFiles(FileFilter)"
+Method	207	"java::io::File.listRoots()"
+Method	209	"java::io::File.mkdir()"
+Method	211	"java::io::File.mkdirs()"
+Method	213	"java::io::File.readObject(java.io.ObjectInputStream)"
+Method	216	"java::io::File.renameTo(File)"
+Method	219	"java::io::File.setExecutable(boolean,boolean)"
+Method	223	"java::io::File.setExecutable(boolean)"
+Method	226	"java::io::File.setLastModified(long)"
+Method	229	"java::io::File.setReadOnly()"
+Method	231	"java::io::File.setReadable(boolean,boolean)"
+Method	235	"java::io::File.setReadable(boolean)"
+Method	238	"java::io::File.setWritable(boolean,boolean)"
+Method	242	"java::io::File.setWritable(boolean)"
+Method	245	"java::io::File.slashify(String,boolean)"
+Method	249	"java::io::File.toString()"
+Method	251	"java::io::File.toURI()"
+Method	253	"java::io::File.toURL()"
+Method	255	"java::io::File.writeObject(java.io.ObjectOutputStream)"
+Method	258	"mine::tests::FileAccessTest.testSomething()"
+Method	260	"java::io::FileInputStream.FileInputStream(String)"
+Method	263	"java::io::FileInputStream.FileInputStream(File)"
+Method	266	"java::io::FileInputStream.FileInputStream(FileDescriptor)"
+Method	269	"java::io::FileInputStream.available()"
+Method	271	"java::io::FileInputStream.close()"
+Method	273	"java::io::FileInputStream.close0()"
+Method	275	"java::io::FileInputStream.finalize()"
+Method	277	"java::io::FileInputStream.getChannel()"
+Method	279	"java::io::FileInputStream.getFD()"
+Method	281	"java::io::FileInputStream.initIDs()"
+Method	283	"java::io::FileInputStream.isRunningFinalize()"
+Method	285	"java::io::FileInputStream.open(String)"
+Method	288	"java::io::FileInputStream.read()"
+Method	290	"java::io::FileInputStream.read(byte[])"
+Method	293	"java::io::FileInputStream.read(byte[],int,int)"
+Method	298	"java::io::FileInputStream.readBytes(byte[],int,int)"
+Method	303	"java::io::FileInputStream.skip(long)"
+Method	306	"java::io::FileReader.FileReader(String)"
+Method	309	"java::io::FileReader.FileReader(File)"
+Method	312	"java::io::FileReader.FileReader(FileDescriptor)"
+Method	315	"mine::uut::MyUnitUnderTest.myMethod()"
+Method	317	"junit::org::TestCase.assertEquals(boolean,boolean)"
+Method	321	"junit::org::TestCase.assertEquals(byte,byte)"
+Method	325	"junit::org::TestCase.assertEquals(char,char)"
+Method	329	"junit::org::TestCase.assertEquals(double,double,double)"
+Method	334	"junit::org::TestCase.assertEquals(float,float,float)"
+Method	339	"junit::org::TestCase.assertEquals(int,int)"
+Method	343	"junit::org::TestCase.assertEquals(long,long)"
+Method	347	"junit::org::TestCase.assertEquals(java.lang.Object,java.lang.Object)"
+Method	351	"junit::org::TestCase.assertEquals(short,short)"
+Method	355	"junit::org::TestCase.assertEquals(java.lang.String,boolean,boolean)"
+Method	360	"junit::org::TestCase.assertEquals(java.lang.String,byte,byte)"
+Method	365	"junit::org::TestCase.assertEquals(java.lang.String,char,char)"
+Method	370	"junit::org::TestCase.assertEquals(java.lang.String,double,double,double)"
+Method	376	"junit::org::TestCase.assertEquals(java.lang.String,float,float,float)"
+Method	382	"junit::org::TestCase.assertEquals(java.lang.String,int,int)"
+Method	387	"junit::org::TestCase.assertEquals(java.lang.String,long,long)"
+Method	392	"junit::org::TestCase.assertEquals(java.lang.String,java.lang.Object,java.lang.Object)"
+Method	397	"junit::org::TestCase.assertEquals(java.lang.String,short,short)"
+Method	402	"junit::org::TestCase.assertEquals(java.lang.String,java.lang.String)"
+Method	406	"junit::org::TestCase.assertEquals(java.lang.String,java.lang.String,java.lang.String)"
+Method	411	"junit::org::TestCase.assertFalse(boolean)"
+Method	414	"junit::org::TestCase.assertFalse(java.lang.String,boolean)"
+Method	418	"junit::org::TestCase.assertNotNull(java.lang.Object)"
+Method	421	"junit::org::TestCase.assertNotNull(java.lang.String,java.lang.Object)"
+Method	425	"junit::org::TestCase.assertNotSame(java.lang.Object,java.lang.Object)"
+Method	429	"junit::org::TestCase.assertNotSame(java.lang.String,java.lang.Object,java.lang.Object)"
+Method	434	"junit::org::TestCase.assertNull(java.lang.Object)"
+Method	437	"junit::org::TestCase.assertNull(java.lang.String,java.lang.Object)"
+Method	441	"junit::org::TestCase.assertSame(java.lang.Object,java.lang.Object)"
+Method	445	"junit::org::TestCase.assertSame(java.lang.String,java.lang.Object,java.lang.Object)"
+Method	450	"junit::org::TestCase.assertTrue(boolean)"
+Method	453	"junit::org::TestCase.assertTrue(java.lang.String,boolean)"
+Method	457	"junit::org::TestCase.fail()"
+Method	459	"junit::org::TestCase.fail(java.lang.String)"
+Method	462	"junit::org::TestCase.failNotEquals(java.lang.String,java.lang.Object,java.lang.Object)"
+Method	467	"junit::org::TestCase.failNotSame(java.lang.String,java.lang.Object,java.lang.Object)"
+Method	472	"junit::org::TestCase.failSame(java.lang.String)"
+Method	475	"junit::org::TestCase.format(java.lang.String,java.lang.Object,java.lang.Object)"
+MethodBelongsToClass	18	5
+MethodBelongsToClass	21	5
+MethodBelongsToClass	25	5
+MethodBelongsToClass	27	5
+MethodBelongsToClass	29	5
+MethodBelongsToClass	31	5
+MethodBelongsToClass	33	5
+MethodBelongsToClass	35	5
+MethodBelongsToClass	38	5
+MethodBelongsToClass	40	5
+MethodBelongsToClass	42	5
+MethodBelongsToClass	47	5
+MethodBelongsToClass	52	5
+MethodBelongsToClass	54	5
+MethodBelongsToClass	57	6
+MethodBelongsToClass	61	6
+MethodBelongsToClass	64	6
+MethodBelongsToClass	66	6
+MethodBelongsToClass	68	6
+MethodBelongsToClass	70	6
+MethodBelongsToClass	73	6
+MethodBelongsToClass	75	6
+MethodBelongsToClass	77	6
+MethodBelongsToClass	82	6
+MethodBelongsToClass	87	6
+MethodBelongsToClass	89	6
+MethodBelongsToClass	91	6
+MethodBelongsToClass	93	6
+MethodBelongsToClass	96	7
+MethodBelongsToClass	100	7
+MethodBelongsToClass	104	7
+MethodBelongsToClass	107	7
+MethodBelongsToClass	111	7
+MethodBelongsToClass	115	7
+MethodBelongsToClass	118	7
+MethodBelongsToClass	120	7
+MethodBelongsToClass	122	7
+MethodBelongsToClass	124	7
+MethodBelongsToClass	128	7
+MethodBelongsToClass	131	7
+MethodBelongsToClass	133	7
+MethodBelongsToClass	138	7
+MethodBelongsToClass	142	7
+MethodBelongsToClass	144	7
+MethodBelongsToClass	146	7
+MethodBelongsToClass	149	7
+MethodBelongsToClass	151	7
+MethodBelongsToClass	156	7
+MethodBelongsToClass	158	7
+MethodBelongsToClass	160	7
+MethodBelongsToClass	162	7
+MethodBelongsToClass	164	7
+MethodBelongsToClass	166	7
+MethodBelongsToClass	168	7
+MethodBelongsToClass	170	7
+MethodBelongsToClass	172	7
+MethodBelongsToClass	174	7
+MethodBelongsToClass	176	7
+MethodBelongsToClass	178	7
+MethodBelongsToClass	180	7
+MethodBelongsToClass	182	7
+MethodBelongsToClass	184	7
+MethodBelongsToClass	186	7
+MethodBelongsToClass	188	7
+MethodBelongsToClass	190	7
+MethodBelongsToClass	192	7
+MethodBelongsToClass	194	7
+MethodBelongsToClass	196	7
+MethodBelongsToClass	199	7
+MethodBelongsToClass	201	7
+MethodBelongsToClass	204	7
+MethodBelongsToClass	207	7
+MethodBelongsToClass	209	7
+MethodBelongsToClass	211	7
+MethodBelongsToClass	213	7
+MethodBelongsToClass	216	7
+MethodBelongsToClass	219	7
+MethodBelongsToClass	223	7
+MethodBelongsToClass	226	7
+MethodBelongsToClass	229	7
+MethodBelongsToClass	231	7
+MethodBelongsToClass	235	7
+MethodBelongsToClass	238	7
+MethodBelongsToClass	242	7
+MethodBelongsToClass	245	7
+MethodBelongsToClass	249	7
+MethodBelongsToClass	251	7
+MethodBelongsToClass	253	7
+MethodBelongsToClass	255	7
+MethodBelongsToClass	258	8
+MethodBelongsToClass	260	9
+MethodBelongsToClass	263	9
+MethodBelongsToClass	266	9
+MethodBelongsToClass	269	9
+MethodBelongsToClass	271	9
+MethodBelongsToClass	273	9
+MethodBelongsToClass	275	9
+MethodBelongsToClass	277	9
+MethodBelongsToClass	279	9
+MethodBelongsToClass	281	9
+MethodBelongsToClass	283	9
+MethodBelongsToClass	285	9
+MethodBelongsToClass	288	9
+MethodBelongsToClass	290	9
+MethodBelongsToClass	293	9
+MethodBelongsToClass	298	9
+MethodBelongsToClass	303	9
+MethodBelongsToClass	306	10
+MethodBelongsToClass	309	10
+MethodBelongsToClass	312	10
+MethodBelongsToClass	315	11
+MethodBelongsToClass	317	12
+MethodBelongsToClass	321	12
+MethodBelongsToClass	325	12
+MethodBelongsToClass	329	12
+MethodBelongsToClass	334	12
+MethodBelongsToClass	339	12
+MethodBelongsToClass	343	12
+MethodBelongsToClass	347	12
+MethodBelongsToClass	351	12
+MethodBelongsToClass	355	12
+MethodBelongsToClass	360	12
+MethodBelongsToClass	365	12
+MethodBelongsToClass	370	12
+MethodBelongsToClass	376	12
+MethodBelongsToClass	382	12
+MethodBelongsToClass	387	12
+MethodBelongsToClass	392	12
+MethodBelongsToClass	397	12
+MethodBelongsToClass	402	12
+MethodBelongsToClass	406	12
+MethodBelongsToClass	411	12
+MethodBelongsToClass	414	12
+MethodBelongsToClass	418	12
+MethodBelongsToClass	421	12
+MethodBelongsToClass	425	12
+MethodBelongsToClass	429	12
+MethodBelongsToClass	434	12
+MethodBelongsToClass	437	12
+MethodBelongsToClass	441	12
+MethodBelongsToClass	445	12
+MethodBelongsToClass	450	12
+MethodBelongsToClass	453	12
+MethodBelongsToClass	457	12
+MethodBelongsToClass	459	12
+MethodBelongsToClass	462	12
+MethodBelongsToClass	467	12
+MethodBelongsToClass	472	12
+MethodBelongsToClass	475	12
+InvokableEntityBelongsToFile	18	1	54
+InvokableEntityBelongsToFile	21	1	55
+InvokableEntityBelongsToFile	25	1	61
+InvokableEntityBelongsToFile	27	1	65
+InvokableEntityBelongsToFile	29	1	56
+InvokableEntityBelongsToFile	31	1	53
+InvokableEntityBelongsToFile	33	1	52
+InvokableEntityBelongsToFile	35	1	62
+InvokableEntityBelongsToFile	38	1	64
+InvokableEntityBelongsToFile	40	1	57
+InvokableEntityBelongsToFile	42	1	59
+InvokableEntityBelongsToFile	47	1	58
+InvokableEntityBelongsToFile	52	1	63
+InvokableEntityBelongsToFile	54	1	60
+InvokableEntityBelongsToFile	57	5	53
+InvokableEntityBelongsToFile	61	5	54
+InvokableEntityBelongsToFile	64	5	66
+InvokableEntityBelongsToFile	66	5	55
+InvokableEntityBelongsToFile	68	5	56
+InvokableEntityBelongsToFile	70	5	64
+InvokableEntityBelongsToFile	73	5	63
+InvokableEntityBelongsToFile	75	5	57
+InvokableEntityBelongsToFile	77	5	59
+InvokableEntityBelongsToFile	82	5	58
+InvokableEntityBelongsToFile	87	5	60
+InvokableEntityBelongsToFile	89	5	62
+InvokableEntityBelongsToFile	91	5	65
+InvokableEntityBelongsToFile	93	5	61
+InvokableEntityBelongsToFile	96	6	62
+InvokableEntityBelongsToFile	100	6	63
+InvokableEntityBelongsToFile	104	6	64
+InvokableEntityBelongsToFile	107	6	65
+InvokableEntityBelongsToFile	111	6	66
+InvokableEntityBelongsToFile	115	6	67
+InvokableEntityBelongsToFile	118	6	107
+InvokableEntityBelongsToFile	120	6	80
+InvokableEntityBelongsToFile	122	6	81
+InvokableEntityBelongsToFile	124	6	117
+InvokableEntityBelongsToFile	128	6	120
+InvokableEntityBelongsToFile	131	6	88
+InvokableEntityBelongsToFile	133	6	118
+InvokableEntityBelongsToFile	138	6	119
+InvokableEntityBelongsToFile	142	6	89
+InvokableEntityBelongsToFile	144	6	90
+InvokableEntityBelongsToFile	146	6	121
+InvokableEntityBelongsToFile	149	6	82
+InvokableEntityBelongsToFile	151	6	114
+InvokableEntityBelongsToFile	156	6	74
+InvokableEntityBelongsToFile	158	6	73
+InvokableEntityBelongsToFile	160	6	76
+InvokableEntityBelongsToFile	162	6	75
+InvokableEntityBelongsToFile	164	6	110
+InvokableEntityBelongsToFile	166	6	68
+InvokableEntityBelongsToFile	168	6	69
+InvokableEntityBelongsToFile	170	6	70
+InvokableEntityBelongsToFile	172	6	71
+InvokableEntityBelongsToFile	174	6	116
+InvokableEntityBelongsToFile	176	6	109
+InvokableEntityBelongsToFile	178	6	111
+InvokableEntityBelongsToFile	180	6	122
+InvokableEntityBelongsToFile	182	6	72
+InvokableEntityBelongsToFile	184	6	83
+InvokableEntityBelongsToFile	186	6	84
+InvokableEntityBelongsToFile	188	6	85
+InvokableEntityBelongsToFile	190	6	86
+InvokableEntityBelongsToFile	192	6	87
+InvokableEntityBelongsToFile	194	6	91
+InvokableEntityBelongsToFile	196	6	92
+InvokableEntityBelongsToFile	199	6	93
+InvokableEntityBelongsToFile	201	6	94
+InvokableEntityBelongsToFile	204	6	95
+InvokableEntityBelongsToFile	207	6	108
+InvokableEntityBelongsToFile	209	6	96
+InvokableEntityBelongsToFile	211	6	97
+InvokableEntityBelongsToFile	213	6	125
+InvokableEntityBelongsToFile	216	6	98
+InvokableEntityBelongsToFile	219	6	105
+InvokableEntityBelongsToFile	223	6	106
+InvokableEntityBelongsToFile	226	6	99
+InvokableEntityBelongsToFile	229	6	100
+InvokableEntityBelongsToFile	231	6	103
+InvokableEntityBelongsToFile	235	6	104
+InvokableEntityBelongsToFile	238	6	101
+InvokableEntityBelongsToFile	242	6	102
+InvokableEntityBelongsToFile	245	6	77
+InvokableEntityBelongsToFile	249	6	123
+InvokableEntityBelongsToFile	251	6	79
+InvokableEntityBelongsToFile	253	6	78
+InvokableEntityBelongsToFile	255	6	124
+InvokableEntityBelongsToFile	258	3	9
+InvokableEntityBelongsToFile	260	7	55
+InvokableEntityBelongsToFile	263	7	56
+InvokableEntityBelongsToFile	266	7	57
+InvokableEntityBelongsToFile	269	7	64
+InvokableEntityBelongsToFile	271	7	65
+InvokableEntityBelongsToFile	273	7	69
+InvokableEntityBelongsToFile	275	7	70
+InvokableEntityBelongsToFile	277	7	67
+InvokableEntityBelongsToFile	279	7	66
+InvokableEntityBelongsToFile	281	7	68
+InvokableEntityBelongsToFile	283	7	54
+InvokableEntityBelongsToFile	285	7	58
+InvokableEntityBelongsToFile	288	7	59
+InvokableEntityBelongsToFile	290	7	61
+InvokableEntityBelongsToFile	293	7	62
+InvokableEntityBelongsToFile	298	7	60
+InvokableEntityBelongsToFile	303	7	63
+InvokableEntityBelongsToFile	306	8	44
+InvokableEntityBelongsToFile	309	8	45
+InvokableEntityBelongsToFile	312	8	46
+InvokableEntityBelongsToFile	315	2	4
+InvokableEntityBelongsToFile	317	4	4
+InvokableEntityBelongsToFile	321	4	5
+InvokableEntityBelongsToFile	325	4	6
+InvokableEntityBelongsToFile	329	4	7
+InvokableEntityBelongsToFile	334	4	8
+InvokableEntityBelongsToFile	339	4	9
+InvokableEntityBelongsToFile	343	4	10
+InvokableEntityBelongsToFile	347	4	11
+InvokableEntityBelongsToFile	351	4	12
+InvokableEntityBelongsToFile	355	4	13
+InvokableEntityBelongsToFile	360	4	14
+InvokableEntityBelongsToFile	365	4	15
+InvokableEntityBelongsToFile	370	4	16
+InvokableEntityBelongsToFile	376	4	17
+InvokableEntityBelongsToFile	382	4	18
+InvokableEntityBelongsToFile	387	4	19
+InvokableEntityBelongsToFile	392	4	20
+InvokableEntityBelongsToFile	397	4	21
+InvokableEntityBelongsToFile	402	4	22
+InvokableEntityBelongsToFile	406	4	23
+InvokableEntityBelongsToFile	411	4	24
+InvokableEntityBelongsToFile	414	4	25
+InvokableEntityBelongsToFile	418	4	26
+InvokableEntityBelongsToFile	421	4	27
+InvokableEntityBelongsToFile	425	4	28
+InvokableEntityBelongsToFile	429	4	29
+InvokableEntityBelongsToFile	434	4	30
+InvokableEntityBelongsToFile	437	4	31
+InvokableEntityBelongsToFile	441	4	32
+InvokableEntityBelongsToFile	445	4	33
+InvokableEntityBelongsToFile	450	4	34
+InvokableEntityBelongsToFile	453	4	35
+InvokableEntityBelongsToFile	457	4	36
+InvokableEntityBelongsToFile	459	4	37
+InvokableEntityBelongsToFile	462	4	38
+InvokableEntityBelongsToFile	467	4	39
+InvokableEntityBelongsToFile	472	4	40
+InvokableEntityBelongsToFile	475	4	41
+Visibility	18	"public"
+Visibility	21	"public"
+Visibility	25	"public"
+Visibility	27	"public"
+Visibility	29	"public"
+Visibility	31	"public"
+Visibility	33	"public"
+Visibility	35	"public"
+Visibility	38	"public"
+Visibility	40	"public"
+Visibility	42	"public"
+Visibility	47	"public"
+Visibility	52	"public"
+Visibility	54	"public"
+Visibility	57	"public"
+Visibility	61	"public"
+Visibility	64	"public"
+Visibility	66	"public"
+Visibility	68	"public"
+Visibility	70	"public"
+Visibility	73	"public"
+Visibility	75	"public"
+Visibility	77	"public"
+Visibility	82	"public"
+Visibility	87	"public"
+Visibility	89	"public"
+Visibility	91	"public"
+Visibility	93	"public"
+Visibility	96	"public"
+Visibility	100	"public"
+Visibility	104	"public"
+Visibility	107	"public"
+Visibility	111	"public"
+Visibility	115	"public"
+Visibility	118	"public"
+Visibility	120	"public"
+Visibility	122	"public"
+Visibility	124	"public"
+Visibility	128	"public"
+Visibility	131	"public"
+Visibility	133	"public"
+Visibility	138	"public"
+Visibility	142	"public"
+Visibility	144	"public"
+Visibility	146	"public"
+Visibility	149	"public"
+Visibility	151	"public"
+Visibility	156	"public"
+Visibility	158	"public"
+Visibility	160	"public"
+Visibility	162	"public"
+Visibility	164	"public"
+Visibility	166	"public"
+Visibility	168	"public"
+Visibility	170	"public"
+Visibility	172	"public"
+Visibility	174	"public"
+Visibility	176	"public"
+Visibility	178	"public"
+Visibility	180	"public"
+Visibility	182	"public"
+Visibility	184	"public"
+Visibility	186	"public"
+Visibility	188	"public"
+Visibility	190	"public"
+Visibility	192	"public"
+Visibility	194	"public"
+Visibility	196	"public"
+Visibility	199	"public"
+Visibility	201	"public"
+Visibility	204	"public"
+Visibility	207	"public"
+Visibility	209	"public"
+Visibility	211	"public"
+Visibility	213	"public"
+Visibility	216	"public"
+Visibility	219	"public"
+Visibility	223	"public"
+Visibility	226	"public"
+Visibility	229	"public"
+Visibility	231	"public"
+Visibility	235	"public"
+Visibility	238	"public"
+Visibility	242	"public"
+Visibility	245	"public"
+Visibility	249	"public"
+Visibility	251	"public"
+Visibility	253	"public"
+Visibility	255	"public"
+Visibility	258	"public"
+Visibility	260	"public"
+Visibility	263	"public"
+Visibility	266	"public"
+Visibility	269	"public"
+Visibility	271	"public"
+Visibility	273	"public"
+Visibility	275	"public"
+Visibility	277	"public"
+Visibility	279	"public"
+Visibility	281	"public"
+Visibility	283	"public"
+Visibility	285	"public"
+Visibility	288	"public"
+Visibility	290	"public"
+Visibility	293	"public"
+Visibility	298	"public"
+Visibility	303	"public"
+Visibility	306	"public"
+Visibility	309	"public"
+Visibility	312	"public"
+Visibility	315	"public"
+Visibility	317	"public"
+Visibility	321	"public"
+Visibility	325	"public"
+Visibility	329	"public"
+Visibility	334	"public"
+Visibility	339	"public"
+Visibility	343	"public"
+Visibility	347	"public"
+Visibility	351	"public"
+Visibility	355	"public"
+Visibility	360	"public"
+Visibility	365	"public"
+Visibility	370	"public"
+Visibility	376	"public"
+Visibility	382	"public"
+Visibility	387	"public"
+Visibility	392	"public"
+Visibility	397	"public"
+Visibility	402	"public"
+Visibility	406	"public"
+Visibility	411	"public"
+Visibility	414	"public"
+Visibility	418	"public"
+Visibility	421	"public"
+Visibility	425	"public"
+Visibility	429	"public"
+Visibility	434	"public"
+Visibility	437	"public"
+Visibility	441	"public"
+Visibility	445	"public"
+Visibility	450	"public"
+Visibility	453	"public"
+Visibility	457	"public"
+Visibility	459	"public"
+Visibility	462	"public"
+Visibility	467	"public"
+Visibility	472	"public"
+Visibility	475	"public"
+Signature	18	"BufferedInputStream(InputStream)"
+Signature	21	"BufferedInputStream(InputStream,int)"
+Signature	25	"available()"
+Signature	27	"close()"
+Signature	29	"fill()"
+Signature	31	"getBufIfOpen()"
+Signature	33	"getInIfOpen()"
+Signature	35	"mark(int)"
+Signature	38	"markSupported()"
+Signature	40	"read()"
+Signature	42	"read(byte[],int,int)"
+Signature	47	"read1(byte[],int,int)"
+Signature	52	"reset()"
+Signature	54	"skip(long)"
+Signature	57	"BufferedReader(Reader,int)"
+Signature	61	"BufferedReader(Reader)"
+Signature	64	"close()"
+Signature	66	"ensureOpen()"
+Signature	68	"fill()"
+Signature	70	"mark(int)"
+Signature	73	"markSupported()"
+Signature	75	"read()"
+Signature	77	"read(char[],int,int)"
+Signature	82	"read1(char[],int,int)"
+Signature	87	"readLine()"
+Signature	89	"ready()"
+Signature	91	"reset()"
+Signature	93	"skip(long)"
+Signature	96	"File(String,int)"
+Signature	100	"File(String,File)"
+Signature	104	"File(String)"
+Signature	107	"File(String,String)"
+Signature	111	"File(File,String)"
+Signature	115	"File(URI)"
+Signature	118	"canExecute()"
+Signature	120	"canRead()"
+Signature	122	"canWrite()"
+Signature	124	"checkAndCreate(String,SecurityManager)"
+Signature	128	"compareTo(File)"
+Signature	131	"createNewFile()"
+Signature	133	"createTempFile(String,String,File)"
+Signature	138	"createTempFile(String,String)"
+Signature	142	"delete()"
+Signature	144	"deleteOnExit()"
+Signature	146	"equals(Object)"
+Signature	149	"exists()"
+Signature	151	"generateFile(String,String,File)"
+Signature	156	"getAbsoluteFile()"
+Signature	158	"getAbsolutePath()"
+Signature	160	"getCanonicalFile()"
+Signature	162	"getCanonicalPath()"
+Signature	164	"getFreeSpace()"
+Signature	166	"getName()"
+Signature	168	"getParent()"
+Signature	170	"getParentFile()"
+Signature	172	"getPath()"
+Signature	174	"getTempDir()"
+Signature	176	"getTotalSpace()"
+Signature	178	"getUsableSpace()"
+Signature	180	"hashCode()"
+Signature	182	"isAbsolute()"
+Signature	184	"isDirectory()"
+Signature	186	"isFile()"
+Signature	188	"isHidden()"
+Signature	190	"lastModified()"
+Signature	192	"length()"
+Signature	194	"list()"
+Signature	196	"list(FilenameFilter)"
+Signature	199	"listFiles()"
+Signature	201	"listFiles(FilenameFilter)"
+Signature	204	"listFiles(FileFilter)"
+Signature	207	"listRoots()"
+Signature	209	"mkdir()"
+Signature	211	"mkdirs()"
+Signature	213	"readObject(java.io.ObjectInputStream)"
+Signature	216	"renameTo(File)"
+Signature	219	"setExecutable(boolean,boolean)"
+Signature	223	"setExecutable(boolean)"
+Signature	226	"setLastModified(long)"
+Signature	229	"setReadOnly()"
+Signature	231	"setReadable(boolean,boolean)"
+Signature	235	"setReadable(boolean)"
+Signature	238	"setWritable(boolean,boolean)"
+Signature	242	"setWritable(boolean)"
+Signature	245	"slashify(String,boolean)"
+Signature	249	"toString()"
+Signature	251	"toURI()"
+Signature	253	"toURL()"
+Signature	255	"writeObject(java.io.ObjectOutputStream)"
+Signature	258	"testSomething()"
+Signature	260	"FileInputStream(String)"
+Signature	263	"FileInputStream(File)"
+Signature	266	"FileInputStream(FileDescriptor)"
+Signature	269	"available()"
+Signature	271	"close()"
+Signature	273	"close0()"
+Signature	275	"finalize()"
+Signature	277	"getChannel()"
+Signature	279	"getFD()"
+Signature	281	"initIDs()"
+Signature	283	"isRunningFinalize()"
+Signature	285	"open(String)"
+Signature	288	"read()"
+Signature	290	"read(byte[])"
+Signature	293	"read(byte[],int,int)"
+Signature	298	"readBytes(byte[],int,int)"
+Signature	303	"skip(long)"
+Signature	306	"FileReader(String)"
+Signature	309	"FileReader(File)"
+Signature	312	"FileReader(FileDescriptor)"
+Signature	315	"myMethod()"
+Signature	317	"assertEquals(boolean,boolean)"
+Signature	321	"assertEquals(byte,byte)"
+Signature	325	"assertEquals(char,char)"
+Signature	329	"assertEquals(double,double,double)"
+Signature	334	"assertEquals(float,float,float)"
+Signature	339	"assertEquals(int,int)"
+Signature	343	"assertEquals(long,long)"
+Signature	347	"assertEquals(java.lang.Object,java.lang.Object)"
+Signature	351	"assertEquals(short,short)"
+Signature	355	"assertEquals(java.lang.String,boolean,boolean)"
+Signature	360	"assertEquals(java.lang.String,byte,byte)"
+Signature	365	"assertEquals(java.lang.String,char,char)"
+Signature	370	"assertEquals(java.lang.String,double,double,double)"
+Signature	376	"assertEquals(java.lang.String,float,float,float)"
+Signature	382	"assertEquals(java.lang.String,int,int)"
+Signature	387	"assertEquals(java.lang.String,long,long)"
+Signature	392	"assertEquals(java.lang.String,java.lang.Object,java.lang.Object)"
+Signature	397	"assertEquals(java.lang.String,short,short)"
+Signature	402	"assertEquals(java.lang.String,java.lang.String)"
+Signature	406	"assertEquals(java.lang.String,java.lang.String,java.lang.String)"
+Signature	411	"assertFalse(boolean)"
+Signature	414	"assertFalse(java.lang.String,boolean)"
+Signature	418	"assertNotNull(java.lang.Object)"
+Signature	421	"assertNotNull(java.lang.String,java.lang.Object)"
+Signature	425	"assertNotSame(java.lang.Object,java.lang.Object)"
+Signature	429	"assertNotSame(java.lang.String,java.lang.Object,java.lang.Object)"
+Signature	434	"assertNull(java.lang.Object)"
+Signature	437	"assertNull(java.lang.String,java.lang.Object)"
+Signature	441	"assertSame(java.lang.Object,java.lang.Object)"
+Signature	445	"assertSame(java.lang.String,java.lang.Object,java.lang.Object)"
+Signature	450	"assertTrue(boolean)"
+Signature	453	"assertTrue(java.lang.String,boolean)"
+Signature	457	"fail()"
+Signature	459	"fail(java.lang.String)"
+Signature	462	"failNotEquals(java.lang.String,java.lang.Object,java.lang.Object)"
+Signature	467	"failNotSame(java.lang.String,java.lang.Object,java.lang.Object)"
+Signature	472	"failSame(java.lang.String)"
+Signature	475	"format(java.lang.String,java.lang.Object,java.lang.Object)"
+Attribute	480	"java::io::BufferedInputStream.buf"
+Attribute	481	"java::io::BufferedInputStream.count"
+Attribute	482	"java::io::BufferedInputStream.defaultBufferSize"
+Attribute	483	"java::io::BufferedInputStream.marklimit"
+Attribute	484	"java::io::BufferedInputStream.markpos"
+Attribute	485	"java::io::BufferedInputStream.pos"
+Attribute	486	"java::io::BufferedReader.INVALIDATED"
+Attribute	487	"java::io::BufferedReader.UNMARKED"
+Attribute	488	"java::io::BufferedReader.cb"
+Attribute	489	"java::io::BufferedReader.defaultCharBufferSize"
+Attribute	490	"java::io::BufferedReader.defaultExpectedLineLength"
+Attribute	491	"java::io::BufferedReader.in"
+Attribute	492	"java::io::BufferedReader.markedChar"
+Attribute	493	"java::io::BufferedReader.markedSkipLF"
+Attribute	494	"java::io::BufferedReader.nChars"
+Attribute	495	"java::io::BufferedReader.nextChar"
+Attribute	496	"java::io::BufferedReader.readAheadLimit"
+Attribute	497	"java::io::BufferedReader.skipLF"
+Attribute	498	"java::io::File.counter"
+Attribute	499	"java::io::File.fs"
+Attribute	500	"java::io::File.path"
+Attribute	501	"java::io::File.pathSeparator"
+Attribute	502	"java::io::File.pathSeparatorChar"
+Attribute	503	"java::io::File.prefixLength"
+Attribute	504	"java::io::File.separator"
+Attribute	505	"java::io::File.separatorChar"
+Attribute	506	"java::io::File.serialVersionUID"
+Attribute	507	"java::io::File.tmpFileLock"
+Attribute	508	"java::io::File.tmpdir"
+Attribute	509	"java::io::FileInputStream.channel"
+Attribute	510	"java::io::FileInputStream.closeLock"
+Attribute	511	"java::io::FileInputStream.closed"
+Attribute	512	"java::io::FileInputStream.fd"
+AttributeBelongsToClass	480	5
+AttributeBelongsToClass	481	5
+AttributeBelongsToClass	482	5
+AttributeBelongsToClass	483	5
+AttributeBelongsToClass	484	5
+AttributeBelongsToClass	485	5
+AttributeBelongsToClass	486	6
+AttributeBelongsToClass	487	6
+AttributeBelongsToClass	488	6
+AttributeBelongsToClass	489	6
+AttributeBelongsToClass	490	6
+AttributeBelongsToClass	491	6
+AttributeBelongsToClass	492	6
+AttributeBelongsToClass	493	6
+AttributeBelongsToClass	494	6
+AttributeBelongsToClass	495	6
+AttributeBelongsToClass	496	6
+AttributeBelongsToClass	497	6
+AttributeBelongsToClass	498	7
+AttributeBelongsToClass	499	7
+AttributeBelongsToClass	500	7
+AttributeBelongsToClass	501	7
+AttributeBelongsToClass	502	7
+AttributeBelongsToClass	503	7
+AttributeBelongsToClass	504	7
+AttributeBelongsToClass	505	7
+AttributeBelongsToClass	506	7
+AttributeBelongsToClass	507	7
+AttributeBelongsToClass	508	7
+AttributeBelongsToClass	509	9
+AttributeBelongsToClass	510	9
+AttributeBelongsToClass	511	9
+AttributeBelongsToClass	512	9
+DefinitionForDeclaration	19	18
+DefinitionForDeclaration	22	21
+DefinitionForDeclaration	26	25
+DefinitionForDeclaration	28	27
+DefinitionForDeclaration	30	29
+DefinitionForDeclaration	32	31
+DefinitionForDeclaration	34	33
+DefinitionForDeclaration	36	35
+DefinitionForDeclaration	39	38
+DefinitionForDeclaration	41	40
+DefinitionForDeclaration	43	42
+DefinitionForDeclaration	48	47
+DefinitionForDeclaration	53	52
+DefinitionForDeclaration	55	54
+DefinitionForDeclaration	58	57
+DefinitionForDeclaration	62	61
+DefinitionForDeclaration	65	64
+DefinitionForDeclaration	67	66
+DefinitionForDeclaration	69	68
+DefinitionForDeclaration	71	70
+DefinitionForDeclaration	74	73
+DefinitionForDeclaration	76	75
+DefinitionForDeclaration	78	77
+DefinitionForDeclaration	83	82
+DefinitionForDeclaration	88	87
+DefinitionForDeclaration	90	89
+DefinitionForDeclaration	92	91
+DefinitionForDeclaration	94	93
+DefinitionForDeclaration	97	96
+DefinitionForDeclaration	101	100
+DefinitionForDeclaration	105	104
+DefinitionForDeclaration	108	107
+DefinitionForDeclaration	112	111
+DefinitionForDeclaration	116	115
+DefinitionForDeclaration	119	118
+DefinitionForDeclaration	121	120
+DefinitionForDeclaration	123	122
+DefinitionForDeclaration	125	124
+DefinitionForDeclaration	129	128
+DefinitionForDeclaration	132	131
+DefinitionForDeclaration	134	133
+DefinitionForDeclaration	139	138
+DefinitionForDeclaration	143	142
+DefinitionForDeclaration	145	144
+DefinitionForDeclaration	147	146
+DefinitionForDeclaration	150	149
+DefinitionForDeclaration	152	151
+DefinitionForDeclaration	157	156
+DefinitionForDeclaration	159	158
+DefinitionForDeclaration	161	160
+DefinitionForDeclaration	163	162
+DefinitionForDeclaration	165	164
+DefinitionForDeclaration	167	166
+DefinitionForDeclaration	169	168
+DefinitionForDeclaration	171	170
+DefinitionForDeclaration	173	172
+DefinitionForDeclaration	175	174
+DefinitionForDeclaration	177	176
+DefinitionForDeclaration	179	178
+DefinitionForDeclaration	181	180
+DefinitionForDeclaration	183	182
+DefinitionForDeclaration	185	184
+DefinitionForDeclaration	187	186
+DefinitionForDeclaration	189	188
+DefinitionForDeclaration	191	190
+DefinitionForDeclaration	193	192
+DefinitionForDeclaration	195	194
+DefinitionForDeclaration	197	196
+DefinitionForDeclaration	200	199
+DefinitionForDeclaration	202	201
+DefinitionForDeclaration	205	204
+DefinitionForDeclaration	208	207
+DefinitionForDeclaration	210	209
+DefinitionForDeclaration	212	211
+DefinitionForDeclaration	214	213
+DefinitionForDeclaration	217	216
+DefinitionForDeclaration	220	219
+DefinitionForDeclaration	224	223
+DefinitionForDeclaration	227	226
+DefinitionForDeclaration	230	229
+DefinitionForDeclaration	232	231
+DefinitionForDeclaration	236	235
+DefinitionForDeclaration	239	238
+DefinitionForDeclaration	243	242
+DefinitionForDeclaration	246	245
+DefinitionForDeclaration	250	249
+DefinitionForDeclaration	252	251
+DefinitionForDeclaration	254	253
+DefinitionForDeclaration	256	255
+DefinitionForDeclaration	259	258
+DefinitionForDeclaration	261	260
+DefinitionForDeclaration	264	263
+DefinitionForDeclaration	267	266
+DefinitionForDeclaration	270	269
+DefinitionForDeclaration	272	271
+DefinitionForDeclaration	274	273
+DefinitionForDeclaration	276	275
+DefinitionForDeclaration	278	277
+DefinitionForDeclaration	280	279
+DefinitionForDeclaration	282	281
+DefinitionForDeclaration	284	283
+DefinitionForDeclaration	286	285
+DefinitionForDeclaration	289	288
+DefinitionForDeclaration	291	290
+DefinitionForDeclaration	294	293
+DefinitionForDeclaration	299	298
+DefinitionForDeclaration	304	303
+DefinitionForDeclaration	307	306
+DefinitionForDeclaration	310	309
+DefinitionForDeclaration	313	312
+DefinitionForDeclaration	316	315
+DefinitionForDeclaration	318	317
+DefinitionForDeclaration	322	321
+DefinitionForDeclaration	326	325
+DefinitionForDeclaration	330	329
+DefinitionForDeclaration	335	334
+DefinitionForDeclaration	340	339
+DefinitionForDeclaration	344	343
+DefinitionForDeclaration	348	347
+DefinitionForDeclaration	352	351
+DefinitionForDeclaration	356	355
+DefinitionForDeclaration	361	360
+DefinitionForDeclaration	366	365
+DefinitionForDeclaration	371	370
+DefinitionForDeclaration	377	376
+DefinitionForDeclaration	383	382
+DefinitionForDeclaration	388	387
+DefinitionForDeclaration	393	392
+DefinitionForDeclaration	398	397
+DefinitionForDeclaration	403	402
+DefinitionForDeclaration	407	406
+DefinitionForDeclaration	412	411
+DefinitionForDeclaration	415	414
+DefinitionForDeclaration	419	418
+DefinitionForDeclaration	422	421
+DefinitionForDeclaration	426	425
+DefinitionForDeclaration	430	429
+DefinitionForDeclaration	435	434
+DefinitionForDeclaration	438	437
+DefinitionForDeclaration	442	441
+DefinitionForDeclaration	446	445
+DefinitionForDeclaration	451	450
+DefinitionForDeclaration	454	453
+DefinitionForDeclaration	458	457
+DefinitionForDeclaration	460	459
+DefinitionForDeclaration	463	462
+DefinitionForDeclaration	468	467
+DefinitionForDeclaration	473	472
+DefinitionForDeclaration	476	475
+Invokes	513	259	88
+Invokes	514	259	316
+Measurement	515	315	"CC"	0
+Measurement	516	315	"COM"	0
+Measurement	517	315	"LOC"	0
+Measurement	518	258	"CC"	0
+Measurement	519	258	"COM"	0
+Measurement	520	258	"LOC"	0

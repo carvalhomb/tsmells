@@ -1,0 +1,104 @@
+(1/7) Running Source Navigator
+
+
+/home/nix/Stuff/Projects/JaarProj/Smells/tests/JavaTestEntities/SingleTestCase/src
+
+Scanning Project...
+Scanning: junit/org/TestCase.java
+Scanning: MyTest.java
+Waiting for cross-referencing to complete
+Project has been built
+(2/7) Dumping SN database
+* SourceNavigator project path check
+	- SourceNavigator project path /home/nix/JaarProj/Smells/tests/JavaTestEntities/SingleTestCase/src exists ... OK
+	- SourceNavigator /home/nix/JaarProj/Smells/tests/JavaTestEntities/SingleTestCase/src/src.proj project file exists ... OK
+	- SourceNavigator .snprj dir /home/nix/JaarProj/Smells/tests/JavaTestEntities/SingleTestCase/src/.snprj exists ... OK
+	- dbdump destination dir /home/nix/JaarProj/Smells/tests/JavaTestEntities/SingleTestCase/src/dbdump exists ... OK
+	- dbdump utilities' path /opt/sourcenav/bin/dbdump exists ... OK 
+	DONE
+* Dumping SourceNavigator's src database ... Done
+* Sanitize dumped tables ... Done
+(3/7) Collecting package information
+(4/7) Collecting attribute type information ...
+(4b/7) Collecting size and complexity metrics ...
+(5/7) Cleaning temporary files ...
+(6/7) Running snavtofamix ...
+ Entering famix Level 1
+  - parsing packages ...
+  - parsing classes ...
+  - parsing imports ...
+  - parsing inheritance relations ...
+ Entering famix Level 2
+  - parsing methods ...
+  - parsing attributes ...
+ Entering famix Level 3
+  - parsing invocations ...
+  - parsing accesses ...
+11/27/07 09:47:41.586 DEBUG main [get_instance] Class main instantiated
+11/27/07 09:47:41.805 INFO main [<module>] Parsing files ...
+11/27/07 09:47:41.806 DEBUG packagedictionary [get_instance] Class packagedictionary instantiated
+11/27/07 09:47:41.809 DEBUG classdictionary [get_instance] Class classdictionary instantiated
+11/27/07 09:47:41.813 DEBUG importdictionary [get_instance] Class importdictionary instantiated
+11/27/07 09:47:41.815 DEBUG inheritanceentity [get_instance] Class inheritanceentity instantiated
+11/27/07 09:47:41.820 DEBUG methoddictionary [get_instance] Class methoddictionary instantiated
+11/27/07 09:47:41.821 DEBUG methodsourcedictionary [get_instance] Class methodsourcedictionary instantiated
+11/27/07 09:47:41.822 DEBUG methodentity [get_instance] Class methodentity instantiated
+11/27/07 09:47:41.898 DEBUG attributedictionary [get_instance] Class attributedictionary instantiated
+11/27/07 09:47:41.900 DEBUG methodinvocationentity [get_instance] Class methodinvocationentity instantiated
+11/27/07 09:47:41.901 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.Object cl TestCase assertEquals mi r 000011 junit/org/TestCase.java;{} {java.lang.Object,java.lang.Object}
+11/27/07 09:47:41.902 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.Object cl TestCase assertEquals mi r 000020 junit/org/TestCase.java;{} {java.lang.String,java.lang.Object,java.lang.Object}
+11/27/07 09:47:41.903 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.Object cl TestCase assertNotNull mi r 000026 junit/org/TestCase.java;{} {java.lang.Object}
+11/27/07 09:47:41.904 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.Object cl TestCase assertNotNull mi r 000027 junit/org/TestCase.java;{} {java.lang.String,java.lang.Object}
+11/27/07 09:47:41.905 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.Object cl TestCase assertNotSame mi r 000028 junit/org/TestCase.java;{} {java.lang.Object,java.lang.Object}
+11/27/07 09:47:41.906 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.Object cl TestCase assertNotSame mi r 000029 junit/org/TestCase.java;{} {java.lang.String,java.lang.Object,java.lang.Object}
+11/27/07 09:47:41.907 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.Object cl TestCase assertNull mi r 000030 junit/org/TestCase.java;{} {java.lang.Object}
+11/27/07 09:47:41.908 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.Object cl TestCase assertNull mi r 000031 junit/org/TestCase.java;{} {java.lang.String,java.lang.Object}
+11/27/07 09:47:41.909 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.Object cl TestCase assertSame mi r 000032 junit/org/TestCase.java;{} {java.lang.Object,java.lang.Object}
+11/27/07 09:47:41.910 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.Object cl TestCase assertSame mi r 000033 junit/org/TestCase.java;{} {java.lang.String,java.lang.Object,java.lang.Object}
+11/27/07 09:47:41.910 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.Object cl TestCase failNotEquals mi r 000038 junit/org/TestCase.java;{} {java.lang.String,java.lang.Object,java.lang.Object}
+11/27/07 09:47:41.911 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.Object cl TestCase failNotSame mi r 000039 junit/org/TestCase.java;{} {java.lang.String,java.lang.Object,java.lang.Object}
+11/27/07 09:47:41.912 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.Object cl TestCase format mi r 000041 junit/org/TestCase.java;{} {java.lang.String,java.lang.Object,java.lang.Object}
+11/27/07 09:47:41.913 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase assertEquals mi r 000013 junit/org/TestCase.java;{} {java.lang.String,boolean,boolean}
+11/27/07 09:47:41.914 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase assertEquals mi r 000014 junit/org/TestCase.java;{} {java.lang.String,byte,byte}
+11/27/07 09:47:41.915 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase assertEquals mi r 000015 junit/org/TestCase.java;{} {java.lang.String,char,char}
+11/27/07 09:47:41.916 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase assertEquals mi r 000016 junit/org/TestCase.java;{} {java.lang.String,double,double,double}
+11/27/07 09:47:41.917 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase assertEquals mi r 000017 junit/org/TestCase.java;{} {java.lang.String,float,float,float}
+11/27/07 09:47:41.918 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase assertEquals mi r 000018 junit/org/TestCase.java;{} {java.lang.String,int,int}
+11/27/07 09:47:41.919 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase assertEquals mi r 000019 junit/org/TestCase.java;{} {java.lang.String,long,long}
+11/27/07 09:47:41.920 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase assertEquals mi r 000020 junit/org/TestCase.java;{} {java.lang.String,java.lang.Object,java.lang.Object}
+11/27/07 09:47:41.921 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase assertEquals mi r 000021 junit/org/TestCase.java;{} {java.lang.String,short,short}
+11/27/07 09:47:41.922 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase assertEquals mi r 000022 junit/org/TestCase.java;{} {java.lang.String,java.lang.String}
+11/27/07 09:47:41.922 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase assertEquals mi r 000023 junit/org/TestCase.java;{} {java.lang.String,java.lang.String,java.lang.String}
+11/27/07 09:47:41.923 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase assertFalse mi r 000025 junit/org/TestCase.java;{} {java.lang.String,boolean}
+11/27/07 09:47:41.924 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase assertNotNull mi r 000027 junit/org/TestCase.java;{} {java.lang.String,java.lang.Object}
+11/27/07 09:47:41.925 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase assertNotSame mi r 000029 junit/org/TestCase.java;{} {java.lang.String,java.lang.Object,java.lang.Object}
+11/27/07 09:47:41.926 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase assertNull mi r 000031 junit/org/TestCase.java;{} {java.lang.String,java.lang.Object}
+11/27/07 09:47:41.927 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase assertSame mi r 000033 junit/org/TestCase.java;{} {java.lang.String,java.lang.Object,java.lang.Object}
+11/27/07 09:47:41.928 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase assertTrue mi r 000035 junit/org/TestCase.java;{} {java.lang.String,boolean}
+11/27/07 09:47:41.929 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase fail mi r 000037 junit/org/TestCase.java;{} {java.lang.String}
+11/27/07 09:47:41.930 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase failNotEquals mi r 000038 junit/org/TestCase.java;{} {java.lang.String,java.lang.Object,java.lang.Object}
+11/27/07 09:47:41.931 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase failNotSame mi r 000039 junit/org/TestCase.java;{} {java.lang.String,java.lang.Object,java.lang.Object}
+11/27/07 09:47:41.932 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase failSame mi r 000040 junit/org/TestCase.java;{} {java.lang.String}
+11/27/07 09:47:41.933 WARNING main [parseMethodInvocations] Not a method invocation: # java.lang.String cl TestCase format mi r 000041 junit/org/TestCase.java;{} {java.lang.String,java.lang.Object,java.lang.Object}
+11/27/07 09:47:41.934 DEBUG attributereferenceentity [get_instance] Class attributereferenceentity instantiated
+11/27/07 09:47:41.937 INFO main [<module>] Parsing javancss metrics ...
+11/27/07 09:47:41.938 DEBUG timer [get_instance] Class timer instantiated
+11/27/07 09:47:41.941 DEBUG ncssmetricentity [get_instance] Class ncssmetricentity instantiated
+11/27/07 09:47:41.943 INFO timer [log] Parsing ncss measurements took 2 ms for 0 work items, or 0 ms per item.
+11/27/07 09:47:41.944 INFO main [checkFileExists] database /home/nix/JaarProj/Smells/tests/JavaTestEntities/SingleTestCase/src/dbdump/src.vcs does not exist
+(7/7) Running CDIF2RSF ...
+Reading from file /home/nix/JaarProj/Smells/tests/JavaTestEntities/SingleTestCase/src.cdif,...
+	Files... [ok]
+	Includes... [ok]
+	Conditional Compilation... [ok]
+	Classes... [ok]
+	Inheritance... [ok]
+	Methods... [ok]
+	Attributes... [ok]
+	Functions... [ok]
+	Accesses... [ok]
+	Invocations... [ok]
+	Size and Complexity Metrics... [ok]
+	Change Frequency Metrics... [ok]
+Merging output... [ok]
+Output written to /home/nix/JaarProj/Smells/tests/JavaTestEntities/SingleTestCase/src.rsf

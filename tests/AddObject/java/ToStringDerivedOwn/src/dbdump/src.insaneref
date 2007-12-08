@@ -1,0 +1,3 @@
+MySuper.java:2:	public String toString() { return ""; }
+MySuper.java:3:	public void run() {
+MySuper.java:4:		toString();

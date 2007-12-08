@@ -1,0 +1,161 @@
+/**
+ * This file is part of Fetch (the Fact Extraction Tool CHain).
+ *
+ * Fetch is free software; you can redistribute it and/or modify it under the 
+ * terms of the GNU General Public License as published by the Free Software 
+ * Foundation; either version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * Fetch is distributed in the hope that it will be useful, but WITHOUT ANY 
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with Fetch; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+ **/
+
+// modified and extended for use with TSmells by <manuel.breugelmans@student.ua.ac.be>
+
+/**
+ * Finds all test cases among the classes,
+ * both directly as well as indirectly 
+ * inheriting from TestCase
+ * 
+ **/
+
+// retrieve the test framework generic TestCase class
+//IsTestCase(y) := Class(y,"CppUnit::TestCase"); // with packages/namespaces
+IsTestCase(y) := Class(y,"junit::org::TestCase");
+
+InheritsFromTestCase(x,y) := IsTestCase(y) & InheritsFrom(_,_,x,y);
+
+// PRINT TestChecker(x,y), ENDL;
+
+// test cases directly inheriting from TestCase
+DTestCase(x) := InheritsFromTestCase(x,_);
+//PRINT DTestCase(x);
+InheritsFromTestCase(x,y) := DTestCase(y) & InheritsFrom(_,_,x,y);
+Closure(x,y) := TC(InheritsFromTestCase(x,y));
+
+// test cases indirectly inheriting from TestCase
+ITestCase(x) := Closure(x,_);
+//PRINT ITestCase(x);
+TestCase(x) := DTestCase(x) | ITestCase(x);
+//PRINT TestCase(x);
+
+// print test cases
+FOR tc IN TestCase(x) {
+	ClassName(cn) := Class(tc,cn);	
+	// retrieve the name of c as a class
+	// will lead to a relation with 1 element
+	FOR n IN ClassName(cn) {
+		PRINT "TestCase", "	", tc,"	'",n,"'",ENDL;
+	}
+}
+
+TestMethod(x) := EX(y, TestCase(y) & MethodBelongsToClass(x,y));
+TestCommand(x) := EX(mn, TestMethod(x) & Method(x,mn) & @"[.]test"(mn) & @"[()]"(mn));
+TestSetup(x) := EX(mn, TestMethod(x) & Method(x,mn) & @"[.]setUp"(mn) & @"[()]"(mn));
+TestTeardown(x) := EX(mn, TestMethod(x) & Method(x,mn) & @"[.]tearDown"(mn) & @"[()]"(mn));
+TestHelper(x) := TestMethod(x) & !TestCommand(x) & !TestSetup(x) & !TestTeardown(x);
+TestChecker(x) := EX(y, Method(x, y) & CheckerSignature(_,y));
+ProductionMethod(x) := Method(x,_) & !TestMethod(x) & !TestChecker(x);
+FOR tc IN TestCommand(x) {
+	MethodName(mn) := Method(tc,mn); 
+	FOR n IN MethodName(mn) {
+		PRINT "TestCommand", "	", tc, "	'", n, "'",ENDL;
+	}
+}
+
+/*FOR tc IN ProductionMethod(x) {
+	MethodName(mn) := Method(tc,mn); 
+	FOR n IN MethodName(mn) {
+		PRINT "ProdutionMethod", "	", tc, "	'", n, "'",ENDL;
+	}
+}*/
+
+FOR tc IN TestSetup(x) {
+	MethodName(mn) := Method(tc,mn); 
+	FOR n IN MethodName(mn) {
+		PRINT "TestSetup", "	", tc, "	'", n, "'",ENDL;
+	}
+}
+
+FOR tc IN TestTeardown(x) {
+	MethodName(mn) := Method(tc,mn); 
+	FOR n IN MethodName(mn) {
+		PRINT "TestTeardown", "	", tc, "	'", n, "'",ENDL;
+	}
+}
+
+FOR tc IN TestHelper(x) {
+	MethodName(mn) := Method(tc,mn); 
+	FOR n IN MethodName(mn) {
+		PRINT "TestHelper", "	", tc, "	'", n, "'",ENDL;
+	}
+}
+
+/*PRINT #(Method(x,_)),ENDL;
+PRINT #(TestMethod(x)),ENDL;
+PRINT #(!TestMethod(x)),ENDL;
+PRINT #(Method(x,_) & !TestMethod(x)),ENDL;
+PRINT #(ProductionMethod(x)),ENDL;*/
+//IndirDecl(x) := Method(x) | EX(y, DefinitionForDeclaration(y,x) & Method(x,_));
+IndirInvokes(id,x,y) := Invokes(id,x,y) 
+					| EX(z, DefinitionForDeclaration(z,y) & Invokes(id,x,z)) 
+					| EX(z, DefinitionForDeclaration(z,x) & Invokes(id,z,y)) 
+					| EX(u,v, DefinitionForDeclaration(u,x) & DefinitionForDeclaration(v,y) & Invokes(id,u,v));
+PureInvokes(id,x,y) := IndirInvokes(id,x,y) & Method(x, _) & Method(y, _);
+Stimulus(aStimulus) := EX(x,y, TestMethod(x) & ProductionMethod(y) & PureInvokes(aStimulus,x,y));
+
+//PRINT #(Stimulus(x)),ENDL;
+FOR zid IN Stimulus(z) {
+	SrcMethod(x) := PureInvokes(zid,x,_);
+	DstMethod(y) := PureInvokes(zid,_,y);
+	FOR xid IN SrcMethod(x) {
+		FOR yid IN DstMethod(y) {
+			SrcMethodName(srcMn) := Method(xid, srcMn);
+			DstMethodName(dstMn) := Method(yid, dstMn);
+			PRINT "Stimulates", "	", zid, "	", xid, "	", yid,  ENDL;
+		}
+	}
+}
+
+/**
+ *  Assertions
+ */
+FOR cid IN TestChecker(x) {
+	PRINT "TestChecker	", cid, ENDL;
+}
+
+/**
+ *  Predicate which denotes wheter an assertion has a failure message
+ *  @col x: testchecker ID
+ */
+NoFailureMessage(x) := EX(y,z, TestChecker(x) & Method(x, y) & CheckerSignature(z,y) & No(z));
+FOR cid IN NoFailureMessage(x) {
+	PRINT "NoFailureMessage	", cid, ENDL;
+}
+
+/**
+ * Checkers invoked in TestCommands/TestHelpers
+ * @col z:  invocation ID
+ * @col x:  testchecker ID
+ * @col y:  testcommand/helper ID
+ */
+//direct
+CheckerInvoke(z,x,y) := TestChecker(x) & (TestCommand(y)|TestHelper(y)) & PureInvokes(z,y,x);
+
+FOR cid IN CheckerInvoke(z,_,_) {
+	FOR chid IN CheckerInvoke(cid,x,_) {
+		FOR tcid IN CheckerInvoke(cid,chid,y) {
+			PRINT "CheckerInvoke	", cid, "	", tcid, "	", chid, ENDL;
+		}
+	}
+}
+
+// PRINT "CheckerSignature	", CheckerSignature(x,y), ENDL;

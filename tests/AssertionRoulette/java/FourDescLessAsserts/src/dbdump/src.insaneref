@@ -1,0 +1,123 @@
+./test/testdata/javaPiecesRegression/MIStaticDerivedInvinInv/src/Invokee.java:4:	public int myInvinInv() {
+./test/testdata/javaPiecesRegression/MIStaticDerivedInvinInv/src/StaticInvokee.java:4:	public static void myInvoke(int a) {
+./test/testdata/javaPiecesRegression/MIStaticDerivedInvinInv/src/Invoker.java:4:	public Invokee i = new Invokee();
+./test/testdata/javaPiecesRegression/MIStaticDerivedInvinInv/src/Invoker.java:5:	public StaticInvokee s = new StaticInvokee();
+./test/testdata/javaPiecesRegression/MIStaticDerivedInvinInv/src/Invoker.java:7:	public void myInvoker() {
+./test/testdata/javaPiecesRegression/MIStaticDerivedInvinInv/src/Invoker.java:8:		s.myInvoke(i.myInvinInv());
+./test/testdata/javaPiecesRegression/MIStaticDerivedInvinInv/src/Invoker.java:11:	public void myOtherInvoker() {
+./test/testdata/javaPiecesRegression/MIStaticDerivedInvinInv/src/Invoker.java:12:		StaticInvokee.myInvoke(i.myInvinInv());
+./test/testdata/javaPiecesRegression/MIStaticDerivedInvinInv/src/Invoker.java:15:	public void myThirdInvoker() {
+./test/testdata/javaPiecesRegression/MIStaticDerivedInvinInv/src/Invoker.java:16:		myInvoke(i.myInvinInv());
+./test/testdata/javaPiecesRegression/MIStaticDerivedInvinInv/src/Invoker.java:19:	public viod myLastInvoker() {
+./test/testdata/javaPiecesRegression/MIStaticDerivedInvinInv/src/Invoker.java:20:		this.myInvoke(i.myInvinInv());
+./test/testdata/javaPiecesRegression/MISameClassInvinInv/src/MyClass.java:4:	public int myInvinInv() {
+./test/testdata/javaPiecesRegression/MISameClassInvinInv/src/MyClass.java:8:	public void myInvoke(int a){
+./test/testdata/javaPiecesRegression/MISameClassInvinInv/src/MyClass.java:11:	public void myInvoker() {
+./test/testdata/javaPiecesRegression/MISameClassInvinInv/src/MyClass.java:12:		myInvoke(myInvinInv());
+./test/testdata/javaPiecesRegression/MISameClassInvinInv/src/MyClass.java:15:	public void mySecondInvoker() {
+./test/testdata/javaPiecesRegression/MISameClassInvinInv/src/MyClass.java:16:		this.myInvoke(myInvinInv());
+./test/testdata/javaPiecesRegression/MISameClassInvinInv/src/MyClass.java:19:	public void myThirdInvoker() {
+./test/testdata/javaPiecesRegression/MISameClassInvinInv/src/MyClass.java:20:		myInvoke(this.myInvinInv());
+./test/testdata/javaPiecesRegression/MISameClassInvinInv/src/MyClass.java:23:	public void myLastInvoker() {
+./test/testdata/javaPiecesRegression/MISameClassInvinInv/src/MyClass.java:24:		this.myInvoke(this.myInvinInv());
+./test/testdata/javaPiecesRegression/MIStaticOtherClass/src/Invoker.java:4:	public void myInvoker() {
+./test/testdata/javaPiecesRegression/MIStaticOtherClass/src/Invoker.java:5:		Invokee i = new Invokee();
+./test/testdata/javaPiecesRegression/MIStaticOtherClass/src/Invoker.java:6:		i.myInvoke();
+./test/testdata/javaPiecesRegression/MIStaticOtherClass/src/Invoker.java:9:	public void myOtherInvoker() {
+./test/testdata/javaPiecesRegression/MIStaticOtherClass/src/Invoker.java:10:		Invokee.myInvoke();
+./test/testdata/javaPiecesRegression/MIStaticOtherClass/src/Invokee.java:4:	public static void myInvoke() {
+./test/testdata/javaPiecesRegression/MInested/src/B.java:3:	public int b() {
+./test/testdata/javaPiecesRegression/MInested/src/A.java:3:	public void a(int i) {
+./test/testdata/javaPiecesRegression/MInested/src/A.java:7:	public void start() {
+./test/testdata/javaPiecesRegression/MInested/src/A.java:8:		B b = new B();
+./test/testdata/javaPiecesRegression/MInested/src/A.java:9:		a(b.b());
+./test/testdata/javaPiecesRegression/Mprivate/src/Foo.java:2:	private void execute() { }
+./test/testdata/javaPiecesRegression/MIOtherClass/src/Invokee.java:4:	public void myInvoke() {
+./test/testdata/javaPiecesRegression/MIOtherClass/src/Invoker.java:4:	public void myInvoker() {
+./test/testdata/javaPiecesRegression/MIOtherClass/src/Invoker.java:5:		Invokee i = new Invokee();
+./test/testdata/javaPiecesRegression/MIOtherClass/src/Invoker.java:6:		i.myInvoke();
+./test/testdata/javaPiecesRegression/MIOverloadNumParams/src/MyOverloader.java:2:	public void myMethod(double d) {}
+./test/testdata/javaPiecesRegression/MIOverloadNumParams/src/MyOverloader.java:3:	public void myMethod(double d, char c) {}
+./test/testdata/javaPiecesRegression/MIOverloadNumParams/src/MyOverloader.java:5:	public void myInvoker() {
+./test/testdata/javaPiecesRegression/MIOverloadNumParams/src/MyOverloader.java:8:		myMethod(d,c);
+./test/testdata/javaPiecesRegression/MISameClass/src/MyClass.java:4:	public void myMethod() {
+./test/testdata/javaPiecesRegression/MISameClass/src/MyClass.java:7:	public void myInvoker() {
+./test/testdata/javaPiecesRegression/MISameClass/src/MyClass.java:8:		this.myMethod();
+./test/testdata/javaPiecesRegression/MIStaticDC/src/B.java:3:	public void caller() {
+./test/testdata/javaPiecesRegression/MIStaticDC/src/B.java:4:		A.callee();
+./test/testdata/javaPiecesRegression/MIStaticDC/src/A.java:3:	public static void callee() {
+./test/testdata/javaPiecesRegression/MisItf/src/Foo.java:2:	public void execute();
+./test/testdata/javaPiecesRegression/MIDerivedThis/src/Sub.java:2:	public void invoker() {
+./test/testdata/javaPiecesRegression/MIDerivedThis/src/Sub.java:3:		this.invokee();
+./test/testdata/javaPiecesRegression/MIDerivedThis/src/SuperClass.java:2:	public void invokee() {};
+./test/testdata/javaPiecesRegression/MIOverloadInheritance/src/MySub.java:2:	public void myInvoker() {
+./test/testdata/javaPiecesRegression/MIOverloadInheritance/src/MySub.java:3:		this.myInvokee(1); // SN wont log without 'this.'
+./test/testdata/javaPiecesRegression/MIOverloadInheritance/src/MySuper.java:2:	public void myInvokee(Object o) {};
+./test/testdata/javaPiecesRegression/MIOverloadInheritance/src/MySuper.java:3:	public void myInvokee(int i) {};
+./test/testdata/javaPiecesRegression/MnativeKeyword/src/Foo.java:3:    public native int myMethod();
+./test/testdata/javaPiecesRegression/MnativeKeyword/src/Foo.java:4:    public int myMethod(int i) { return i; }
+./test/testdata/javaPiecesRegression/MnativeKeyword/src/Foo.java:5:    public int myMethod(int i, int k) { return i; }
+./test/testdata/javaPiecesRegression/MIOtherPackage/src/Invokee.java:4:	public void myInvoke() {
+./test/testdata/javaPiecesRegression/MIOtherPackage/src/Invoker.java:6:	public void myInvoker() {
+./test/testdata/javaPiecesRegression/MIOtherPackage/src/Invoker.java:7:		Invokee i = new Invokee();
+./test/testdata/javaPiecesRegression/MIOtherPackage/src/Invoker.java:8:		i.myInvoke();
+./test/testdata/javaPiecesRegression/MIStaticDCN/src/A/A.java:5:	public void a() {
+./test/testdata/javaPiecesRegression/MIStaticDCN/src/A/A.java:6:		B.b();
+./test/testdata/javaPiecesRegression/MIStaticDCN/src/B/B.java:5:	public static void b() {
+./test/testdata/javaPiecesRegression/MIStatic/src/MyClass.java:4:	public static void myInvoke() {
+./test/testdata/javaPiecesRegression/MIStatic/src/MyClass.java:7:	public void myInvoker() {
+./test/testdata/javaPiecesRegression/MIStatic/src/MyClass.java:8:		this.myInvoke();
+./test/testdata/javaPiecesRegression/MIStatic/src/MyClass.java:11:	public void myOtherInvoker() {
+./test/testdata/javaPiecesRegression/MIStatic/src/MyClass.java:12:		MyClass.myInvoke();
+./test/testdata/javaPiecesRegression/MIStaticDerivedOverride/src/Invokee.java:4:	public static void myInvoke() {
+./test/testdata/javaPiecesRegression/MIStaticDerivedOverride/src/Invoker.java:5:	public static void myInvoke() {
+./test/testdata/javaPiecesRegression/MIStaticDerivedOverride/src/Invoker.java:8:	public void myInvoker() {
+./test/testdata/javaPiecesRegression/MIStaticDerivedOverride/src/Invoker.java:9:		Invokee i = new Invokee();
+./test/testdata/javaPiecesRegression/MIStaticDerivedOverride/src/Invoker.java:10:		i.myInvoke();
+./test/testdata/javaPiecesRegression/MIStaticDerivedOverride/src/Invoker.java:13:	public void myOtherInvoker() {
+./test/testdata/javaPiecesRegression/MIStaticDerivedOverride/src/Invoker.java:14:		Invokee.myInvoke();
+./test/testdata/javaPiecesRegression/MIStaticDerivedOverride/src/Invoker.java:17:	public void myThirdInvoker() {
+./test/testdata/javaPiecesRegression/MIStaticDerivedOverride/src/Invoker.java:18:		myInvoke();
+./test/testdata/javaPiecesRegression/MIStaticDerivedOverride/src/Invoker.java:21:	public viod myLastInvoker() {
+./test/testdata/javaPiecesRegression/MIStaticDerivedOverride/src/Invoker.java:22:		this.myInvoke();
+./test/testdata/javaPiecesRegression/MIParSNDeficiency/src/A.java:3:	public int a(String s, int a, int b) {
+./test/testdata/javaPiecesRegression/MIParSNDeficiency/src/B.java:3:	public void b1(int p1,int p2) {
+./test/testdata/javaPiecesRegression/MIParSNDeficiency/src/B.java:8:	public void start() {
+./test/testdata/javaPiecesRegression/MIParSNDeficiency/src/B.java:9:		A a = new A();
+./test/testdata/javaPiecesRegression/MIParSNDeficiency/src/B.java:13:		b1(8, a.a(s,p1,p2));
+./test/testdata/javaPiecesRegression/MwithParams/src/Foo.java:2:	public void execute(int i, Foo f) { }
+./test/testdata/javaPiecesRegression/MisAbstract/src/Foo.java:2:	public abstract void execute();
+./test/testdata/javaPiecesRegression/MnoParams/src/Foo.java:2:	public void execute() { }
+./test/testdata/javaPiecesTdd/MwithQualLibParam/src/Foo.java:2:	public void execute(Object v) { }
+./test/testdata/javaPiecesTdd/MIOverloadPrimitive/src/MyOverloader.java:2:	public void myMethod(double d) {}
+./test/testdata/javaPiecesTdd/MIOverloadPrimitive/src/MyOverloader.java:3:	public void myMethod(int i) {}
+./test/testdata/javaPiecesTdd/MIOverloadPrimitive/src/MyOverloader.java:5:	public void myInvoker() {
+./test/testdata/javaPiecesTdd/MIOverloadPrimitive/src/MyOverloader.java:7:		myMethod(i);
+./test/testdata/javaPiecesTdd/MIDerivedExplicit/src/Sub.java:2:	public void invoker() {
+./test/testdata/javaPiecesTdd/MIDerivedExplicit/src/Sub.java:3:		super.invokee();
+./test/testdata/javaPiecesTdd/MIDerivedExplicit/src/SuperClass.java:2:	public void invokee() { };
+./test/testdata/javaPiecesTdd/MIStaticDerived/src/Invoker.java:4:	public void myInvoker() {
+./test/testdata/javaPiecesTdd/MIStaticDerived/src/Invoker.java:5:		Invokee i = new Invokee();
+./test/testdata/javaPiecesTdd/MIStaticDerived/src/Invoker.java:6:		i.myInvoke();
+./test/testdata/javaPiecesTdd/MIStaticDerived/src/Invoker.java:9:	public void myOtherInvoker() {
+./test/testdata/javaPiecesTdd/MIStaticDerived/src/Invoker.java:10:		Invokee.myInvoke();
+./test/testdata/javaPiecesTdd/MIStaticDerived/src/Invoker.java:13:	public void myThirdInvoker() {
+./test/testdata/javaPiecesTdd/MIStaticDerived/src/Invoker.java:14:		myInvoke();
+./test/testdata/javaPiecesTdd/MIStaticDerived/src/Invoker.java:17:	public void myLastInvoker() {
+./test/testdata/javaPiecesTdd/MIStaticDerived/src/Invoker.java:18:		this.myInvoke();
+./test/testdata/javaPiecesTdd/MIStaticDerived/src/Invokee.java:4:	public static void myInvoke() {
+./test/testdata/javaPiecesTdd/RLocalVar/src/Foo.java:3:	public void create() {
+./test/testdata/javaPiecesTdd/MIConstr/src/Foo.java:3:	public Foo() {
+./test/testdata/javaPiecesTdd/MIConstr/src/Foo.java:8:	public void create() {
+./test/testdata/javaPiecesTdd/MIConstr/src/Foo.java:9:		Foo f = new Foo();	
+./test/testdata/javaPiecesTdd/MdefInTemplClass/src/Foo.java:4:    public int myMethod() {}
+./test/testdata/javaPiecesTdd/MdefInTemplClass/src/Foo.java:5:    public int anotherOne() {}
+./test/testdata/javaPiecesTdd/MIDerivedImplicit/src/SuperClass.java:2:	public void invokee() {};
+./test/testdata/javaPiecesTdd/MIDerivedImplicit/src/Sub.java:2:	public void invoker() {
+./test/testdata/javaPiecesTdd/MIDerivedImplicit/src/Sub.java:3:		invokee();
+./test/testdata/javaPiecesTdd/MIOverload/src/MyOverloader.java:2:	public void myMethod(A a) {}
+./test/testdata/javaPiecesTdd/MIOverload/src/MyOverloader.java:3:	public void myMethod(B b) {}
+./test/testdata/javaPiecesTdd/MIOverload/src/MyOverloader.java:5:	public void myInvoker() {
+./test/testdata/javaPiecesTdd/MIOverload/src/MyOverloader.java:6:		B b = new B();
+./test/testdata/javaPiecesTdd/MIOverload/src/MyOverloader.java:7:		myMethod(b);
+./test/testdata/javaPiecesTdd/MwithLibParam/src/Foo.java:2:	public void execute(Object v) { }

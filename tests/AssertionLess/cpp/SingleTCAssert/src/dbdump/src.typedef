@@ -1,0 +1,6 @@
+Factories 000066.049 cppunit/extensions/TestFactoryRegistry.h;66.58 0x1 {std::map<std::string,TestFactory*>} {} {} {}
+NamedRegistries 000069.057 cppunit/extensions/TestFactoryRegistry.h;69.72 0x1 {std::map<std::string,TestFactoryRegistry*>} {} {} {}
+OStringStream 000048.029 cppunit/Portability.h;48.42 0x0 {std::ostringstream} {} {} {}
+SuperClass 000058.027 cppunit/Exception.h;58.37 0x1 {std::exception} {} {} {}
+TestMethod 000019.030 cppunit/extensions/TestSuiteBuilder.h;19.40 0x4 {void (Fixture::*)()} {} {} {}
+TestMethod 000092.028 cppunit/TestCaller.h;92.38 0x1 {void (Fixture::*)()} {} {} {}

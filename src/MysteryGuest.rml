@@ -1,0 +1,158 @@
+/**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+/**
+ * Append test entities and mystery-blacklist.
+ * Functions/methods in the blacklist will only be handled if their
+ * declaration is present in the model. 
+ *
+ * TestEntities: + writeCppTestEntities.rml
+ *               + writeJavaTestEntities.rml
+ * MysteryBlack: + MysteryBlacklistCpp.rsf
+ *               + MysteryBlacklistJava.rsf
+ * 
+ * eg: appendCppTE.sh rsf/FileAccessTestCommand.rsf  | \
+ *			cat - ${TSMELLS}/src/MysteryBlacklistCpp.rsf | \
+ *			crocopat ${TSMELLS}/src/MysteryGuest.rml
+ *
+ **/
+
+// make sure all these relations exist to suppress crocopat warnings
+TestCommand("-1","-2");
+TestHelper("-3","-4");
+Stimulates("-5", "-6");
+ProductionMethod("-7", "-8");
+Function("-9","-10");
+TestChecker("-11","-12");
+
+// fake it implementation
+// PRINT "mine::tests::FileAccessTest.testSomething(),mine::tests::FileAccessTest::testSomething(),file, java::io::BufferedReader::readLine()", ENDL;
+//        ^^ testcase.testcommand()                   ^^ entitity which invokes smelly entity      ^^ mystery-type  ^^ smelly entity 
+
+/**
+ * helper relation for PureInvokes
+ * @col id: invoke ID
+ * @col x:  caller
+ * @col y:  callee
+ */
+IndirInvokes(id,x,y) := Invokes(id,x,y) 
+					| EX(z, DefinitionForDeclaration(z,y) & Invokes(id,x,z)) 
+					| EX(z, DefinitionForDeclaration(z,x) & Invokes(id,z,y)) 
+					| EX(u,v, DefinitionForDeclaration(u,x) & DefinitionForDeclaration(v,y) & Invokes(id,u,v));
+
+/**
+ * contains a cleaned invoke relation. gets rid of the DefinitionForDeclaration step
+ * @col id: invoke ID
+ * @col x:  x caller
+ * @col y:  y callee
+ */
+PureInvokes(id,x,y) := IndirInvokes(id,x,y) & (Method(x, _) | Function(x,_)) & (Method(y, _) | Function(y,_));
+
+/**
+ * fetches the IDs of blacklisted methods
+ * @col x: mystery type
+ * @col y: methodname
+ * @col z: methodid
+ */
+Blacklist(x,y,z) := MysteryBlacklist(x,y) & (Method(z,y) | Function(z,y));
+BlackID(x) := EX(y, MysteryBlacklist(_,y) & (Method(x,y) | Function(x,y)));
+
+//PRINT Blacklist(x,y,z);
+//PRINT TestCommand(x,y);
+
+/**
+ * holds all testcommands containing a direct mystery invoke
+ * @col a: TestCommand ID
+ * @col b: Blacklisted method ID
+ */
+MysteryInTc(a,b) := TestCommand(a,_) & Stimulates(_,a,b) & Blacklist(_,_,b);
+
+//PRINT MysteryInTc(x,y,z);
+//PRINT "TC	 ", TestCommand(x,y),  ENDL;
+//PRINT "STIM	 ", Stimulates(x,y,z), ENDL;
+//PRINT "BLACK ", Blacklist(x,y,z),  ENDL;
+
+// print results
+FOR tc IN MysteryInTc(x,_) {
+	FOR myst IN MysteryInTc(tc,x) {
+		MethodName(mn) := Method(tc, mn); //singleton
+		// TODO add errorhandling when #MethodName != 1 ??
+		FOR n IN MethodName(mn) {
+			PRINT n, ","; // also contains testcase name
+		}
+		
+		// print twice since smell in tc itself
+		FOR n IN MethodName(mn) {
+			PRINT n, ",";
+		}
+
+		MystType(mt) := Blacklist(mt,_,myst); //singleton
+		FOR n IN MystType(mt) {
+			PRINT n, ",";
+		}
+
+		MystName(mn) := Blacklist(_,mn,myst); //singleton
+		FOR n IN MystName(mn) {
+			PRINT n, ENDL;
+		}
+	}
+}
+
+/**
+ * holds all methods with smelly invokes
+ * @col a: TestCommand ID
+ * @col b: Method ID which invokes the blacklisted
+ * @col c: Blacklisted method ID
+ **/
+//MysteryInTH(a,b,c) := TestHelper(b,_) & PureInvokes(_,b,c) & BlackID(c) & TestCommand(a,_) & PureInvokes(_,a,b);
+TransInvokes(x,y) := TC(PureInvokes(_,x,y));
+MysteryInM(a,b,c) :=  (Method(b,_) | Function(b,_)) & PureInvokes(_,b,c) & BlackID(c) & TestCommand(a,_) & TransInvokes(a,b);
+
+//PRINT TransInvokes(x,y);
+
+// print result
+FOR tc IN MysteryInM(x,_,_) {
+	FOR th IN MysteryInM(tc,x,_) {
+		FOR myst IN MysteryInM(tc,th,x) {
+			CommandName(mn) := Method(tc, mn); //singleton
+			FOR n IN CommandName(mn) {
+				PRINT n, ",";
+			}
+
+			MethodName(hn) := Method(th, hn); //singleton
+			IF (#(MethodName(hn)) = 0) { // function, not a method
+				MethodName(hn) := Function(th, hn);
+			}
+			FOR m IN MethodName(hn) {
+				PRINT m, ",";
+			}
+
+			MystType(mt) := Blacklist(mt,_,myst); //singleton
+			FOR m IN MystType(mt) {
+				PRINT m, ",";
+			}
+
+			MystName(mn) := Blacklist(_,mn,myst); //singleton
+			FOR m IN MystName(mn) {
+				PRINT m, ENDL;
+			}
+		}
+	}
+}

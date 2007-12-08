@@ -1,0 +1,52 @@
+CDIF, SYNTAX "SYNTAX.1" "02.00.00", ENCODING "ENCODING.1" "02.00.00"
+#| FAMOOS Information Exchange (FAMIX) Model, see http://www.iam.unibe.ch/~famoos/FAMIX/ |#
+
+
+(:HEADER
+	(:SUMMARY
+		(ExporterName  "snavtofamix")
+		(ExporterVersion  "537")
+		(ExporterDate "2007/12/01")
+		(ExporterTime "18:11:23")
+		(PublisherName "unknown")
+		(ParsedSystemName "src")
+		(ReificationLevel "1")
+		(SourceLanguage "C++")
+	)
+)
+
+(:META-MODEL
+	(:SUBJECTAREAREFERENCE Foundation
+		(:VERSIONNUMBER "01.00")
+	)
+	(:SUBJECTAREAREFERENCE FAMIX     
+		(:VERSIONNUMBER "2.2"  )
+	)
+)
+
+
+
+(:MODEL
+
+
+(Model FM0
+	(exporterName "snavtofamix")
+	(exporterVersion "537")
+	(exporterDate "2007/12/01")
+	(exporterTime "18:11:23")
+	(publisherName "unknown")
+	(parsedSystemName "src")
+	(extractionLevel "4")
+	(sourceLanguage "Java")
+	(sourceDialect "")
+)
+
+(Class FM1
+	(name "MyClass")
+	(uniqueName "MyClass")
+	(isAbstract -FALSE-)
+	(sourceAnchor #[file "MyClass.java" start 1 end 1|]#)
+)
+
+)
+

@@ -1,0 +1,8 @@
+CheckerSignature	1	"CPPUNIT_ASSERT_MESSAGE(std::string,boolean)"
+CheckerSignature	0	"CPPUNIT_ASSERT_DOUBLES_EQUAL(double,double,double)"
+CheckerSignature	0	"CPPUNIT_ASSERT_EQUAL(T,T)"
+CheckerSignature	1	"CPPUNIT_ASSERT_EQUAL_MESSAGE(string,T,T)"
+CheckerSignature	1	"CPPUNIT_FAIL(std::string)"
+CheckerSignature	0	"CPPUNIT_ASSERT(boolean)"
+Yes	1
+No	0

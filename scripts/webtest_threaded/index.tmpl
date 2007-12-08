@@ -1,0 +1,72 @@
+## Index page
+
+## Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+
+#extends master
+
+## Default attributes
+#attr $results = None
+#attr $stats = None
+#attr $color = None
+#attr $suites = None
+#attr $secElapsed = None
+#attr $usecElapsed = None
+
+#block body
+
+## Search
+<center><form method="POST">
+	<input type="hidden" name="go" value="1" />
+	<select name="suite">
+		#for $suite in $suites
+			<option value="$suite">$suite</option>
+		#end for
+ 	</select>
+	<input align="center" type="submit" value="RUN" />
+</form></center>
+
+#if (not $results)
+Tests not run yet
+#end if
+
+#if $results
+	#if $stats[0] == $stats[1]
+		#set $color = "green"
+	#else
+		#set $color = "red"
+	#end if
+
+<table align="center" border="1"><tr><td width=400 height=20 bgcolor="$color"></td></tr></table><br>
+<center>Time elapsed: ${secElapsed}s ${usecElapsed}  </center>
+<center>Total: $stats[0], pass: $stats[1], fail: $stats[2], error: $stats[3]</center>
+<table align="center" width="400" border="1">
+	## Header
+	<tr>
+		<th>test</th>
+		<th width="5">result</th>
+	</tr>
+	#for $smell in $results
+	<tr>
+		<td align="center" colspan="2"><b>$smell[0]</b> cpp</td>
+    </tr>
+	#for $test  in $smell[1]
+	<tr>
+		<td>+ <a href="$test.name">$test.name</a></td>
+		<td width="5" bgcolor="$test.color"></td>
+    </tr>
+	#end for
+	<tr>
+		<td align="center" colspan="2"><b>$smell[0]</b> java</td>
+	</tr>
+	#for $test  in $smell[2]
+	<tr>
+		<td>+ <a href="$test.name">$test.name</a></td>
+		<td width="5" bgcolor="$test.color"></td>
+    </tr>
+	#end for
+    #end for
+</table>
+
+#end if
+
+#end block body

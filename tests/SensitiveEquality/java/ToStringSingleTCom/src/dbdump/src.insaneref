@@ -1,0 +1,40 @@
+MyTest.java:6:	public void testCommand() {
+MyTest.java:7:		assertEquals("a", uut.toString());
+junit/org/TestCase.java:4:	static public void     assertEquals(boolean expected, boolean actual){}
+junit/org/TestCase.java:5:	static public void     assertEquals(byte expected, byte actual){}
+junit/org/TestCase.java:6:	static public void     assertEquals(char expected, char actual){}
+junit/org/TestCase.java:7:	static public void     assertEquals(double expected, double actual, double delta){}
+junit/org/TestCase.java:8:	static public void     assertEquals(float expected, float actual, float delta){}
+junit/org/TestCase.java:9:	static public void     assertEquals(int expected, int actual){}
+junit/org/TestCase.java:10:	static public void     assertEquals(long expected, long actual){}
+junit/org/TestCase.java:11:	static public void     assertEquals(java.lang.Object expected, java.lang.Object actual){}
+junit/org/TestCase.java:12:	static public void     assertEquals(short expected, short actual){}
+junit/org/TestCase.java:13:	static public void     assertEquals(java.lang.String message, boolean expected, boolean actual){}
+junit/org/TestCase.java:14:	static public void     assertEquals(java.lang.String message, byte expected, byte actual){}
+junit/org/TestCase.java:15:	static public void     assertEquals(java.lang.String message, char expected, char actual){}
+junit/org/TestCase.java:16:	static public void     assertEquals(java.lang.String message, double expected, double actual, double delta){}
+junit/org/TestCase.java:17:	static public void     assertEquals(java.lang.String message, float expected, float actual, float delta){}
+junit/org/TestCase.java:18:	static public void     assertEquals(java.lang.String message, int expected, int actual){}
+junit/org/TestCase.java:19:	static public void     assertEquals(java.lang.String message, long expected, long actual){}
+junit/org/TestCase.java:20:	static public void     assertEquals(java.lang.String message, java.lang.Object expected, java.lang.Object actual){}
+junit/org/TestCase.java:21:	static public void     assertEquals(java.lang.String message, short expected, short actual){}
+junit/org/TestCase.java:22:	static public void     assertEquals(java.lang.String expected, java.lang.String actual){}
+junit/org/TestCase.java:23:	static public void     assertEquals(java.lang.String message, java.lang.String expected, java.lang.String actual){}
+junit/org/TestCase.java:24:	static public void     assertFalse(boolean condition){}
+junit/org/TestCase.java:25:	static public void     assertFalse(java.lang.String message, boolean condition){}
+junit/org/TestCase.java:26:	static public void     assertNotNull(java.lang.Object object){}
+junit/org/TestCase.java:27:	static public void     assertNotNull(java.lang.String message, java.lang.Object object){}
+junit/org/TestCase.java:28:	static public void     assertNotSame(java.lang.Object expected, java.lang.Object actual){}
+junit/org/TestCase.java:29:	static public void     assertNotSame(java.lang.String message, java.lang.Object expected, java.lang.Object actual){}
+junit/org/TestCase.java:30:	static public void     assertNull(java.lang.Object object){}
+junit/org/TestCase.java:31:	static public void     assertNull(java.lang.String message, java.lang.Object object){}
+junit/org/TestCase.java:32:	static public void     assertSame(java.lang.Object expected, java.lang.Object actual){}
+junit/org/TestCase.java:33:	static public void     assertSame(java.lang.String message, java.lang.Object expected, java.lang.Object actual){}
+junit/org/TestCase.java:34:	static public void     assertTrue(boolean condition){}
+junit/org/TestCase.java:35:	static public void     assertTrue(java.lang.String message, boolean condition){}
+junit/org/TestCase.java:36:	static public void     fail(){}
+junit/org/TestCase.java:37:	static public void     fail(java.lang.String message){}
+junit/org/TestCase.java:38:	private static void     failNotEquals(java.lang.String message, java.lang.Object expected, java.lang.Object 	actual){}
+junit/org/TestCase.java:39:	private static void     failNotSame(java.lang.String message, java.lang.Object expected, java.lang.Object 	actual){}
+junit/org/TestCase.java:40:	private static void     failSame(java.lang.String message){}
+junit/org/TestCase.java:41:	static java.lang.String       format(java.lang.String message, java.lang.Object expected, java.lang.Object actual) { return "";}

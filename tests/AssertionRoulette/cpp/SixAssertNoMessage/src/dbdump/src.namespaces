@@ -1,0 +1,8 @@
+using_class	CppUnit::TestSuite	5	20	testStuff.h
+using_class	CppUnit::TestCase	6	20	testStuff.h
+using_class	CppUnit::Test	7	20	testStuff.h
+using_class	CppUnit::TestCaller	8	20	testStuff.h
+using_class	CppUnit::TestSuite	3	18	testSuite.cxx
+using_class	CppUnit::TextTestResult	4	18	testSuite.cxx
+using_class	std::cout	5	18	testSuite.cxx
+using_class	std::endl	6	18	testSuite.cxx

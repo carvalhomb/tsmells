@@ -1,0 +1,14 @@
+MyClass Object 000000.000 MyClass.java;00.00 0x1 {} {} {} {}
+MySecond Object 000000.000 MySecond.java;00.00 0x1 {} {} {} {}
+Object 000001.001 java/lang/Object.java;1.00 0xc {} {} {} {}
+Object clone 000002.001 java/lang/Object.java;02.00 0xc {java.lang.Object} {} {} {}
+Object equals 000003.001 java/lang/Object.java;03.00 0xc {boolean} {java.lang.Object} {obj} {}
+Object finalize 000004.001 java/lang/Object.java;04.00 0xc {void} {} {} {}
+Object getClass 000005.001 java/lang/Object.java;05.00 0xc {java.lang.Class} {} {} {}
+Object hasCode 000006.001 java/lang/Object.java;06.00 0xc {int} {} {} {}
+Object notify 000007.001 java/lang/Object.java;07.00 0xc {void} {} {} {}
+Object notifyAll 000008.001 java/lang/Object.java;08.00 0xc {void} {} {} {}
+Object toString 000009.001 java/lang/Object.java;09.00 0xc {java.lang.String} {} {} {}
+Object wait 000010.001 java/lang/Object.java;10.00 0xc {void} {} {} {}
+Object wait 000011.001 java/lang/Object.java;11.00 0xc {void} {long} {timeout} {}
+Object wait 000012.001 java/lang/Object.java;12.00 0xc {void} {long,int} {timeout,nanos} {}

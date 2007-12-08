@@ -1,0 +1,1 @@
+cat rsf/TCase2TCs.rsf | crocopat $TSMELLS/src/writeJavaTestEntities.rml 2>/dev/null
