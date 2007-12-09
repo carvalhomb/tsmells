@@ -39,12 +39,29 @@ TestChecker("-11","-12");
 CheckerInvoke("-13","-14");
 
 // fake it implementation
-PRINT "'MyTest.testCommand()',1", ENDL;
+//PRINT "SensitiveEquality;MyTest.testCommand();1", ENDL;
 //       ^^ testcase.testcommand(), total number of toStrings
 
-/**
- * helper relation for PureInvokes
- * @col id: invoke ID
- * @col x:  caller
- * @col y:  callee
- */
+ToStringId(x):=Method(x,"java::lang::Object.toString()");
+
+FOR tcid IN TestCommandId(x) {
+	ToStringInvokes(y) := EX(x,PureInvokes(y,tcid,x) & ToStringId(x));
+	ntstr := #(ToStringInvokes(y));
+	IF ( ntstr > 0) {
+		TCName(tcnm) := Method(tcid,tcnm); // single element
+		FOR tcnm IN TCName(x) {
+			PRINT "SensitiveEquality;TC;", tcnm, ";", ntstr, ENDL;
+		}
+	}
+}
+
+FOR thid IN TestHelperId(x) {
+	ToStringInvokes(y) := EX(x,PureInvokes(y,thid,x) & ToStringId(x));
+	ntstr := #(ToStringInvokes(y));
+	IF ( ntstr > 0) {
+		THName(thnm) := Method(thid,thnm); // single element
+		FOR thnm IN THName(x) {
+			PRINT "SensitiveEquality;TH;", thnm, ";", ntstr, ENDL;
+		}
+	}
+}

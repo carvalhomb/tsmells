@@ -1,1 +1,1 @@
-appendCppTE.sh rsf/SingleTCNoAssert.rsf | crocopat ${TSMELLS}/src/AssertionLess.rml
+writeCppSmelliness.sh "AssertionLess" "rsf/SingleTCNoAssert.rsf"

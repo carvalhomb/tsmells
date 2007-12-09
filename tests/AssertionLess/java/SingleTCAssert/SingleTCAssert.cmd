@@ -1,1 +1,1 @@
-appendJavaTE.sh rsf/SingleTCAssert.rsf | crocopat ${TSMELLS}/src/AssertionLess.rml
+writeJavaSmelliness.sh "AssertionLess" "rsf/*.rsf"

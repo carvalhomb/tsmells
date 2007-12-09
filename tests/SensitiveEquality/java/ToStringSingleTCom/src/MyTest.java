@@ -1,4 +1,4 @@
-import junit.org.TestCase;
+import org.junit.TestCase;
 
 public class MyTest extends TestCase {
 	private MyUUT uut;

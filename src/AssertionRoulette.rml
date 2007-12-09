@@ -45,23 +45,12 @@ CheckerInvoke("-13","-14");
 //        ^^ testcase.testcommand(), total number of checkers, number of messageless checkers
 
 /**
- * helper relation for PureInvokes
- * @col id: invoke ID
- * @col x:  caller
- * @col y:  callee
- */
-IndirInvokes(id,x,y) := Invokes(id,x,y) 
-					| EX(z, DefinitionForDeclaration(z,y) & Invokes(id,x,z)) 
-					| EX(z, DefinitionForDeclaration(z,x) & Invokes(id,z,y)) 
-					| EX(u,v, DefinitionForDeclaration(u,x) & DefinitionForDeclaration(v,y) & Invokes(id,u,v));
-
-/**
  * contains a cleaned invoke relation. gets rid of the DefinitionForDeclaration step
  * @col id: invoke ID
  * @col x:  x caller
  * @col y:  y callee
  */
-PureInvokes(id,x,y) := IndirInvokes(id,x,y) & (Method(x, _) | Function(x,_)) & (Method(y, _) | Function(y,_));
+PureInvokes(id,x,y) := EX(u,v, Invokes(id,u,v) & DefinitionForDeclaration(u,x) & DefinitionForDeclaration(v,y));
 
 /**
  * holds test commands/helpers with message-less checker methods

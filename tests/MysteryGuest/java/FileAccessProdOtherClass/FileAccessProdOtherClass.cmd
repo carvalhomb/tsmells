@@ -1,1 +1,1 @@
-appendJavaTE.sh rsf/FileAccessProdOtherClass_Fixed.rsf | cat - ${TSMELLS}/src/MysteryBlacklistJava.rsf | crocopat ${TSMELLS}/src/MysteryGuest.rml
+writeJavaSmelliness.sh "MysteryGuest" rsf/FileAccessProdOtherClass.rsf

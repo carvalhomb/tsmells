@@ -1105,6 +1105,7 @@ Function	114	"CPPUNIT_ASSERT_EQUAL(T,T)"
 Function	169	"CPPUNIT_ASSERT_EQUAL_MESSAGE(string,T,T)"
 Function	172	"CPPUNIT_FAIL(std::string)"
 Function	242	"CPPUNIT_ASSERT(boolean)"
+DefinitionForDeclaration    500 242
 InvokableEntityBelongsToFile	39	11	24
 InvokableEntityBelongsToFile	41	16	23
 InvokableEntityBelongsToFile	43	5	44
@@ -1395,7 +1396,7 @@ DefinitionForDeclaration	265	264
 DefinitionForDeclaration	267	266
 DefinitionForDeclaration	269	268
 DefinitionForDeclaration	271	270
-Invokes	327	171	242
+Invokes	327	171	500
 Invokes	328	271	207
 Invokes	329	139	80
 Invokes	330	255	176

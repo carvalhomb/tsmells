@@ -33,11 +33,11 @@
 // make sure all these relations exist to suppress crocopat warnings
 //TestCommand("-1","-2");
 TestHelper("-3","-4");
-Stimulates("-5", "-6");
+Stimulates("-5", "-6", "-8");
 ProductionMethod("-7", "-8");
 Function("-9","-10");
 TestChecker("-11","-12");
-CheckerInvoke("-13","-14");
+CheckerInvoke("-13","-14", "-15");
 
 // fake it
 //PRINT "MyTest.testCommand()", ENDL;
@@ -48,36 +48,38 @@ CheckerInvoke("-13","-14");
  * @col x:  caller
  * @col y:  callee
  */
-IndirInvokes(id,x,y) := Invokes(id,x,y) 
+/*IndirInvokes(id,x,y) := Invokes(id,x,y) 
 					| EX(z, DefinitionForDeclaration(z,y) & Invokes(id,x,z)) 
 					| EX(z, DefinitionForDeclaration(z,x) & Invokes(id,z,y)) 
-					| EX(u,v, DefinitionForDeclaration(u,x) & DefinitionForDeclaration(v,y) & Invokes(id,u,v));
-
+					| */
 /**
  * contains a cleaned invoke relation. gets rid of the DefinitionForDeclaration step
  * @col id: invoke ID
  * @col x:  x caller
  * @col y:  y callee
  */
-PureInvokes(id,x,y) := IndirInvokes(id,x,y) & (Method(x, _) | Function(x,_)) & (Method(y, _) | Function(y,_));
+/*PureInvokes(id,x,y) := EX(u,v, DefinitionForDeclaration(u,x) & DefinitionForDeclaration(v,y) & Invokes(id,u,v)); */
 
-
-TestInvokes(x,y) := PureInvokes(_,x,y) & (TestCommand(x,_) | TestHelper(x,_));
+TestInvokes(x,y) := PureInvokes(_,x,y) & (TestCommandId(x) | TestHelperId(x));
 TCTestInvokes(x,y) := TC(TestInvokes(x,y)); 
 
-//PRINT TCTestInvokes(x,y), ENDL;
+//PRINT ["TestCommand"] TestCommand(x,y);
+//PRINT ["TestInvokes"] TestInvokes(x,y);
+//PRINT ["TCTestInvokes"] TCTestInvokes(x,y);
+//PRINT ["CheckerInvoke"] CheckerInvoke(x,y,z);
+//PRINT ["TestHelperId"] TestHelperId(y);
 
-FOR tc IN TestCommand(x,_) {
+FOR tc IN TestCommandId(x) {
 	// direct checker invokes in testcommand?
 	num := #(CheckerInvoke(x,tc,y));
 	IF ( num = 0 ) {
 		// indirect checker invokes through testhelpers?
-		AssertInHelper(x):=EX(y, CheckerInvoke(x,y,_) & TCTestInvokes(tc,y) & TestHelper(y,_));
+		AssertInHelper(x) := EX(y, CheckerInvoke(x,y,_) & TCTestInvokes(tc,y) & TestHelperId(y));
 		num2 := #(AssertInHelper(x));
 		IF ( num2 = 0 ) {
-			CmdName(x) := TestCommand(tc,x);
+			CmdName(x) := Method(tc,x);
 			FOR i IN CmdName(x) {
-				PRINT i, ENDL;
+				PRINT "AssertionLess;", i, ENDL;
 			}
 		}
 	}

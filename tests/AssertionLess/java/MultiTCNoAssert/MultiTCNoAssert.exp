@@ -1,2 +1,2 @@
-'MyTest.testMore()'
-'MyTest.testCommand()'
+AssertionLess;MyTest.testCommand()
+AssertionLess;MyTest.testMore()

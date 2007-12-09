@@ -1,12 +1,13 @@
-package mine.uut;
-
 import java.io.FileReader;
-import java.io.BufferReader;
+import java.io.BufferedReader;
 
 public class MyOtherProductionClass {
+
 	public void myOtherMethod(String configFile) {
-		FileReader myFile = new FileReader(configFile);
-		BufferedReader myReader = new BufferedReader(myFile);
-		String myLine = myReader.readLine();
+        try {
+            FileReader myFile = new FileReader(configFile);
+            BufferedReader myReader = new BufferedReader(myFile);
+            String myLine = myReader.readLine();
+        } catch (Exception e) {}
 	}
 }

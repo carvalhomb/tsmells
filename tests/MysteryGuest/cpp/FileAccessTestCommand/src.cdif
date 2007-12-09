@@ -6,8 +6,8 @@ CDIF, SYNTAX "SYNTAX.1" "02.00.00", ENCODING "ENCODING.1" "02.00.00"
 	(:SUMMARY
 		(ExporterName  "snavtofamix")
 		(ExporterVersion  "537")
-		(ExporterDate "2007/11/19")
-		(ExporterTime "17:19:50")
+		(ExporterDate "2007/12/09")
+		(ExporterTime "18:01:55")
 		(PublisherName "unknown")
 		(ParsedSystemName "src")
 		(ReificationLevel "1")
@@ -32,8 +32,8 @@ CDIF, SYNTAX "SYNTAX.1" "02.00.00", ENCODING "ENCODING.1" "02.00.00"
 (Model FM0
 	(exporterName "snavtofamix")
 	(exporterVersion "537")
-	(exporterDate "2007/11/19")
-	(exporterTime "17:19:50")
+	(exporterDate "2007/12/09")
+	(exporterTime "18:01:55")
 	(publisherName "unknown")
 	(parsedSystemName "src")
 	(extractionLevel "4")
@@ -42,63 +42,63 @@ CDIF, SYNTAX "SYNTAX.1" "02.00.00", ENCODING "ENCODING.1" "02.00.00"
 )
 
 (Include FM1
-	(includingFile "tests.cxx")
-	(includedFile "cppunit/TestCase.h")
-	(sourceAnchor #[file "tests.cxx" start 1 end 1|]#)
-)
-
-(Include FM2
-	(includingFile "tests.cxx")
-	(includedFile "cppunit/TestSuite.h")
-	(sourceAnchor #[file "tests.cxx" start 2 end 2|]#)
-)
-
-(Include FM3
-	(includingFile "tests.cxx")
-	(includedFile "cppunit/TextTestResult.h")
-	(sourceAnchor #[file "tests.cxx" start 3 end 3|]#)
-)
-
-(Include FM4
 	(includingFile "testFileInput.h")
 	(includedFile "cppunit/TestCase.h")
 	(sourceAnchor #[file "testFileInput.h" start 1 end 1|]#)
 )
 
-(Include FM5
+(Include FM2
 	(includingFile "testFileInput.h")
 	(includedFile "cppunit/TestSuite.h")
 	(sourceAnchor #[file "testFileInput.h" start 2 end 2|]#)
 )
 
-(Include FM6
+(Include FM3
 	(includingFile "testFileInput.cxx")
 	(includedFile "src/file/ifstream.h")
 	(sourceAnchor #[file "testFileInput.cxx" start 2 end 2|]#)
 )
 
-(Include FM7
+(Include FM4
 	(includingFile "testFileInput.cxx")
 	(includedFile "string")
 	(sourceAnchor #[file "testFileInput.cxx" start 3 end 3|]#)
 )
 
-(Include FM8
+(Include FM5
 	(includingFile "testFileInput.cxx")
 	(includedFile "fcntl.h")
 	(sourceAnchor #[file "testFileInput.cxx" start 4 end 4|]#)
 )
 
-(Include FM9
+(Include FM6
 	(includingFile "testFileInput.cxx")
 	(includedFile "file/stdio.h")
 	(sourceAnchor #[file "testFileInput.cxx" start 5 end 5|]#)
 )
 
-(Include FM10
+(Include FM7
 	(includingFile "testFileInput.cxx")
 	(includedFile "testFileInput.h")
 	(sourceAnchor #[file "testFileInput.cxx" start 7 end 7|]#)
+)
+
+(Include FM8
+	(includingFile "tests.cxx")
+	(includedFile "cppunit/TestCase.h")
+	(sourceAnchor #[file "tests.cxx" start 1 end 1|]#)
+)
+
+(Include FM9
+	(includingFile "tests.cxx")
+	(includedFile "cppunit/TestSuite.h")
+	(sourceAnchor #[file "tests.cxx" start 2 end 2|]#)
+)
+
+(Include FM10
+	(includingFile "tests.cxx")
+	(includedFile "cppunit/TextTestResult.h")
+	(sourceAnchor #[file "tests.cxx" start 3 end 3|]#)
 )
 
 (Class FM11
@@ -4986,211 +4986,211 @@ CDIF, SYNTAX "SYNTAX.1" "02.00.00", ENCODING "ENCODING.1" "02.00.00"
 (Measurement FM449
 	(name "CC")
 	(value "1")
-	(belongsTo "main(int,char*[])")
-	(sourceSourceAnchor #[file "tests.cxx" start 11 end 11|]#)
+	(belongsTo "TestFileInput.TestFileInput()")
+	(sourceSourceAnchor #[file "testFileInput.cxx" start 15 end 15|]#)
 )
 
 (Measurement FM450
 	(name "NOS")
-	(value "8")
-	(belongsTo "main(int,char*[])")
-	(sourceSourceAnchor #[file "tests.cxx" start 11 end 11|]#)
+	(value "1")
+	(belongsTo "TestFileInput.TestFileInput()")
+	(sourceSourceAnchor #[file "testFileInput.cxx" start 15 end 15|]#)
 )
 
 (Measurement FM451
-	(name "LOC")
-	(value "12")
-	(belongsTo "main(int,char*[])")
-	(sourceSourceAnchor #[file "tests.cxx" start 11 end 11|]#)
-)
-
-(Measurement FM452
-	(name "CC")
-	(value "1")
-	(belongsTo "TestFileInput.TestFileInput()")
-	(sourceSourceAnchor #[file "testFileInput.cxx" start 15 end 15|]#)
-)
-
-(Measurement FM453
-	(name "NOS")
-	(value "1")
-	(belongsTo "TestFileInput.TestFileInput()")
-	(sourceSourceAnchor #[file "testFileInput.cxx" start 15 end 15|]#)
-)
-
-(Measurement FM454
 	(name "LOC")
 	(value "3")
 	(belongsTo "TestFileInput.TestFileInput()")
 	(sourceSourceAnchor #[file "testFileInput.cxx" start 15 end 15|]#)
 )
 
-(Measurement FM455
+(Measurement FM452
 	(name "CC")
 	(value "1")
 	(belongsTo "TestFileInput.~TestFileInput()")
 	(sourceSourceAnchor #[file "testFileInput.cxx" start 19 end 19|]#)
+)
+
+(Measurement FM453
+	(name "NOS")
+	(value "0")
+	(belongsTo "TestFileInput.~TestFileInput()")
+	(sourceSourceAnchor #[file "testFileInput.cxx" start 19 end 19|]#)
+)
+
+(Measurement FM454
+	(name "LOC")
+	(value "2")
+	(belongsTo "TestFileInput.~TestFileInput()")
+	(sourceSourceAnchor #[file "testFileInput.cxx" start 19 end 19|]#)
+)
+
+(Measurement FM455
+	(name "CC")
+	(value "1")
+	(belongsTo "TestFileInput.setUp()")
+	(sourceSourceAnchor #[file "testFileInput.cxx" start 23 end 23|]#)
 )
 
 (Measurement FM456
 	(name "NOS")
 	(value "0")
-	(belongsTo "TestFileInput.~TestFileInput()")
-	(sourceSourceAnchor #[file "testFileInput.cxx" start 19 end 19|]#)
+	(belongsTo "TestFileInput.setUp()")
+	(sourceSourceAnchor #[file "testFileInput.cxx" start 23 end 23|]#)
 )
 
 (Measurement FM457
 	(name "LOC")
 	(value "2")
-	(belongsTo "TestFileInput.~TestFileInput()")
-	(sourceSourceAnchor #[file "testFileInput.cxx" start 19 end 19|]#)
+	(belongsTo "TestFileInput.setUp()")
+	(sourceSourceAnchor #[file "testFileInput.cxx" start 23 end 23|]#)
 )
 
 (Measurement FM458
 	(name "CC")
 	(value "1")
-	(belongsTo "TestFileInput.setUp()")
-	(sourceSourceAnchor #[file "testFileInput.cxx" start 23 end 23|]#)
+	(belongsTo "TestFileInput.tearDown()")
+	(sourceSourceAnchor #[file "testFileInput.cxx" start 27 end 27|]#)
 )
 
 (Measurement FM459
 	(name "NOS")
 	(value "0")
-	(belongsTo "TestFileInput.setUp()")
-	(sourceSourceAnchor #[file "testFileInput.cxx" start 23 end 23|]#)
+	(belongsTo "TestFileInput.tearDown()")
+	(sourceSourceAnchor #[file "testFileInput.cxx" start 27 end 27|]#)
 )
 
 (Measurement FM460
 	(name "LOC")
 	(value "2")
-	(belongsTo "TestFileInput.setUp()")
-	(sourceSourceAnchor #[file "testFileInput.cxx" start 23 end 23|]#)
+	(belongsTo "TestFileInput.tearDown()")
+	(sourceSourceAnchor #[file "testFileInput.cxx" start 27 end 27|]#)
 )
 
 (Measurement FM461
-	(name "CC")
-	(value "1")
-	(belongsTo "TestFileInput.tearDown()")
-	(sourceSourceAnchor #[file "testFileInput.cxx" start 27 end 27|]#)
-)
-
-(Measurement FM462
-	(name "NOS")
-	(value "0")
-	(belongsTo "TestFileInput.tearDown()")
-	(sourceSourceAnchor #[file "testFileInput.cxx" start 27 end 27|]#)
-)
-
-(Measurement FM463
-	(name "LOC")
-	(value "2")
-	(belongsTo "TestFileInput.tearDown()")
-	(sourceSourceAnchor #[file "testFileInput.cxx" start 27 end 27|]#)
-)
-
-(Measurement FM464
 	(name "CC")
 	(value "3")
 	(belongsTo "TestFileInput.testIfstream()")
 	(sourceSourceAnchor #[file "testFileInput.cxx" start 30 end 30|]#)
 )
 
-(Measurement FM465
+(Measurement FM462
 	(name "NOS")
 	(value "11")
 	(belongsTo "TestFileInput.testIfstream()")
 	(sourceSourceAnchor #[file "testFileInput.cxx" start 30 end 30|]#)
 )
 
-(Measurement FM466
+(Measurement FM463
 	(name "LOC")
 	(value "17")
 	(belongsTo "TestFileInput.testIfstream()")
 	(sourceSourceAnchor #[file "testFileInput.cxx" start 30 end 30|]#)
 )
 
-(Measurement FM467
+(Measurement FM464
 	(name "CC")
 	(value "3")
 	(belongsTo "TestFileInput.testCfopen()")
 	(sourceSourceAnchor #[file "testFileInput.cxx" start 48 end 48|]#)
+)
+
+(Measurement FM465
+	(name "NOS")
+	(value "6")
+	(belongsTo "TestFileInput.testCfopen()")
+	(sourceSourceAnchor #[file "testFileInput.cxx" start 48 end 48|]#)
+)
+
+(Measurement FM466
+	(name "LOC")
+	(value "11")
+	(belongsTo "TestFileInput.testCfopen()")
+	(sourceSourceAnchor #[file "testFileInput.cxx" start 48 end 48|]#)
+)
+
+(Measurement FM467
+	(name "CC")
+	(value "3")
+	(belongsTo "TestFileInput.testCopen()")
+	(sourceSourceAnchor #[file "testFileInput.cxx" start 60 end 60|]#)
 )
 
 (Measurement FM468
 	(name "NOS")
 	(value "6")
-	(belongsTo "TestFileInput.testCfopen()")
-	(sourceSourceAnchor #[file "testFileInput.cxx" start 48 end 48|]#)
+	(belongsTo "TestFileInput.testCopen()")
+	(sourceSourceAnchor #[file "testFileInput.cxx" start 60 end 60|]#)
 )
 
 (Measurement FM469
 	(name "LOC")
 	(value "11")
-	(belongsTo "TestFileInput.testCfopen()")
-	(sourceSourceAnchor #[file "testFileInput.cxx" start 48 end 48|]#)
+	(belongsTo "TestFileInput.testCopen()")
+	(sourceSourceAnchor #[file "testFileInput.cxx" start 60 end 60|]#)
 )
 
 (Measurement FM470
-	(name "CC")
-	(value "3")
-	(belongsTo "TestFileInput.testCopen()")
-	(sourceSourceAnchor #[file "testFileInput.cxx" start 60 end 60|]#)
-)
-
-(Measurement FM471
-	(name "NOS")
-	(value "6")
-	(belongsTo "TestFileInput.testCopen()")
-	(sourceSourceAnchor #[file "testFileInput.cxx" start 60 end 60|]#)
-)
-
-(Measurement FM472
-	(name "LOC")
-	(value "11")
-	(belongsTo "TestFileInput.testCopen()")
-	(sourceSourceAnchor #[file "testFileInput.cxx" start 60 end 60|]#)
-)
-
-(Measurement FM473
 	(name "CC")
 	(value "1")
 	(belongsTo "TestFileInput.testXPopen()")
 	(sourceSourceAnchor #[file "testFileInput.cxx" start 72 end 72|]#)
 )
 
-(Measurement FM474
+(Measurement FM471
 	(name "NOS")
 	(value "0")
 	(belongsTo "TestFileInput.testXPopen()")
 	(sourceSourceAnchor #[file "testFileInput.cxx" start 72 end 72|]#)
 )
 
-(Measurement FM475
+(Measurement FM472
 	(name "LOC")
 	(value "2")
 	(belongsTo "TestFileInput.testXPopen()")
 	(sourceSourceAnchor #[file "testFileInput.cxx" start 72 end 72|]#)
 )
 
-(Measurement FM476
+(Measurement FM473
 	(name "CC")
 	(value "1")
 	(belongsTo "TestFileInput.suite()")
 	(sourceSourceAnchor #[file "testFileInput.cxx" start 75 end 75|]#)
 )
 
-(Measurement FM477
+(Measurement FM474
 	(name "NOS")
 	(value "6")
 	(belongsTo "TestFileInput.suite()")
 	(sourceSourceAnchor #[file "testFileInput.cxx" start 75 end 75|]#)
 )
 
-(Measurement FM478
+(Measurement FM475
 	(name "LOC")
 	(value "8")
 	(belongsTo "TestFileInput.suite()")
 	(sourceSourceAnchor #[file "testFileInput.cxx" start 75 end 75|]#)
+)
+
+(Measurement FM476
+	(name "CC")
+	(value "1")
+	(belongsTo "main(int,char*[])")
+	(sourceSourceAnchor #[file "tests.cxx" start 11 end 11|]#)
+)
+
+(Measurement FM477
+	(name "NOS")
+	(value "8")
+	(belongsTo "main(int,char*[])")
+	(sourceSourceAnchor #[file "tests.cxx" start 11 end 11|]#)
+)
+
+(Measurement FM478
+	(name "LOC")
+	(value "12")
+	(belongsTo "main(int,char*[])")
+	(sourceSourceAnchor #[file "tests.cxx" start 11 end 11|]#)
 )
 
 )

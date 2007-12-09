@@ -1,0 +1,67 @@
+/**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+/**
+ * Unittests shouldnt be riddled with control structures
+ *
+ **/
+
+// make sure all these relations exist to suppress crocopat warnings
+TestCommand("-1","-2");
+TestHelper("-3","-4");
+Stimulates("-5", "-6");
+ProductionMethod("-7", "-8");
+Function("-9","-10");
+TestChecker("-11","-12");
+CheckerInvoke("-13","-14");
+Measurement("-15","-16","-17","-18");
+ADDLOOPTOUNIVERSE("LOOP");
+ADDCONDTOUNIVERSE("COND");
+
+// fake it implementation
+//PRINT "IndentedTest;TC;MyTest.testCommand();1", ENDL;
+
+//Measurement    212    8    "COND"    1
+//Measurement    213    10    "LOOP"    1
+
+FOR tcid IN TestCommandId(x) {
+    LoopCount(num) := Measurement(_, tcid, "LOOP", num);
+    CondCount(num) := Measurement(_, tcid, "COND", num);
+    ncs := SUM(LoopCount(x)) + SUM(CondCount(y)); // summing over a single element ..
+    IF ( ncs > 0) {
+        TCName(tcnm) := Method(tcid,tcnm); // single element
+        FOR tcnm IN TCName(x) {
+            PRINT "IndentedTest;TC;", tcnm, ";", ncs, ENDL;
+        }
+    }
+}
+
+FOR thid IN TestHelperId(x) {
+    LoopCount(num) := Measurement(_, thid, "LOOP", num);
+    CondCount(num) := Measurement(_, thid, "COND", num);
+    ncs := SUM(LoopCount(x)) + SUM(CondCount(y)); // summing over a single element ..
+    IF ( ncs > 0) {
+        THName(thnm) := Method(thid,thnm); // single element
+        FOR thnm IN THName(x) {
+            PRINT "IndentedTest;TH;", thnm, ";", ncs, ENDL;
+        }
+    }
+}
+

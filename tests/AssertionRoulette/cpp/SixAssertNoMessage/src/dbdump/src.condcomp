@@ -1,5 +1,0 @@
-testStuff.cxx:1:#include "testStuff.h"
-testStuff.h:1:#include <cppunit/TestCase.h>
-testStuff.h:2:#include <cppunit/TestSuite.h>
-testStuff.h:3:#include <cppunit/TestCaller.h>
-testSuite.cxx:1:#include <cppunit/TextTestResult.h>

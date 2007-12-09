@@ -3,12 +3,14 @@
  **/
 
 
-IndirInvokes(id,x,y) := Invokes(id,x,y) 
+/*IndirInvokes(id,x,y) := Invokes(id,x,y) 
 					| EX(z, DefinitionForDeclaration(z,y) & Invokes(id,x,z)) 
 					| EX(z, DefinitionForDeclaration(z,x) & Invokes(id,z,y)) 
 					| EX(u,v, DefinitionForDeclaration(u,x) & DefinitionForDeclaration(v,y) & Invokes(id,u,v));
 
-PureInvokes(id,x,y) := IndirInvokes(id,x,y) & (Method(x, _) | Function(x,_)) & (Method(y, _) | Function(y,_));
+PureInvokes(id,x,y) := IndirInvokes(id,x,y) & (Method(x, _) | Function(x,_)) & (Method(y, _) | Function(y,_)); */
+PureInvokes(id,x,y) := EX(u,v, DefinitionForDeclaration(u,x) & DefinitionForDeclaration(v,y) & Invokes(id,u,v));
+
 
 FOR i IN PureInvokes(_,x,_) {
 	FOR j IN PureInvokes(_,i,y) {

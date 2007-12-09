@@ -1,0 +1,1 @@
+writeJavaSmelliness.sh "IndentedTest" "rsf/MixedTComHelp.rsf"

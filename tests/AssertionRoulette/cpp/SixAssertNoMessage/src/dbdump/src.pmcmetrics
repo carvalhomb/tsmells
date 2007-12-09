@@ -1,5 +1,0 @@
-1	1	0	3	2	./testStuff.cxx(3): TestSumFormula::setUp
-1	1	0	6	2	./testStuff.cxx(6): TestStuff::tearDown
-1	1	6	9	8	./testStuff.cxx(9): TestStuff::testCommand
-1	1	3	18	5	./testStuff.cxx(18): TestStuff::suite
-1	1	6	8	11	./testSuite.cxx(8): main

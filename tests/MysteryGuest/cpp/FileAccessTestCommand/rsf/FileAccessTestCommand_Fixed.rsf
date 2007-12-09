@@ -1259,22 +1259,39 @@ AttributeBelongsToClass	356	39
 HasType	331	21
 HasType	351	21
 Function	52	"assertNotEqualImplementation(std::string,std::string,long,std::string)"
+DefinitionForDeclaration 499 52
 Function	55	"fclose(FILE*)"
+DefinitionForDeclaration 500 55
 Function	59	"operator<<(std::ostream,TextTestResult)"
+DefinitionForDeclaration 501 59
 Function	75	"assertImplementation(bool,std::string,long,std::string)"
+DefinitionForDeclaration 502 75
 Function	77	"getline(istream,string)"
+DefinitionForDeclaration 503 77
 Function	79	"getline(istream,string,char)"
+DefinitionForDeclaration 504 79
 Function	83	"read(int,void*,size_t)"
+DefinitionForDeclaration 505 83
 Function	84	"assertEquals(double,double,double,long,std::string)"
+DefinitionForDeclaration 506 84
 Function	85	"assertEquals(T,T,long,std::string)"
+DefinitionForDeclaration 507 85
 Function	118	"fgets(char*,int,FILE*)"
+DefinitionForDeclaration 508 118
 Function	120	"close(int)"
+DefinitionForDeclaration 509 120
 Function	124	"operator>>(istream,string)"
+DefinitionForDeclaration 510 124
 Function	187	"fopen(char*,char*)"
+DefinitionForDeclaration 511 187
 Function	220	"open(char*,int,...)"
+DefinitionForDeclaration 512 220
 Function	221	"fgetc(FILE*)"
+DefinitionForDeclaration 513 221
 Function	243	"main(int,char*[])"
+DefinitionForDeclaration 514 243
 Function	260	"fread(void*,size_t,size_t,FILE*)"
+DefinitionForDeclaration 515 260
 HasType	77	43
 HasType	79	43
 HasType	124	43
@@ -1343,10 +1360,10 @@ DefinitionForDeclaration	317	316
 DefinitionForDeclaration	319	318
 DefinitionForDeclaration	321	320
 DefinitionForDeclaration	323	322
-Invokes	379	85	52
-Invokes	380	92	55
-Invokes	381	92	118
-Invokes	382	92	187
+Invokes	379	85	499
+Invokes	380	92	500
+Invokes	381	92	508
+Invokes	382	92	511
 Invokes	383	323	259
 Invokes	384	184	115
 Invokes	385	307	225
@@ -1357,9 +1374,9 @@ Invokes	389	197	196
 Invokes	390	140	139
 Invokes	391	165	164
 Invokes	392	150	149
-Invokes	393	70	91
-Invokes	394	70	105
-Invokes	395	70	185
+Invokes	393	70	92
+Invokes	394	70	106
+Invokes	395	70	186
 Invokes	396	70	67
 Invokes	397	167	178
 Invokes	398	167	113
@@ -1376,9 +1393,9 @@ Invokes	408	303	65
 Invokes	409	303	65
 Invokes	410	303	285
 Invokes	411	303	285
-Invokes	500	185	77
-Invokes	501	91	118
-Invokes	502	105	83
+Invokes	500	186	503
+Invokes	501	92	508
+Invokes	502	106	505
 Accesses	357	288	342
 Accesses	358	308	335
 Accesses	359	172	335
