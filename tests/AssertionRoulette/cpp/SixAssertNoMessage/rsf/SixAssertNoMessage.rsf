@@ -1124,14 +1124,6 @@ AttributeBelongsToClass	313	33
 AttributeBelongsToClass	314	34
 HasType	289	16
 HasType	309	16
-Function	48	"operator<<(std::ostream,TextTestResult)"
-Function	51	"CPPUNIT_ASSERT_MESSAGE(std::string,boolean)"
-Function	72	"CPPUNIT_ASSERT_DOUBLES_EQUAL(double,double,double)"
-Function	122	"CPPUNIT_ASSERT_EQUAL(T,T)"
-Function	178	"CPPUNIT_ASSERT_EQUAL_MESSAGE(string,T,T)"
-Function	181	"CPPUNIT_FAIL(std::string)"
-Function	203	"main(int,char*[])"
-Function	252	"CPPUNIT_ASSERT(boolean)"
 InvokableEntityBelongsToFile	43	15	24
 InvokableEntityBelongsToFile	45	20	23
 InvokableEntityBelongsToFile	47	10	44
@@ -1430,12 +1422,21 @@ DefinitionForDeclaration	275	274
 DefinitionForDeclaration	277	276
 DefinitionForDeclaration	279	278
 DefinitionForDeclaration	281	280
-Invokes	337	180	252
-Invokes	338	180	252
-Invokes	339	180	252
-Invokes	340	180	252
-Invokes	341	180	252
-Invokes	342	180	252
+Function	48	"operator<<(std::ostream,TextTestResult)"
+Function	51	"CPPUNIT_ASSERT_MESSAGE(std::string,boolean)"
+Function	72	"CPPUNIT_ASSERT_DOUBLES_EQUAL(double,double,double)"
+Function	122	"CPPUNIT_ASSERT_EQUAL(T,T)"
+Function	178	"CPPUNIT_ASSERT_EQUAL_MESSAGE(string,T,T)"
+Function	181	"CPPUNIT_FAIL(std::string)"
+Function	203	"main(int,char*[])"
+Function	252	"CPPUNIT_ASSERT(boolean)"
+DefinitionForDeclaration    500 252
+Invokes	337	180	500
+Invokes	338	180	500
+Invokes	339	180	500
+Invokes	340	180	500
+Invokes	341	180	500
+Invokes	342	180	500
 Invokes	343	58	53
 Invokes	344	281	217
 Invokes	345	148	88

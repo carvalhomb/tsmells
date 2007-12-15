@@ -42,7 +42,8 @@ CheckerInvoke("-13","-14");
 //PRINT "SensitiveEquality;MyTest.testCommand();1", ENDL;
 //       ^^ testcase.testcommand(), total number of toStrings
 
-ToStringId(x):=Method(x,"java::lang::Object.toString()");
+//ToStringId(x):=Method(x,"java::lang::Object.toString()");
+ToStringId(x):=EX(y,Method(x,y) & @"[.]toString()"(y));
 
 FOR tcid IN TestCommandId(x) {
 	ToStringInvokes(y) := EX(x,PureInvokes(y,tcid,x) & ToStringId(x));

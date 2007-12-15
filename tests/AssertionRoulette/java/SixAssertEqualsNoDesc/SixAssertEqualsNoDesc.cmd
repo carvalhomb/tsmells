@@ -1,1 +1,2 @@
-appendJavaTE.sh rsf/SixAssertEqualsNoDesc.rsf | crocopat ${TSMELLS}/src/AssertionRoulette.rml
+writeJavaSmelliness.sh "AssertionRoulette" "rsf/SixAssertEqualsNoDesc.rsf"
+

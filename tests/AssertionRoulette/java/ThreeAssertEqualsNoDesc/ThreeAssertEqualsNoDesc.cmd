@@ -1,1 +1,2 @@
-appendJavaTE.sh rsf/ThreeAssertEqualsNoDesc.rsf | crocopat ${TSMELLS}/src/AssertionRoulette.rml
+writeJavaSmelliness.sh "AssertionRoulette" "rsf/ThreeAssertEqualsNoDesc.rsf"
+

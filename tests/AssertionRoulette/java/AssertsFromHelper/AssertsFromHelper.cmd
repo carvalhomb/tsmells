@@ -1,1 +1,1 @@
-appendJavaTE.sh rsf/AssertsFromHelper.rsf | crocopat ${TSMELLS}/src/AssertionRoulette.rml
+writeJavaSmelliness.sh "AssertionRoulette" "rsf/AssertsFromHelper.rsf"

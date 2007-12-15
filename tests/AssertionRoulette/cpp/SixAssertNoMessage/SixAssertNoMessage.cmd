@@ -1,1 +1,1 @@
-appendCppTE.sh rsf/SixAssertNoMessage.rsf | crocopat ${TSMELLS}/src/AssertionRoulette.rml
+writeCppSmelliness.sh "AssertionRoulette" rsf/SixAssertNoMessage.rsf

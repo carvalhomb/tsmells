@@ -40,7 +40,7 @@ def grabSources():
 	result = []
 	chdir('src')
 	srcFiles = glob("*.java") + glob("*/*.java") + glob("*/*/*.java") \
-				+ glob("*.cpp") + glob("*.h")
+				+ glob("*.cpp") + glob("*.h") + glob("*.cxx")
 	for src in srcFiles:
 		if src.endswith("TestCase.java"):
 			continue

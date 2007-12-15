@@ -35,12 +35,12 @@
  **/
 
 // make sure all these relations exist to suppress crocopat warnings
-TestCommand("-1","-2");
+/*TestCommand("-1","-2");
 TestHelper("-3","-4");
 Stimulates("-5", "-6", "-7");
 ProductionMethod("-7", "-8");
+TestChecker("-11","-12");*/
 Function("-9","-10");
-TestChecker("-11","-12");
 
 // fake it implementation
 // PRINT "mine::tests::FileAccessTest.testSomething(),mine::tests::FileAccessTest::testSomething(),file, java::io::BufferedReader::readLine()", ENDL;
@@ -75,19 +75,18 @@ MysteryInTc(a,b) := TestCommand(a,_) & Stimulates(_,a,b) & Blacklist(_,_,b);
 FOR tc IN MysteryInTc(x,_) {
 	FOR myst IN MysteryInTc(tc,x) {
 		MethodName(mn) := Method(tc, mn); //singleton
-		// TODO add errorhandling when #MethodName != 1 ??
 		FOR n IN MethodName(mn) {
-			PRINT n, ","; // also contains testcase name
+			PRINT "MysteryGuest;", n, ";"; // also contains testcase name
 		}
 		
 		// print twice since smell in tc itself
 		FOR n IN MethodName(mn) {
-			PRINT n, ",";
+			PRINT n, ";";
 		}
 
 		MystType(mt) := Blacklist(mt,_,myst); //singleton
 		FOR n IN MystType(mt) {
-			PRINT n, ",";
+			PRINT n, ";";
 		}
 
 		MystName(mn) := Blacklist(_,mn,myst); //singleton
@@ -115,7 +114,7 @@ FOR tc IN MysteryInM(x,_,_) {
 		FOR myst IN MysteryInM(tc,th,x) {
 			CommandName(mn) := Method(tc, mn); //singleton
 			FOR n IN CommandName(mn) {
-				PRINT n, ",";
+				PRINT "MysteryGuest;", n, ";";
 			}
 
 			MethodName(hn) := Method(th, hn); //singleton
@@ -123,12 +122,12 @@ FOR tc IN MysteryInM(x,_,_) {
 				MethodName(hn) := Function(th, hn);
 			}
 			FOR m IN MethodName(hn) {
-				PRINT m, ",";
+				PRINT m, ";";
 			}
 
 			MystType(mt) := Blacklist(mt,_,myst); //singleton
 			FOR m IN MystType(mt) {
-				PRINT m, ",";
+				PRINT m, ";";
 			}
 
 			MystName(mn) := Blacklist(_,mn,myst); //singleton

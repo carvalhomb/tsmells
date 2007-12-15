@@ -21,7 +21,7 @@
 import sys
 import glob
 
-#print "MyClass Object 000000.000 MyClass.java;00.00 0x0 {} {} {} {}"
+#print "MyClass Object 000000.000 MyClass.java;00.00 0x4 {} {} {} {}"
 
 DUMPDIR=None
 
@@ -34,7 +34,6 @@ def readClasses():
 	for cl in classFile:
 		# use filepath + name for qualification
 		classes.add(cl.split(" ")[2].split(".")[0].replace("/","."))
-		
 	classFile.close()
 	return classes
 
@@ -56,7 +55,7 @@ def writeObjectInheritances(toAdd):
 		if cl == "java.lang.Object":
 			continue
 		strInh += cl.split(".")[-1] + " Object 000000.000 "\
-									+ cl + ".java" + ";00.00 0x1 {} {} {} {}\n"
+									+ cl.replace(".", "/") + ".java" + ";2.00 0x4 {} {} {} {}\n"
 									
 	inhFilename = glob.glob(DUMPDIR + "/*.inheritance")[0]
 	inhFile     = open(inhFilename, 'a')

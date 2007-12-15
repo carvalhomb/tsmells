@@ -40,8 +40,10 @@ Object wait 000010.001 java/lang/Object.java;10.00 0xc {void} {} {} {}
 Object wait 000011.001 java/lang/Object.java;11.00 0xc {void} {long} {timeout} {}
 Object wait 000012.001 java/lang/Object.java;12.00 0xc {void} {long,int} {timeout,nanos} {}"
 OBJPKG="java/lang/Object.java;1;package java.lang;"
+OBJFILE="java/lang/Object.java;java 1"
 
-echo "$OBJDECL"    >> $DUMPDIR/src.classes
-echo "$OBJMETHODS" >> $DUMPDIR/src.methods
-echo "$OBJMETHODS" >> $DUMPDIR/src.methoddefs
-echo "$OBJPKG"     >> $DUMPDIR/src.packages
+echo "$OBJDECL"    >> $DUMPDIR/*.classes
+echo "$OBJMETHODS" >> $DUMPDIR/*.methods
+echo "$OBJMETHODS" >> $DUMPDIR/*.methoddefs
+echo "$OBJPKG"     >> $DUMPDIR/*.packages
+echo "$OBJFILE"    >> $DUMPDIR/*.files
