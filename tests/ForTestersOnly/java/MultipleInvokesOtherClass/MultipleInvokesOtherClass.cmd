@@ -1,0 +1,1 @@
+writeJavaSmelliness.sh ForTestersOnly rsf/MultipleInvokesOtherClass.rsf
