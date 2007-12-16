@@ -1,0 +1,54 @@
+/**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+/**
+ * Detection of methodes in the production code which are exclusivly for 
+ * testing purposes
+ *
+ * TestEntities: + initCppTestEntities.rml
+ *               + initJavaTestEntities.rml
+ * 
+ * usage: writeJavaSmelliness.sh ForTestersOnly myModel.rsf
+ *
+ * or direct: 1. concatenate 'initJavaTestEntities.rml' with this file
+ *            2. cat myModel.rsf | crocopat concat.rml
+ **/
+
+// fake it
+//PRINT "ForTestersOnly;MyUUT.myFTOMethod()", ENDL;
+
+/**
+ * Relation with FTO method IDs, ie methods which are invoked only in test-code
+ *
+ * @col x : method ID
+ **/
+// TODO dont log predefined library functions
+ForTestersOnlyId(x) := Stimulates(_,_,x) & !EX(y,z, ProductionMethodId(y) & !=(x,y) & PureInvokes(z,y,x));
+
+//PRINT ["ProductionMethodId"] ProductionMethodId(x);
+//PRINT ["Stimulates"] Stimulates(x,y,z);
+//PRINT ["ForTestersOnlyMethID"] ForTestersOnlyId(x);
+
+FOR fto IN ForTestersOnlyId(x) {
+    MtdName(mnm) := Method(fto, mnm);
+    FOR mnm IN MtdName(x) {
+        PRINT "ForTestersOnly;", mnm, ENDL;
+    }
+}

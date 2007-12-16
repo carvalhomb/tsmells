@@ -44,6 +44,25 @@ PRINT ENDL;
 
 PRINT ["CheckerInvoke"] CheckerInvoke(x,y,z);
 
+PRINT ENDL;
+numStimu := #(Stimulates(id,x,y));
+PRINT "STIMULATES: ", numStimu;
+PRINT ENDL;
+
+PRINT ["Stimulates"] Stimulates(x,y,z);
+FOR id IN Stimulates(x,_,_) {
+    FOR tc IN Stimulates(id,x,_) {
+        TcName(tcn) := Method(tc,tcn);
+        FOR tcn IN TcName(x) {
+            FOR meth IN Stimulates(id,tc,x) {
+                MthName(mnm) := Method(meth,mnm);
+                FOR mnm IN MthName(x) {
+                    PRINT "Stimul ", mnm, " IN ", tcn, ENDL;
+                }
+            }
+        }
+    }
+}
 
 PRINT "<<<<<============================>>>>>", ENDL;
 PRINT "#TestCases       ", numCase, ENDL;

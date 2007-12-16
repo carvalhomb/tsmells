@@ -21,12 +21,13 @@
 /**
  * Detection of 'toString' in test commands and helpers
  *
- * TestEntities: + writeCppTestEntities.rml
- *               + writeJavaTestEntities.rml
+ * TestEntities: + initCppTestEntities.rml
+ *               + initJavaTestEntities.rml
  * 
- * eg: appendJavaTE.sh rsf/MyRsf.rsf  | \
- *			crocopat ${TSMELLS}/src/SensitiveEquality.rml
+ * usage: writeJavaSmelliness.sh SensitiveEquality myModel.rsf
  *
+ * or direct: 1. concatenate 'initJavaTestEntities.rml' with this file
+ *            2. cat myModel.rsf | crocopat concat.rml
  **/
 
 // make sure all these relations exist to suppress crocopat warnings

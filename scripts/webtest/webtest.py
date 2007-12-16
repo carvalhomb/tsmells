@@ -16,7 +16,7 @@ class Root():
     def __init__(self):
         self.results = None
         self.all = ["All"]
-        self.smellSuites = ["MysteryGuest", "AssertionRoulette", "AssertionLess", "SensitiveEquality", "IndentedTest" ]
+        self.smellSuites = ["MysteryGuest", "AssertionRoulette", "AssertionLess", "SensitiveEquality", "IndentedTest", "ForTestersOnly" ]
         self.smellSuites.sort()
         self.otherSuites = ["TestEntities", "AddObject", "RmComments", "GenCtrlStructInfo"]
         self.suites  = self.all + self.smellSuites + self.otherSuites
