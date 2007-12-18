@@ -1,13 +1,123 @@
-Module	1	"/"
-File	1	"MyClass.java"
-File	2	"MyInterface.java"
-File	3	"MySecondInterface.java"
+Module	1	"/java/lang"
+Module	2	"/"
+Module	3	"/java"
+ModuleBelongsToModule	1	3
+ModuleBelongsToModule	3	2
+File	1	"java/lang/Object.java"
+File	2	"MyClass.java"
+File	3	"MyInterface.java"
+File	4	"MySecondInterface.java"
 FileBelongsToModule	1	1
-FileBelongsToModule	2	1
-FileBelongsToModule	3	1
-Class	1	"MyClass"
-Class	2	"MyInterface"
-Class	3	"MySecondInterface"
-ClassBelongsToFile	1	1	1
+FileBelongsToModule	2	2
+FileBelongsToModule	3	2
+FileBelongsToModule	4	2
+Class	2	"MyClass"
+Class	3	"MyInterface"
+Class	4	"MySecondInterface"
+Class	5	"java::lang::Object"
 ClassBelongsToFile	2	2	1
 ClassBelongsToFile	3	3	1
+ClassBelongsToFile	4	4	1
+ClassBelongsToFile	5	1	1
+InheritsFrom	6	"MyInterface->java::lang::Object"	3	5
+InheritsFrom	7	"MySecondInterface->java::lang::Object"	4	5
+InheritsFrom	8	"MyClass->java::lang::Object"	2	5
+Method	9	"java::lang::Object.clone()"
+Method	11	"java::lang::Object.equals(java.lang.Object)"
+Method	14	"java::lang::Object.finalize()"
+Method	16	"java::lang::Object.getClass()"
+Method	18	"java::lang::Object.hasCode()"
+Method	20	"java::lang::Object.notify()"
+Method	22	"java::lang::Object.notifyAll()"
+Method	24	"java::lang::Object.toString()"
+Method	26	"java::lang::Object.wait()"
+Method	28	"java::lang::Object.wait(long)"
+Method	31	"java::lang::Object.wait(long,int)"
+MethodBelongsToClass	9	5
+MethodBelongsToClass	11	5
+MethodBelongsToClass	14	5
+MethodBelongsToClass	16	5
+MethodBelongsToClass	18	5
+MethodBelongsToClass	20	5
+MethodBelongsToClass	22	5
+MethodBelongsToClass	24	5
+MethodBelongsToClass	26	5
+MethodBelongsToClass	28	5
+MethodBelongsToClass	31	5
+InvokableEntityBelongsToFile	9	1	02
+InvokableEntityBelongsToFile	11	1	03
+InvokableEntityBelongsToFile	14	1	04
+InvokableEntityBelongsToFile	16	1	05
+InvokableEntityBelongsToFile	18	1	06
+InvokableEntityBelongsToFile	20	1	07
+InvokableEntityBelongsToFile	22	1	08
+InvokableEntityBelongsToFile	24	1	09
+InvokableEntityBelongsToFile	26	1	10
+InvokableEntityBelongsToFile	28	1	11
+InvokableEntityBelongsToFile	31	1	12
+InvokableEntityBelongsToFile	10	1	02
+InvokableEntityBelongsToFile	12	1	03
+InvokableEntityBelongsToFile	15	1	04
+InvokableEntityBelongsToFile	17	1	05
+InvokableEntityBelongsToFile	19	1	06
+InvokableEntityBelongsToFile	21	1	07
+InvokableEntityBelongsToFile	23	1	08
+InvokableEntityBelongsToFile	25	1	09
+InvokableEntityBelongsToFile	27	1	10
+InvokableEntityBelongsToFile	29	1	11
+InvokableEntityBelongsToFile	32	1	12
+Visibility	9	"public"
+Visibility	11	"public"
+Visibility	14	"public"
+Visibility	16	"public"
+Visibility	18	"public"
+Visibility	20	"public"
+Visibility	22	"public"
+Visibility	24	"public"
+Visibility	26	"public"
+Visibility	28	"public"
+Visibility	31	"public"
+Signature	9	"clone()"
+Signature	11	"equals(java.lang.Object)"
+Signature	14	"finalize()"
+Signature	16	"getClass()"
+Signature	18	"hasCode()"
+Signature	20	"notify()"
+Signature	22	"notifyAll()"
+Signature	24	"toString()"
+Signature	26	"wait()"
+Signature	28	"wait(long)"
+Signature	31	"wait(long,int)"
+InvokableEntityBelongsToFile	9	1	02
+InvokableEntityBelongsToFile	11	1	03
+InvokableEntityBelongsToFile	14	1	04
+InvokableEntityBelongsToFile	16	1	05
+InvokableEntityBelongsToFile	18	1	06
+InvokableEntityBelongsToFile	20	1	07
+InvokableEntityBelongsToFile	22	1	08
+InvokableEntityBelongsToFile	24	1	09
+InvokableEntityBelongsToFile	26	1	10
+InvokableEntityBelongsToFile	28	1	11
+InvokableEntityBelongsToFile	31	1	12
+InvokableEntityBelongsToFile	10	1	02
+InvokableEntityBelongsToFile	12	1	03
+InvokableEntityBelongsToFile	15	1	04
+InvokableEntityBelongsToFile	17	1	05
+InvokableEntityBelongsToFile	19	1	06
+InvokableEntityBelongsToFile	21	1	07
+InvokableEntityBelongsToFile	23	1	08
+InvokableEntityBelongsToFile	25	1	09
+InvokableEntityBelongsToFile	27	1	10
+InvokableEntityBelongsToFile	29	1	11
+InvokableEntityBelongsToFile	32	1	12
+DefinitionForDeclaration	10	9
+DefinitionForDeclaration	12	11
+DefinitionForDeclaration	15	14
+DefinitionForDeclaration	17	16
+DefinitionForDeclaration	19	18
+DefinitionForDeclaration	21	20
+DefinitionForDeclaration	23	22
+DefinitionForDeclaration	25	24
+DefinitionForDeclaration	27	26
+DefinitionForDeclaration	29	28
+DefinitionForDeclaration	32	31
