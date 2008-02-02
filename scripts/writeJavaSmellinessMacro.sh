@@ -21,7 +21,15 @@
 SMELL=$1
 RSF=$2
 
+PARAMS=( $@ )
+
+MACRO=""
+for i in $(seq 3 $(( $# - 1 )))
+do
+    MACRO="$MACRO ${PARAMS[i]}"
+done
+
 RML=$(mktemp) && \
-m4 -DINIT_TEST_ENTITIES=$TSMELLS/src/initJavaTestEntities.rml $TSMELLS/src/$SMELL.rml > $RML &&\
-cat $RSF | crocopat $RML && \
+m4 -DINIT_TEST_ENTITIES=$TSMELLS/src/initJavaTestEntities.rml $MACRO $TSMELLS/src/$SMELL.rml > $RML &&\
+cat $RSF | crocopat $RML 2> /dev/null && \
 rm -rf $RML &> /dev/null;

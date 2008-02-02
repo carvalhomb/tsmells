@@ -1,0 +1,2406 @@
+CDIF, SYNTAX "SYNTAX.1" "02.00.00", ENCODING "ENCODING.1" "02.00.00"
+#| FAMOOS Information Exchange (FAMIX) Model, see http://www.iam.unibe.ch/~famoos/FAMIX/ |#
+
+
+(:HEADER
+	(:SUMMARY
+		(ExporterName  "snavtofamix")
+		(ExporterVersion  "537")
+		(ExporterDate "2008/02/02")
+		(ExporterTime "16:03:35")
+		(PublisherName "unknown")
+		(ParsedSystemName "src")
+		(ReificationLevel "1")
+		(SourceLanguage "C++")
+	)
+)
+
+(:META-MODEL
+	(:SUBJECTAREAREFERENCE Foundation
+		(:VERSIONNUMBER "01.00")
+	)
+	(:SUBJECTAREAREFERENCE FAMIX     
+		(:VERSIONNUMBER "2.2"  )
+	)
+)
+
+
+
+(:MODEL
+
+
+(Model FM0
+	(exporterName "snavtofamix")
+	(exporterVersion "537")
+	(exporterDate "2008/02/02")
+	(exporterTime "16:03:35")
+	(publisherName "unknown")
+	(parsedSystemName "src")
+	(extractionLevel "4")
+	(sourceLanguage "Java")
+	(sourceDialect "")
+)
+
+(Package FM1
+	(uniqueName "org::junit")
+	(name "junit")
+	(belongsTo "org")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 1 end 1|]#)
+)
+
+(Package FM2
+	(uniqueName "java::lang")
+	(name "lang")
+	(belongsTo "java")
+	(sourceAnchor #[file "java/lang/Object.java" start 1 end 1|]#)
+)
+
+(Class FM3
+	(name "A")
+	(uniqueName "A")
+	(isAbstract -FALSE-)
+	(sourceAnchor #[file "A.java" start 1 end 1|]#)
+)
+
+(Class FM4
+	(name "B")
+	(uniqueName "B")
+	(isAbstract -FALSE-)
+	(sourceAnchor #[file "B.java" start 1 end 1|]#)
+)
+
+(Class FM5
+	(name "C")
+	(uniqueName "C")
+	(isAbstract -FALSE-)
+	(sourceAnchor #[file "C.java" start 1 end 1|]#)
+)
+
+(Class FM6
+	(name "D")
+	(uniqueName "D")
+	(isAbstract -FALSE-)
+	(sourceAnchor #[file "D.java" start 1 end 1|]#)
+)
+
+(Class FM7
+	(name "E")
+	(uniqueName "E")
+	(isAbstract -FALSE-)
+	(sourceAnchor #[file "E.java" start 1 end 1|]#)
+)
+
+(Class FM8
+	(name "F")
+	(uniqueName "F")
+	(isAbstract -FALSE-)
+	(sourceAnchor #[file "F.java" start 1 end 1|]#)
+)
+
+(Class FM9
+	(name "MyTest")
+	(uniqueName "MyTest")
+	(isAbstract -FALSE-)
+	(sourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+)
+
+(Class FM10
+	(name "TestCase")
+	(uniqueName "org::junit::TestCase")
+	(belongsTo "org::junit")
+	(isAbstract -FALSE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(Class FM11
+	(name "Object")
+	(uniqueName "java::lang::Object")
+	(belongsTo "java::lang")
+	(isAbstract -FALSE-)
+	(sourceAnchor #[file "java/lang/Object.java" start 1 end 1|]#)
+)
+
+(InheritanceDefinition FM12
+	(subclass "MyTest")
+	(superclass "org::junit::TestCase")
+	(accessControlQualifier "public")
+	(sourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+	(superclassSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(InheritanceDefinition FM13
+	(subclass "C")
+	(superclass "java::lang::Object")
+	(accessControlQualifier "public")
+	(sourceAnchor #[file "C.java" start 1 end 1|]#)
+	(superclassSourceAnchor #[file "java/lang/Object.java" start 1 end 1|]#)
+)
+
+(InheritanceDefinition FM14
+	(subclass "B")
+	(superclass "java::lang::Object")
+	(accessControlQualifier "public")
+	(sourceAnchor #[file "B.java" start 1 end 1|]#)
+	(superclassSourceAnchor #[file "java/lang/Object.java" start 1 end 1|]#)
+)
+
+(InheritanceDefinition FM15
+	(subclass "A")
+	(superclass "java::lang::Object")
+	(accessControlQualifier "public")
+	(sourceAnchor #[file "A.java" start 1 end 1|]#)
+	(superclassSourceAnchor #[file "java/lang/Object.java" start 1 end 1|]#)
+)
+
+(InheritanceDefinition FM16
+	(subclass "E")
+	(superclass "java::lang::Object")
+	(accessControlQualifier "public")
+	(sourceAnchor #[file "E.java" start 1 end 1|]#)
+	(superclassSourceAnchor #[file "java/lang/Object.java" start 1 end 1|]#)
+)
+
+(InheritanceDefinition FM17
+	(subclass "MyTest")
+	(superclass "java::lang::Object")
+	(accessControlQualifier "public")
+	(sourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+	(superclassSourceAnchor #[file "java/lang/Object.java" start 1 end 1|]#)
+)
+
+(InheritanceDefinition FM18
+	(subclass "D")
+	(superclass "java::lang::Object")
+	(accessControlQualifier "public")
+	(sourceAnchor #[file "D.java" start 1 end 1|]#)
+	(superclassSourceAnchor #[file "java/lang/Object.java" start 1 end 1|]#)
+)
+
+(InheritanceDefinition FM19
+	(subclass "F")
+	(superclass "java::lang::Object")
+	(accessControlQualifier "public")
+	(sourceAnchor #[file "F.java" start 1 end 1|]#)
+	(superclassSourceAnchor #[file "java/lang/Object.java" start 1 end 1|]#)
+)
+
+(InheritanceDefinition FM20
+	(subclass "org::junit::TestCase")
+	(superclass "java::lang::Object")
+	(accessControlQualifier "public")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+	(superclassSourceAnchor #[file "java/lang/Object.java" start 1 end 1|]#)
+)
+
+(Method FM21
+	(name "testCommand")
+	(belongsTo "MyTest")
+	(uniqueName "MyTest.testCommand()")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "testCommand()")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -FALSE-)
+	(sourceAnchor #[file "MyTest.java" start 14 end 14|]#)
+	(parentSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+)
+
+(MethodDefinition FM22
+	(name "testCommand")
+	(declaredBy "MyTest.testCommand()")
+	(uniqueName "MyTest.testCommand()_1")
+	(sourceAnchor #[file "MyTest.java" start 14 end 14|]#)
+	(declSourceAnchor #[file "MyTest.java" start 14 end 14|]#)
+)
+
+(Method FM23
+	(name "assertEquals")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertEquals(boolean,boolean)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertEquals(boolean,boolean)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 4 end 4|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM24
+	(name "assertEquals")
+	(declaredBy "org::junit::TestCase.assertEquals(boolean,boolean)")
+	(uniqueName "org::junit::TestCase.assertEquals(boolean,boolean)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 4 end 4|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 4 end 4|]#)
+)
+
+(FormalParameter FM25
+	(name "expected")
+	(declaredType "boolean")
+	(declaredClass "boolean")
+	(belongsToBehaviour "org::junit::assertEquals(boolean,boolean)")
+	(position 1)
+	(uniqueName "org::junit::assertEquals(boolean,boolean).expected")
+)
+
+(FormalParameter FM26
+	(name "actual")
+	(declaredType "boolean")
+	(declaredClass "boolean")
+	(belongsToBehaviour "org::junit::assertEquals(boolean,boolean)")
+	(position 2)
+	(uniqueName "org::junit::assertEquals(boolean,boolean).actual")
+)
+
+(Method FM27
+	(name "assertEquals")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertEquals(byte,byte)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertEquals(byte,byte)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 5 end 5|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM28
+	(name "assertEquals")
+	(declaredBy "org::junit::TestCase.assertEquals(byte,byte)")
+	(uniqueName "org::junit::TestCase.assertEquals(byte,byte)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 5 end 5|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 5 end 5|]#)
+)
+
+(FormalParameter FM29
+	(name "expected")
+	(declaredType "byte")
+	(declaredClass "byte")
+	(belongsToBehaviour "org::junit::assertEquals(byte,byte)")
+	(position 1)
+	(uniqueName "org::junit::assertEquals(byte,byte).expected")
+)
+
+(FormalParameter FM30
+	(name "actual")
+	(declaredType "byte")
+	(declaredClass "byte")
+	(belongsToBehaviour "org::junit::assertEquals(byte,byte)")
+	(position 2)
+	(uniqueName "org::junit::assertEquals(byte,byte).actual")
+)
+
+(Method FM31
+	(name "assertEquals")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertEquals(char,char)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertEquals(char,char)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 6 end 6|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM32
+	(name "assertEquals")
+	(declaredBy "org::junit::TestCase.assertEquals(char,char)")
+	(uniqueName "org::junit::TestCase.assertEquals(char,char)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 6 end 6|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 6 end 6|]#)
+)
+
+(FormalParameter FM33
+	(name "expected")
+	(declaredType "char")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(char,char)")
+	(position 1)
+	(uniqueName "org::junit::assertEquals(char,char).expected")
+)
+
+(FormalParameter FM34
+	(name "actual")
+	(declaredType "char")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(char,char)")
+	(position 2)
+	(uniqueName "org::junit::assertEquals(char,char).actual")
+)
+
+(Method FM35
+	(name "assertEquals")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertEquals(double,double,double)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertEquals(double,double,double)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 7 end 7|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM36
+	(name "assertEquals")
+	(declaredBy "org::junit::TestCase.assertEquals(double,double,double)")
+	(uniqueName "org::junit::TestCase.assertEquals(double,double,double)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 7 end 7|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 7 end 7|]#)
+)
+
+(FormalParameter FM37
+	(name "expected")
+	(declaredType "double")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(double,double,double)")
+	(position 1)
+	(uniqueName "org::junit::assertEquals(double,double,double).expected")
+)
+
+(FormalParameter FM38
+	(name "actual")
+	(declaredType "double")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(double,double,double)")
+	(position 2)
+	(uniqueName "org::junit::assertEquals(double,double,double).actual")
+)
+
+(FormalParameter FM39
+	(name "delta")
+	(declaredType "double")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(double,double,double)")
+	(position 3)
+	(uniqueName "org::junit::assertEquals(double,double,double).delta")
+)
+
+(Method FM40
+	(name "assertEquals")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertEquals(float,float,float)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertEquals(float,float,float)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 8 end 8|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM41
+	(name "assertEquals")
+	(declaredBy "org::junit::TestCase.assertEquals(float,float,float)")
+	(uniqueName "org::junit::TestCase.assertEquals(float,float,float)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 8 end 8|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 8 end 8|]#)
+)
+
+(FormalParameter FM42
+	(name "expected")
+	(declaredType "float")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(float,float,float)")
+	(position 1)
+	(uniqueName "org::junit::assertEquals(float,float,float).expected")
+)
+
+(FormalParameter FM43
+	(name "actual")
+	(declaredType "float")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(float,float,float)")
+	(position 2)
+	(uniqueName "org::junit::assertEquals(float,float,float).actual")
+)
+
+(FormalParameter FM44
+	(name "delta")
+	(declaredType "float")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(float,float,float)")
+	(position 3)
+	(uniqueName "org::junit::assertEquals(float,float,float).delta")
+)
+
+(Method FM45
+	(name "assertEquals")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertEquals(int,int)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertEquals(int,int)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 9 end 9|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM46
+	(name "assertEquals")
+	(declaredBy "org::junit::TestCase.assertEquals(int,int)")
+	(uniqueName "org::junit::TestCase.assertEquals(int,int)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 9 end 9|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 9 end 9|]#)
+)
+
+(FormalParameter FM47
+	(name "expected")
+	(declaredType "int")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(int,int)")
+	(position 1)
+	(uniqueName "org::junit::assertEquals(int,int).expected")
+)
+
+(FormalParameter FM48
+	(name "actual")
+	(declaredType "int")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(int,int)")
+	(position 2)
+	(uniqueName "org::junit::assertEquals(int,int).actual")
+)
+
+(Method FM49
+	(name "assertEquals")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertEquals(long,long)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertEquals(long,long)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 10 end 10|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM50
+	(name "assertEquals")
+	(declaredBy "org::junit::TestCase.assertEquals(long,long)")
+	(uniqueName "org::junit::TestCase.assertEquals(long,long)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 10 end 10|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 10 end 10|]#)
+)
+
+(FormalParameter FM51
+	(name "expected")
+	(declaredType "long")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(long,long)")
+	(position 1)
+	(uniqueName "org::junit::assertEquals(long,long).expected")
+)
+
+(FormalParameter FM52
+	(name "actual")
+	(declaredType "long")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(long,long)")
+	(position 2)
+	(uniqueName "org::junit::assertEquals(long,long).actual")
+)
+
+(Method FM53
+	(name "assertEquals")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.Object,java.lang.Object)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertEquals(java.lang.Object,java.lang.Object)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 11 end 11|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM54
+	(name "assertEquals")
+	(declaredBy "org::junit::TestCase.assertEquals(java.lang.Object,java.lang.Object)")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.Object,java.lang.Object)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 11 end 11|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 11 end 11|]#)
+)
+
+(FormalParameter FM55
+	(name "expected")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.Object,java.lang.Object)")
+	(position 1)
+	(uniqueName "org::junit::assertEquals(java.lang.Object,java.lang.Object).expected")
+)
+
+(FormalParameter FM56
+	(name "actual")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.Object,java.lang.Object)")
+	(position 2)
+	(uniqueName "org::junit::assertEquals(java.lang.Object,java.lang.Object).actual")
+)
+
+(Method FM57
+	(name "assertEquals")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertEquals(short,short)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertEquals(short,short)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 12 end 12|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM58
+	(name "assertEquals")
+	(declaredBy "org::junit::TestCase.assertEquals(short,short)")
+	(uniqueName "org::junit::TestCase.assertEquals(short,short)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 12 end 12|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 12 end 12|]#)
+)
+
+(FormalParameter FM59
+	(name "expected")
+	(declaredType "short")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(short,short)")
+	(position 1)
+	(uniqueName "org::junit::assertEquals(short,short).expected")
+)
+
+(FormalParameter FM60
+	(name "actual")
+	(declaredType "short")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(short,short)")
+	(position 2)
+	(uniqueName "org::junit::assertEquals(short,short).actual")
+)
+
+(Method FM61
+	(name "assertEquals")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,boolean,boolean)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertEquals(java.lang.String,boolean,boolean)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 13 end 13|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM62
+	(name "assertEquals")
+	(declaredBy "org::junit::TestCase.assertEquals(java.lang.String,boolean,boolean)")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,boolean,boolean)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 13 end 13|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 13 end 13|]#)
+)
+
+(FormalParameter FM63
+	(name "message")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,boolean,boolean)")
+	(position 1)
+	(uniqueName "org::junit::assertEquals(java.lang.String,boolean,boolean).message")
+)
+
+(FormalParameter FM64
+	(name "expected")
+	(declaredType "boolean")
+	(declaredClass "boolean")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,boolean,boolean)")
+	(position 2)
+	(uniqueName "org::junit::assertEquals(java.lang.String,boolean,boolean).expected")
+)
+
+(FormalParameter FM65
+	(name "actual")
+	(declaredType "boolean")
+	(declaredClass "boolean")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,boolean,boolean)")
+	(position 3)
+	(uniqueName "org::junit::assertEquals(java.lang.String,boolean,boolean).actual")
+)
+
+(Method FM66
+	(name "assertEquals")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,byte,byte)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertEquals(java.lang.String,byte,byte)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 14 end 14|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM67
+	(name "assertEquals")
+	(declaredBy "org::junit::TestCase.assertEquals(java.lang.String,byte,byte)")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,byte,byte)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 14 end 14|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 14 end 14|]#)
+)
+
+(FormalParameter FM68
+	(name "message")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,byte,byte)")
+	(position 1)
+	(uniqueName "org::junit::assertEquals(java.lang.String,byte,byte).message")
+)
+
+(FormalParameter FM69
+	(name "expected")
+	(declaredType "byte")
+	(declaredClass "byte")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,byte,byte)")
+	(position 2)
+	(uniqueName "org::junit::assertEquals(java.lang.String,byte,byte).expected")
+)
+
+(FormalParameter FM70
+	(name "actual")
+	(declaredType "byte")
+	(declaredClass "byte")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,byte,byte)")
+	(position 3)
+	(uniqueName "org::junit::assertEquals(java.lang.String,byte,byte).actual")
+)
+
+(Method FM71
+	(name "assertEquals")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,char,char)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertEquals(java.lang.String,char,char)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 15 end 15|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM72
+	(name "assertEquals")
+	(declaredBy "org::junit::TestCase.assertEquals(java.lang.String,char,char)")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,char,char)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 15 end 15|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 15 end 15|]#)
+)
+
+(FormalParameter FM73
+	(name "message")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,char,char)")
+	(position 1)
+	(uniqueName "org::junit::assertEquals(java.lang.String,char,char).message")
+)
+
+(FormalParameter FM74
+	(name "expected")
+	(declaredType "char")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,char,char)")
+	(position 2)
+	(uniqueName "org::junit::assertEquals(java.lang.String,char,char).expected")
+)
+
+(FormalParameter FM75
+	(name "actual")
+	(declaredType "char")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,char,char)")
+	(position 3)
+	(uniqueName "org::junit::assertEquals(java.lang.String,char,char).actual")
+)
+
+(Method FM76
+	(name "assertEquals")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,double,double,double)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertEquals(java.lang.String,double,double,double)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 16 end 16|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM77
+	(name "assertEquals")
+	(declaredBy "org::junit::TestCase.assertEquals(java.lang.String,double,double,double)")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,double,double,double)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 16 end 16|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 16 end 16|]#)
+)
+
+(FormalParameter FM78
+	(name "message")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,double,double,double)")
+	(position 1)
+	(uniqueName "org::junit::assertEquals(java.lang.String,double,double,double).message")
+)
+
+(FormalParameter FM79
+	(name "expected")
+	(declaredType "double")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,double,double,double)")
+	(position 2)
+	(uniqueName "org::junit::assertEquals(java.lang.String,double,double,double).expected")
+)
+
+(FormalParameter FM80
+	(name "actual")
+	(declaredType "double")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,double,double,double)")
+	(position 3)
+	(uniqueName "org::junit::assertEquals(java.lang.String,double,double,double).actual")
+)
+
+(FormalParameter FM81
+	(name "delta")
+	(declaredType "double")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,double,double,double)")
+	(position 4)
+	(uniqueName "org::junit::assertEquals(java.lang.String,double,double,double).delta")
+)
+
+(Method FM82
+	(name "assertEquals")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,float,float,float)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertEquals(java.lang.String,float,float,float)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 17 end 17|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM83
+	(name "assertEquals")
+	(declaredBy "org::junit::TestCase.assertEquals(java.lang.String,float,float,float)")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,float,float,float)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 17 end 17|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 17 end 17|]#)
+)
+
+(FormalParameter FM84
+	(name "message")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,float,float,float)")
+	(position 1)
+	(uniqueName "org::junit::assertEquals(java.lang.String,float,float,float).message")
+)
+
+(FormalParameter FM85
+	(name "expected")
+	(declaredType "float")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,float,float,float)")
+	(position 2)
+	(uniqueName "org::junit::assertEquals(java.lang.String,float,float,float).expected")
+)
+
+(FormalParameter FM86
+	(name "actual")
+	(declaredType "float")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,float,float,float)")
+	(position 3)
+	(uniqueName "org::junit::assertEquals(java.lang.String,float,float,float).actual")
+)
+
+(FormalParameter FM87
+	(name "delta")
+	(declaredType "float")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,float,float,float)")
+	(position 4)
+	(uniqueName "org::junit::assertEquals(java.lang.String,float,float,float).delta")
+)
+
+(Method FM88
+	(name "assertEquals")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,int,int)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertEquals(java.lang.String,int,int)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 18 end 18|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM89
+	(name "assertEquals")
+	(declaredBy "org::junit::TestCase.assertEquals(java.lang.String,int,int)")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,int,int)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 18 end 18|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 18 end 18|]#)
+)
+
+(FormalParameter FM90
+	(name "message")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,int,int)")
+	(position 1)
+	(uniqueName "org::junit::assertEquals(java.lang.String,int,int).message")
+)
+
+(FormalParameter FM91
+	(name "expected")
+	(declaredType "int")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,int,int)")
+	(position 2)
+	(uniqueName "org::junit::assertEquals(java.lang.String,int,int).expected")
+)
+
+(FormalParameter FM92
+	(name "actual")
+	(declaredType "int")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,int,int)")
+	(position 3)
+	(uniqueName "org::junit::assertEquals(java.lang.String,int,int).actual")
+)
+
+(Method FM93
+	(name "assertEquals")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,long,long)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertEquals(java.lang.String,long,long)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 19 end 19|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM94
+	(name "assertEquals")
+	(declaredBy "org::junit::TestCase.assertEquals(java.lang.String,long,long)")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,long,long)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 19 end 19|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 19 end 19|]#)
+)
+
+(FormalParameter FM95
+	(name "message")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,long,long)")
+	(position 1)
+	(uniqueName "org::junit::assertEquals(java.lang.String,long,long).message")
+)
+
+(FormalParameter FM96
+	(name "expected")
+	(declaredType "long")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,long,long)")
+	(position 2)
+	(uniqueName "org::junit::assertEquals(java.lang.String,long,long).expected")
+)
+
+(FormalParameter FM97
+	(name "actual")
+	(declaredType "long")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,long,long)")
+	(position 3)
+	(uniqueName "org::junit::assertEquals(java.lang.String,long,long).actual")
+)
+
+(Method FM98
+	(name "assertEquals")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,java.lang.Object,java.lang.Object)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertEquals(java.lang.String,java.lang.Object,java.lang.Object)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 20 end 20|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM99
+	(name "assertEquals")
+	(declaredBy "org::junit::TestCase.assertEquals(java.lang.String,java.lang.Object,java.lang.Object)")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,java.lang.Object,java.lang.Object)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 20 end 20|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 20 end 20|]#)
+)
+
+(FormalParameter FM100
+	(name "message")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,java.lang.Object,java.lang.Object)")
+	(position 1)
+	(uniqueName "org::junit::assertEquals(java.lang.String,java.lang.Object,java.lang.Object).message")
+)
+
+(FormalParameter FM101
+	(name "expected")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,java.lang.Object,java.lang.Object)")
+	(position 2)
+	(uniqueName "org::junit::assertEquals(java.lang.String,java.lang.Object,java.lang.Object).expected")
+)
+
+(FormalParameter FM102
+	(name "actual")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,java.lang.Object,java.lang.Object)")
+	(position 3)
+	(uniqueName "org::junit::assertEquals(java.lang.String,java.lang.Object,java.lang.Object).actual")
+)
+
+(Method FM103
+	(name "assertEquals")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,short,short)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertEquals(java.lang.String,short,short)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 21 end 21|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM104
+	(name "assertEquals")
+	(declaredBy "org::junit::TestCase.assertEquals(java.lang.String,short,short)")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,short,short)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 21 end 21|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 21 end 21|]#)
+)
+
+(FormalParameter FM105
+	(name "message")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,short,short)")
+	(position 1)
+	(uniqueName "org::junit::assertEquals(java.lang.String,short,short).message")
+)
+
+(FormalParameter FM106
+	(name "expected")
+	(declaredType "short")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,short,short)")
+	(position 2)
+	(uniqueName "org::junit::assertEquals(java.lang.String,short,short).expected")
+)
+
+(FormalParameter FM107
+	(name "actual")
+	(declaredType "short")
+	(declaredClass "")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,short,short)")
+	(position 3)
+	(uniqueName "org::junit::assertEquals(java.lang.String,short,short).actual")
+)
+
+(Method FM108
+	(name "assertEquals")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,java.lang.String)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertEquals(java.lang.String,java.lang.String)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 22 end 22|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM109
+	(name "assertEquals")
+	(declaredBy "org::junit::TestCase.assertEquals(java.lang.String,java.lang.String)")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,java.lang.String)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 22 end 22|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 22 end 22|]#)
+)
+
+(FormalParameter FM110
+	(name "expected")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,java.lang.String)")
+	(position 1)
+	(uniqueName "org::junit::assertEquals(java.lang.String,java.lang.String).expected")
+)
+
+(FormalParameter FM111
+	(name "actual")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,java.lang.String)")
+	(position 2)
+	(uniqueName "org::junit::assertEquals(java.lang.String,java.lang.String).actual")
+)
+
+(Method FM112
+	(name "assertEquals")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,java.lang.String,java.lang.String)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertEquals(java.lang.String,java.lang.String,java.lang.String)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 23 end 23|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM113
+	(name "assertEquals")
+	(declaredBy "org::junit::TestCase.assertEquals(java.lang.String,java.lang.String,java.lang.String)")
+	(uniqueName "org::junit::TestCase.assertEquals(java.lang.String,java.lang.String,java.lang.String)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 23 end 23|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 23 end 23|]#)
+)
+
+(FormalParameter FM114
+	(name "message")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,java.lang.String,java.lang.String)")
+	(position 1)
+	(uniqueName "org::junit::assertEquals(java.lang.String,java.lang.String,java.lang.String).message")
+)
+
+(FormalParameter FM115
+	(name "expected")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,java.lang.String,java.lang.String)")
+	(position 2)
+	(uniqueName "org::junit::assertEquals(java.lang.String,java.lang.String,java.lang.String).expected")
+)
+
+(FormalParameter FM116
+	(name "actual")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::assertEquals(java.lang.String,java.lang.String,java.lang.String)")
+	(position 3)
+	(uniqueName "org::junit::assertEquals(java.lang.String,java.lang.String,java.lang.String).actual")
+)
+
+(Method FM117
+	(name "assertFalse")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertFalse(boolean)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertFalse(boolean)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 24 end 24|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM118
+	(name "assertFalse")
+	(declaredBy "org::junit::TestCase.assertFalse(boolean)")
+	(uniqueName "org::junit::TestCase.assertFalse(boolean)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 24 end 24|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 24 end 24|]#)
+)
+
+(FormalParameter FM119
+	(name "condition")
+	(declaredType "boolean")
+	(declaredClass "boolean")
+	(belongsToBehaviour "org::junit::assertFalse(boolean)")
+	(position 1)
+	(uniqueName "org::junit::assertFalse(boolean).condition")
+)
+
+(Method FM120
+	(name "assertFalse")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertFalse(java.lang.String,boolean)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertFalse(java.lang.String,boolean)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 25 end 25|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM121
+	(name "assertFalse")
+	(declaredBy "org::junit::TestCase.assertFalse(java.lang.String,boolean)")
+	(uniqueName "org::junit::TestCase.assertFalse(java.lang.String,boolean)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 25 end 25|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 25 end 25|]#)
+)
+
+(FormalParameter FM122
+	(name "message")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::assertFalse(java.lang.String,boolean)")
+	(position 1)
+	(uniqueName "org::junit::assertFalse(java.lang.String,boolean).message")
+)
+
+(FormalParameter FM123
+	(name "condition")
+	(declaredType "boolean")
+	(declaredClass "boolean")
+	(belongsToBehaviour "org::junit::assertFalse(java.lang.String,boolean)")
+	(position 2)
+	(uniqueName "org::junit::assertFalse(java.lang.String,boolean).condition")
+)
+
+(Method FM124
+	(name "assertNotNull")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertNotNull(java.lang.Object)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertNotNull(java.lang.Object)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 26 end 26|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM125
+	(name "assertNotNull")
+	(declaredBy "org::junit::TestCase.assertNotNull(java.lang.Object)")
+	(uniqueName "org::junit::TestCase.assertNotNull(java.lang.Object)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 26 end 26|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 26 end 26|]#)
+)
+
+(FormalParameter FM126
+	(name "object")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::assertNotNull(java.lang.Object)")
+	(position 1)
+	(uniqueName "org::junit::assertNotNull(java.lang.Object).object")
+)
+
+(Method FM127
+	(name "assertNotNull")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertNotNull(java.lang.String,java.lang.Object)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertNotNull(java.lang.String,java.lang.Object)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 27 end 27|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM128
+	(name "assertNotNull")
+	(declaredBy "org::junit::TestCase.assertNotNull(java.lang.String,java.lang.Object)")
+	(uniqueName "org::junit::TestCase.assertNotNull(java.lang.String,java.lang.Object)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 27 end 27|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 27 end 27|]#)
+)
+
+(FormalParameter FM129
+	(name "message")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::assertNotNull(java.lang.String,java.lang.Object)")
+	(position 1)
+	(uniqueName "org::junit::assertNotNull(java.lang.String,java.lang.Object).message")
+)
+
+(FormalParameter FM130
+	(name "object")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::assertNotNull(java.lang.String,java.lang.Object)")
+	(position 2)
+	(uniqueName "org::junit::assertNotNull(java.lang.String,java.lang.Object).object")
+)
+
+(Method FM131
+	(name "assertNotSame")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertNotSame(java.lang.Object,java.lang.Object)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertNotSame(java.lang.Object,java.lang.Object)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 28 end 28|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM132
+	(name "assertNotSame")
+	(declaredBy "org::junit::TestCase.assertNotSame(java.lang.Object,java.lang.Object)")
+	(uniqueName "org::junit::TestCase.assertNotSame(java.lang.Object,java.lang.Object)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 28 end 28|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 28 end 28|]#)
+)
+
+(FormalParameter FM133
+	(name "expected")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::assertNotSame(java.lang.Object,java.lang.Object)")
+	(position 1)
+	(uniqueName "org::junit::assertNotSame(java.lang.Object,java.lang.Object).expected")
+)
+
+(FormalParameter FM134
+	(name "actual")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::assertNotSame(java.lang.Object,java.lang.Object)")
+	(position 2)
+	(uniqueName "org::junit::assertNotSame(java.lang.Object,java.lang.Object).actual")
+)
+
+(Method FM135
+	(name "assertNotSame")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertNotSame(java.lang.String,java.lang.Object,java.lang.Object)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertNotSame(java.lang.String,java.lang.Object,java.lang.Object)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 29 end 29|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM136
+	(name "assertNotSame")
+	(declaredBy "org::junit::TestCase.assertNotSame(java.lang.String,java.lang.Object,java.lang.Object)")
+	(uniqueName "org::junit::TestCase.assertNotSame(java.lang.String,java.lang.Object,java.lang.Object)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 29 end 29|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 29 end 29|]#)
+)
+
+(FormalParameter FM137
+	(name "message")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::assertNotSame(java.lang.String,java.lang.Object,java.lang.Object)")
+	(position 1)
+	(uniqueName "org::junit::assertNotSame(java.lang.String,java.lang.Object,java.lang.Object).message")
+)
+
+(FormalParameter FM138
+	(name "expected")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::assertNotSame(java.lang.String,java.lang.Object,java.lang.Object)")
+	(position 2)
+	(uniqueName "org::junit::assertNotSame(java.lang.String,java.lang.Object,java.lang.Object).expected")
+)
+
+(FormalParameter FM139
+	(name "actual")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::assertNotSame(java.lang.String,java.lang.Object,java.lang.Object)")
+	(position 3)
+	(uniqueName "org::junit::assertNotSame(java.lang.String,java.lang.Object,java.lang.Object).actual")
+)
+
+(Method FM140
+	(name "assertNull")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertNull(java.lang.Object)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertNull(java.lang.Object)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 30 end 30|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM141
+	(name "assertNull")
+	(declaredBy "org::junit::TestCase.assertNull(java.lang.Object)")
+	(uniqueName "org::junit::TestCase.assertNull(java.lang.Object)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 30 end 30|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 30 end 30|]#)
+)
+
+(FormalParameter FM142
+	(name "object")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::assertNull(java.lang.Object)")
+	(position 1)
+	(uniqueName "org::junit::assertNull(java.lang.Object).object")
+)
+
+(Method FM143
+	(name "assertNull")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertNull(java.lang.String,java.lang.Object)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertNull(java.lang.String,java.lang.Object)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 31 end 31|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM144
+	(name "assertNull")
+	(declaredBy "org::junit::TestCase.assertNull(java.lang.String,java.lang.Object)")
+	(uniqueName "org::junit::TestCase.assertNull(java.lang.String,java.lang.Object)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 31 end 31|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 31 end 31|]#)
+)
+
+(FormalParameter FM145
+	(name "message")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::assertNull(java.lang.String,java.lang.Object)")
+	(position 1)
+	(uniqueName "org::junit::assertNull(java.lang.String,java.lang.Object).message")
+)
+
+(FormalParameter FM146
+	(name "object")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::assertNull(java.lang.String,java.lang.Object)")
+	(position 2)
+	(uniqueName "org::junit::assertNull(java.lang.String,java.lang.Object).object")
+)
+
+(Method FM147
+	(name "assertSame")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertSame(java.lang.Object,java.lang.Object)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertSame(java.lang.Object,java.lang.Object)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 32 end 32|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM148
+	(name "assertSame")
+	(declaredBy "org::junit::TestCase.assertSame(java.lang.Object,java.lang.Object)")
+	(uniqueName "org::junit::TestCase.assertSame(java.lang.Object,java.lang.Object)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 32 end 32|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 32 end 32|]#)
+)
+
+(FormalParameter FM149
+	(name "expected")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::assertSame(java.lang.Object,java.lang.Object)")
+	(position 1)
+	(uniqueName "org::junit::assertSame(java.lang.Object,java.lang.Object).expected")
+)
+
+(FormalParameter FM150
+	(name "actual")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::assertSame(java.lang.Object,java.lang.Object)")
+	(position 2)
+	(uniqueName "org::junit::assertSame(java.lang.Object,java.lang.Object).actual")
+)
+
+(Method FM151
+	(name "assertSame")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertSame(java.lang.String,java.lang.Object,java.lang.Object)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertSame(java.lang.String,java.lang.Object,java.lang.Object)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 33 end 33|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM152
+	(name "assertSame")
+	(declaredBy "org::junit::TestCase.assertSame(java.lang.String,java.lang.Object,java.lang.Object)")
+	(uniqueName "org::junit::TestCase.assertSame(java.lang.String,java.lang.Object,java.lang.Object)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 33 end 33|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 33 end 33|]#)
+)
+
+(FormalParameter FM153
+	(name "message")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::assertSame(java.lang.String,java.lang.Object,java.lang.Object)")
+	(position 1)
+	(uniqueName "org::junit::assertSame(java.lang.String,java.lang.Object,java.lang.Object).message")
+)
+
+(FormalParameter FM154
+	(name "expected")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::assertSame(java.lang.String,java.lang.Object,java.lang.Object)")
+	(position 2)
+	(uniqueName "org::junit::assertSame(java.lang.String,java.lang.Object,java.lang.Object).expected")
+)
+
+(FormalParameter FM155
+	(name "actual")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::assertSame(java.lang.String,java.lang.Object,java.lang.Object)")
+	(position 3)
+	(uniqueName "org::junit::assertSame(java.lang.String,java.lang.Object,java.lang.Object).actual")
+)
+
+(Method FM156
+	(name "assertTrue")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertTrue(boolean)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertTrue(boolean)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 34 end 34|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM157
+	(name "assertTrue")
+	(declaredBy "org::junit::TestCase.assertTrue(boolean)")
+	(uniqueName "org::junit::TestCase.assertTrue(boolean)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 34 end 34|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 34 end 34|]#)
+)
+
+(FormalParameter FM158
+	(name "condition")
+	(declaredType "boolean")
+	(declaredClass "boolean")
+	(belongsToBehaviour "org::junit::assertTrue(boolean)")
+	(position 1)
+	(uniqueName "org::junit::assertTrue(boolean).condition")
+)
+
+(Method FM159
+	(name "assertTrue")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.assertTrue(java.lang.String,boolean)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "assertTrue(java.lang.String,boolean)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 35 end 35|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM160
+	(name "assertTrue")
+	(declaredBy "org::junit::TestCase.assertTrue(java.lang.String,boolean)")
+	(uniqueName "org::junit::TestCase.assertTrue(java.lang.String,boolean)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 35 end 35|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 35 end 35|]#)
+)
+
+(FormalParameter FM161
+	(name "message")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::assertTrue(java.lang.String,boolean)")
+	(position 1)
+	(uniqueName "org::junit::assertTrue(java.lang.String,boolean).message")
+)
+
+(FormalParameter FM162
+	(name "condition")
+	(declaredType "boolean")
+	(declaredClass "boolean")
+	(belongsToBehaviour "org::junit::assertTrue(java.lang.String,boolean)")
+	(position 2)
+	(uniqueName "org::junit::assertTrue(java.lang.String,boolean).condition")
+)
+
+(Method FM163
+	(name "fail")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.fail()")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "fail()")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 36 end 36|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM164
+	(name "fail")
+	(declaredBy "org::junit::TestCase.fail()")
+	(uniqueName "org::junit::TestCase.fail()_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 36 end 36|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 36 end 36|]#)
+)
+
+(Method FM165
+	(name "fail")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.fail(java.lang.String)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "fail(java.lang.String)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 37 end 37|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM166
+	(name "fail")
+	(declaredBy "org::junit::TestCase.fail(java.lang.String)")
+	(uniqueName "org::junit::TestCase.fail(java.lang.String)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 37 end 37|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 37 end 37|]#)
+)
+
+(FormalParameter FM167
+	(name "message")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::fail(java.lang.String)")
+	(position 1)
+	(uniqueName "org::junit::fail(java.lang.String).message")
+)
+
+(Method FM168
+	(name "failNotEquals")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.failNotEquals(java.lang.String,java.lang.Object,java.lang.Object)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "failNotEquals(java.lang.String,java.lang.Object,java.lang.Object)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -FALSE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 38 end 38|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM169
+	(name "failNotEquals")
+	(declaredBy "org::junit::TestCase.failNotEquals(java.lang.String,java.lang.Object,java.lang.Object)")
+	(uniqueName "org::junit::TestCase.failNotEquals(java.lang.String,java.lang.Object,java.lang.Object)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 38 end 38|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 38 end 38|]#)
+)
+
+(FormalParameter FM170
+	(name "message")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::failNotEquals(java.lang.String,java.lang.Object,java.lang.Object)")
+	(position 1)
+	(uniqueName "org::junit::failNotEquals(java.lang.String,java.lang.Object,java.lang.Object).message")
+)
+
+(FormalParameter FM171
+	(name "expected")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::failNotEquals(java.lang.String,java.lang.Object,java.lang.Object)")
+	(position 2)
+	(uniqueName "org::junit::failNotEquals(java.lang.String,java.lang.Object,java.lang.Object).expected")
+)
+
+(FormalParameter FM172
+	(name "actual")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::failNotEquals(java.lang.String,java.lang.Object,java.lang.Object)")
+	(position 3)
+	(uniqueName "org::junit::failNotEquals(java.lang.String,java.lang.Object,java.lang.Object).actual")
+)
+
+(Method FM173
+	(name "failNotSame")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.failNotSame(java.lang.String,java.lang.Object,java.lang.Object)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "failNotSame(java.lang.String,java.lang.Object,java.lang.Object)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -FALSE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 39 end 39|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM174
+	(name "failNotSame")
+	(declaredBy "org::junit::TestCase.failNotSame(java.lang.String,java.lang.Object,java.lang.Object)")
+	(uniqueName "org::junit::TestCase.failNotSame(java.lang.String,java.lang.Object,java.lang.Object)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 39 end 39|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 39 end 39|]#)
+)
+
+(FormalParameter FM175
+	(name "message")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::failNotSame(java.lang.String,java.lang.Object,java.lang.Object)")
+	(position 1)
+	(uniqueName "org::junit::failNotSame(java.lang.String,java.lang.Object,java.lang.Object).message")
+)
+
+(FormalParameter FM176
+	(name "expected")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::failNotSame(java.lang.String,java.lang.Object,java.lang.Object)")
+	(position 2)
+	(uniqueName "org::junit::failNotSame(java.lang.String,java.lang.Object,java.lang.Object).expected")
+)
+
+(FormalParameter FM177
+	(name "actual")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::failNotSame(java.lang.String,java.lang.Object,java.lang.Object)")
+	(position 3)
+	(uniqueName "org::junit::failNotSame(java.lang.String,java.lang.Object,java.lang.Object).actual")
+)
+
+(Method FM178
+	(name "failSame")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.failSame(java.lang.String)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "failSame(java.lang.String)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -FALSE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 40 end 40|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM179
+	(name "failSame")
+	(declaredBy "org::junit::TestCase.failSame(java.lang.String)")
+	(uniqueName "org::junit::TestCase.failSame(java.lang.String)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 40 end 40|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 40 end 40|]#)
+)
+
+(FormalParameter FM180
+	(name "message")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::failSame(java.lang.String)")
+	(position 1)
+	(uniqueName "org::junit::failSame(java.lang.String).message")
+)
+
+(Method FM181
+	(name "format")
+	(belongsTo "org::junit::TestCase")
+	(uniqueName "org::junit::TestCase.format(java.lang.String,java.lang.Object,java.lang.Object)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "format(java.lang.String,java.lang.Object,java.lang.Object)")
+	(declaredReturnType "java.lang.String")
+	(declaredReturnClass "")
+	(hasClassScope -FALSE-)
+	(sourceAnchor #[file "org/junit/TestCase.java" start 41 end 41|]#)
+	(parentSourceAnchor #[file "org/junit/TestCase.java" start 3 end 3|]#)
+)
+
+(MethodDefinition FM182
+	(name "format")
+	(declaredBy "org::junit::TestCase.format(java.lang.String,java.lang.Object,java.lang.Object)")
+	(uniqueName "org::junit::TestCase.format(java.lang.String,java.lang.Object,java.lang.Object)_1")
+	(sourceAnchor #[file "org/junit/TestCase.java" start 41 end 41|]#)
+	(declSourceAnchor #[file "org/junit/TestCase.java" start 41 end 41|]#)
+)
+
+(FormalParameter FM183
+	(name "message")
+	(declaredType "java.lang.String")
+	(declaredClass "java.lang.String")
+	(belongsToBehaviour "org::junit::format(java.lang.String,java.lang.Object,java.lang.Object)")
+	(position 1)
+	(uniqueName "org::junit::format(java.lang.String,java.lang.Object,java.lang.Object).message")
+)
+
+(FormalParameter FM184
+	(name "expected")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::format(java.lang.String,java.lang.Object,java.lang.Object)")
+	(position 2)
+	(uniqueName "org::junit::format(java.lang.String,java.lang.Object,java.lang.Object).expected")
+)
+
+(FormalParameter FM185
+	(name "actual")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "org::junit::format(java.lang.String,java.lang.Object,java.lang.Object)")
+	(position 3)
+	(uniqueName "org::junit::format(java.lang.String,java.lang.Object,java.lang.Object).actual")
+)
+
+(Method FM186
+	(name "clone")
+	(belongsTo "java::lang::Object")
+	(uniqueName "java::lang::Object.clone()")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "clone()")
+	(declaredReturnType "java.lang.Object")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "java/lang/Object.java" start 02 end 02|]#)
+	(parentSourceAnchor #[file "java/lang/Object.java" start 1 end 1|]#)
+)
+
+(MethodDefinition FM187
+	(name "clone")
+	(declaredBy "java::lang::Object.clone()")
+	(uniqueName "java::lang::Object.clone()_1")
+	(sourceAnchor #[file "java/lang/Object.java" start 02 end 02|]#)
+	(declSourceAnchor #[file "java/lang/Object.java" start 02 end 02|]#)
+)
+
+(Method FM188
+	(name "equals")
+	(belongsTo "java::lang::Object")
+	(uniqueName "java::lang::Object.equals(java.lang.Object)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "equals(java.lang.Object)")
+	(declaredReturnType "boolean")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "java/lang/Object.java" start 03 end 03|]#)
+	(parentSourceAnchor #[file "java/lang/Object.java" start 1 end 1|]#)
+)
+
+(MethodDefinition FM189
+	(name "equals")
+	(declaredBy "java::lang::Object.equals(java.lang.Object)")
+	(uniqueName "java::lang::Object.equals(java.lang.Object)_1")
+	(sourceAnchor #[file "java/lang/Object.java" start 03 end 03|]#)
+	(declSourceAnchor #[file "java/lang/Object.java" start 03 end 03|]#)
+)
+
+(FormalParameter FM190
+	(name "obj")
+	(declaredType "java.lang.Object")
+	(declaredClass "java.lang.Object")
+	(belongsToBehaviour "java::lang::equals(java.lang.Object)")
+	(position 1)
+	(uniqueName "java::lang::equals(java.lang.Object).obj")
+)
+
+(Method FM191
+	(name "finalize")
+	(belongsTo "java::lang::Object")
+	(uniqueName "java::lang::Object.finalize()")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "finalize()")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "java/lang/Object.java" start 04 end 04|]#)
+	(parentSourceAnchor #[file "java/lang/Object.java" start 1 end 1|]#)
+)
+
+(MethodDefinition FM192
+	(name "finalize")
+	(declaredBy "java::lang::Object.finalize()")
+	(uniqueName "java::lang::Object.finalize()_1")
+	(sourceAnchor #[file "java/lang/Object.java" start 04 end 04|]#)
+	(declSourceAnchor #[file "java/lang/Object.java" start 04 end 04|]#)
+)
+
+(Method FM193
+	(name "getClass")
+	(belongsTo "java::lang::Object")
+	(uniqueName "java::lang::Object.getClass()")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "getClass()")
+	(declaredReturnType "java.lang.Class")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "java/lang/Object.java" start 05 end 05|]#)
+	(parentSourceAnchor #[file "java/lang/Object.java" start 1 end 1|]#)
+)
+
+(MethodDefinition FM194
+	(name "getClass")
+	(declaredBy "java::lang::Object.getClass()")
+	(uniqueName "java::lang::Object.getClass()_1")
+	(sourceAnchor #[file "java/lang/Object.java" start 05 end 05|]#)
+	(declSourceAnchor #[file "java/lang/Object.java" start 05 end 05|]#)
+)
+
+(Method FM195
+	(name "hasCode")
+	(belongsTo "java::lang::Object")
+	(uniqueName "java::lang::Object.hasCode()")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "hasCode()")
+	(declaredReturnType "int")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "java/lang/Object.java" start 06 end 06|]#)
+	(parentSourceAnchor #[file "java/lang/Object.java" start 1 end 1|]#)
+)
+
+(MethodDefinition FM196
+	(name "hasCode")
+	(declaredBy "java::lang::Object.hasCode()")
+	(uniqueName "java::lang::Object.hasCode()_1")
+	(sourceAnchor #[file "java/lang/Object.java" start 06 end 06|]#)
+	(declSourceAnchor #[file "java/lang/Object.java" start 06 end 06|]#)
+)
+
+(Method FM197
+	(name "notify")
+	(belongsTo "java::lang::Object")
+	(uniqueName "java::lang::Object.notify()")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "notify()")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "java/lang/Object.java" start 07 end 07|]#)
+	(parentSourceAnchor #[file "java/lang/Object.java" start 1 end 1|]#)
+)
+
+(MethodDefinition FM198
+	(name "notify")
+	(declaredBy "java::lang::Object.notify()")
+	(uniqueName "java::lang::Object.notify()_1")
+	(sourceAnchor #[file "java/lang/Object.java" start 07 end 07|]#)
+	(declSourceAnchor #[file "java/lang/Object.java" start 07 end 07|]#)
+)
+
+(Method FM199
+	(name "notifyAll")
+	(belongsTo "java::lang::Object")
+	(uniqueName "java::lang::Object.notifyAll()")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "notifyAll()")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "java/lang/Object.java" start 08 end 08|]#)
+	(parentSourceAnchor #[file "java/lang/Object.java" start 1 end 1|]#)
+)
+
+(MethodDefinition FM200
+	(name "notifyAll")
+	(declaredBy "java::lang::Object.notifyAll()")
+	(uniqueName "java::lang::Object.notifyAll()_1")
+	(sourceAnchor #[file "java/lang/Object.java" start 08 end 08|]#)
+	(declSourceAnchor #[file "java/lang/Object.java" start 08 end 08|]#)
+)
+
+(Method FM201
+	(name "toString")
+	(belongsTo "java::lang::Object")
+	(uniqueName "java::lang::Object.toString()")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "toString()")
+	(declaredReturnType "java.lang.String")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "java/lang/Object.java" start 09 end 09|]#)
+	(parentSourceAnchor #[file "java/lang/Object.java" start 1 end 1|]#)
+)
+
+(MethodDefinition FM202
+	(name "toString")
+	(declaredBy "java::lang::Object.toString()")
+	(uniqueName "java::lang::Object.toString()_1")
+	(sourceAnchor #[file "java/lang/Object.java" start 09 end 09|]#)
+	(declSourceAnchor #[file "java/lang/Object.java" start 09 end 09|]#)
+)
+
+(Method FM203
+	(name "wait")
+	(belongsTo "java::lang::Object")
+	(uniqueName "java::lang::Object.wait()")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "wait()")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "java/lang/Object.java" start 10 end 10|]#)
+	(parentSourceAnchor #[file "java/lang/Object.java" start 1 end 1|]#)
+)
+
+(MethodDefinition FM204
+	(name "wait")
+	(declaredBy "java::lang::Object.wait()")
+	(uniqueName "java::lang::Object.wait()_1")
+	(sourceAnchor #[file "java/lang/Object.java" start 10 end 10|]#)
+	(declSourceAnchor #[file "java/lang/Object.java" start 10 end 10|]#)
+)
+
+(Method FM205
+	(name "wait")
+	(belongsTo "java::lang::Object")
+	(uniqueName "java::lang::Object.wait(long)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "wait(long)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "java/lang/Object.java" start 11 end 11|]#)
+	(parentSourceAnchor #[file "java/lang/Object.java" start 1 end 1|]#)
+)
+
+(MethodDefinition FM206
+	(name "wait")
+	(declaredBy "java::lang::Object.wait(long)")
+	(uniqueName "java::lang::Object.wait(long)_1")
+	(sourceAnchor #[file "java/lang/Object.java" start 11 end 11|]#)
+	(declSourceAnchor #[file "java/lang/Object.java" start 11 end 11|]#)
+)
+
+(FormalParameter FM207
+	(name "timeout")
+	(declaredType "long")
+	(declaredClass "")
+	(belongsToBehaviour "java::lang::wait(long)")
+	(position 1)
+	(uniqueName "java::lang::wait(long).timeout")
+)
+
+(Method FM208
+	(name "wait")
+	(belongsTo "java::lang::Object")
+	(uniqueName "java::lang::Object.wait(long,int)")
+	(isAbstract -FALSE-)
+	(accessControlQualifier "public")
+	(signature "wait(long,int)")
+	(declaredReturnType "void")
+	(declaredReturnClass "")
+	(hasClassScope -TRUE-)
+	(sourceAnchor #[file "java/lang/Object.java" start 12 end 12|]#)
+	(parentSourceAnchor #[file "java/lang/Object.java" start 1 end 1|]#)
+)
+
+(MethodDefinition FM209
+	(name "wait")
+	(declaredBy "java::lang::Object.wait(long,int)")
+	(uniqueName "java::lang::Object.wait(long,int)_1")
+	(sourceAnchor #[file "java/lang/Object.java" start 12 end 12|]#)
+	(declSourceAnchor #[file "java/lang/Object.java" start 12 end 12|]#)
+)
+
+(FormalParameter FM210
+	(name "timeout")
+	(declaredType "long")
+	(declaredClass "")
+	(belongsToBehaviour "java::lang::wait(long,int)")
+	(position 1)
+	(uniqueName "java::lang::wait(long,int).timeout")
+)
+
+(FormalParameter FM211
+	(name "nanos")
+	(declaredType "int")
+	(declaredClass "")
+	(belongsToBehaviour "java::lang::wait(long,int)")
+	(position 2)
+	(uniqueName "java::lang::wait(long,int).nanos")
+)
+
+(Attribute FM212
+	(uniqueName "A.a")
+	(belongsTo "A")
+	(name "a")
+	(declaredType "int")
+	(declaredClass "")
+	(accessControlQualifier "public")
+	(hasClassScope -FALSE-)
+	(sourceAnchor #[file "A.java" start 2 end 2|]#)
+	(parentSourceAnchor #[file "A.java" start 1 end 1|]#)
+)
+
+(Attribute FM213
+	(uniqueName "B.b")
+	(belongsTo "B")
+	(name "b")
+	(declaredType "int")
+	(declaredClass "")
+	(accessControlQualifier "public")
+	(hasClassScope -FALSE-)
+	(sourceAnchor #[file "B.java" start 2 end 2|]#)
+	(parentSourceAnchor #[file "B.java" start 1 end 1|]#)
+)
+
+(Attribute FM214
+	(uniqueName "C.c")
+	(belongsTo "C")
+	(name "c")
+	(declaredType "int")
+	(declaredClass "")
+	(accessControlQualifier "public")
+	(hasClassScope -FALSE-)
+	(sourceAnchor #[file "C.java" start 2 end 2|]#)
+	(parentSourceAnchor #[file "C.java" start 1 end 1|]#)
+)
+
+(Attribute FM215
+	(uniqueName "D.d")
+	(belongsTo "D")
+	(name "d")
+	(declaredType "int")
+	(declaredClass "")
+	(accessControlQualifier "public")
+	(hasClassScope -FALSE-)
+	(sourceAnchor #[file "D.java" start 2 end 2|]#)
+	(parentSourceAnchor #[file "D.java" start 1 end 1|]#)
+)
+
+(Attribute FM216
+	(uniqueName "E.e")
+	(belongsTo "E")
+	(name "e")
+	(declaredType "int")
+	(declaredClass "")
+	(accessControlQualifier "public")
+	(hasClassScope -FALSE-)
+	(sourceAnchor #[file "E.java" start 2 end 2|]#)
+	(parentSourceAnchor #[file "E.java" start 1 end 1|]#)
+)
+
+(Attribute FM217
+	(uniqueName "F.f")
+	(belongsTo "F")
+	(name "f")
+	(declaredType "int")
+	(declaredClass "")
+	(accessControlQualifier "public")
+	(hasClassScope -FALSE-)
+	(sourceAnchor #[file "F.java" start 2 end 2|]#)
+	(parentSourceAnchor #[file "F.java" start 1 end 1|]#)
+)
+
+(Attribute FM218
+	(uniqueName "MyTest.aa")
+	(belongsTo "MyTest")
+	(name "aa")
+	(declaredType "A")
+	(declaredClass "A")
+	(accessControlQualifier "public")
+	(hasClassScope -FALSE-)
+	(sourceAnchor #[file "MyTest.java" start 7 end 7|]#)
+	(parentSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+	(typeSourceAnchor #[file "A.java" start 1 end 1|]#)
+)
+
+(Attribute FM219
+	(uniqueName "MyTest.bb")
+	(belongsTo "MyTest")
+	(name "bb")
+	(declaredType "B")
+	(declaredClass "B")
+	(accessControlQualifier "public")
+	(hasClassScope -FALSE-)
+	(sourceAnchor #[file "MyTest.java" start 8 end 8|]#)
+	(parentSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+	(typeSourceAnchor #[file "B.java" start 1 end 1|]#)
+)
+
+(Attribute FM220
+	(uniqueName "MyTest.cc")
+	(belongsTo "MyTest")
+	(name "cc")
+	(declaredType "C")
+	(declaredClass "C")
+	(accessControlQualifier "public")
+	(hasClassScope -FALSE-)
+	(sourceAnchor #[file "MyTest.java" start 9 end 9|]#)
+	(parentSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+	(typeSourceAnchor #[file "C.java" start 1 end 1|]#)
+)
+
+(Attribute FM221
+	(uniqueName "MyTest.dd")
+	(belongsTo "MyTest")
+	(name "dd")
+	(declaredType "D")
+	(declaredClass "D")
+	(accessControlQualifier "public")
+	(hasClassScope -FALSE-)
+	(sourceAnchor #[file "MyTest.java" start 10 end 10|]#)
+	(parentSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+	(typeSourceAnchor #[file "D.java" start 1 end 1|]#)
+)
+
+(Attribute FM222
+	(uniqueName "MyTest.ee")
+	(belongsTo "MyTest")
+	(name "ee")
+	(declaredType "E")
+	(declaredClass "E")
+	(accessControlQualifier "public")
+	(hasClassScope -FALSE-)
+	(sourceAnchor #[file "MyTest.java" start 11 end 11|]#)
+	(parentSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+	(typeSourceAnchor #[file "E.java" start 1 end 1|]#)
+)
+
+(Attribute FM223
+	(uniqueName "MyTest.ff")
+	(belongsTo "MyTest")
+	(name "ff")
+	(declaredType "F")
+	(declaredClass "F")
+	(accessControlQualifier "public")
+	(hasClassScope -FALSE-)
+	(sourceAnchor #[file "MyTest.java" start 12 end 12|]#)
+	(parentSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+	(typeSourceAnchor #[file "F.java" start 1 end 1|]#)
+)
+
+(Access FM224
+	(accessedIn "MyTest.testCommand()")
+	(accesses "A.a")
+	(receivingClass "A")
+	(isAccessLValue -FALSE-)
+	(sourceAnchor #[file "MyTest.java" start 000016 end 000016|]#)
+	(sourceSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+	(destinationSourceAnchor #[file "A.java" start 1 end 1|]#)
+)
+
+(Access FM225
+	(accessedIn "MyTest.testCommand()")
+	(accesses "B.b")
+	(receivingClass "B")
+	(isAccessLValue -FALSE-)
+	(sourceAnchor #[file "MyTest.java" start 000017 end 000017|]#)
+	(sourceSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+	(destinationSourceAnchor #[file "B.java" start 1 end 1|]#)
+)
+
+(Access FM226
+	(accessedIn "MyTest.testCommand()")
+	(accesses "C.c")
+	(receivingClass "C")
+	(isAccessLValue -FALSE-)
+	(sourceAnchor #[file "MyTest.java" start 000018 end 000018|]#)
+	(sourceSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+	(destinationSourceAnchor #[file "C.java" start 1 end 1|]#)
+)
+
+(Access FM227
+	(accessedIn "MyTest.testCommand()")
+	(accesses "D.d")
+	(receivingClass "D")
+	(isAccessLValue -FALSE-)
+	(sourceAnchor #[file "MyTest.java" start 000019 end 000019|]#)
+	(sourceSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+	(destinationSourceAnchor #[file "D.java" start 1 end 1|]#)
+)
+
+(Access FM228
+	(accessedIn "MyTest.testCommand()")
+	(accesses "E.e")
+	(receivingClass "E")
+	(isAccessLValue -FALSE-)
+	(sourceAnchor #[file "MyTest.java" start 000020 end 000020|]#)
+	(sourceSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+	(destinationSourceAnchor #[file "E.java" start 1 end 1|]#)
+)
+
+(Access FM229
+	(accessedIn "MyTest.testCommand()")
+	(accesses "F.f")
+	(receivingClass "F")
+	(isAccessLValue -FALSE-)
+	(sourceAnchor #[file "MyTest.java" start 000021 end 000021|]#)
+	(sourceSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+	(destinationSourceAnchor #[file "F.java" start 1 end 1|]#)
+)
+
+(Access FM230
+	(accessedIn "MyTest.testCommand()")
+	(accesses "MyTest.aa")
+	(receivingClass "MyTest")
+	(isAccessLValue -FALSE-)
+	(sourceAnchor #[file "MyTest.java" start 000016 end 000016|]#)
+	(sourceSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+	(destinationSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+)
+
+(Access FM231
+	(accessedIn "MyTest.testCommand()")
+	(accesses "MyTest.bb")
+	(receivingClass "MyTest")
+	(isAccessLValue -FALSE-)
+	(sourceAnchor #[file "MyTest.java" start 000017 end 000017|]#)
+	(sourceSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+	(destinationSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+)
+
+(Access FM232
+	(accessedIn "MyTest.testCommand()")
+	(accesses "MyTest.cc")
+	(receivingClass "MyTest")
+	(isAccessLValue -FALSE-)
+	(sourceAnchor #[file "MyTest.java" start 000018 end 000018|]#)
+	(sourceSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+	(destinationSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+)
+
+(Access FM233
+	(accessedIn "MyTest.testCommand()")
+	(accesses "MyTest.dd")
+	(receivingClass "MyTest")
+	(isAccessLValue -FALSE-)
+	(sourceAnchor #[file "MyTest.java" start 000019 end 000019|]#)
+	(sourceSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+	(destinationSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+)
+
+(Access FM234
+	(accessedIn "MyTest.testCommand()")
+	(accesses "MyTest.ee")
+	(receivingClass "MyTest")
+	(isAccessLValue -FALSE-)
+	(sourceAnchor #[file "MyTest.java" start 000020 end 000020|]#)
+	(sourceSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+	(destinationSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+)
+
+(Access FM235
+	(accessedIn "MyTest.testCommand()")
+	(accesses "MyTest.ff")
+	(receivingClass "MyTest")
+	(isAccessLValue -FALSE-)
+	(sourceAnchor #[file "MyTest.java" start 000021 end 000021|]#)
+	(sourceSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+	(destinationSourceAnchor #[file "MyTest.java" start 5 end 5|]#)
+)
+
+(Measurement FM236
+	(name "CC")
+	(value "1")
+	(belongsTo "MyTest.testCommand()")
+	(sourceSourceAnchor #[file "" start 0 end 0|]#)
+)
+
+(Measurement FM237
+	(name "COM")
+	(value "0")
+	(belongsTo "MyTest.testCommand()")
+	(sourceSourceAnchor #[file "" start 0 end 0|]#)
+)
+
+(Measurement FM238
+	(name "LOC")
+	(value "8")
+	(belongsTo "MyTest.testCommand()")
+	(sourceSourceAnchor #[file "" start 0 end 0|]#)
+)
+
+)
+

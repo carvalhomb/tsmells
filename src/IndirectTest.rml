@@ -30,4 +30,14 @@ include(INIT_TEST_ENTITIES)
 treshold := ifdef(`INDIRECT_TEST_TRESHOLD', `INDIRECT_TEST_TRESHOLD', `4');
 
 // fake it implementation
-PRINT "IndirectTest;MyTest.testCommand();",treshold,";6", ENDL;
+//PRINT "IndirectTest;MyTest.testCommand();",treshold,";6", ENDL;
+
+FOR tcid IN TestCommandId(x) {
+	ninv := #(PureInvokes(_,tcid,y));
+ 	IF ( ninv >= treshold) {
+		TCName(tcnm) := Method(tcid,tcnm); // single element
+		FOR tcnm IN TCName(x) {
+			PRINT "IndirectTest;", tcnm, ";", treshold, ";", ninv, ENDL;
+		}
+	}
+}
