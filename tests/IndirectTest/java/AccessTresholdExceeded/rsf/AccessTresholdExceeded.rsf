@@ -152,7 +152,7 @@ MethodBelongsToClass	201	11
 MethodBelongsToClass	203	11
 MethodBelongsToClass	205	11
 MethodBelongsToClass	208	11
-InvokableEntityBelongsToFile	21	9	14
+InvokableEntityBelongsToFile	21	9	8
 InvokableEntityBelongsToFile	23	1	4
 InvokableEntityBelongsToFile	27	1	5
 InvokableEntityBelongsToFile	31	1	6
@@ -202,7 +202,7 @@ InvokableEntityBelongsToFile	201	2	09
 InvokableEntityBelongsToFile	203	2	10
 InvokableEntityBelongsToFile	205	2	11
 InvokableEntityBelongsToFile	208	2	12
-InvokableEntityBelongsToFile	22	9	14
+InvokableEntityBelongsToFile	22	9	8
 InvokableEntityBelongsToFile	24	1	4
 InvokableEntityBelongsToFile	28	1	5
 InvokableEntityBelongsToFile	32	1	6
@@ -358,31 +358,13 @@ Attribute	214	"C.c"
 Attribute	215	"D.d"
 Attribute	216	"E.e"
 Attribute	217	"F.f"
-Attribute	218	"MyTest.aa"
-Attribute	219	"MyTest.bb"
-Attribute	220	"MyTest.cc"
-Attribute	221	"MyTest.dd"
-Attribute	222	"MyTest.ee"
-Attribute	223	"MyTest.ff"
 AttributeBelongsToClass	212	3
 AttributeBelongsToClass	213	4
 AttributeBelongsToClass	214	5
 AttributeBelongsToClass	215	6
 AttributeBelongsToClass	216	7
 AttributeBelongsToClass	217	8
-AttributeBelongsToClass	218	9
-AttributeBelongsToClass	219	9
-AttributeBelongsToClass	220	9
-AttributeBelongsToClass	221	9
-AttributeBelongsToClass	222	9
-AttributeBelongsToClass	223	9
-HasType	218	3
-HasType	219	4
-HasType	220	5
-HasType	221	6
-HasType	222	7
-HasType	223	8
-InvokableEntityBelongsToFile	21	9	14
+InvokableEntityBelongsToFile	21	9	8
 InvokableEntityBelongsToFile	23	1	4
 InvokableEntityBelongsToFile	27	1	5
 InvokableEntityBelongsToFile	31	1	6
@@ -432,7 +414,7 @@ InvokableEntityBelongsToFile	201	2	09
 InvokableEntityBelongsToFile	203	2	10
 InvokableEntityBelongsToFile	205	2	11
 InvokableEntityBelongsToFile	208	2	12
-InvokableEntityBelongsToFile	22	9	14
+InvokableEntityBelongsToFile	22	9	8
 InvokableEntityBelongsToFile	24	1	4
 InvokableEntityBelongsToFile	28	1	5
 InvokableEntityBelongsToFile	32	1	6
@@ -532,18 +514,12 @@ DefinitionForDeclaration	202	201
 DefinitionForDeclaration	204	203
 DefinitionForDeclaration	206	205
 DefinitionForDeclaration	209	208
-Accesses	224	21	212
-Accesses	225	21	213
-Accesses	226	21	214
-Accesses	227	21	215
-Accesses	228	21	216
-Accesses	229	21	217
-Accesses	230	21	218
-Accesses	231	21	219
-Accesses	232	21	220
-Accesses	233	21	221
-Accesses	234	21	222
-Accesses	235	21	223
-Measurement	236	21	"CC"	1
-Measurement	237	21	"COM"	0
-Measurement	238	21	"LOC"	8
+Accesses	218	21	212
+Accesses	219	21	213
+Accesses	220	21	214
+Accesses	221	21	215
+Accesses	222	21	216
+Accesses	223	21	217
+Measurement	224	21	"CC"	1
+Measurement	225	21	"COM"	0
+Measurement	226	21	"LOC"	14

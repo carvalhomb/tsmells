@@ -4,21 +4,19 @@ import org.junit.TestCase;
 
 public class MyTest extends TestCase {
 
-    private A a;
-    private B b;
-    private C c;
-    private D d;
-    private E e;
-    private F f;
 
     public void testCommand() {
         int i;
-        i = a.a;
-        i = b.b;
-        i = c.c;
-        i = d.d;
-        i = e.e;
-        i = f.f;
+
+        A aa = new A();
+        B bb = new B();
+        C cc = new C();
+        D dd = new D();
+
+        i = aa.a;
+        i = bb.b;
+        i = cc.c;
+        i = dd.d;
     }
 
 }

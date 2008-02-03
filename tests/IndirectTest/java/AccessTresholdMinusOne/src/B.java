@@ -1,3 +1,3 @@
 public class B {
-    public void b() {}
+    public int b;
 }
