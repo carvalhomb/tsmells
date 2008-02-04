@@ -14,12 +14,13 @@ public class MyTest extends TestCase {
         a.e();
         a.f();
 
-        a.a;
-        a.b;
-        a.c;
-        a.d;
-        a.e;
-        a.f;
+        Integer i;
+        i = a.a;
+        i = a.b;
+        i = a.c;
+        i = a.d;
+        i = a.e;
+        i = a.f;
     }
 
 }

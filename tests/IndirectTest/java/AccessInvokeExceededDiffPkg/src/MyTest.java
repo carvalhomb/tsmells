@@ -1,4 +1,7 @@
 import org.junit.TestCase;
+import pkg1.*;
+import pkg2.*;
+import pkg3.*;
 
 // use treshold = 4
 

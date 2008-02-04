@@ -30,5 +30,5 @@ fi
 
 TMPFILE=$(mktemp) && \
 cat $TSMELLS/src/initJavaTestEntities.rml $TSMELLS/src/$SMELL.rml > $TMPFILE && \
-cat $RSF | crocopat $TMPFILE && \
+cat $RSF | crocopat $TMPFILE 2> /dev/null && \
 rm -rf $TMPFILE &> /dev/null;

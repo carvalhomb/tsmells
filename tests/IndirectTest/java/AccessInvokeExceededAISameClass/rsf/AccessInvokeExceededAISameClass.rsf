@@ -12,46 +12,34 @@ File	2	"java/lang/Object.java"
 File	3	"A.java"
 File	4	"B.java"
 File	5	"C.java"
-File	6	"D.java"
-File	7	"E.java"
-File	8	"F.java"
-File	9	"MyTest.java"
+File	6	"MyTest.java"
 FileBelongsToModule	1	1
 FileBelongsToModule	2	4
 FileBelongsToModule	3	2
 FileBelongsToModule	4	2
 FileBelongsToModule	5	2
 FileBelongsToModule	6	2
-FileBelongsToModule	7	2
-FileBelongsToModule	8	2
-FileBelongsToModule	9	2
 Class	3	"A"
 Class	4	"B"
 Class	5	"C"
-Class	6	"D"
-Class	7	"E"
-Class	8	"F"
-Class	9	"MyTest"
-Class	10	"org::junit::TestCase"
-Class	11	"java::lang::Object"
+Class	6	"MyTest"
+Class	7	"org::junit::TestCase"
+Class	8	"java::lang::Object"
 ClassBelongsToFile	3	3	1
 ClassBelongsToFile	4	4	1
 ClassBelongsToFile	5	5	1
-ClassBelongsToFile	6	6	1
-ClassBelongsToFile	7	7	1
-ClassBelongsToFile	8	8	1
-ClassBelongsToFile	9	9	5
-ClassBelongsToFile	10	1	3
-ClassBelongsToFile	11	2	1
-InheritsFrom	12	"MyTest->org::junit::TestCase"	9	10
-InheritsFrom	13	"C->java::lang::Object"	5	11
-InheritsFrom	14	"B->java::lang::Object"	4	11
-InheritsFrom	15	"A->java::lang::Object"	3	11
-InheritsFrom	16	"E->java::lang::Object"	7	11
-InheritsFrom	17	"MyTest->java::lang::Object"	9	11
-InheritsFrom	18	"D->java::lang::Object"	6	11
-InheritsFrom	19	"F->java::lang::Object"	8	11
-InheritsFrom	20	"org::junit::TestCase->java::lang::Object"	10	11
+ClassBelongsToFile	6	6	5
+ClassBelongsToFile	7	1	3
+ClassBelongsToFile	8	2	1
+InheritsFrom	9	"MyTest->org::junit::TestCase"	6	7
+InheritsFrom	10	"MyTest->java::lang::Object"	6	8
+InheritsFrom	11	"A->java::lang::Object"	3	8
+InheritsFrom	12	"C->java::lang::Object"	5	8
+InheritsFrom	13	"org::junit::TestCase->java::lang::Object"	7	8
+InheritsFrom	14	"B->java::lang::Object"	4	8
+Method	15	"A.a()"
+Method	17	"B.b()"
+Method	19	"C.c()"
 Method	21	"MyTest.testCommand()"
 Method	23	"org::junit::TestCase.assertEquals(boolean,boolean)"
 Method	27	"org::junit::TestCase.assertEquals(byte,byte)"
@@ -102,57 +90,63 @@ Method	201	"java::lang::Object.toString()"
 Method	203	"java::lang::Object.wait()"
 Method	205	"java::lang::Object.wait(long)"
 Method	208	"java::lang::Object.wait(long,int)"
-MethodBelongsToClass	21	9
-MethodBelongsToClass	23	10
-MethodBelongsToClass	27	10
-MethodBelongsToClass	31	10
-MethodBelongsToClass	35	10
-MethodBelongsToClass	40	10
-MethodBelongsToClass	45	10
-MethodBelongsToClass	49	10
-MethodBelongsToClass	53	10
-MethodBelongsToClass	57	10
-MethodBelongsToClass	61	10
-MethodBelongsToClass	66	10
-MethodBelongsToClass	71	10
-MethodBelongsToClass	76	10
-MethodBelongsToClass	82	10
-MethodBelongsToClass	88	10
-MethodBelongsToClass	93	10
-MethodBelongsToClass	98	10
-MethodBelongsToClass	103	10
-MethodBelongsToClass	108	10
-MethodBelongsToClass	112	10
-MethodBelongsToClass	117	10
-MethodBelongsToClass	120	10
-MethodBelongsToClass	124	10
-MethodBelongsToClass	127	10
-MethodBelongsToClass	131	10
-MethodBelongsToClass	135	10
-MethodBelongsToClass	140	10
-MethodBelongsToClass	143	10
-MethodBelongsToClass	147	10
-MethodBelongsToClass	151	10
-MethodBelongsToClass	156	10
-MethodBelongsToClass	159	10
-MethodBelongsToClass	163	10
-MethodBelongsToClass	165	10
-MethodBelongsToClass	168	10
-MethodBelongsToClass	173	10
-MethodBelongsToClass	178	10
-MethodBelongsToClass	181	10
-MethodBelongsToClass	186	11
-MethodBelongsToClass	188	11
-MethodBelongsToClass	191	11
-MethodBelongsToClass	193	11
-MethodBelongsToClass	195	11
-MethodBelongsToClass	197	11
-MethodBelongsToClass	199	11
-MethodBelongsToClass	201	11
-MethodBelongsToClass	203	11
-MethodBelongsToClass	205	11
-MethodBelongsToClass	208	11
-InvokableEntityBelongsToFile	21	9	14
+MethodBelongsToClass	15	3
+MethodBelongsToClass	17	4
+MethodBelongsToClass	19	5
+MethodBelongsToClass	21	6
+MethodBelongsToClass	23	7
+MethodBelongsToClass	27	7
+MethodBelongsToClass	31	7
+MethodBelongsToClass	35	7
+MethodBelongsToClass	40	7
+MethodBelongsToClass	45	7
+MethodBelongsToClass	49	7
+MethodBelongsToClass	53	7
+MethodBelongsToClass	57	7
+MethodBelongsToClass	61	7
+MethodBelongsToClass	66	7
+MethodBelongsToClass	71	7
+MethodBelongsToClass	76	7
+MethodBelongsToClass	82	7
+MethodBelongsToClass	88	7
+MethodBelongsToClass	93	7
+MethodBelongsToClass	98	7
+MethodBelongsToClass	103	7
+MethodBelongsToClass	108	7
+MethodBelongsToClass	112	7
+MethodBelongsToClass	117	7
+MethodBelongsToClass	120	7
+MethodBelongsToClass	124	7
+MethodBelongsToClass	127	7
+MethodBelongsToClass	131	7
+MethodBelongsToClass	135	7
+MethodBelongsToClass	140	7
+MethodBelongsToClass	143	7
+MethodBelongsToClass	147	7
+MethodBelongsToClass	151	7
+MethodBelongsToClass	156	7
+MethodBelongsToClass	159	7
+MethodBelongsToClass	163	7
+MethodBelongsToClass	165	7
+MethodBelongsToClass	168	7
+MethodBelongsToClass	173	7
+MethodBelongsToClass	178	7
+MethodBelongsToClass	181	7
+MethodBelongsToClass	186	8
+MethodBelongsToClass	188	8
+MethodBelongsToClass	191	8
+MethodBelongsToClass	193	8
+MethodBelongsToClass	195	8
+MethodBelongsToClass	197	8
+MethodBelongsToClass	199	8
+MethodBelongsToClass	201	8
+MethodBelongsToClass	203	8
+MethodBelongsToClass	205	8
+MethodBelongsToClass	208	8
+InvokableEntityBelongsToFile	15	3	3
+InvokableEntityBelongsToFile	17	4	3
+InvokableEntityBelongsToFile	19	5	3
+InvokableEntityBelongsToFile	21	6	6
 InvokableEntityBelongsToFile	23	1	4
 InvokableEntityBelongsToFile	27	1	5
 InvokableEntityBelongsToFile	31	1	6
@@ -202,7 +196,10 @@ InvokableEntityBelongsToFile	201	2	09
 InvokableEntityBelongsToFile	203	2	10
 InvokableEntityBelongsToFile	205	2	11
 InvokableEntityBelongsToFile	208	2	12
-InvokableEntityBelongsToFile	22	9	14
+InvokableEntityBelongsToFile	16	3	3
+InvokableEntityBelongsToFile	18	4	3
+InvokableEntityBelongsToFile	20	5	3
+InvokableEntityBelongsToFile	22	6	6
 InvokableEntityBelongsToFile	24	1	4
 InvokableEntityBelongsToFile	28	1	5
 InvokableEntityBelongsToFile	32	1	6
@@ -252,6 +249,9 @@ InvokableEntityBelongsToFile	202	2	09
 InvokableEntityBelongsToFile	204	2	10
 InvokableEntityBelongsToFile	206	2	11
 InvokableEntityBelongsToFile	209	2	12
+Visibility	15	"public"
+Visibility	17	"public"
+Visibility	19	"public"
 Visibility	21	"public"
 Visibility	23	"public"
 Visibility	27	"public"
@@ -302,6 +302,9 @@ Visibility	201	"public"
 Visibility	203	"public"
 Visibility	205	"public"
 Visibility	208	"public"
+Signature	15	"a()"
+Signature	17	"b()"
+Signature	19	"c()"
 Signature	21	"testCommand()"
 Signature	23	"assertEquals(boolean,boolean)"
 Signature	27	"assertEquals(byte,byte)"
@@ -355,35 +358,13 @@ Signature	208	"wait(long,int)"
 Attribute	212	"A.a"
 Attribute	213	"B.b"
 Attribute	214	"C.c"
-Attribute	215	"D.d"
-Attribute	216	"E.e"
-Attribute	217	"F.f"
-Attribute	218	"MyTest.a"
-Attribute	219	"MyTest.b"
-Attribute	220	"MyTest.c"
-Attribute	221	"MyTest.d"
-Attribute	222	"MyTest.e"
-Attribute	223	"MyTest.f"
 AttributeBelongsToClass	212	3
 AttributeBelongsToClass	213	4
 AttributeBelongsToClass	214	5
-AttributeBelongsToClass	215	6
-AttributeBelongsToClass	216	7
-AttributeBelongsToClass	217	8
-AttributeBelongsToClass	218	9
-AttributeBelongsToClass	219	9
-AttributeBelongsToClass	220	9
-AttributeBelongsToClass	221	9
-AttributeBelongsToClass	222	9
-AttributeBelongsToClass	223	9
-HasType	213	3
-HasType	218	3
-HasType	219	4
-HasType	220	5
-HasType	221	6
-HasType	222	7
-HasType	223	8
-InvokableEntityBelongsToFile	21	9	14
+InvokableEntityBelongsToFile	15	3	3
+InvokableEntityBelongsToFile	17	4	3
+InvokableEntityBelongsToFile	19	5	3
+InvokableEntityBelongsToFile	21	6	6
 InvokableEntityBelongsToFile	23	1	4
 InvokableEntityBelongsToFile	27	1	5
 InvokableEntityBelongsToFile	31	1	6
@@ -433,7 +414,10 @@ InvokableEntityBelongsToFile	201	2	09
 InvokableEntityBelongsToFile	203	2	10
 InvokableEntityBelongsToFile	205	2	11
 InvokableEntityBelongsToFile	208	2	12
-InvokableEntityBelongsToFile	22	9	14
+InvokableEntityBelongsToFile	16	3	3
+InvokableEntityBelongsToFile	18	4	3
+InvokableEntityBelongsToFile	20	5	3
+InvokableEntityBelongsToFile	22	6	6
 InvokableEntityBelongsToFile	24	1	4
 InvokableEntityBelongsToFile	28	1	5
 InvokableEntityBelongsToFile	32	1	6
@@ -483,6 +467,9 @@ InvokableEntityBelongsToFile	202	2	09
 InvokableEntityBelongsToFile	204	2	10
 InvokableEntityBelongsToFile	206	2	11
 InvokableEntityBelongsToFile	209	2	12
+DefinitionForDeclaration	16	15
+DefinitionForDeclaration	18	17
+DefinitionForDeclaration	20	19
 DefinitionForDeclaration	22	21
 DefinitionForDeclaration	24	23
 DefinitionForDeclaration	28	27
@@ -533,6 +520,21 @@ DefinitionForDeclaration	202	201
 DefinitionForDeclaration	204	203
 DefinitionForDeclaration	206	205
 DefinitionForDeclaration	209	208
-Measurement	234	21	"CC"	1
-Measurement	235	21	"COM"	0
-Measurement	236	21	"LOC"	8
+Invokes	215	22	16
+Invokes	216	22	18
+Invokes	217	22	20
+Accesses	218	21	212
+Accesses	219	21	213
+Accesses	220	21	214
+Measurement	221	17	"CC"	1
+Measurement	222	17	"COM"	0
+Measurement	223	17	"LOC"	1
+Measurement	224	21	"CC"	1
+Measurement	225	21	"COM"	0
+Measurement	226	21	"LOC"	11
+Measurement	227	15	"CC"	1
+Measurement	228	15	"COM"	0
+Measurement	229	15	"LOC"	1
+Measurement	230	19	"CC"	1
+Measurement	231	19	"COM"	0
+Measurement	232	19	"LOC"	1

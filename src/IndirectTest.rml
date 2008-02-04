@@ -24,20 +24,50 @@
  * a TC invokes/accesses
  **/
 
-
+// initialize the framework dependant test entities
 include(INIT_TEST_ENTITIES)
 
-treshold := ifdef(`INDIRECT_TEST_TRESHOLD', `INDIRECT_TEST_TRESHOLD', `4');
+treshold := ifdef(`INDIRECT_TEST_TRESHOLD', `INDIRECT_TEST_TRESHOLD', `5');
 
 // fake it implementation
 //PRINT "IndirectTest;MyTest.testCommand();",treshold,";6", ENDL;
 
+/**
+ * Contains the different classes a test command accesses. 
+ * Not counting itself, nor other Test Commands.
+ *
+ * @col tcidd: testcommand id
+ * @col clazz: accessed class
+ **/
+diffClassAccess(tcidd, clazz) := 
+    EX(y, id, TestCommandId(tcidd) & 
+              Accesses(id,tcidd,y) & 
+              AttributeBelongsToClass(y,clazz) & 
+              !TestCaseId(clazz));
+
+/**
+ * Contains the different production classes a test command 
+ * invokes a method from.
+ * @col tcidd: test command id
+ * @col clazz: invoked class
+ **/
+diffClassInvokes(tcidd, clazz) :=
+    EX(y, id, TestCommandId(tcidd) &
+              PureInvokes(id, tcidd, y) &
+              ProductionMethodId(y) &
+              MethodBelongsToClass(y, clazz));
+
+
 FOR tcid IN TestCommandId(x) {
-	ninv := #(PureInvokes(_,tcid,y));
- 	IF ( ninv >= treshold) {
+	//ninv := #(diffClassInvokes(tcid,z));
+    //nacc := #(diffClassAccess(tcid, z));
+    //ntot := ninv + nacc;
+    //diffClassInvAcc(c) := diffClassInvokes(tcid, c) | diffClassAccess(tcid, c);
+    ntot := #(diffClassInvokes(tcid, c) | diffClassAccess(tcid, c));
+ 	IF ( ntot >= treshold) {
 		TCName(tcnm) := Method(tcid,tcnm); // single element
 		FOR tcnm IN TCName(x) {
-			PRINT "IndirectTest;", tcnm, ";", treshold, ";", ninv, ENDL;
+			PRINT "IndirectTest;", tcnm, ";", treshold, ";", ntot, ENDL;
 		}
 	}
 }

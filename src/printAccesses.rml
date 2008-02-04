@@ -1,0 +1,59 @@
+/**
+ * Print out all accessor -> accessed
+ **/
+
+
+/**
+ * contains a cleaned accesses relation. gets rid of the DefinitionForDeclaration step
+ * @col id: invoke ID
+ * @col x:  x caller
+ * @col y:  y attribute
+ */
+PureAccesses(id,x,y) := EX(u, DefinitionForDeclaration(u,x) & Accesses(id,u,y));
+
+
+FOR i IN PureAccesses(_,x,_) {
+	FOR j IN PureAccesses(_,i,y) {
+		PRINT i, " => ", j, " || ";
+		InvokerName(n) := Method(i, n);
+		IF (#(InvokerName(n)) = 0) {
+			InvokerName(n) := Function(i, n);
+		}
+		FOR l IN InvokerName(n) {
+			PRINT l, " ==ACCESSES==> ";
+		}
+
+		InvokeeName(n) := Attribute(j, n);
+		FOR m IN InvokeeName(n) {
+			PRINT m, ENDL;
+		}
+	}
+}
+
+FOR i IN Accesses(_,x,_) {
+	FOR j IN Accesses(_,i,y) {
+		PRINT i, " => ", j, " || ";
+		InvokerName(n) := Method(i, n);
+		IF (#(InvokerName(n)) = 0) {
+			InvokerName(n) := Function(i, n);
+		}
+		FOR l IN InvokerName(n) {
+			PRINT l, " ==ACCESSES==> ";
+		}
+
+		InvokeeName(n) := Attribute(j, n);
+		FOR m IN InvokeeName(n) {
+			PRINT m, ENDL;
+		}
+	}
+}
+
+PRINT "*****************************************", ENDL;
+PRINT Accesses(x,y,z);
+PRINT "*****************************************", ENDL;
+//PRINT IndirInvokes(x,y,z);
+//PRINT "*****************************************", ENDL;
+PRINT PureAccesses(x,y,z);
+PRINT "*****************************************", ENDL;
+PRINT "#Accesses:", #(Accesses(x,y,z)), ENDL;
+PRINT "#PureAccesses:", #(PureAccesses(x,y,z)), ENDL;

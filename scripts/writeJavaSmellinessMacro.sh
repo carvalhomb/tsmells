@@ -24,7 +24,7 @@ RSF=$2
 PARAMS=( $@ )
 
 MACRO=""
-for i in $(seq 3 $(( $# - 1 )))
+for i in $(seq 2 $(( $# - 1 )))
 do
     MACRO="$MACRO ${PARAMS[i]}"
 done
@@ -32,4 +32,5 @@ done
 RML=$(mktemp) && \
 m4 -DINIT_TEST_ENTITIES=$TSMELLS/src/initJavaTestEntities.rml $MACRO $TSMELLS/src/$SMELL.rml > $RML &&\
 cat $RSF | crocopat $RML 2> /dev/null && \
+#cat $RSF | crocopat $RML && \
 rm -rf $RML &> /dev/null;

@@ -7,9 +7,13 @@ public class MyTest extends TestCase {
     public void testCommand() {
         A a = new A();
         B b = new B();
-        int i;
-        i = a.a;
-        b.b();
+        C c = new C();
+        Integer i;
+
+        a.a();
+        i = b.b;
+        c.c();
+        assertEquals(1, 1);
     }
 
 }

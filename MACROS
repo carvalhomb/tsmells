@@ -29,7 +29,6 @@ INIT_TEST_ENTITIES
 
 INDIRECT_TEST_TRESHOLD
     Threshold for IndirectTest which determines the number of
-    different classes before flagging. If unset this defaults
-    to 4.
+    different classes before flagging. Defaults to 5.
 
 

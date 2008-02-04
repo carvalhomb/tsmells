@@ -121,6 +121,15 @@ PureInvokes(id,x,y) := EX(u,v, DefinitionForDeclaration(u,x) & DefinitionForDecl
 Stimulates(id,x,y) := PureInvokes(id,x,y) & TestMethodId(x) & ProductionMethodId(y);
 
 /**
+ * contains a cleaned accesses relation. gets rid of the DefinitionForDeclaration step
+ * @col id: invoke ID
+ * @col x:  x caller
+ * @col y:  y attribute
+ */
+PureAccesses(id,x,y) := EX(u, DefinitionForDeclaration(u,x) & Accesses(id,u,y));
+
+
+/**
  *  Predicate which denotes wheter an assertion has a failure message
  *  @col x: testchecker ID
  */
