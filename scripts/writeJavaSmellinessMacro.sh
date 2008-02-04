@@ -18,19 +18,20 @@
 # Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
 #
 
-SMELL=$1
-RSF=$2
+RSF=$1
 
 PARAMS=( $@ )
+M4SCRIPT=$TSMELLS/scripts/tsmellJava.m4
 
 MACRO=""
-for i in $(seq 2 $(( $# - 1 )))
+for i in $(seq 1 $(( $# - 1 )))
 do
     MACRO="$MACRO ${PARAMS[i]}"
 done
 
 RML=$(mktemp) && \
-m4 -DINIT_TEST_ENTITIES=$TSMELLS/src/initJavaTestEntities.rml $MACRO $TSMELLS/src/$SMELL.rml > $RML &&\
+m4  $MACRO $M4SCRIPT > $RML &&\
+#cat $RML &&\
 cat $RSF | crocopat $RML 2> /dev/null && \
 #cat $RSF | crocopat $RML && \
 rm -rf $RML &> /dev/null;

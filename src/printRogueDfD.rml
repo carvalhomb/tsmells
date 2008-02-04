@@ -1,0 +1,15 @@
+InvHelp(id, ent) := 
+         ( Invokes (id, ent, _ ) |
+           Invokes (id, _, ent ) );
+
+AccHelp(id, ent) :=  Accesses(id, ent, _ );
+
+RogueMethInv(id, meth, nm) := InvHelp(id, meth) & Method(meth, nm);
+PRINT ["RogueMethInv"] RogueMethInv(x,y,z);
+RogueMethAcc(id, meth, nm) := AccHelp(id, meth) & Method(meth, nm);
+PRINT ["RogueMethAcc"] RogueMethAcc(x,y,z);
+
+RogueFunInv(id, fun, nm) := InvHelp(id, fun) & Function(fun, nm);
+PRINT ["RogueFunInv"] RogueFunInv(x,y,z);
+RogueFunAcc(id, fun, nm) := AccHelp(id, fun) & Function(fun, nm);
+PRINT ["RogueFunAcc"] RogueFunAcc(x,y,z);

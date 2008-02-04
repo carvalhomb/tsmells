@@ -76,7 +76,14 @@ def evalTest(name):
     try:
         res.cmd = readFile(name + '.cmd')
         res.got, ret = execute(res.cmd)
-
+        
+        #linesAdded = ""
+        #cntr = 1;
+        #for i in res.got.split('\n'):
+        #    linesAdded += str(cntr) + ". " + i + "\n"
+        #    cntr += 1
+        #res.got = linesAdded
+        
         res.sources = grabSources()
 
         if not ret:

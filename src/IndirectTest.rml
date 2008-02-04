@@ -24,11 +24,6 @@
  * a TC invokes/accesses
  **/
 
-// initialize the framework dependant test entities
-include(INIT_TEST_ENTITIES)
-
-treshold := ifdef(`INDIRECT_TEST_TRESHOLD', `INDIRECT_TEST_TRESHOLD', `5');
-
 // fake it implementation
 //PRINT "IndirectTest;MyTest.testCommand();",treshold,";6", ENDL;
 
@@ -59,15 +54,15 @@ diffClassInvokes(tcidd, clazz) :=
 
 
 FOR tcid IN TestCommandId(x) {
-	//ninv := #(diffClassInvokes(tcid,z));
+    //ninv := #(diffClassInvokes(tcid,z));
     //nacc := #(diffClassAccess(tcid, z));
     //ntot := ninv + nacc;
     //diffClassInvAcc(c) := diffClassInvokes(tcid, c) | diffClassAccess(tcid, c);
     ntot := #(diffClassInvokes(tcid, c) | diffClassAccess(tcid, c));
- 	IF ( ntot >= treshold) {
-		TCName(tcnm) := Method(tcid,tcnm); // single element
-		FOR tcnm IN TCName(x) {
-			PRINT "IndirectTest;", tcnm, ";", treshold, ";", ntot, ENDL;
-		}
-	}
+    IF ( ntot >= INDIRECT_TEST_TRESHOLD) {
+        TCName(tcnm) := Method(tcid,tcnm); // single element
+        FOR tcnm IN TCName(x) {
+            PRINT "IndirectTest;", tcnm, ";", INDIRECT_TEST_TRESHOLD, ";", ntot, ENDL;
+        }
+    }
 }

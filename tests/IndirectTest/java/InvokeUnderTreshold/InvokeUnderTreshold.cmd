@@ -1,1 +1,1 @@
-writeJavaSmellinessMacro.sh "IndirectTest" "rsf/*.rsf" -DINDIRECT_TEST_TRESHOLD=4
+../generic.cmd
