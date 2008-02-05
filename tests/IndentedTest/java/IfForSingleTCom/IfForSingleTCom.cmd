@@ -1,1 +1,1 @@
-writeJavaSmelliness.sh "IndentedTest" "rsf/IfForSingleTCom.rsf"
+../generic.cmd

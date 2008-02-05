@@ -34,23 +34,23 @@ Method	17	"MyUUT.myInvoker()"
 Method	19	"org::junit::TestCase.assertEquals(boolean,boolean)"
 Method	23	"org::junit::TestCase.assertEquals(byte,byte)"
 Method	27	"org::junit::TestCase.assertEquals(char,char)"
-Method	31	"org::junit::TestCase.assertEquals(double,double,double)"
-Method	36	"org::junit::TestCase.assertEquals(float,float,float)"
-Method	41	"org::junit::TestCase.assertEquals(int,int)"
-Method	45	"org::junit::TestCase.assertEquals(long,long)"
-Method	49	"org::junit::TestCase.assertEquals(java.lang.Object,java.lang.Object)"
-Method	53	"org::junit::TestCase.assertEquals(short,short)"
-Method	57	"org::junit::TestCase.assertEquals(java.lang.String,boolean,boolean)"
-Method	62	"org::junit::TestCase.assertEquals(java.lang.String,byte,byte)"
-Method	67	"org::junit::TestCase.assertEquals(java.lang.String,char,char)"
-Method	72	"org::junit::TestCase.assertEquals(java.lang.String,double,double,double)"
-Method	78	"org::junit::TestCase.assertEquals(java.lang.String,float,float,float)"
-Method	84	"org::junit::TestCase.assertEquals(java.lang.String,int,int)"
-Method	89	"org::junit::TestCase.assertEquals(java.lang.String,long,long)"
-Method	94	"org::junit::TestCase.assertEquals(java.lang.String,java.lang.Object,java.lang.Object)"
-Method	99	"org::junit::TestCase.assertEquals(java.lang.String,short,short)"
-Method	104	"org::junit::TestCase.assertEquals(java.lang.String,java.lang.String)"
-Method	108	"org::junit::TestCase.assertEquals(java.lang.String,java.lang.String,java.lang.String)"
+Method	31	"org::junit::TestCase.assertEquals(int,int)"
+Method	35	"org::junit::TestCase.assertEquals(long,long)"
+Method	39	"org::junit::TestCase.assertEquals(java.lang.Object,java.lang.Object)"
+Method	43	"org::junit::TestCase.assertEquals(short,short)"
+Method	47	"org::junit::TestCase.assertEquals(java.lang.String,boolean,boolean)"
+Method	52	"org::junit::TestCase.assertEquals(java.lang.String,byte,byte)"
+Method	57	"org::junit::TestCase.assertEquals(java.lang.String,char,char)"
+Method	62	"org::junit::TestCase.assertEquals(java.lang.String,double,double,double)"
+Method	68	"org::junit::TestCase.assertEquals(java.lang.String,float,float,float)"
+Method	74	"org::junit::TestCase.assertEquals(java.lang.String,int,int)"
+Method	79	"org::junit::TestCase.assertEquals(java.lang.String,long,long)"
+Method	84	"org::junit::TestCase.assertEquals(java.lang.String,java.lang.Object,java.lang.Object)"
+Method	89	"org::junit::TestCase.assertEquals(java.lang.String,short,short)"
+Method	94	"org::junit::TestCase.assertEquals(java.lang.String,java.lang.String)"
+Method	98	"org::junit::TestCase.assertEquals(java.lang.String,java.lang.String,java.lang.String)"
+Method	103	"org::junit::TestCase.assertEquals(double,double,double)"
+Method	108	"org::junit::TestCase.assertEquals(float,float,float)"
 Method	113	"org::junit::TestCase.assertFalse(boolean)"
 Method	116	"org::junit::TestCase.assertFalse(java.lang.String,boolean)"
 Method	120	"org::junit::TestCase.assertNotNull(java.lang.Object)"
@@ -88,21 +88,21 @@ MethodBelongsToClass	19	5
 MethodBelongsToClass	23	5
 MethodBelongsToClass	27	5
 MethodBelongsToClass	31	5
-MethodBelongsToClass	36	5
-MethodBelongsToClass	41	5
-MethodBelongsToClass	45	5
-MethodBelongsToClass	49	5
-MethodBelongsToClass	53	5
+MethodBelongsToClass	35	5
+MethodBelongsToClass	39	5
+MethodBelongsToClass	43	5
+MethodBelongsToClass	47	5
+MethodBelongsToClass	52	5
 MethodBelongsToClass	57	5
 MethodBelongsToClass	62	5
-MethodBelongsToClass	67	5
-MethodBelongsToClass	72	5
-MethodBelongsToClass	78	5
+MethodBelongsToClass	68	5
+MethodBelongsToClass	74	5
+MethodBelongsToClass	79	5
 MethodBelongsToClass	84	5
 MethodBelongsToClass	89	5
 MethodBelongsToClass	94	5
-MethodBelongsToClass	99	5
-MethodBelongsToClass	104	5
+MethodBelongsToClass	98	5
+MethodBelongsToClass	103	5
 MethodBelongsToClass	108	5
 MethodBelongsToClass	113	5
 MethodBelongsToClass	116	5
@@ -141,21 +141,21 @@ InvokableEntityBelongsToFile	19	1	4
 InvokableEntityBelongsToFile	23	1	5
 InvokableEntityBelongsToFile	27	1	6
 InvokableEntityBelongsToFile	31	1	7
-InvokableEntityBelongsToFile	36	1	8
-InvokableEntityBelongsToFile	41	1	9
-InvokableEntityBelongsToFile	45	1	10
-InvokableEntityBelongsToFile	49	1	11
-InvokableEntityBelongsToFile	53	1	12
+InvokableEntityBelongsToFile	35	1	8
+InvokableEntityBelongsToFile	39	1	9
+InvokableEntityBelongsToFile	43	1	10
+InvokableEntityBelongsToFile	47	1	11
+InvokableEntityBelongsToFile	52	1	12
 InvokableEntityBelongsToFile	57	1	13
 InvokableEntityBelongsToFile	62	1	14
-InvokableEntityBelongsToFile	67	1	15
-InvokableEntityBelongsToFile	72	1	16
-InvokableEntityBelongsToFile	78	1	17
+InvokableEntityBelongsToFile	68	1	15
+InvokableEntityBelongsToFile	74	1	16
+InvokableEntityBelongsToFile	79	1	17
 InvokableEntityBelongsToFile	84	1	18
 InvokableEntityBelongsToFile	89	1	19
 InvokableEntityBelongsToFile	94	1	20
-InvokableEntityBelongsToFile	99	1	21
-InvokableEntityBelongsToFile	104	1	22
+InvokableEntityBelongsToFile	98	1	21
+InvokableEntityBelongsToFile	103	1	22
 InvokableEntityBelongsToFile	108	1	23
 InvokableEntityBelongsToFile	113	1	24
 InvokableEntityBelongsToFile	116	1	25
@@ -194,21 +194,21 @@ InvokableEntityBelongsToFile	20	1	4
 InvokableEntityBelongsToFile	24	1	5
 InvokableEntityBelongsToFile	28	1	6
 InvokableEntityBelongsToFile	32	1	7
-InvokableEntityBelongsToFile	37	1	8
-InvokableEntityBelongsToFile	42	1	9
-InvokableEntityBelongsToFile	46	1	10
-InvokableEntityBelongsToFile	50	1	11
-InvokableEntityBelongsToFile	54	1	12
+InvokableEntityBelongsToFile	36	1	8
+InvokableEntityBelongsToFile	40	1	9
+InvokableEntityBelongsToFile	44	1	10
+InvokableEntityBelongsToFile	48	1	11
+InvokableEntityBelongsToFile	53	1	12
 InvokableEntityBelongsToFile	58	1	13
 InvokableEntityBelongsToFile	63	1	14
-InvokableEntityBelongsToFile	68	1	15
-InvokableEntityBelongsToFile	73	1	16
-InvokableEntityBelongsToFile	79	1	17
+InvokableEntityBelongsToFile	69	1	15
+InvokableEntityBelongsToFile	75	1	16
+InvokableEntityBelongsToFile	80	1	17
 InvokableEntityBelongsToFile	85	1	18
 InvokableEntityBelongsToFile	90	1	19
 InvokableEntityBelongsToFile	95	1	20
-InvokableEntityBelongsToFile	100	1	21
-InvokableEntityBelongsToFile	105	1	22
+InvokableEntityBelongsToFile	99	1	21
+InvokableEntityBelongsToFile	104	1	22
 InvokableEntityBelongsToFile	109	1	23
 InvokableEntityBelongsToFile	114	1	24
 InvokableEntityBelongsToFile	117	1	25
@@ -247,21 +247,21 @@ Visibility	19	"public"
 Visibility	23	"public"
 Visibility	27	"public"
 Visibility	31	"public"
-Visibility	36	"public"
-Visibility	41	"public"
-Visibility	45	"public"
-Visibility	49	"public"
-Visibility	53	"public"
+Visibility	35	"public"
+Visibility	39	"public"
+Visibility	43	"public"
+Visibility	47	"public"
+Visibility	52	"public"
 Visibility	57	"public"
 Visibility	62	"public"
-Visibility	67	"public"
-Visibility	72	"public"
-Visibility	78	"public"
+Visibility	68	"public"
+Visibility	74	"public"
+Visibility	79	"public"
 Visibility	84	"public"
 Visibility	89	"public"
 Visibility	94	"public"
-Visibility	99	"public"
-Visibility	104	"public"
+Visibility	98	"public"
+Visibility	103	"public"
 Visibility	108	"public"
 Visibility	113	"public"
 Visibility	116	"public"
@@ -299,23 +299,23 @@ Signature	17	"myInvoker()"
 Signature	19	"assertEquals(boolean,boolean)"
 Signature	23	"assertEquals(byte,byte)"
 Signature	27	"assertEquals(char,char)"
-Signature	31	"assertEquals(double,double,double)"
-Signature	36	"assertEquals(float,float,float)"
-Signature	41	"assertEquals(int,int)"
-Signature	45	"assertEquals(long,long)"
-Signature	49	"assertEquals(java.lang.Object,java.lang.Object)"
-Signature	53	"assertEquals(short,short)"
-Signature	57	"assertEquals(java.lang.String,boolean,boolean)"
-Signature	62	"assertEquals(java.lang.String,byte,byte)"
-Signature	67	"assertEquals(java.lang.String,char,char)"
-Signature	72	"assertEquals(java.lang.String,double,double,double)"
-Signature	78	"assertEquals(java.lang.String,float,float,float)"
-Signature	84	"assertEquals(java.lang.String,int,int)"
-Signature	89	"assertEquals(java.lang.String,long,long)"
-Signature	94	"assertEquals(java.lang.String,java.lang.Object,java.lang.Object)"
-Signature	99	"assertEquals(java.lang.String,short,short)"
-Signature	104	"assertEquals(java.lang.String,java.lang.String)"
-Signature	108	"assertEquals(java.lang.String,java.lang.String,java.lang.String)"
+Signature	31	"assertEquals(int,int)"
+Signature	35	"assertEquals(long,long)"
+Signature	39	"assertEquals(java.lang.Object,java.lang.Object)"
+Signature	43	"assertEquals(short,short)"
+Signature	47	"assertEquals(java.lang.String,boolean,boolean)"
+Signature	52	"assertEquals(java.lang.String,byte,byte)"
+Signature	57	"assertEquals(java.lang.String,char,char)"
+Signature	62	"assertEquals(java.lang.String,double,double,double)"
+Signature	68	"assertEquals(java.lang.String,float,float,float)"
+Signature	74	"assertEquals(java.lang.String,int,int)"
+Signature	79	"assertEquals(java.lang.String,long,long)"
+Signature	84	"assertEquals(java.lang.String,java.lang.Object,java.lang.Object)"
+Signature	89	"assertEquals(java.lang.String,short,short)"
+Signature	94	"assertEquals(java.lang.String,java.lang.String)"
+Signature	98	"assertEquals(java.lang.String,java.lang.String,java.lang.String)"
+Signature	103	"assertEquals(double,double,double)"
+Signature	108	"assertEquals(float,float,float)"
 Signature	113	"assertFalse(boolean)"
 Signature	116	"assertFalse(java.lang.String,boolean)"
 Signature	120	"assertNotNull(java.lang.Object)"
@@ -356,21 +356,21 @@ DefinitionForDeclaration	20	19
 DefinitionForDeclaration	24	23
 DefinitionForDeclaration	28	27
 DefinitionForDeclaration	32	31
-DefinitionForDeclaration	37	36
-DefinitionForDeclaration	42	41
-DefinitionForDeclaration	46	45
-DefinitionForDeclaration	50	49
-DefinitionForDeclaration	54	53
+DefinitionForDeclaration	36	35
+DefinitionForDeclaration	40	39
+DefinitionForDeclaration	44	43
+DefinitionForDeclaration	48	47
+DefinitionForDeclaration	53	52
 DefinitionForDeclaration	58	57
 DefinitionForDeclaration	63	62
-DefinitionForDeclaration	68	67
-DefinitionForDeclaration	73	72
-DefinitionForDeclaration	79	78
+DefinitionForDeclaration	69	68
+DefinitionForDeclaration	75	74
+DefinitionForDeclaration	80	79
 DefinitionForDeclaration	85	84
 DefinitionForDeclaration	90	89
 DefinitionForDeclaration	95	94
-DefinitionForDeclaration	100	99
-DefinitionForDeclaration	105	104
+DefinitionForDeclaration	99	98
+DefinitionForDeclaration	104	103
 DefinitionForDeclaration	109	108
 DefinitionForDeclaration	114	113
 DefinitionForDeclaration	117	116

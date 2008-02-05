@@ -1,1 +1,1 @@
-writeJavaSmelliness.sh ForTestersOnly rsf/SingleMethodPkg.rsf
+../generic.cmd

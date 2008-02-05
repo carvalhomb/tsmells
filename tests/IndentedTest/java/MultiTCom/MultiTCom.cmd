@@ -1,1 +1,1 @@
-writeJavaSmelliness.sh "IndentedTest" "rsf/MultiTCom.rsf"
+../generic.cmd

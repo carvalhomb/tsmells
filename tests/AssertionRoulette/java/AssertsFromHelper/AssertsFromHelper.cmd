@@ -1,1 +1,1 @@
-writeJavaSmelliness.sh "AssertionRoulette" "rsf/AssertsFromHelper.rsf"
+../generic.cmd

@@ -1,2 +1,0 @@
-'MyTest.testMore()'
-'MyTest.testCommand()'

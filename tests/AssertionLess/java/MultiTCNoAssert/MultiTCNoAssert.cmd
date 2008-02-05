@@ -1,1 +1,1 @@
-writeJavaSmelliness.sh "AssertionLess" "rsf/*.rsf"
+../generic.cmd

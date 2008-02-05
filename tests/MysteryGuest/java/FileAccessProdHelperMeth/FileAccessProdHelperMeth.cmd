@@ -1,1 +1,1 @@
-writeJavaSmelliness.sh "MysteryGuest" rsf/FileAccessProdHelperMeth.rsf
+../generic.cmd

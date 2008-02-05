@@ -1,1 +1,1 @@
-writeJavaSmelliness.sh ForTestersOnly rsf/MultipleMixed.rsf
+../generic.cmd

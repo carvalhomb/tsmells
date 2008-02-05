@@ -1,2 +1,1 @@
-writeJavaSmelliness.sh "AssertionRoulette" "rsf/SixAssertEqualsNoDesc.rsf"
-
+../generic.cmd

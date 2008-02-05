@@ -1,2 +1,1 @@
-writeJavaSmelliness.sh "AssertionRoulette" "rsf/FourDescLessAsserts.rsf"
-
+../generic.cmd

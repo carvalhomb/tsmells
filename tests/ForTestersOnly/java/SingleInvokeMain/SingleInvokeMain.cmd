@@ -1,1 +1,1 @@
-writeJavaSmelliness.sh ForTestersOnly rsf/SingleInvokeMain.rsf
+../generic.cmd

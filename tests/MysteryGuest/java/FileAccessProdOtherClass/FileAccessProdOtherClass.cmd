@@ -1,1 +1,1 @@
-writeJavaSmelliness.sh "MysteryGuest" rsf/FileAccessProdOtherClass.rsf
+../generic.cmd

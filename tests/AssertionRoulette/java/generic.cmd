@@ -1,0 +1,1 @@
+writeJavaSmellinessMacro.sh "rsf/*.rsf" -DASSERTION_ROULETTE
