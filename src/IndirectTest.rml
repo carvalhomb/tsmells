@@ -60,9 +60,14 @@ FOR tcid IN TestCommandId(x) {
     //diffClassInvAcc(c) := diffClassInvokes(tcid, c) | diffClassAccess(tcid, c);
     ntot := #(diffClassInvokes(tcid, c) | diffClassAccess(tcid, c));
     IF ( ntot >= INDIRECT_TEST_TRESHOLD) {
-        TCName(tcnm) := Method(tcid,tcnm); // single element
-        FOR tcnm IN TCName(x) {
-            PRINT "IndirectTest;", tcnm, ";", INDIRECT_TEST_TRESHOLD, ";", ntot, ENDL;
-        }
+        TCName(tcnm) := Method(tcid,tcnm);
+        FileName(x) := EX(y, InvokableEntityBelongsToFile(tcid,y,_) & File(y,x));
+        LineNr(x) := InvokableEntityBelongsToFile(tcid, _, x);
+        FOR file IN FileName(x)  { // singleton
+        FOR line IN LineNr(x)    { // singleton
+        FOR tcas IN TCName(x)    { // singleton
+            PRINT "IndirectTest;", tcas, ";", INDIRECT_TEST_TRESHOLD, ";", 
+                  ntot,";", file, ";", line, ENDL;
+        }}}
     }
 }

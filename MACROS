@@ -22,13 +22,36 @@
  * Description of the different macros used in smells scripts
  **/
 
-INIT_TEST_ENTITIES
-    The absolute path of a xunit framework RML which initiates 
-    test entities. Like: TestCommand, TestHelper etc etc.
-    eg: InitJavaTestEntities.rml InitCppTestEntities.rml
+
+ASSERTIONLESS
+    Switch for executing the assertionless script
+
+ASSERTION_ROULETTE
+    Switch for executing the assertionroulette script
+
+FOR_TESTERS_ONLY
+    Switch for executing the for testers only script
+
+INDENTED_TEST
+    Switch for executing the indented test script
+
+INDIRECT_TEST
+    Switch for executing the indirect test script
 
 INDIRECT_TEST_TRESHOLD
     Threshold for IndirectTest which determines the number of
     different classes before flagging. Defaults to 5.
 
+MYSTERY_GUEST
+    Switch for executing the mystery guest script
 
+MYSTERYG_GUEST_BLACKLIST
+    Absolute path of the rml containing MysteryBlacklist entries.
+    eg: ``MysteryBlacklist("file","java::io::BufferedReader.readLine()");''
+    Where the first column denotes the mystery-type.
+
+SENSITIVE_EQUALITY
+    Switch for executing the sensitive equality script
+
+TSMELLS
+    Root of your tsmells isntallation

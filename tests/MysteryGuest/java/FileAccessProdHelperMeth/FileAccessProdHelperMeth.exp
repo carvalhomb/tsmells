@@ -1,1 +1,1 @@
-MysteryGuest;MysteryTest.testSomething();MyUnitUnderTest.someHelper(String);file;java::io::BufferedReader.readLine()
+MysteryGuest;MysteryTest.testSomething();MysteryTest.java;6;MyUnitUnderTest.someHelper(String);MyUnitUnderTest.java;10;file;java::io::BufferedReader.readLine()

@@ -24,46 +24,42 @@
  * TestEntities: + initCppTestEntities.rml
  *               + initJavaTestEntities.rml
  * 
- * usage: writeJavaSmelliness.sh SensitiveEquality myModel.rsf
- *
- * or direct: 1. concatenate 'initJavaTestEntities.rml' with this file
- *            2. cat myModel.rsf | crocopat concat.rml
  **/
-
-// make sure all these relations exist to suppress crocopat warnings
-TestCommand("-1","-2");
-TestHelper("-3","-4");
-Stimulates("-5", "-6");
-ProductionMethod("-7", "-8");
-Function("-9","-10");
-TestChecker("-11","-12");
-CheckerInvoke("-13","-14");
 
 // fake it implementation
 //PRINT "SensitiveEquality;MyTest.testCommand();1", ENDL;
 //       ^^ testcase.testcommand(), total number of toStrings
 
 //ToStringId(x):=Method(x,"java::lang::Object.toString()");
+// TODO paremeterize this, eg blacklist
 ToStringId(x):=EX(y,Method(x,y) & @"[.]toString()"(y));
 
 FOR tcid IN TestCommandId(x) {
-	ToStringInvokes(y) := EX(x,PureInvokes(y,tcid,x) & ToStringId(x));
-	ntstr := #(ToStringInvokes(y));
-	IF ( ntstr > 0) {
-		TCName(tcnm) := Method(tcid,tcnm); // single element
-		FOR tcnm IN TCName(x) {
-			PRINT "SensitiveEquality;TC;", tcnm, ";", ntstr, ENDL;
-		}
-	}
+    ToStringInvokes(y) := EX(x,PureInvokes(y,tcid,x) & ToStringId(x));
+    ntstr := #(ToStringInvokes(y));
+    IF ( ntstr > 0) {
+        TCName(tcnm) := Method(tcid,tcnm);
+        FileName(x) := EX(y, InvokableEntityBelongsToFile(tcid,y,_) & File(y,x));
+        LineNr(x) := InvokableEntityBelongsToFile(tcid, _, x);
+        FOR file IN FileName(x)  { // singleton
+        FOR line IN LineNr(x)    { // singleton
+        FOR tcom IN TCName(x)    { // singleton
+            PRINT "SensitiveEquality;TC;", tcom, ";", ntstr, ";", file, ";", line, ENDL;
+        }}}
+    }
 }
 
 FOR thid IN TestHelperId(x) {
-	ToStringInvokes(y) := EX(x,PureInvokes(y,thid,x) & ToStringId(x));
-	ntstr := #(ToStringInvokes(y));
-	IF ( ntstr > 0) {
-		THName(thnm) := Method(thid,thnm); // single element
-		FOR thnm IN THName(x) {
-			PRINT "SensitiveEquality;TH;", thnm, ";", ntstr, ENDL;
-		}
-	}
+    ToStringInvokes(y) := EX(x,PureInvokes(y,thid,x) & ToStringId(x));
+    ntstr := #(ToStringInvokes(y));
+    IF ( ntstr > 0) {
+        THName(thnm) := Method(thid,thnm); 
+        FileName(x) := EX(y, InvokableEntityBelongsToFile(thid,y,_) & File(y,x));
+        LineNr(x) := InvokableEntityBelongsToFile(thid, _, x);
+        FOR file IN FileName(x)  { // singleton
+        FOR line IN LineNr(x)    { // singleton
+        FOR thel IN THName(x)    { // singleton
+            PRINT "SensitiveEquality;TH;", thel, ";", ntstr, ";", file, ";", line, ENDL;
+        }}}
+    }
 }

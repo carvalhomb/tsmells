@@ -23,18 +23,6 @@
  *
  **/
 
-// make sure all these relations exist to suppress crocopat warnings
-TestCommand("-1","-2");
-TestHelper("-3","-4");
-Stimulates("-5", "-6");
-ProductionMethod("-7", "-8");
-Function("-9","-10");
-TestChecker("-11","-12");
-CheckerInvoke("-13","-14");
-Measurement("-15","-16","-17","-18");
-ADDLOOPTOUNIVERSE("LOOP");
-ADDCONDTOUNIVERSE("COND");
-
 // fake it implementation
 //PRINT "IndentedTest;TC;MyTest.testCommand();1", ENDL;
 
@@ -47,9 +35,13 @@ FOR tcid IN TestCommandId(x) {
     ncs := SUM(LoopCount(x)) + SUM(CondCount(y)); // summing over a single element ..
     IF ( ncs > 0) {
         TCName(tcnm) := Method(tcid,tcnm); // single element
+        FileName(x) := EX(y, InvokableEntityBelongsToFile(tcid,y,_) & File(y,x));
+        LineNr(x) := InvokableEntityBelongsToFile(tcid, _, x);
+        FOR f IN FileName(x)  {
+        FOR l IN LineNr(x)    {
         FOR tcnm IN TCName(x) {
-            PRINT "IndentedTest;TC;", tcnm, ";", ncs, ENDL;
-        }
+            PRINT "IndentedTest;TC;", tcnm, ";", ncs, ";", f, ";", l, ENDL;
+        }}}
     }
 }
 
@@ -59,9 +51,13 @@ FOR thid IN TestHelperId(x) {
     ncs := SUM(LoopCount(x)) + SUM(CondCount(y)); // summing over a single element ..
     IF ( ncs > 0) {
         THName(thnm) := Method(thid,thnm); // single element
+        FileName(x) := EX(y, InvokableEntityBelongsToFile(thid,y,_) & File(y,x));
+        LineNr(x) := InvokableEntityBelongsToFile(thid, _, x);
+        FOR f IN FileName(x)  {
+        FOR l IN LineNr(x)    {
         FOR thnm IN THName(x) {
-            PRINT "IndentedTest;TH;", thnm, ";", ncs, ENDL;
-        }
+            PRINT "IndentedTest;TH;", thnm, ";", ncs, ";", f, ";", l, ENDL;
+        }}}
     }
 }
 

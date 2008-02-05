@@ -1,2 +1,2 @@
-SensitiveEquality;TC;MySecondTest.testStuff();2
-SensitiveEquality;TC;MyTest.testCommand();2
+SensitiveEquality;TC;MySecondTest.testStuff();2;MySecondTest.java;6
+SensitiveEquality;TC;MyTest.testCommand();2;MyTest.java;6

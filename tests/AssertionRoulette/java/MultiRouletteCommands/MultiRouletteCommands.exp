@@ -1,2 +1,2 @@
-AssertionRoulette;TC;MyTest.testCommand();8;4
-AssertionRoulette;TC;MyTest.testMore();4;4
+AssertionRoulette;TC;MyTest.testCommand();8;4;MyTest.java;12;15;17;19
+AssertionRoulette;TC;MyTest.testMore();4;4;MyTest.java;24;25;26;27

@@ -25,22 +25,8 @@
  *
  * TestEntities: + writeCppTestEntities.rml
  *               + writeJavaTestEntities.rml
- * MysteryBlack: + MysteryBlacklistCpp.rsf
- *               + MysteryBlacklistJava.rsf
- * 
- * eg: appendCppTE.sh rsf/FileAccessTestCommand.rsf  | \
- *			cat - ${TSMELLS}/src/MysteryBlacklistCpp.rsf | \
- *			crocopat ${TSMELLS}/src/MysteryGuest.rml
  *
  **/
-
-// make sure all these relations exist to suppress crocopat warnings
-/*TestCommand("-1","-2");
-TestHelper("-3","-4");
-Stimulates("-5", "-6", "-7");
-ProductionMethod("-7", "-8");
-TestChecker("-11","-12");*/
-Function("-9","-10");
 
 // fake it implementation
 // PRINT "mine::tests::FileAccessTest.testSomething(),mine::tests::FileAccessTest::testSomething(),file, java::io::BufferedReader::readLine()", ENDL;
@@ -67,33 +53,29 @@ BlackID(x) := EX(y, MysteryBlacklist(_,y) & (Method(x,y) | Function(x,y)));
 MysteryInTc(a,b) := TestCommand(a,_) & Stimulates(_,a,b) & Blacklist(_,_,b);
 
 //PRINT ["MysteryInTc"] MysteryInTc(x,y);
-//PRINT "TC	 ", TestCommand(x,y),  ENDL;
-//PRINT "STIM	 ", Stimulates(x,y,z), ENDL;
+//PRINT "TC     ", TestCommand(x,y),  ENDL;
+//PRINT "STIM     ", Stimulates(x,y,z), ENDL;
 //PRINT "BLACK ", Blacklist(x,y,z),  ENDL;
 
 // print results
 FOR tc IN MysteryInTc(x,_) {
-	FOR myst IN MysteryInTc(tc,x) {
-		MethodName(mn) := Method(tc, mn); //singleton
-		FOR n IN MethodName(mn) {
-			PRINT "MysteryGuest;", n, ";"; // also contains testcase name
-		}
-		
-		// print twice since smell in tc itself
-		FOR n IN MethodName(mn) {
-			PRINT n, ";";
-		}
+    FOR myst IN MysteryInTc(tc,x) {
+        MethodName(mn) := Method(tc, mn); 
+        MystType(mt) := Blacklist(mt,_,myst);
+        MystEnt(mn) := Blacklist(_,mn,myst);
+        FileName(x) := EX(y, InvokableEntityBelongsToFile(tc,y,_) & File(y,x));
+        LineNr(x) := InvokableEntityBelongsToFile(tc, _, x);
 
-		MystType(mt) := Blacklist(mt,_,myst); //singleton
-		FOR n IN MystType(mt) {
-			PRINT n, ";";
-		}
-
-		MystName(mn) := Blacklist(_,mn,myst); //singleton
-		FOR n IN MystName(mn) {
-			PRINT n, ENDL;
-		}
-	}
+        FOR meth IN MethodName(mn) { // singleton
+        FOR type IN MystType(mt)   { // singleton
+        FOR myst IN MystEnt(mn)    { // singleton
+        FOR file IN FileName(x)    { // singleton
+        FOR line IN LineNr(x)      { // singleton
+            // print twice since smell in tc itself
+            PRINT "MysteryGuest;", meth, ";", file, ";", line, ";",
+                  meth, ";", file, ";", line, ";", type, ";", myst, ENDL;
+        }}}}}
+    }
 }
 
 /**
@@ -110,30 +92,32 @@ MysteryInM(a,b,c) :=  (Method(b,_) | Function(b,_)) & PureInvokes(_,b,c) & Black
 
 // print result
 FOR tc IN MysteryInM(x,_,_) {
-	FOR th IN MysteryInM(tc,x,_) {
-		FOR myst IN MysteryInM(tc,th,x) {
-			CommandName(mn) := Method(tc, mn); //singleton
-			FOR n IN CommandName(mn) {
-				PRINT "MysteryGuest;", n, ";";
-			}
+    FOR th IN MysteryInM(tc,x,_) {
+        FOR myst IN MysteryInM(tc,th,x) {
+            CommandName(mn) := Method(tc, mn);
+            MethodName(hn) := Method(th, hn);
+            MystType(mt) := Blacklist(mt,_,myst); 
+            MystEnt(mn) := Blacklist(_,mn,myst);
+            IF (#(MethodName(hn)) = 0) { 
+                // function, not a method
+                MethodName(hn) := Function(th, hn);
+            }
+            FileName(x) := EX(y, InvokableEntityBelongsToFile(tc,y,_) & File(y,x));
+            LineNr(x) := InvokableEntityBelongsToFile(tc, _, x);
+            MFileName(x) := EX(y, InvokableEntityBelongsToFile(th,y,_) & File(y,x));
+            MLineNr(x) := InvokableEntityBelongsToFile(th, _, x);
 
-			MethodName(hn) := Method(th, hn); //singleton
-			IF (#(MethodName(hn)) = 0) { // function, not a method
-				MethodName(hn) := Function(th, hn);
-			}
-			FOR m IN MethodName(hn) {
-				PRINT m, ";";
-			}
-
-			MystType(mt) := Blacklist(mt,_,myst); //singleton
-			FOR m IN MystType(mt) {
-				PRINT m, ";";
-			}
-
-			MystName(mn) := Blacklist(_,mn,myst); //singleton
-			FOR m IN MystName(mn) {
-				PRINT m, ENDL;
-			}
-		}
-	}
+            FOR cmd  IN CommandName(mn) { // singleton
+            FOR meth IN MethodName(hn)  { // singleton
+            FOR type IN MystType(mt)    { // singleton
+            FOR myst IN MystEnt(mn)     { // singleton
+            FOR file IN FileName(x)     { // singleton
+            FOR line IN LineNr(x)       { // singleton
+            FOR mfil IN MFileName(x)    { // singleton
+            FOR mlin IN MLineNr(x)      { // singleton
+                PRINT "MysteryGuest;", cmd, ";", file, ";", line, ";",
+                      meth, ";", mfil, ";", mlin, ";", type, ";", myst, ENDL;
+            }}}}}}}}
+        }
+    }
 }
