@@ -1,5 +1,0 @@
-Module	1	"/"
-File	1	"MyClass.java"
-FileBelongsToModule	1	1
-Class	1	"MyClass"
-ClassBelongsToFile	1	1	1

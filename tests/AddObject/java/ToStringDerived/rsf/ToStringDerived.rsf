@@ -1,0 +1,119 @@
+Module	1	"/java/lang"
+Module	2	"/"
+Module	3	"/java"
+ModuleBelongsToModule	1	3
+ModuleBelongsToModule	3	2
+File	1	"java/lang/Object.java"
+File	2	"MySub.java"
+File	3	"MySuper.java"
+FileBelongsToModule	1	1
+FileBelongsToModule	2	2
+FileBelongsToModule	3	2
+Class	2	"MySub"
+Class	3	"MySuper"
+Class	4	"java::lang::Object"
+ClassBelongsToFile	2	2	1
+ClassBelongsToFile	3	3	1
+ClassBelongsToFile	4	1	1
+InheritsFrom	5	"MySub->MySuper"	2	3
+InheritsFrom	6	"MySub->java::lang::Object"	2	4
+InheritsFrom	7	"MySuper->java::lang::Object"	3	4
+Method	8	"MySub.myMethod()"
+Method	10	"MySuper.toString()"
+Method	12	"java::lang::Object.clone()"
+Method	14	"java::lang::Object.equals(java.lang.Object)"
+Method	17	"java::lang::Object.finalize()"
+Method	19	"java::lang::Object.getClass()"
+Method	21	"java::lang::Object.hasCode()"
+Method	23	"java::lang::Object.notify()"
+Method	25	"java::lang::Object.notifyAll()"
+Method	27	"java::lang::Object.toString()"
+Method	29	"java::lang::Object.wait()"
+Method	31	"java::lang::Object.wait(long)"
+Method	34	"java::lang::Object.wait(long,int)"
+MethodBelongsToClass	8	2
+MethodBelongsToClass	10	3
+MethodBelongsToClass	12	4
+MethodBelongsToClass	14	4
+MethodBelongsToClass	17	4
+MethodBelongsToClass	19	4
+MethodBelongsToClass	21	4
+MethodBelongsToClass	23	4
+MethodBelongsToClass	25	4
+MethodBelongsToClass	27	4
+MethodBelongsToClass	29	4
+MethodBelongsToClass	31	4
+MethodBelongsToClass	34	4
+InvokableEntityBelongsToFile	8	2	2
+InvokableEntityBelongsToFile	10	3	2
+InvokableEntityBelongsToFile	12	1	02
+InvokableEntityBelongsToFile	14	1	03
+InvokableEntityBelongsToFile	17	1	04
+InvokableEntityBelongsToFile	19	1	05
+InvokableEntityBelongsToFile	21	1	06
+InvokableEntityBelongsToFile	23	1	07
+InvokableEntityBelongsToFile	25	1	08
+InvokableEntityBelongsToFile	27	1	09
+InvokableEntityBelongsToFile	29	1	10
+InvokableEntityBelongsToFile	31	1	11
+InvokableEntityBelongsToFile	34	1	12
+InvokableEntityBelongsToFile	9	2	2
+InvokableEntityBelongsToFile	11	3	2
+InvokableEntityBelongsToFile	13	1	02
+InvokableEntityBelongsToFile	15	1	03
+InvokableEntityBelongsToFile	18	1	04
+InvokableEntityBelongsToFile	20	1	05
+InvokableEntityBelongsToFile	22	1	06
+InvokableEntityBelongsToFile	24	1	07
+InvokableEntityBelongsToFile	26	1	08
+InvokableEntityBelongsToFile	28	1	09
+InvokableEntityBelongsToFile	30	1	10
+InvokableEntityBelongsToFile	32	1	11
+InvokableEntityBelongsToFile	35	1	12
+Visibility	8	"public"
+Visibility	10	"public"
+Visibility	12	"public"
+Visibility	14	"public"
+Visibility	17	"public"
+Visibility	19	"public"
+Visibility	21	"public"
+Visibility	23	"public"
+Visibility	25	"public"
+Visibility	27	"public"
+Visibility	29	"public"
+Visibility	31	"public"
+Visibility	34	"public"
+Signature	8	"myMethod()"
+Signature	10	"toString()"
+Signature	12	"clone()"
+Signature	14	"equals(java.lang.Object)"
+Signature	17	"finalize()"
+Signature	19	"getClass()"
+Signature	21	"hasCode()"
+Signature	23	"notify()"
+Signature	25	"notifyAll()"
+Signature	27	"toString()"
+Signature	29	"wait()"
+Signature	31	"wait(long)"
+Signature	34	"wait(long,int)"
+DefinitionForDeclaration	9	8
+DefinitionForDeclaration	11	10
+DefinitionForDeclaration	13	12
+DefinitionForDeclaration	15	14
+DefinitionForDeclaration	18	17
+DefinitionForDeclaration	20	19
+DefinitionForDeclaration	22	21
+DefinitionForDeclaration	24	23
+DefinitionForDeclaration	26	25
+DefinitionForDeclaration	28	27
+DefinitionForDeclaration	30	29
+DefinitionForDeclaration	32	31
+DefinitionForDeclaration	35	34
+Invokes	38	9	28
+InvocationLocation	38	2	3
+Measurement	39	10	"CC"	1
+Measurement	40	10	"COM"	0
+Measurement	41	10	"LOC"	2
+Measurement	42	8	"CC"	1
+Measurement	43	8	"COM"	0
+Measurement	44	8	"LOC"	2

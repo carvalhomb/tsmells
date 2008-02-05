@@ -48,7 +48,13 @@ def grabSources():
             continue
         elif -1 != src.find("file/"):
             continue
-        result.append([src, text2html(open(src).read())])
+        html = text2html(open(src).read())
+        linesAdded = ""
+        cntr = 1;
+        for i in html.split('<br>'):
+            linesAdded += str(cntr) + ". " + i + "<br>"
+            cntr += 1
+        result.append([src, linesAdded])
     chdir('..')
     return result
 

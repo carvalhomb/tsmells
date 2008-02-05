@@ -31,8 +31,8 @@ Yes("1");
 CheckerSignature("0","org::junit::TestCase.assertEquals(boolean,boolean)");
 CheckerSignature("0","org::junit::TestCase.assertEquals(byte,byte)");
 CheckerSignature("0","org::junit::TestCase.assertEquals(char,char)");
-CheckerSignature("0","org::junit::TestCase.assertEquals(double,double,double)");
-CheckerSignature("0","org::junit::TestCase.assertEquals(float,float,float)");
+CheckerSignature("1","org::junit::TestCase.assertEquals(double,double,double)"); // on purpose, for SN mistakes
+CheckerSignature("1","org::junit::TestCase.assertEquals(float,float,float)"); // idem
 CheckerSignature("0","org::junit::TestCase.assertEquals(int,int)");
 CheckerSignature("0","org::junit::TestCase.assertEquals(long,long)");
 CheckerSignature("0","org::junit::TestCase.assertEquals(java.lang.Object,java.lang.Object)");

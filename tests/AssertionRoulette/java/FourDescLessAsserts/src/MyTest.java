@@ -16,7 +16,7 @@ public class MyTest extends TestCase {
 		this.assertFalse("description", false);
 		assertSame(new Integer(1), new Integer(1));
 		this.assertNotNull("description", new Integer(1));
-		this.assertEquals(1.0, 1.1, 0.2);
+		this.assertEquals(1, 1);
 
 	}
 
