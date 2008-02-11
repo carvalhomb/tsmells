@@ -11,7 +11,7 @@ for i in `ls | grep -v "RmComments" | grep -v "LazyTest" | grep -v "GenCtrlStruc
 		cd $j
 		java2rsf.sh src/ > /dev/null && \
         rm -rf src.cdif src/dbdump src/*.proj src/*.err &&\
-		mv src.rsf rsf/$j.rsf &&\
+		mv src.rsf $j.rsf &&\
 		echo "done";
 		cd $CURRDIR;
 	done ;

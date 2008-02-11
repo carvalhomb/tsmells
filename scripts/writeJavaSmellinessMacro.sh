@@ -23,7 +23,7 @@ RSF=$1
 PARAMS=( $@ )
 M4SCRIPT=$TSMELLS/scripts/tsmellJava.m4
 
-MACRO=""
+MACRO="-DBASIC_JUNIT"
 for i in $(seq 1 $(( $# - 1 )))
 do
     MACRO="$MACRO ${PARAMS[i]}"

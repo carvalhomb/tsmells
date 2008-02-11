@@ -116,7 +116,7 @@ TestHelper(x,y) := TestHelperId(x) & Method(x,y);
  * @col x:  x caller
  * @col y:  y callee
  */
-PureInvokes(id,x,y) := EX(u,v, DefinitionForDeclaration(u,x) & DefinitionForDeclaration(v,y) & Invokes(id,u,v));
+PureInvokes(id,x,y) := EX(u, DefinitionForDeclaration(u,x) & Invokes(id,u,y));
 
 Stimulates(id,x,y) := PureInvokes(id,x,y) & TestMethodId(x) & ProductionMethodId(y);
 

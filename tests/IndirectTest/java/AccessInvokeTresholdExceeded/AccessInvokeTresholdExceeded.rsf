@@ -1,0 +1,455 @@
+Module	1	"/org/junit"
+Module	2	"/"
+Module	3	"/org"
+Module	4	"/java/lang"
+Module	5	"/java"
+ModuleBelongsToModule	1	3
+ModuleBelongsToModule	3	2
+ModuleBelongsToModule	4	5
+ModuleBelongsToModule	5	2
+File	1	"org/junit/TestCase.java"
+File	2	"java/lang/Object.java"
+File	3	"A.java"
+File	4	"B.java"
+File	5	"C.java"
+File	6	"D.java"
+File	7	"E.java"
+File	8	"F.java"
+File	9	"MyTest.java"
+FileBelongsToModule	1	1
+FileBelongsToModule	2	4
+FileBelongsToModule	3	2
+FileBelongsToModule	4	2
+FileBelongsToModule	5	2
+FileBelongsToModule	6	2
+FileBelongsToModule	7	2
+FileBelongsToModule	8	2
+FileBelongsToModule	9	2
+Class	3	"A"
+Class	4	"B"
+Class	5	"C"
+Class	6	"D"
+Class	7	"E"
+Class	8	"F"
+Class	9	"MyTest"
+Class	10	"org::junit::TestCase"
+Class	11	"java::lang::Object"
+ClassBelongsToFile	3	3	1
+ClassBelongsToFile	4	4	1
+ClassBelongsToFile	5	5	1
+ClassBelongsToFile	6	6	1
+ClassBelongsToFile	7	7	1
+ClassBelongsToFile	8	8	1
+ClassBelongsToFile	9	9	5
+ClassBelongsToFile	10	1	3
+ClassBelongsToFile	11	2	1
+InheritsFrom	12	"MyTest->org::junit::TestCase"	9	10
+InheritsFrom	13	"C->java::lang::Object"	5	11
+InheritsFrom	14	"B->java::lang::Object"	4	11
+InheritsFrom	15	"A->java::lang::Object"	3	11
+InheritsFrom	16	"E->java::lang::Object"	7	11
+InheritsFrom	17	"MyTest->java::lang::Object"	9	11
+InheritsFrom	18	"D->java::lang::Object"	6	11
+InheritsFrom	19	"F->java::lang::Object"	8	11
+InheritsFrom	20	"org::junit::TestCase->java::lang::Object"	10	11
+Method	21	"A.a()"
+Method	23	"B.b()"
+Method	25	"C.c()"
+Method	27	"MyTest.testCommand()"
+Method	29	"org::junit::TestCase.assertEquals(boolean,boolean)"
+Method	33	"org::junit::TestCase.assertEquals(byte,byte)"
+Method	37	"org::junit::TestCase.assertEquals(char,char)"
+Method	41	"org::junit::TestCase.assertEquals(int,int)"
+Method	45	"org::junit::TestCase.assertEquals(long,long)"
+Method	49	"org::junit::TestCase.assertEquals(java.lang.Object,java.lang.Object)"
+Method	53	"org::junit::TestCase.assertEquals(short,short)"
+Method	57	"org::junit::TestCase.assertEquals(java.lang.String,boolean,boolean)"
+Method	62	"org::junit::TestCase.assertEquals(java.lang.String,byte,byte)"
+Method	67	"org::junit::TestCase.assertEquals(java.lang.String,char,char)"
+Method	72	"org::junit::TestCase.assertEquals(java.lang.String,double,double,double)"
+Method	78	"org::junit::TestCase.assertEquals(java.lang.String,float,float,float)"
+Method	84	"org::junit::TestCase.assertEquals(java.lang.String,int,int)"
+Method	89	"org::junit::TestCase.assertEquals(java.lang.String,long,long)"
+Method	94	"org::junit::TestCase.assertEquals(java.lang.String,java.lang.Object,java.lang.Object)"
+Method	99	"org::junit::TestCase.assertEquals(java.lang.String,short,short)"
+Method	104	"org::junit::TestCase.assertEquals(java.lang.String,java.lang.String)"
+Method	108	"org::junit::TestCase.assertEquals(java.lang.String,java.lang.String,java.lang.String)"
+Method	113	"org::junit::TestCase.assertEquals(double,double,double)"
+Method	118	"org::junit::TestCase.assertEquals(float,float,float)"
+Method	123	"org::junit::TestCase.assertFalse(boolean)"
+Method	126	"org::junit::TestCase.assertFalse(java.lang.String,boolean)"
+Method	130	"org::junit::TestCase.assertNotNull(java.lang.Object)"
+Method	133	"org::junit::TestCase.assertNotNull(java.lang.String,java.lang.Object)"
+Method	137	"org::junit::TestCase.assertNotSame(java.lang.Object,java.lang.Object)"
+Method	141	"org::junit::TestCase.assertNotSame(java.lang.String,java.lang.Object,java.lang.Object)"
+Method	146	"org::junit::TestCase.assertNull(java.lang.Object)"
+Method	149	"org::junit::TestCase.assertNull(java.lang.String,java.lang.Object)"
+Method	153	"org::junit::TestCase.assertSame(java.lang.Object,java.lang.Object)"
+Method	157	"org::junit::TestCase.assertSame(java.lang.String,java.lang.Object,java.lang.Object)"
+Method	162	"org::junit::TestCase.assertTrue(boolean)"
+Method	165	"org::junit::TestCase.assertTrue(java.lang.String,boolean)"
+Method	169	"org::junit::TestCase.fail()"
+Method	171	"org::junit::TestCase.fail(java.lang.String)"
+Method	174	"org::junit::TestCase.failNotEquals(java.lang.String,java.lang.Object,java.lang.Object)"
+Method	179	"org::junit::TestCase.failNotSame(java.lang.String,java.lang.Object,java.lang.Object)"
+Method	184	"org::junit::TestCase.failSame(java.lang.String)"
+Method	187	"org::junit::TestCase.format(java.lang.String,java.lang.Object,java.lang.Object)"
+Method	192	"java::lang::Object.clone()"
+Method	194	"java::lang::Object.equals(java.lang.Object)"
+Method	197	"java::lang::Object.finalize()"
+Method	199	"java::lang::Object.getClass()"
+Method	201	"java::lang::Object.hasCode()"
+Method	203	"java::lang::Object.notify()"
+Method	205	"java::lang::Object.notifyAll()"
+Method	207	"java::lang::Object.toString()"
+Method	209	"java::lang::Object.wait()"
+Method	211	"java::lang::Object.wait(long)"
+Method	214	"java::lang::Object.wait(long,int)"
+MethodBelongsToClass	21	3
+MethodBelongsToClass	23	4
+MethodBelongsToClass	25	5
+MethodBelongsToClass	27	9
+MethodBelongsToClass	29	10
+MethodBelongsToClass	33	10
+MethodBelongsToClass	37	10
+MethodBelongsToClass	41	10
+MethodBelongsToClass	45	10
+MethodBelongsToClass	49	10
+MethodBelongsToClass	53	10
+MethodBelongsToClass	57	10
+MethodBelongsToClass	62	10
+MethodBelongsToClass	67	10
+MethodBelongsToClass	72	10
+MethodBelongsToClass	78	10
+MethodBelongsToClass	84	10
+MethodBelongsToClass	89	10
+MethodBelongsToClass	94	10
+MethodBelongsToClass	99	10
+MethodBelongsToClass	104	10
+MethodBelongsToClass	108	10
+MethodBelongsToClass	113	10
+MethodBelongsToClass	118	10
+MethodBelongsToClass	123	10
+MethodBelongsToClass	126	10
+MethodBelongsToClass	130	10
+MethodBelongsToClass	133	10
+MethodBelongsToClass	137	10
+MethodBelongsToClass	141	10
+MethodBelongsToClass	146	10
+MethodBelongsToClass	149	10
+MethodBelongsToClass	153	10
+MethodBelongsToClass	157	10
+MethodBelongsToClass	162	10
+MethodBelongsToClass	165	10
+MethodBelongsToClass	169	10
+MethodBelongsToClass	171	10
+MethodBelongsToClass	174	10
+MethodBelongsToClass	179	10
+MethodBelongsToClass	184	10
+MethodBelongsToClass	187	10
+MethodBelongsToClass	192	11
+MethodBelongsToClass	194	11
+MethodBelongsToClass	197	11
+MethodBelongsToClass	199	11
+MethodBelongsToClass	201	11
+MethodBelongsToClass	203	11
+MethodBelongsToClass	205	11
+MethodBelongsToClass	207	11
+MethodBelongsToClass	209	11
+MethodBelongsToClass	211	11
+MethodBelongsToClass	214	11
+InvokableEntityBelongsToFile	21	3	2
+InvokableEntityBelongsToFile	23	4	2
+InvokableEntityBelongsToFile	25	5	2
+InvokableEntityBelongsToFile	27	9	7
+InvokableEntityBelongsToFile	29	1	4
+InvokableEntityBelongsToFile	33	1	5
+InvokableEntityBelongsToFile	37	1	6
+InvokableEntityBelongsToFile	41	1	7
+InvokableEntityBelongsToFile	45	1	8
+InvokableEntityBelongsToFile	49	1	9
+InvokableEntityBelongsToFile	53	1	10
+InvokableEntityBelongsToFile	57	1	11
+InvokableEntityBelongsToFile	62	1	12
+InvokableEntityBelongsToFile	67	1	13
+InvokableEntityBelongsToFile	72	1	14
+InvokableEntityBelongsToFile	78	1	15
+InvokableEntityBelongsToFile	84	1	16
+InvokableEntityBelongsToFile	89	1	17
+InvokableEntityBelongsToFile	94	1	18
+InvokableEntityBelongsToFile	99	1	19
+InvokableEntityBelongsToFile	104	1	20
+InvokableEntityBelongsToFile	108	1	21
+InvokableEntityBelongsToFile	113	1	22
+InvokableEntityBelongsToFile	118	1	23
+InvokableEntityBelongsToFile	123	1	24
+InvokableEntityBelongsToFile	126	1	25
+InvokableEntityBelongsToFile	130	1	26
+InvokableEntityBelongsToFile	133	1	27
+InvokableEntityBelongsToFile	137	1	28
+InvokableEntityBelongsToFile	141	1	29
+InvokableEntityBelongsToFile	146	1	30
+InvokableEntityBelongsToFile	149	1	31
+InvokableEntityBelongsToFile	153	1	32
+InvokableEntityBelongsToFile	157	1	33
+InvokableEntityBelongsToFile	162	1	34
+InvokableEntityBelongsToFile	165	1	35
+InvokableEntityBelongsToFile	169	1	36
+InvokableEntityBelongsToFile	171	1	37
+InvokableEntityBelongsToFile	174	1	38
+InvokableEntityBelongsToFile	179	1	39
+InvokableEntityBelongsToFile	184	1	40
+InvokableEntityBelongsToFile	187	1	41
+InvokableEntityBelongsToFile	192	2	02
+InvokableEntityBelongsToFile	194	2	03
+InvokableEntityBelongsToFile	197	2	04
+InvokableEntityBelongsToFile	199	2	05
+InvokableEntityBelongsToFile	201	2	06
+InvokableEntityBelongsToFile	203	2	07
+InvokableEntityBelongsToFile	205	2	08
+InvokableEntityBelongsToFile	207	2	09
+InvokableEntityBelongsToFile	209	2	10
+InvokableEntityBelongsToFile	211	2	11
+InvokableEntityBelongsToFile	214	2	12
+InvokableEntityBelongsToFile	22	3	2
+InvokableEntityBelongsToFile	24	4	2
+InvokableEntityBelongsToFile	26	5	2
+InvokableEntityBelongsToFile	28	9	7
+InvokableEntityBelongsToFile	30	1	4
+InvokableEntityBelongsToFile	34	1	5
+InvokableEntityBelongsToFile	38	1	6
+InvokableEntityBelongsToFile	42	1	7
+InvokableEntityBelongsToFile	46	1	8
+InvokableEntityBelongsToFile	50	1	9
+InvokableEntityBelongsToFile	54	1	10
+InvokableEntityBelongsToFile	58	1	11
+InvokableEntityBelongsToFile	63	1	12
+InvokableEntityBelongsToFile	68	1	13
+InvokableEntityBelongsToFile	73	1	14
+InvokableEntityBelongsToFile	79	1	15
+InvokableEntityBelongsToFile	85	1	16
+InvokableEntityBelongsToFile	90	1	17
+InvokableEntityBelongsToFile	95	1	18
+InvokableEntityBelongsToFile	100	1	19
+InvokableEntityBelongsToFile	105	1	20
+InvokableEntityBelongsToFile	109	1	21
+InvokableEntityBelongsToFile	114	1	22
+InvokableEntityBelongsToFile	119	1	23
+InvokableEntityBelongsToFile	124	1	24
+InvokableEntityBelongsToFile	127	1	25
+InvokableEntityBelongsToFile	131	1	26
+InvokableEntityBelongsToFile	134	1	27
+InvokableEntityBelongsToFile	138	1	28
+InvokableEntityBelongsToFile	142	1	29
+InvokableEntityBelongsToFile	147	1	30
+InvokableEntityBelongsToFile	150	1	31
+InvokableEntityBelongsToFile	154	1	32
+InvokableEntityBelongsToFile	158	1	33
+InvokableEntityBelongsToFile	163	1	34
+InvokableEntityBelongsToFile	166	1	35
+InvokableEntityBelongsToFile	170	1	36
+InvokableEntityBelongsToFile	172	1	37
+InvokableEntityBelongsToFile	175	1	38
+InvokableEntityBelongsToFile	180	1	39
+InvokableEntityBelongsToFile	185	1	40
+InvokableEntityBelongsToFile	188	1	41
+InvokableEntityBelongsToFile	193	2	02
+InvokableEntityBelongsToFile	195	2	03
+InvokableEntityBelongsToFile	198	2	04
+InvokableEntityBelongsToFile	200	2	05
+InvokableEntityBelongsToFile	202	2	06
+InvokableEntityBelongsToFile	204	2	07
+InvokableEntityBelongsToFile	206	2	08
+InvokableEntityBelongsToFile	208	2	09
+InvokableEntityBelongsToFile	210	2	10
+InvokableEntityBelongsToFile	212	2	11
+InvokableEntityBelongsToFile	215	2	12
+Visibility	21	"public"
+Visibility	23	"public"
+Visibility	25	"public"
+Visibility	27	"public"
+Visibility	29	"public"
+Visibility	33	"public"
+Visibility	37	"public"
+Visibility	41	"public"
+Visibility	45	"public"
+Visibility	49	"public"
+Visibility	53	"public"
+Visibility	57	"public"
+Visibility	62	"public"
+Visibility	67	"public"
+Visibility	72	"public"
+Visibility	78	"public"
+Visibility	84	"public"
+Visibility	89	"public"
+Visibility	94	"public"
+Visibility	99	"public"
+Visibility	104	"public"
+Visibility	108	"public"
+Visibility	113	"public"
+Visibility	118	"public"
+Visibility	123	"public"
+Visibility	126	"public"
+Visibility	130	"public"
+Visibility	133	"public"
+Visibility	137	"public"
+Visibility	141	"public"
+Visibility	146	"public"
+Visibility	149	"public"
+Visibility	153	"public"
+Visibility	157	"public"
+Visibility	162	"public"
+Visibility	165	"public"
+Visibility	169	"public"
+Visibility	171	"public"
+Visibility	174	"public"
+Visibility	179	"public"
+Visibility	184	"public"
+Visibility	187	"public"
+Visibility	192	"public"
+Visibility	194	"public"
+Visibility	197	"public"
+Visibility	199	"public"
+Visibility	201	"public"
+Visibility	203	"public"
+Visibility	205	"public"
+Visibility	207	"public"
+Visibility	209	"public"
+Visibility	211	"public"
+Visibility	214	"public"
+Signature	21	"a()"
+Signature	23	"b()"
+Signature	25	"c()"
+Signature	27	"testCommand()"
+Signature	29	"assertEquals(boolean,boolean)"
+Signature	33	"assertEquals(byte,byte)"
+Signature	37	"assertEquals(char,char)"
+Signature	41	"assertEquals(int,int)"
+Signature	45	"assertEquals(long,long)"
+Signature	49	"assertEquals(java.lang.Object,java.lang.Object)"
+Signature	53	"assertEquals(short,short)"
+Signature	57	"assertEquals(java.lang.String,boolean,boolean)"
+Signature	62	"assertEquals(java.lang.String,byte,byte)"
+Signature	67	"assertEquals(java.lang.String,char,char)"
+Signature	72	"assertEquals(java.lang.String,double,double,double)"
+Signature	78	"assertEquals(java.lang.String,float,float,float)"
+Signature	84	"assertEquals(java.lang.String,int,int)"
+Signature	89	"assertEquals(java.lang.String,long,long)"
+Signature	94	"assertEquals(java.lang.String,java.lang.Object,java.lang.Object)"
+Signature	99	"assertEquals(java.lang.String,short,short)"
+Signature	104	"assertEquals(java.lang.String,java.lang.String)"
+Signature	108	"assertEquals(java.lang.String,java.lang.String,java.lang.String)"
+Signature	113	"assertEquals(double,double,double)"
+Signature	118	"assertEquals(float,float,float)"
+Signature	123	"assertFalse(boolean)"
+Signature	126	"assertFalse(java.lang.String,boolean)"
+Signature	130	"assertNotNull(java.lang.Object)"
+Signature	133	"assertNotNull(java.lang.String,java.lang.Object)"
+Signature	137	"assertNotSame(java.lang.Object,java.lang.Object)"
+Signature	141	"assertNotSame(java.lang.String,java.lang.Object,java.lang.Object)"
+Signature	146	"assertNull(java.lang.Object)"
+Signature	149	"assertNull(java.lang.String,java.lang.Object)"
+Signature	153	"assertSame(java.lang.Object,java.lang.Object)"
+Signature	157	"assertSame(java.lang.String,java.lang.Object,java.lang.Object)"
+Signature	162	"assertTrue(boolean)"
+Signature	165	"assertTrue(java.lang.String,boolean)"
+Signature	169	"fail()"
+Signature	171	"fail(java.lang.String)"
+Signature	174	"failNotEquals(java.lang.String,java.lang.Object,java.lang.Object)"
+Signature	179	"failNotSame(java.lang.String,java.lang.Object,java.lang.Object)"
+Signature	184	"failSame(java.lang.String)"
+Signature	187	"format(java.lang.String,java.lang.Object,java.lang.Object)"
+Signature	192	"clone()"
+Signature	194	"equals(java.lang.Object)"
+Signature	197	"finalize()"
+Signature	199	"getClass()"
+Signature	201	"hasCode()"
+Signature	203	"notify()"
+Signature	205	"notifyAll()"
+Signature	207	"toString()"
+Signature	209	"wait()"
+Signature	211	"wait(long)"
+Signature	214	"wait(long,int)"
+Attribute	218	"D.d"
+Attribute	219	"E.e"
+Attribute	220	"F.f"
+AttributeBelongsToClass	218	6
+AttributeBelongsToClass	219	7
+AttributeBelongsToClass	220	8
+DefinitionForDeclaration	22	21
+DefinitionForDeclaration	24	23
+DefinitionForDeclaration	26	25
+DefinitionForDeclaration	28	27
+DefinitionForDeclaration	30	29
+DefinitionForDeclaration	34	33
+DefinitionForDeclaration	38	37
+DefinitionForDeclaration	42	41
+DefinitionForDeclaration	46	45
+DefinitionForDeclaration	50	49
+DefinitionForDeclaration	54	53
+DefinitionForDeclaration	58	57
+DefinitionForDeclaration	63	62
+DefinitionForDeclaration	68	67
+DefinitionForDeclaration	73	72
+DefinitionForDeclaration	79	78
+DefinitionForDeclaration	85	84
+DefinitionForDeclaration	90	89
+DefinitionForDeclaration	95	94
+DefinitionForDeclaration	100	99
+DefinitionForDeclaration	105	104
+DefinitionForDeclaration	109	108
+DefinitionForDeclaration	114	113
+DefinitionForDeclaration	119	118
+DefinitionForDeclaration	124	123
+DefinitionForDeclaration	127	126
+DefinitionForDeclaration	131	130
+DefinitionForDeclaration	134	133
+DefinitionForDeclaration	138	137
+DefinitionForDeclaration	142	141
+DefinitionForDeclaration	147	146
+DefinitionForDeclaration	150	149
+DefinitionForDeclaration	154	153
+DefinitionForDeclaration	158	157
+DefinitionForDeclaration	163	162
+DefinitionForDeclaration	166	165
+DefinitionForDeclaration	170	169
+DefinitionForDeclaration	172	171
+DefinitionForDeclaration	175	174
+DefinitionForDeclaration	180	179
+DefinitionForDeclaration	185	184
+DefinitionForDeclaration	188	187
+DefinitionForDeclaration	193	192
+DefinitionForDeclaration	195	194
+DefinitionForDeclaration	198	197
+DefinitionForDeclaration	200	199
+DefinitionForDeclaration	202	201
+DefinitionForDeclaration	204	203
+DefinitionForDeclaration	206	205
+DefinitionForDeclaration	208	207
+DefinitionForDeclaration	210	209
+DefinitionForDeclaration	212	211
+DefinitionForDeclaration	215	214
+Invokes	221	28	21
+Invokes	222	28	23
+Invokes	223	28	25
+InvocationLocation	221	9	15
+InvocationLocation	222	9	16
+InvocationLocation	223	9	17
+Accesses	224	28	218
+Accesses	225	28	219
+Accesses	226	28	220
+AccessLocation	224	9	20
+AccessLocation	225	9	21
+AccessLocation	226	9	22
+Measurement	227	21	"CC"	1
+Measurement	228	21	"COM"	0
+Measurement	229	21	"LOC"	1
+Measurement	230	27	"CC"	1
+Measurement	231	27	"COM"	0
+Measurement	232	27	"LOC"	14
+Measurement	233	23	"CC"	1
+Measurement	234	23	"COM"	0
+Measurement	235	23	"LOC"	1
+Measurement	236	25	"CC"	1
+Measurement	237	25	"COM"	0
+Measurement	238	25	"LOC"	1

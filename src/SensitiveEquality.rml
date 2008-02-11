@@ -38,7 +38,7 @@ FOR tcid IN TestCommandId(x) {
     ToStringInvokes(y) := EX(x,PureInvokes(y,tcid,x) & ToStringId(x));
     ntstr := #(ToStringInvokes(y));
     IF ( ntstr > 0) {
-        TCName(tcnm) := Method(tcid,tcnm);
+        TCName(tcnmx) := Method(tcid,tcnmx);
         FileName(x) := EX(y, InvokableEntityBelongsToFile(tcid,y,_) & File(y,x));
         LineNr(x) := InvokableEntityBelongsToFile(tcid, _, x);
         FOR file IN FileName(x)  { // singleton
@@ -53,7 +53,7 @@ FOR thid IN TestHelperId(x) {
     ToStringInvokes(y) := EX(x,PureInvokes(y,thid,x) & ToStringId(x));
     ntstr := #(ToStringInvokes(y));
     IF ( ntstr > 0) {
-        THName(thnm) := Method(thid,thnm); 
+        THName(thnmx) := Method(thid,thnmx); 
         FileName(x) := EX(y, InvokableEntityBelongsToFile(thid,y,_) & File(y,x));
         LineNr(x) := InvokableEntityBelongsToFile(thid, _, x);
         FOR file IN FileName(x)  { // singleton

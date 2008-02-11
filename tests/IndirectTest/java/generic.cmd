@@ -1,1 +1,1 @@
-writeJavaSmellinessMacro.sh "rsf/*.rsf" -DINDIRECT_TEST -DINDIRECT_TEST_TRESHOLD=4
+writeJavaSmellinessMacro.sh "*.rsf" -DINDIRECT_TEST -DINDIRECT_TEST_TRESHOLD=4

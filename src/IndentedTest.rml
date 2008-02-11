@@ -30,8 +30,8 @@
 //Measurement    213    10    "LOOP"    1
 
 FOR tcid IN TestCommandId(x) {
-    LoopCount(num) := Measurement(_, tcid, "LOOP", num);
-    CondCount(num) := Measurement(_, tcid, "COND", num);
+    LoopCount(numx) := Measurement(_, tcid, "LOOP", numx);
+    CondCount(numx) := Measurement(_, tcid, "COND", numx);
     ncs := SUM(LoopCount(x)) + SUM(CondCount(y)); // summing over a single element ..
     IF ( ncs > 0) {
         TCName(tcnm) := Method(tcid,tcnm); // single element
@@ -46,8 +46,8 @@ FOR tcid IN TestCommandId(x) {
 }
 
 FOR thid IN TestHelperId(x) {
-    LoopCount(num) := Measurement(_, thid, "LOOP", num);
-    CondCount(num) := Measurement(_, thid, "COND", num);
+    LoopCount(numx) := Measurement(_, thid, "LOOP", numx);
+    CondCount(numx) := Measurement(_, thid, "COND", numx);
     ncs := SUM(LoopCount(x)) + SUM(CondCount(y)); // summing over a single element ..
     IF ( ncs > 0) {
         THName(thnm) := Method(thid,thnm); // single element

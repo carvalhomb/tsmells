@@ -36,7 +36,7 @@
  **/
 diffClassAccess(tcidd, clazz) := 
     EX(y, id, TestCommandId(tcidd) & 
-              Accesses(id,tcidd,y) & 
+              PureAccesses(id,tcidd,y) & 
               AttributeBelongsToClass(y,clazz) & 
               !TestCaseId(clazz));
 
@@ -60,7 +60,7 @@ FOR tcid IN TestCommandId(x) {
     //diffClassInvAcc(c) := diffClassInvokes(tcid, c) | diffClassAccess(tcid, c);
     ntot := #(diffClassInvokes(tcid, c) | diffClassAccess(tcid, c));
     IF ( ntot >= INDIRECT_TEST_TRESHOLD) {
-        TCName(tcnm) := Method(tcid,tcnm);
+        TCName(tcnmz) := Method(tcid,tcnmz);
         FileName(x) := EX(y, InvokableEntityBelongsToFile(tcid,y,_) & File(y,x));
         LineNr(x) := InvokableEntityBelongsToFile(tcid, _, x);
         FOR file IN FileName(x)  { // singleton

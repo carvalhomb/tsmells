@@ -29,6 +29,16 @@ ASSERTIONLESS
 ASSERTION_ROULETTE
     Switch for executing the assertionroulette script
 
+DUPLICATED_CODE
+    Switch for executing the duplicated code 
+
+DUPLICATED_CODE_TRESHOLD
+    Positive integer which defines the minimum duplication length. Setting
+    this too low will cause performance loss
+
+DUPLICATED_CODE_PYGEN
+    Full path of the code duplication python script
+
 FOR_TESTERS_ONLY
     Switch for executing the for testers only script
 

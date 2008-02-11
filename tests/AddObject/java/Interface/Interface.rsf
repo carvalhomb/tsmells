@@ -1,0 +1,96 @@
+Module	1	"/java/lang"
+Module	2	"/"
+Module	3	"/java"
+ModuleBelongsToModule	1	3
+ModuleBelongsToModule	3	2
+File	1	"java/lang/Object.java"
+File	2	"MyClass.java"
+File	3	"MyInterface.java"
+FileBelongsToModule	1	1
+FileBelongsToModule	2	2
+FileBelongsToModule	3	2
+Class	2	"MyClass"
+Class	3	"MyInterface"
+Class	4	"java::lang::Object"
+ClassBelongsToFile	2	2	1
+ClassBelongsToFile	3	3	1
+ClassBelongsToFile	4	1	1
+InheritsFrom	5	"MyInterface->java::lang::Object"	3	4
+InheritsFrom	6	"MyClass->java::lang::Object"	2	4
+Method	7	"java::lang::Object.clone()"
+Method	9	"java::lang::Object.equals(java.lang.Object)"
+Method	12	"java::lang::Object.finalize()"
+Method	14	"java::lang::Object.getClass()"
+Method	16	"java::lang::Object.hasCode()"
+Method	18	"java::lang::Object.notify()"
+Method	20	"java::lang::Object.notifyAll()"
+Method	22	"java::lang::Object.toString()"
+Method	24	"java::lang::Object.wait()"
+Method	26	"java::lang::Object.wait(long)"
+Method	29	"java::lang::Object.wait(long,int)"
+MethodBelongsToClass	7	4
+MethodBelongsToClass	9	4
+MethodBelongsToClass	12	4
+MethodBelongsToClass	14	4
+MethodBelongsToClass	16	4
+MethodBelongsToClass	18	4
+MethodBelongsToClass	20	4
+MethodBelongsToClass	22	4
+MethodBelongsToClass	24	4
+MethodBelongsToClass	26	4
+MethodBelongsToClass	29	4
+InvokableEntityBelongsToFile	7	1	02
+InvokableEntityBelongsToFile	9	1	03
+InvokableEntityBelongsToFile	12	1	04
+InvokableEntityBelongsToFile	14	1	05
+InvokableEntityBelongsToFile	16	1	06
+InvokableEntityBelongsToFile	18	1	07
+InvokableEntityBelongsToFile	20	1	08
+InvokableEntityBelongsToFile	22	1	09
+InvokableEntityBelongsToFile	24	1	10
+InvokableEntityBelongsToFile	26	1	11
+InvokableEntityBelongsToFile	29	1	12
+InvokableEntityBelongsToFile	8	1	02
+InvokableEntityBelongsToFile	10	1	03
+InvokableEntityBelongsToFile	13	1	04
+InvokableEntityBelongsToFile	15	1	05
+InvokableEntityBelongsToFile	17	1	06
+InvokableEntityBelongsToFile	19	1	07
+InvokableEntityBelongsToFile	21	1	08
+InvokableEntityBelongsToFile	23	1	09
+InvokableEntityBelongsToFile	25	1	10
+InvokableEntityBelongsToFile	27	1	11
+InvokableEntityBelongsToFile	30	1	12
+Visibility	7	"public"
+Visibility	9	"public"
+Visibility	12	"public"
+Visibility	14	"public"
+Visibility	16	"public"
+Visibility	18	"public"
+Visibility	20	"public"
+Visibility	22	"public"
+Visibility	24	"public"
+Visibility	26	"public"
+Visibility	29	"public"
+Signature	7	"clone()"
+Signature	9	"equals(java.lang.Object)"
+Signature	12	"finalize()"
+Signature	14	"getClass()"
+Signature	16	"hasCode()"
+Signature	18	"notify()"
+Signature	20	"notifyAll()"
+Signature	22	"toString()"
+Signature	24	"wait()"
+Signature	26	"wait(long)"
+Signature	29	"wait(long,int)"
+DefinitionForDeclaration	8	7
+DefinitionForDeclaration	10	9
+DefinitionForDeclaration	13	12
+DefinitionForDeclaration	15	14
+DefinitionForDeclaration	17	16
+DefinitionForDeclaration	19	18
+DefinitionForDeclaration	21	20
+DefinitionForDeclaration	23	22
+DefinitionForDeclaration	25	24
+DefinitionForDeclaration	27	26
+DefinitionForDeclaration	30	29

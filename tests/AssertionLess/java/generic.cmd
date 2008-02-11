@@ -1,1 +1,1 @@
-writeJavaSmellinessMacro.sh "rsf/*.rsf" -DASSERTIONLESS
+writeJavaSmellinessMacro.sh "*.rsf" -DASSERTIONLESS

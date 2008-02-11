@@ -1,1 +1,1 @@
-writeJavaSmellinessMacro.sh "rsf/*.rsf" -DINDENTED_TEST
+writeJavaSmellinessMacro.sh "*.rsf" -DINDENTED_TEST

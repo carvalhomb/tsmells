@@ -30,7 +30,7 @@ FOR i IN PureAccesses(_,x,_) {
 	}
 }
 
-FOR i IN Accesses(_,x,_) {
+/**FOR i IN Accesses(_,x,_) {
 	FOR j IN Accesses(_,i,y) {
 		PRINT i, " => ", j, " || ";
 		InvokerName(n) := Method(i, n);
@@ -46,14 +46,14 @@ FOR i IN Accesses(_,x,_) {
 			PRINT m, ENDL;
 		}
 	}
-}
+}**/
 
-PRINT "*****************************************", ENDL;
-PRINT Accesses(x,y,z);
-PRINT "*****************************************", ENDL;
+//PRINT "*****************************************", ENDL;
+//PRINT Accesses(x,y,z);
+//PRINT "*****************************************", ENDL;
 //PRINT IndirInvokes(x,y,z);
 //PRINT "*****************************************", ENDL;
-PRINT PureAccesses(x,y,z);
-PRINT "*****************************************", ENDL;
+//PRINT PureAccesses(x,y,z);
+//PRINT "*****************************************", ENDL;
 PRINT "#Accesses:", #(Accesses(x,y,z)), ENDL;
 PRINT "#PureAccesses:", #(PureAccesses(x,y,z)), ENDL;

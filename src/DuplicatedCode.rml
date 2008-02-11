@@ -1,0 +1,99 @@
+/**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+// fake it
+//PRINT "DuplicatedCode;6;MyTest.firstCom();MyTest.java;7;MyTest.secondCom();MyTest.java;16", ENDL;
+//                    ^lengtOfDuplication   ^^ both duplicator test methods with filename and starting line
+
+
+/**
+ * The invocations of a testcommand, with
+ * filename and linenumber.
+ *
+ * @col iid:  invocation id
+ * @col inv:  invokee id
+ * @col line: invocation line number
+ * @col tc:   qualified testcommand name
+ * @col inv:  qualified invokee name
+ * @col file: filename
+ **/
+ComInvoke(iid, invid, line, tcx, inv, file) := 
+   EX(tcid, x, fid, 
+              TestCommandId(tcid) & 
+              PureInvokes(iid, tcid, invid) & 
+              InvocationLocation(iid, _, line) &
+              InvokableEntityBelongsToFile(tcid,fid, x) &
+              Method(tcid,tcx) &
+              (Method(invid, inv) | Function(invid, inv)) &
+              File(fid, file)
+              );
+
+EXEC "rm -rf tmp_duplic_code__";
+
+PRINT "A" , ENDL;
+
+FOR iid   IN ComInvoke(a_dc,_,_,_,_,_) {
+FOR invid IN ComInvoke(iid,b_dc, _,_,_,_) {
+FOR line  IN ComInvoke(iid,invid,c_dc,_,_,_) {
+FOR tc    IN ComInvoke(iid,invid,line, d_dc,_,_) {
+FOR inv   IN ComInvoke(iid,invid,line,tc,e_dc,_) {
+FOR file  IN ComInvoke(iid,invid,line,tc,inv,f_dc) {
+    PRINT "ComInvoke;", iid, ";", invid, ";", line, ";", tc, ";", inv, ";", file, ENDL TO "tmp_duplic_code__";
+}}}}}}
+
+
+/**
+ * The accesses of a testcommand, with
+ * filename and linenumber.
+ *
+ * @col aid:   access id
+ * @col attid: attribute id
+ * @col line:  access line number
+ * @col tc:    qualified testcommand name
+ * @col att:   qualified attribute name
+ * @col file:  filename
+ **/
+ComAccess(aid, attid, line2, tc2, att, file2) := 
+   EX(tcid, x, fid, 
+              TestCommandId(tcid) & 
+              PureAccesses(aid, tcid, attid) & 
+              AccessLocation(aid, _, line2) &
+              InvokableEntityBelongsToFile(tcid,fid, x) &
+              Method(tcid,tc2) &
+              Attribute(attid, att) &
+              File(fid, file2)
+              );
+
+PRINT "B", ENDL;
+
+FOR aid   IN ComAccess(a_dc,_,_,_,_,_) {
+FOR attid IN ComAccess(aid,b_dc, _,_,_,_) {
+FOR line  IN ComAccess(aid,attid,c_dc,_,_,_) {
+FOR tc    IN ComAccess(aid,attid,line, d_dc,_,_) {
+FOR att   IN ComAccess(aid,attid,line,tc,e_dc,_) {
+FOR file  IN ComAccess(aid,attid,line,tc,att,f_dc) {
+    PRINT "ComAccess;", aid, ";", attid, ";", line, ";", tc, ";", att, ";", file, ENDL TO "tmp_duplic_code__";
+}}}}}}
+
+PRINT "C", ENDL;
+
+EXEC "python DUPLICATED_CODE_PYGEN tmp_duplic_code__ DUPLICATED_CODE_TRESHOLD";
+
+//EXEC "rm -rf tmp_duplic_code__";
