@@ -22,20 +22,23 @@
 //PRINT "DuplicatedCode;6;MyTest.firstCom();MyTest.java;7;MyTest.secondCom();MyTest.java;16", ENDL;
 //                    ^lengtOfDuplication   ^^ both duplicator test methods with filename and starting line
 
+//PRINT "A", ENDL;
+//EXEC "date";
 
 /**
  * The invocations of a testcommand, with
  * filename and linenumber.
  *
- * @col iid:  invocation id
- * @col inv:  invokee id
- * @col line: invocation line number
- * @col tc:   qualified testcommand name
- * @col inv:  qualified invokee name
- * @col file: filename
+ * @col tcid:   invoker method id (test command)
+ * @col iid:    invocation id
+ * @col invid:  invokee id
+ * @col line:   invocation line number
+ * @col tc:     qualified testcommand name
+ * @col inv:    qualified invokee name
+ * @col file:   filename
  **/
-ComInvoke(iid, invid, line, tcx, inv, file) := 
-   EX(tcid, x, fid, 
+ComInvoke(tcid, iid, invid, line, tcx, inv, file) := 
+   EX(x, fid, 
               TestCommandId(tcid) & 
               PureInvokes(iid, tcid, invid) & 
               InvocationLocation(iid, _, line) &
@@ -47,22 +50,19 @@ ComInvoke(iid, invid, line, tcx, inv, file) :=
 
 EXEC "rm -rf tmp_duplic_code__";
 
-//PRINT "A" , ENDL;
+//PRINT "B", ENDL;
+//EXEC "date";
 
-FOR iid   IN ComInvoke(a_dc,_,_,_,_,_) {
-FOR invid IN ComInvoke(iid,b_dc, _,_,_,_) {
-FOR line  IN ComInvoke(iid,invid,c_dc,_,_,_) {
-FOR tc    IN ComInvoke(iid,invid,line, d_dc,_,_) {
-FOR inv   IN ComInvoke(iid,invid,line,tc,e_dc,_) {
-FOR file  IN ComInvoke(iid,invid,line,tc,inv,f_dc) {
-    PRINT "ComInvoke;", iid, ";", invid, ";", line, ";", tc, ";", inv, ";", file, ENDL TO "tmp_duplic_code__";
-}}}}}}
+PRINT ["ComInvoke"] ComInvoke(a_dc,b_dc,c_dc,d_dc,e_dc,f_dc,g_dc) TO "tmp_duplic_code__";
 
+//PRINT "C", ENDL;
+//EXEC "date";
 
 /**
  * The accesses of a testcommand, with
  * filename and linenumber.
  *
+ * @col tcid:  accessor method id (test command)
  * @col aid:   access id
  * @col attid: attribute type id (was attribute id)
  * @col line:  access line number
@@ -70,31 +70,29 @@ FOR file  IN ComInvoke(iid,invid,line,tc,inv,f_dc) {
  * @col att:   qualified attribute name
  * @col file:  filename
  **/
-ComAccess(aid, attid, line2, tc2, att, file2) := 
-   EX(tcid, x, fid, attrid, 
-              TestCommandId(tcid) & 
-              PureAccesses(aid, tcid, attrid) & 
+ComAccess(tcid_ca, aid, attid, line2, tc2, att, file2) := 
+   EX(x, fid, attrid, 
+              TestCommandId(tcid_ca) & 
+              PureAccesses(aid, tcid_ca, attrid) & 
               AccessLocation(aid, _, line2) &
-              InvokableEntityBelongsToFile(tcid,fid, x) &
-              Method(tcid,tc2) &
+              InvokableEntityBelongsToFile(tcid_ca,fid, x) &
+              Method(tcid_ca,tc2) &
               Attribute(attrid, att) &
               HasType(attrid, attid) &
               File(fid, file2)
               );
 
-//PRINT "B", ENDL;
+//PRINT "D", ENDL;
+//EXEC "date";
 
-FOR aid   IN ComAccess(a_dc,_,_,_,_,_) {
-FOR attid IN ComAccess(aid,b_dc, _,_,_,_) {
-FOR line  IN ComAccess(aid,attid,c_dc,_,_,_) {
-FOR tc    IN ComAccess(aid,attid,line, d_dc,_,_) {
-FOR att   IN ComAccess(aid,attid,line,tc,e_dc,_) {
-FOR file  IN ComAccess(aid,attid,line,tc,att,f_dc) {
-    PRINT "ComAccess;", aid, ";", attid, ";", line, ";", tc, ";", att, ";", file, ENDL TO "tmp_duplic_code__";
-}}}}}}
+PRINT ["ComAccess"] ComAccess(a_dc,b_dc,c_dc,d_dc,e_dc,f_dc,g_dc) TO "tmp_duplic_code__";
 
-//PRINT "C", ENDL;
+//PRINT "E", ENDL;
+//EXEC "date";
 
 EXEC "python DUPLICATED_CODE_PYGEN tmp_duplic_code__ DUPLICATED_CODE_TRESHOLD";
+
+//PRINT "F", ENDL;
+//EXEC "date";
 
 //EXEC "rm -rf tmp_duplic_code__";

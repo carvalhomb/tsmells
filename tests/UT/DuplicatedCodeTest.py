@@ -24,11 +24,11 @@ from StringIO import StringIO as iostr
 sys.path.append("../../src")
 from DuplicatedCode import *
 
-class ActionTest(unittest.TestCase):
+class ReferenceTest(unittest.TestCase):
     def setUp(self):
-        self.inv1 = Action(10, 15, 20, 'Class.method()')
-        self.inv2 = Action("9", "30", "20", 'Class.method()')
-        self.inv3 = Action(10, 15, 20, 'Class.method()')
+        self.inv1 = Reference(10, 15, 20, 'Class.method()')
+        self.inv2 = Reference("9", "30", "20", 'Class.method()')
+        self.inv3 = Reference(10, 15, 20, 'Class.method()')
 
     def testConstructor(self):
         self.assertEquals(10, self.inv1.id_)
@@ -63,78 +63,83 @@ class ActionTest(unittest.TestCase):
 
 class TestMethodTest(unittest.TestCase):
     def setUp(self):
-        self.tm = TestMethod("MyTest.testOne()", "MyTest.java")
-        self.inv1 = Action(1, 15, 22, 'Class.method()')
-        self.inv2 = Action(2, 30, 40, 'Clazz.mtd()')
-        self.inv3 = Action(3, 40, 20, 'Cl.meth()')
+        self.tm = TestMethod(1, "MyTest.testOne()", "MyTest.java")
+        self.inv1 = Reference(1, 15, 22, 'Class.method()')
+        self.inv2 = Reference(2, 30, 40, 'Clazz.mtd()')
+        self.inv3 = Reference(3, 40, 20, 'Cl.meth()')
 
     def testConstructor(self):
         self.assertEquals("MyTest.testOne()", self.tm.getName(), \
             "Method name filled incorrectly")
         self.assertEquals("MyTest.java", self.tm.getSrcFile(), \
             "Sourcefile name filled incorrectly")
+        self.assertEquals(1, self.tm.getId())
 
-    def testAddAction(self):
-        self.tm.addAction(self.inv1)
-        self.assertEquals(1, len(self.tm.getActions()))
-        self.assertEquals(self.inv1, self.tm.getActions()[0])
-        self.tm.addAction(self.inv2)
-        self.assertEquals(2, len(self.tm.getActions()))
-        self.assertTrue(self.inv1 in self.tm.getActions())
-        self.assertTrue(self.inv2 in self.tm.getActions())
+    def testAddReference(self):
+        self.tm.addReference(self.inv1)
+        self.assertEquals(1, len(self.tm.getReferences()))
+        self.assertEquals(self.inv1, self.tm.getReferences()[0])
+        self.tm.addReference(self.inv2)
+        self.assertEquals(2, len(self.tm.getReferences()))
+        self.assertTrue(self.inv1 in self.tm.getReferences())
+        self.assertTrue(self.inv2 in self.tm.getReferences())
 
     def testSort(self):
-        self.tm.addAction(self.inv2)
-        self.tm.addAction(self.inv3)
-        self.tm.addAction(self.inv1)
+        self.tm.addReference(self.inv2)
+        self.tm.addReference(self.inv3)
+        self.tm.addReference(self.inv1)
         self.tm.sort()
-        self.assertEquals(self.inv1, self.tm.getActions()[0])
-        self.assertEquals(self.inv2, self.tm.getActions()[1])
-        self.assertEquals(self.inv3, self.tm.getActions()[2])
+        self.assertEquals(self.inv1, self.tm.getReferences()[0])
+        self.assertEquals(self.inv2, self.tm.getReferences()[1])
+        self.assertEquals(self.inv3, self.tm.getReferences()[2])
 
 class RsfInvoFixtureBuilder():
     def refresh(self):
-        self.mtd1   = TestMethod("MyTest.testOne()", "MyTest.java")
-        self.inv11  = Action(217, 7,  178, "Uut.a()")
-        self.line11 = 'ComInvoke;217;178;7;MyTest.testOne();Uut.a();MyTest.java\n'
-        self.inv12  = Action(219, 8, 180, "Uut.b()")
-        self.line12 = 'ComInvoke;219;180;8;MyTest.testOne();Uut.b();MyTest.java\n'
-        self.inv13  = Action(221,9,182,"Uut.c()")
-        self.line13 = 'ComInvoke;221;182;9;MyTest.testOne();Uut.c();MyTest.java\n'
-        self.inv14  = Action(223,10,184,"Uut.d()")
-        self.line14 = 'ComInvoke;223;184;10;MyTest.testOne();Uut.d();MyTest.java\n'
-        self.inv15  = Action(225,11,186,"Uut.e()")
-        self.line15 = 'ComInvoke;225;186;11;MyTest.testOne();Uut.e();MyTest.java\n'
-        self.inv16  = Action(227, 12, 188, "Uut.f()")
-        self.line16 = 'ComInvoke;227;188;12;MyTest.testOne();Uut.f();MyTest.java\n'
+        self.mtd1   = TestMethod(11, "MyTest.testOne()", "MyTest.java")
 
-        self.mtd2   = TestMethod("MyTest.testTwo()", "MyTest.java")
-        self.inv21  = Action(218, 16, 178, "Uut.a()")
-        self.line21 = 'ComInvoke;218;178;16;MyTest.testTwo();Uut.a();MyTest.java\n'
-        self.inv22  = Action(220, 17, 180, "Uut.b()")
-        self.line22 = 'ComInvoke;220;180;17;MyTest.testTwo();Uut.b();MyTest.java\n'
-        self.inv23  = Action(222,18,182,"Uut.c()")
-        self.line23 = 'ComInvoke;222;182;18;MyTest.testTwo();Uut.c();MyTest.java\n'
-        self.inv24  = Action(224,19,184,"Uut.d()")
-        self.line24 = 'ComInvoke;224;184;19;MyTest.testTwo();Uut.d();MyTest.java\n'
-        self.inv25  = Action(226,20,186,"Uut.e()")
-        self.line25 = 'ComInvoke;226;186;20;MyTest.testTwo();Uut.e();MyTest.java\n'
-        self.inv26  = Action(228,21,188,"Uut.f()")
-        self.line26 = 'ComInvoke;228;188;21;MyTest.testTwo();Uut.f();MyTest.java\n'
+        #ComInvoke;11;217;178;7;MyTest.testOne();Uut.a();MyTest.java
+        #test command id; reference id;  target id / type id; line number; testcommand name; target name; filename
 
-        self.mtd3   = TestMethod("MyTest.testThree()", "MyTest.java")
-        self.inv31  = Action(230,30,178, "Uut.a()")
-        self.line31 = 'ComInvoke;230;178;30;MyTest.testThree();Uut.a();MyTest.java\n'
-        self.inv32  = Action(231,31,180, "Uut.b()")
-        self.line32 = 'ComInvoke;231;180;31;MyTest.testThree();Uut.b();MyTest.java\n'
-        self.inv33  = Action(232,32,182,"Uut.c()")
-        self.line33 = 'ComInvoke;232;182;32;MyTest.testThree();Uut.c();MyTest.java\n'
-        self.inv34  = Action(233,33,184,"Uut.d()")
-        self.line34 = 'ComInvoke;233;184;33;MyTest.testThree();Uut.d();MyTest.java\n'
-        self.inv35  = Action(234,34,186,"Uut.e()")
-        self.line35 = 'ComInvoke;234;186;34;MyTest.testThree();Uut.e();MyTest.java\n'
-        self.inv36  = Action(235,35,188,"Uut.f()")
-        self.line36 = 'ComInvoke;235;188;35;MyTest.testThree();Uut.f();MyTest.java\n'
+        self.inv11  = Reference(217, 7,  178, "Uut.a()")
+        self.line11 = 'ComInvoke\t11\t217\t178\t7\tMyTest.testOne()\tUut.a()\tMyTest.java\n'
+        self.inv12  = Reference(219, 8, 180, "Uut.b()")
+        self.line12 = 'ComInvoke\t11\t219\t180\t8\tMyTest.testOne()\tUut.b()\tMyTest.java\n'
+        self.inv13  = Reference(221,9,182,"Uut.c()")
+        self.line13 = 'ComInvoke\t11\t221\t182\t9\tMyTest.testOne()\tUut.c()\tMyTest.java\n'
+        self.inv14  = Reference(223,10,184,"Uut.d()")
+        self.line14 = 'ComInvoke\t11\t223\t184\t10\tMyTest.testOne()\tUut.d()\tMyTest.java\n'
+        self.inv15  = Reference(225,11,186,"Uut.e()")
+        self.line15 = 'ComInvoke\t11\t225\t186\t11\tMyTest.testOne()\tUut.e()\tMyTest.java\n'
+        self.inv16  = Reference(227, 12, 188, "Uut.f()")
+        self.line16 = 'ComInvoke\t11\t227\t188\t12\tMyTest.testOne()\tUut.f()\tMyTest.java\n'
+
+        self.mtd2   = TestMethod(13, "MyTest.testTwo()", "MyTest.java")
+        self.inv21  = Reference(218, 16, 178, "Uut.a()")
+        self.line21 = 'ComInvoke\t13\t218\t178\t16\tMyTest.testTwo()\tUut.a()\tMyTest.java\n'
+        self.inv22  = Reference(220, 17, 180, "Uut.b()")
+        self.line22 = 'ComInvoke\t13\t220\t180\t17\tMyTest.testTwo()\tUut.b()\tMyTest.java\n'
+        self.inv23  = Reference(222,18,182,"Uut.c()")
+        self.line23 = 'ComInvoke\t13\t222\t182\t18\tMyTest.testTwo()\tUut.c()\tMyTest.java\n'
+        self.inv24  = Reference(224,19,184,"Uut.d()")
+        self.line24 = 'ComInvoke\t13\t224\t184\t19\tMyTest.testTwo()\tUut.d()\tMyTest.java\n'
+        self.inv25  = Reference(226,20,186,"Uut.e()")
+        self.line25 = 'ComInvoke\t13\t226\t186\t20\tMyTest.testTwo()\tUut.e()\tMyTest.java\n'
+        self.inv26  = Reference(228,21,188,"Uut.f()")
+        self.line26 = 'ComInvoke\t13\t228\t188\t21\tMyTest.testTwo()\tUut.f()\tMyTest.java\n'
+
+        self.mtd3   = TestMethod(15, "MyTest.testThree()", "MyTest.java")
+        self.inv31  = Reference(230,30,178, "Uut.a()")
+        self.line31 = 'ComInvoke\t15\t230\t178\t30\tMyTest.testThree()\tUut.a()\tMyTest.java\n'
+        self.inv32  = Reference(231,31,180, "Uut.b()")
+        self.line32 = 'ComInvoke\t15\t231\t180\t31\tMyTest.testThree()\tUut.b()\tMyTest.java\n'
+        self.inv33  = Reference(232,32,182,"Uut.c()")
+        self.line33 = 'ComInvoke\t15\t232\t182\t32\tMyTest.testThree()\tUut.c()\tMyTest.java\n'
+        self.inv34  = Reference(233,33,184,"Uut.d()")
+        self.line34 = 'ComInvoke\t15\t233\t184\t33\tMyTest.testThree()\tUut.d()\tMyTest.java\n'
+        self.inv35  = Reference(234,34,186,"Uut.e()")
+        self.line35 = 'ComInvoke\t15\t234\t186\t34\tMyTest.testThree()\tUut.e()\tMyTest.java\n'
+        self.inv36  = Reference(235,35,188,"Uut.f()")
+        self.line36 = 'ComInvoke\t15\t235\t188\t35\tMyTest.testThree()\tUut.f()\tMyTest.java\n'
 
         self.reader = RsfReader()
 
@@ -152,24 +157,24 @@ class RsfReaderTest(unittest.TestCase, RsfInvoFixtureBuilder):
         rsf = iostr(self.line11 + self.line21)
 
         mtds = self.reader.parse(rsf)
-        self.mtd1.addAction(self.inv11)
-        self.mtd2.addAction(self.inv21)
+        self.mtd1.addReference(self.inv11)
+        self.mtd2.addReference(self.inv21)
         self.assertEquals(2, len(mtds), "Wrong number of methods parsed")
-        self.assertTrue(self.mtd1 in mtds, "Failed to parse first method")
-        self.assertTrue(self.mtd2 in mtds, "Failed to parse second method")
+        self.assertTrue(self.mtd1 in mtds.values(), "Failed to parse first method")
+        self.assertTrue(self.mtd2 in mtds.values(), "Failed to parse second method")
 
     def multiInvokesChecker(self, rsf):
         ''' helper for testParseMultiInvokes '''
         mtds = self.reader.parse(rsf)
         self.assertEquals(2, len(mtds))
-        self.assertTrue(self.mtd1 in mtds, failMsgNotIn(self.mtd1, mtds))
-        self.assertTrue(self.mtd2 in mtds, failMsgNotIn(self.mtd2, mtds))
+        self.assertTrue(self.mtd1 in mtds.values(), failMsgNotIn(self.mtd1, mtds))
+        self.assertTrue(self.mtd2 in mtds.values(), failMsgNotIn(self.mtd2, mtds))
 
     def testParseMultInvokes(self):
-        self.mtd1.addAction(self.inv11)
-        self.mtd1.addAction(self.inv12)
-        self.mtd2.addAction(self.inv21)
-        self.mtd2.addAction(self.inv22)
+        self.mtd1.addReference(self.inv11)
+        self.mtd1.addReference(self.inv12)
+        self.mtd2.addReference(self.inv21)
+        self.mtd2.addReference(self.inv22)
 
         rsf = iostr(self.line11 + self.line12 + self.line21 + self.line22)
         self.multiInvokesChecker(rsf)
@@ -221,8 +226,8 @@ class CloneFinderTest(unittest.TestCase, RsfInvoFixtureBuilder):
         cf = CloneFinder(tresh)
         dupli = cf.investigate(mtds)
 
-        self.mtd1.addActions(m1inv)
-        self.mtd2.addActions(m2inv)
+        self.mtd1.addReferences(m1inv)
+        self.mtd2.addReferences(m2inv)
 
         #dump_dupli(dupli) 
 
@@ -235,12 +240,12 @@ class CloneFinderTest(unittest.TestCase, RsfInvoFixtureBuilder):
         self.assertEquals((dup1inv, dup2inv), dupli[self.mtd1, self.mtd2][0])
 
     def testDuplicationInSelf(self):
-        inv17  = Action(223,10,178,"Uut.a()")
-        line17 = 'ComInvoke;223;178;10;MyTest.testOne();Uut.a();MyTest.java\n'
-        inv18  = Action(225,11,180,"Uut.b()")
-        line18 = 'ComInvoke;225;180;11;MyTest.testOne();Uut.b();MyTest.java\n'
-        inv19  = Action(227, 12, 182, "Uut.c()")
-        line19 = 'ComInvoke;227;182;12;MyTest.testOne();Uut.c();MyTest.java\n'
+        inv17  = Reference(223,10,178,"Uut.a()")
+        line17 = 'ComInvoke\t11\t223\t178\t10\tMyTest.testOne()\tUut.a()\tMyTest.java\n'
+        inv18  = Reference(225,11,180,"Uut.b()")
+        line18 = 'ComInvoke\t11\t225\t180\t11\tMyTest.testOne()\tUut.b()\tMyTest.java\n'
+        inv19  = Reference(227, 12, 182, "Uut.c()")
+        line19 = 'ComInvoke\t11\t227\t182\t12\tMyTest.testOne()\tUut.c()\tMyTest.java\n'
 
         rsf = iostr(self.line11 + self.line12 + self.line13 +\
                     line17 + line18 + line19)
@@ -252,7 +257,7 @@ class CloneFinderTest(unittest.TestCase, RsfInvoFixtureBuilder):
 
         inv1 = [self.inv11, self.inv12, self.inv13]
         inv2 = [inv17, inv18, inv19]
-        self.mtd1.addActions(inv1 + inv2)
+        self.mtd1.addReferences(inv1 + inv2)
 
         self.assertEquals(1, len(dupli))
         self.assertTrue((self.mtd1, self.mtd1) in dupli)
@@ -269,7 +274,7 @@ class CloneFinderTest(unittest.TestCase, RsfInvoFixtureBuilder):
         mtds = self.reader.parse(rsf)
         cf = CloneFinder(4)
         dupli = cf.investigate(mtds)
-        dump_dupli(dupli)
+        #dump_dupli(dupli)
 
         inv1 = [self.inv11, self.inv12, self.inv13, \
                 self.inv14, self.inv15, self.inv16]
@@ -278,9 +283,9 @@ class CloneFinderTest(unittest.TestCase, RsfInvoFixtureBuilder):
         inv3 = [self.inv31, self.inv32, self.inv33, \
                 self.inv34, self.inv35, self.inv36]
 
-        self.mtd1.addActions(inv1)
-        self.mtd2.addActions(inv2)
-        self.mtd3.addActions(inv3)
+        self.mtd1.addReferences(inv1)
+        self.mtd2.addReferences(inv2)
+        self.mtd3.addReferences(inv3)
 
         self.assertEquals(1, len(dupli))
         self.assertTrue((self.mtd1, self.mtd2, self.mtd3) in dupli)

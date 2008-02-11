@@ -18,9 +18,10 @@
 # Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
 #
 
-from copy import deepcopy
+from itertools  import izip
+from copy       import deepcopy
 
-class Action():
+class Reference():
     ''' an access or an invocation '''
 
     def __init__(self, id_, line, acteeId, qName):
@@ -52,20 +53,21 @@ def cmpInv(first, second):
 class TestMethod():
     ''' A method with its invocations '''
 
-    def __init__(self, qName, srcFile, invoc=[]):
+    def __init__(self, id_, qName, srcFile, invoc=[]):
         self.qName = qName # qualified method name
         self.srcFile = srcFile # sourcefile this method lives in
-        self.actions = deepcopy(invoc) # to be sorted on linenumber
+        self.references = deepcopy(invoc) # to be sorted on linenumber
+        self.id_ = int(id_)
 
-    def addAction(self, inv):
-        self.actions.append(inv)
+    def addReference(self, inv):
+        self.references.append(inv)
 
-    def addActions(self, invs):
-        self.actions.extend(invs)
+    def addReferences(self, invs):
+        self.references.extend(invs)
 
     def sort(self):
         ''' sort the invocations on linenumber '''
-        self.actions.sort(cmpInv)
+        self.references.sort(cmpInv)
 
     def getName(self):
         return self.qName
@@ -73,67 +75,59 @@ class TestMethod():
     def getSrcFile(self):
         return self.srcFile
 
-    def getActions(self):
-        return self.actions
+    def getReferences(self):
+        return self.references
+
+    def getId(self):
+        return self.id_
 
     def __eq__(self, other):
-        ''' Methods are equal if they have the same name,
-            sourcefile and invocations '''
-        if other == None: return False
-        if self is other: return True
-        if self.getName() != other.getName():
-            return False
-        if self.getSrcFile() != other.getSrcFile():
-            return False
-        if len(self.getActions()) != len(other.getActions()):
-            return False
-        if self.getActions() == other.getActions():
-            return True
-        return False
+        ''' this is a bottleneck, 
+            so no None check or anything'''
+        return self.id_ == other.id_
 
     def __str__(self):
         s = self.qName + "@" + self.srcFile + "["
-        for i in self.actions:
+        for i in self.references:
             s += str(i.id_) + ";"
         return s[:-1] + "]"
 
     def __hash__(self):
-        return hash(self.qName)
+        return self.id_
 
 class RsfReader():
     ''' Constructs a list of TestMethods from an RSF file '''
 
-    def __init__(self):
-        self.mtds = {}
-
-    def __parseLine(self, line):
+    def __parseLine(self, line, mtds):
         ''' add the information from a single line '''
-        #ComInvoke;217;178;7;MyTest.testOne();Uut.a();MyTest.java
-        #         iid  invid, line, tc,       invo,     file
-        splitted = line[:-1].split(';')
+        #ComInvoke;11;217;178;7;MyTest.testOne();Uut.a();MyTest.java
+        #         invokerid, iid  invokeeid, line, tc, invo,  file
+        splitted = line[:-1].split('\t')
 
-        mtdName = splitted[4]
-        if not self.mtds.has_key(mtdName):
+        mtdName  = splitted[5].strip('"')
+        mtdId    = int(splitted[1])
+        fileName = splitted[7].strip('"')
+        if not mtds.has_key(mtdId):
             # add the method
-            self.mtds[mtdName] = TestMethod(mtdName, splitted[6])
-        mtd = self.mtds[mtdName]
+            mtds[mtdId] = TestMethod(mtdId, mtdName, fileName)
+        mtd = mtds[mtdId]
 
-        # add the invocation
-        act = Action(splitted[1], splitted[3], splitted[2], splitted[5])
-        mtd.addAction(act)
+        # add the reference
+        ref = Reference(splitted[2], splitted[4], splitted[3], splitted[6])
+        mtd.addReference(ref)
 
     def parse(self, rsf):
         ''' Build the testmethods. rsf should be a filehandle. 
             Returns a list of testmethods '''
-        self.mtds = {}
+        mtds = {}
         for line in rsf:
-            self.__parseLine(line)
+            self.__parseLine(line, mtds)
 
         # sort all invocations on linenumber
-        for mtdName in self.mtds:
-            self.mtds[mtdName].sort()
+        for mtd in mtds:
+            mtds[mtd].sort()
 
-        return self.mtds.values()
+        return mtds
 
 class CloneFinder():
     ''' Search a set of methods with invocations for 
@@ -150,36 +144,36 @@ class CloneFinder():
             mtds should be a list of methods with their 
             invocations sorted. As returned by RsfReader. '''
         duplicates = {} # { (mtd1, mtd2) x [(part1, part2)] }
-        processed  = []
-        parted = {} # {methodName x [parts] }
+        processed  = {} # { mtdId1 x { mtd2 x bool } }
+        parted = {}     # { method x [parts] }
 
         # partition all methods on their invocations
-        for mtd in mtds:
-            parted[mtd] = partition(mtd.getActions(), self.treshold)
+        for mtdId, mtd in mtds.iteritems():
+            parted[mtdId] = partition(mtd.getReferences(), self.treshold)
 
-        for mtd1 in mtds:
-            for mtd2 in mtds:
-                if (mtd1, mtd2) in processed: continue
-                if mtd1 == mtd2:
-                    dups = self.__investigateSingle(mtd1, parted)
-                else:
-                    dups = self.__investigateDuo(mtd1, mtd2, parted)
-                if dups: duplicates[(mtd1, mtd2)]=dups
-                processed.append((mtd1,mtd2))
-                processed.append((mtd2,mtd1))
+        for mtdId in mtds:
+            processed[mtdId] = {}
+
+        for mtdId1, mtd1 in mtds.iteritems():
+            for mtdId2, mtd2 in mtds.iteritems():
+                if not processed[mtdId2].has_key(mtdId1):
+                    if mtd1 == mtd2:
+                        dups = self.__investigateSingle(mtd1, parted)
+                    else:
+                        dups = self.__investigateDuo(mtd1, mtd2, parted)
+                    if dups: duplicates[(mtd1, mtd2)] = dups
+                    processed[mtdId1][mtdId2] = True
         return duplicates
 
     def getSimilar(self, sequence, other):
         ''' look for duplicates of sequence in other'''
         similarSeqs = []
+        seqLength = len(sequence)
         for seq in other:
-            #print ">>"
-            #print_list(sequence)
-            #print_list(seq)
-            if len(seq) != len(sequence):
+            if seqLength != len(seq):
                 continue
             similar = True
-            for inv1, inv2 in zip(sequence, seq):
+            for inv1, inv2 in izip(sequence, seq):
                 if not inv1.isSimilarTo(inv2):
                     similar = False
                     break
@@ -187,7 +181,7 @@ class CloneFinder():
         return similarSeqs
 
     def __investigateSingle(self, mtd, parted):
-        mtdParts = parted[mtd]
+        mtdParts = parted[mtd.getId()]
 
         dups = []
         for seq1 in mtdParts:
@@ -203,10 +197,9 @@ class CloneFinder():
 
 
     def __investigateDuo(self, mtd1, mtd2, parted):
-        mtd1Parts = parted[mtd1]
-        mtd2Parts = parted[mtd2]
+        mtd1Parts = parted[mtd1.getId()]
+        mtd2Parts = parted[mtd2.getId()]
 
-        # DEBUG
         #debug_part(mtd1Parts)
         #debug_part(mtd2Parts)
 

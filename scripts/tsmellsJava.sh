@@ -24,12 +24,27 @@ M4SCRIPT=$TSMELLS/scripts/tsmellJava.m4
 MACRO="-DANAST_JUNIT -DASSERTIONLESS -DDUPLICATED_CODE -DINDIRECT_TEST -DINDENTED_TEST -DMYSTERY_GUEST -DASSERTION_ROULETTE -DSENSITIVE_EQUALITY -DFOR_TESTERS_ONLY -DINDIRECT_TEST_TRESHOLD=4 -DDUPLICATED_CODE_PYGEN=$TSMELLS/src/DuplicatedCode.py -DDUPLICATED_CODE_TRESHOLD=4 -DMYSTERY_GUEST_BLACKLIST=$TSMELLS/tests/MysteryGuest/java/blacklist.rml"
 RSF=$PROJ.rsf
 
+START=`date +%s`
+LOG="$PROJ.`date +%y-%m-%d@%H:%M`.tsmells"
+
 java2rsf.sh $PROJ &&\
 RML=$(mktemp) &&\
 m4  $MACRO $M4SCRIPT > $RML &&\
 cat $RML > rml.tmp &&\
 echo "running croco" &&\
 #cat $RSF | crocopat $RML 2> /dev/null &&\
-cat $RSF | crocopat $RML && \
-echo "done" &&\
+cat $RSF | crocopat $RML | tee -a $LOG && \
 rm -rf $RML &> /dev/null;
+
+echo "--"
+echo  -n "#AL:`grep ^AssertionLess $LOG | wc -l`" | tee -a $LOG
+echo  -n "#AR:`grep ^AssertionRoulette $LOG | wc -l`" | -a tee $LOG
+echo  -n "#DC:`grep ^DuplicatedCode $LOG | wc -l`" | -a tee $LOG
+echo  -n "#DI:`grep ^IndirectTest $LOG | wc -l`" | -a tee $LOG
+echo  -n "#DE:`grep ^IndentedTest $LOG | wc -l`" | -a tee $LOG
+echo  -n "#MG:`grep ^MysteryGuest $LOG | wc -l`" | -a tee $LOG
+echo  -n "#SE:`grep ^SensitiveEquality $LOG | wc -l`" | -a tee $LOG
+echo  -n "#FT:`grep ^ForTestersOnly $LOG | wc -l`" | -a tee $LOG
+
+echo ">> Took $((`date +%s` - $START)) seconds" | tee -a $LOG
+
