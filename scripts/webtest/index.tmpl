@@ -30,7 +30,7 @@ Tests not run yet
 #end if
 
 #if $results
-	#if $stats[0] == $stats[1]
+	#if $stats[0] == $stats[1] + $stats[4]
 		#set $color = "green"
 	#else
 		#set $color = "red"
@@ -38,7 +38,7 @@ Tests not run yet
 
 <table align="center" border="1"><tr><td width=400 height=20 bgcolor="$color"></td></tr></table><br>
 <center>Time elapsed: ${secElapsed}s ${usecElapsed}  </center>
-<center>Total: $stats[0], pass: $stats[1], fail: $stats[2], error: $stats[3]</center>
+<center>Total: $stats[0], pass: $stats[1], fail: $stats[2], error: $stats[3], tdd: $stats[4]</center>
 <table align="center" width="400" border="1">
 	## Header
 	<tr>

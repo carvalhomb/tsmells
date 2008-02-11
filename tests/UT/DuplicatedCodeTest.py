@@ -247,6 +247,7 @@ class CloneFinderTest(unittest.TestCase, RsfInvoFixtureBuilder):
         mtds = self.reader.parse(rsf)
         cf = CloneFinder(3)
         dupli = cf.investigate(mtds)
+
         #dump_dupli(dupli)
 
         inv1 = [self.inv11, self.inv12, self.inv13]

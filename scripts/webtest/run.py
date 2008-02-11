@@ -2,14 +2,11 @@
 
 import sys
 import os
-from os import listdir
-from os import path
-from os import chdir
-from os import remove
+
+from os import listdir, path, chdir, remove
 from glob import glob
 
-from outputtest import execute
-from outputtest import compare
+from outputtest import execute, compare
 
 def subdirs(dirname):
     dirs = [f for f in listdir(dirname) if path.isdir(path.join(dirname,f))]
@@ -25,6 +22,7 @@ def readFile(file):
 PASS  = 0
 FAIL  = 1
 ERROR = 2
+TDD   = 3
 
 class TestResult():
     def __init__(self):
@@ -70,44 +68,49 @@ def text2html(ascii):
             i = "&nbsp;"
         html += i
     return html
-        
+
 def evalTest(name):
     """ runs a single test
         name should contain the testname, ie the
         filename of the *.exp, *.cmd etc """
-    
+
     res = TestResult()
     res.name = name
-    
+
     try:
         res.cmd = readFile(name + '.cmd')
         res.got, ret = execute(res.cmd)
-        
+
         #linesAdded = ""
         #cntr = 1;
         #for i in res.got.split('\n'):
         #    linesAdded += str(cntr) + ". " + i + "\n"
         #    cntr += 1
         #res.got = linesAdded
-        
+
         res.sources = grabSources()
 
         if not ret:
             res.status = ERROR
             res.color  = "black"
             res.what = "Failed to excute"
-            
+
         else:
             res.exp  = readFile(name + '.exp')
             res.what = compare(res.got, res.exp)
-    
+
             if res.what == "":
+                # success
                 res.color  = "green"
                 res.status = PASS
+            elif os.access(name + '.tdd', os.F_OK):
+                # todo test
+                res.color = "#151B54" # some dark blue
+                res.status = TDD
             else:
                 res.color  = "red"
                 res.status = FAIL
-        
+
     except Exception, e:
         res.status = ERROR
         res.color  = "black"
@@ -123,6 +126,7 @@ def testStats(result):
     passed  = 0
     failed  = 0
     errored = 0
+    tdd     = 0
     for smell in result:
         for test in smell[1] + smell[2]:
             total += 1
@@ -132,29 +136,31 @@ def testStats(result):
                 failed += 1
             elif test.status == ERROR:
                 errored += 1
+            elif test.status == TDD:
+                tdd += 1
 
-    return total, passed, failed, errored
-    
+    return total, passed, failed, errored, tdd
+
 def runTests(root, smells):
     #root -> (absolute) directory to look for smells
     #smells -> tests to run
-    
+
     current = os.getcwd()
-    
+
     chdir(root)
     results = [] # contains triples. smell name, cpp-results, java-results
     for smell in smells:
-        
+
         java = []
         cpp  = []
-        
+
         chdir(smell + "/cpp")
         for test in subdirs('.'):
             if test == '.svn': continue
             chdir(test)
             cpp.append(evalTest(test))
             chdir('..')
-        
+
         chdir("../java")
         for test in subdirs('.'):
             if test == '.svn': continue
@@ -162,9 +168,9 @@ def runTests(root, smells):
             java.append(evalTest(test))
             chdir("..")
         chdir("../..")
-        
+
         results.append([smell, cpp, java])
-    
+
     chdir(current)
     return results, testStats(results)
 

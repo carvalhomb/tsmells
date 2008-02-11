@@ -47,7 +47,7 @@ ComInvoke(iid, invid, line, tcx, inv, file) :=
 
 EXEC "rm -rf tmp_duplic_code__";
 
-PRINT "A" , ENDL;
+//PRINT "A" , ENDL;
 
 FOR iid   IN ComInvoke(a_dc,_,_,_,_,_) {
 FOR invid IN ComInvoke(iid,b_dc, _,_,_,_) {
@@ -64,24 +64,25 @@ FOR file  IN ComInvoke(iid,invid,line,tc,inv,f_dc) {
  * filename and linenumber.
  *
  * @col aid:   access id
- * @col attid: attribute id
+ * @col attid: attribute type id (was attribute id)
  * @col line:  access line number
  * @col tc:    qualified testcommand name
  * @col att:   qualified attribute name
  * @col file:  filename
  **/
 ComAccess(aid, attid, line2, tc2, att, file2) := 
-   EX(tcid, x, fid, 
+   EX(tcid, x, fid, attrid, 
               TestCommandId(tcid) & 
-              PureAccesses(aid, tcid, attid) & 
+              PureAccesses(aid, tcid, attrid) & 
               AccessLocation(aid, _, line2) &
               InvokableEntityBelongsToFile(tcid,fid, x) &
               Method(tcid,tc2) &
-              Attribute(attid, att) &
+              Attribute(attrid, att) &
+              HasType(attrid, attid) &
               File(fid, file2)
               );
 
-PRINT "B", ENDL;
+//PRINT "B", ENDL;
 
 FOR aid   IN ComAccess(a_dc,_,_,_,_,_) {
 FOR attid IN ComAccess(aid,b_dc, _,_,_,_) {
@@ -92,7 +93,7 @@ FOR file  IN ComAccess(aid,attid,line,tc,att,f_dc) {
     PRINT "ComAccess;", aid, ";", attid, ";", line, ";", tc, ";", att, ";", file, ENDL TO "tmp_duplic_code__";
 }}}}}}
 
-PRINT "C", ENDL;
+//PRINT "C", ENDL;
 
 EXEC "python DUPLICATED_CODE_PYGEN tmp_duplic_code__ DUPLICATED_CODE_TRESHOLD";
 

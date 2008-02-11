@@ -1,0 +1,2 @@
+DuplicatedCode;MyTest.testOne();MyTest.java;7;11;MyTest.testTwo();MyTest.java;20;24
+DuplicatedCode;MyTest.testThree();MyTest.java;28;32;MyTest.testOne();MyTest.java;12;16
