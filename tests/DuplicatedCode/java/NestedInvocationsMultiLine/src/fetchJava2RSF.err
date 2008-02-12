@@ -1,0 +1,83 @@
+(1/7) Running Source Navigator
+
+
+/home/nix/Stuff/Projects/JaarProj/SmellsGgl/tests/DuplicatedCode/java/NestedInvocationsSingleLine/src
+/home/nix/Stuff/Projects/JaarProj/SmellsGgl/tests/DuplicatedCode/java/NestedInvocationsSingleLine/src/org/junit
+
+Scanning Project...
+Scanning: MyTest.java
+Scanning: org/junit/TestCase.java
+Scanning: Uut.java
+Waiting for cross-referencing to complete
+Project has been built
+(2/7) Dumping SN database
+* SourceNavigator project path check
+	- SourceNavigator project path /home/nix/Stuff/Projects/JaarProj/SmellsGgl/tests/DuplicatedCode/java/NestedInvocationsSingleLine/src exists ... OK
+	- SourceNavigator /home/nix/Stuff/Projects/JaarProj/SmellsGgl/tests/DuplicatedCode/java/NestedInvocationsSingleLine/src/src.proj project file exists ... OK
+	- SourceNavigator .snprj dir /home/nix/Stuff/Projects/JaarProj/SmellsGgl/tests/DuplicatedCode/java/NestedInvocationsSingleLine/src/.snprj exists ... OK
+	- dbdump destination dir /home/nix/Stuff/Projects/JaarProj/SmellsGgl/tests/DuplicatedCode/java/NestedInvocationsSingleLine/src/dbdump exists ... OK
+	- dbdump utilities' path /opt/sourcenav/bin/dbdump exists ... OK 
+	DONE
+* Dumping SourceNavigator's src database .../home/nix/Stuff/Projects/JaarProj/Fetch_Fix/src/snavtofamix
+ Done
+* Sanitize dumped tables ... Done
+(3a/7) Grabbing all functions/methods
+(3/7) Collecting package information
+(4/7) Collecting attribute type information ...
+(4b/7) Collecting size and complexity metrics ...
+(5/7) Cleaning temporary files ...
+(6/7) Running snavtofamix ...
+ Entering famix Level 1
+  - parsing packages ...
+  - parsing classes ...
+  - parsing imports ...
+  - parsing inheritance relations ...
+ Entering famix Level 2
+  - parsing methods ...
+  - parsing attributes ...
+ Entering famix Level 3
+  - parsing invocations ...
+  - parsing accesses ...
+02/12/08 11:18:43.629 DEBUG main [get_instance] Class main instantiated
+02/12/08 11:18:43.740 INFO main [<module>] Parsing files ...
+02/12/08 11:18:43.741 DEBUG packagedictionary [get_instance] Class packagedictionary instantiated
+02/12/08 11:18:43.746 DEBUG classdictionary [get_instance] Class classdictionary instantiated
+02/12/08 11:18:43.749 DEBUG importdictionary [get_instance] Class importdictionary instantiated
+02/12/08 11:18:43.751 DEBUG inheritanceentity [get_instance] Class inheritanceentity instantiated
+02/12/08 11:18:43.755 DEBUG methoddictionary [get_instance] Class methoddictionary instantiated
+02/12/08 11:18:43.756 DEBUG methodsourcedictionary [get_instance] Class methodsourcedictionary instantiated
+02/12/08 11:18:43.758 DEBUG methodentity [get_instance] Class methodentity instantiated
+02/12/08 11:18:43.789 DEBUG attributedictionary [get_instance] Class attributedictionary instantiated
+02/12/08 11:18:43.791 DEBUG attributeentity [get_instance] Class attributeentity instantiated
+02/12/08 11:18:43.793 DEBUG methodinvocationentity [get_instance] Class methodinvocationentity instantiated
+02/12/08 11:18:43.798 DEBUG invocationdestinationresolver [get_instance] Class invocationdestinationresolver instantiated
+02/12/08 11:18:43.806 DEBUG methodsperfiledictionary [get_instance] Class methodsperfiledictionary instantiated
+02/12/08 11:18:43.808 DEBUG insaneinvocationresolver [get_instance] Class insaneinvocationresolver instantiated
+02/12/08 11:18:43.817 DEBUG attributereferenceentity [get_instance] Class attributereferenceentity instantiated
+02/12/08 11:18:43.821 INFO main [<module>] Parsing javancss metrics ...
+02/12/08 11:18:43.824 DEBUG timer [get_instance] Class timer instantiated
+02/12/08 11:18:43.826 DEBUG ncssmetricentity [get_instance] Class ncssmetricentity instantiated
+02/12/08 11:18:43.828 WARNING main [parseMetrics] 1    3   1    0 MyTest.testOne()
+02/12/08 11:18:43.828 WARNING main [parseMetrics] 2    3   1    0 MyTest.testTwo()
+02/12/08 11:18:43.830 WARNING main [parseMetrics] 3    2   1    0 Uut.go(int,int)
+02/12/08 11:18:43.831 WARNING main [parseMetrics] 4    2   1    0 Uut.so(int,int,int)
+02/12/08 11:18:43.831 INFO timer [log] Parsing ncss measurements took 6 ms for 4 work items, or 1.5 ms per item.
+02/12/08 11:18:43.833 INFO main [checkFileExists] database /home/nix/Stuff/Projects/JaarProj/SmellsGgl/tests/DuplicatedCode/java/NestedInvocationsSingleLine/src/dbdump/src.vcs does not exist
+02/12/08 11:18:43.834 INFO main [<module>] Parsing conditionals info
+02/12/08 11:18:43.835 INFO main [<module>] Parsing loops info
+(7/7) Running CDIF2RSF ...
+Reading from file /home/nix/Stuff/Projects/JaarProj/SmellsGgl/tests/DuplicatedCode/java/NestedInvocationsSingleLine/src.cdif,...
+	Files... [ok]
+	Includes... [ok]
+	Conditional Compilation... [ok]
+	Classes... [ok]
+	Inheritance... [ok]
+	Methods... [ok]
+	Attributes... [ok]
+	Functions... [ok]
+	Accesses... [ok]
+	Invocations... [ok]
+	Size and Complexity Metrics... [ok]
+	Change Frequency Metrics... [ok]
+Merging output... [ok]
+Output written to /home/nix/Stuff/Projects/JaarProj/SmellsGgl/tests/DuplicatedCode/java/NestedInvocationsSingleLine/src.rsf

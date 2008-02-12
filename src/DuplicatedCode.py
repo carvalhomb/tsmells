@@ -19,6 +19,7 @@
 #
 
 from itertools  import izip
+from copy import deepcopy
 
 class Reference():
     ''' an access or an invocation '''
@@ -40,7 +41,8 @@ class Reference():
                 (self.id_ != other.id_)
 
     def __str__(self):
-        return str(self.id_) + ":" + str(self.acteeId) + ":" + self.qName
+        return "[" + str(self.id_) + ";" + str(self.acteeId) + \
+               ";" + str(self.line) + "]"
 
     def __eq__(self,other):
         # bottleneck so safety checks omitted
@@ -50,7 +52,7 @@ def cmpInv(first, second):
     return first.line - second.line
 
 class TestMethod():
-    ''' A method with its invocations '''
+    ''' a method with its references '''
 
     def __init__(self, id_, qName, srcFile):
         self.qName = qName # qualified method name
@@ -66,7 +68,7 @@ class TestMethod():
         self.references.extend(invs)
 
     def sort(self):
-        ''' sort the invocations on linenumber '''
+        ''' sort the references on linenumber '''
         self.references.sort(cmpInv)
 
     def getName(self):
@@ -99,7 +101,7 @@ class TestMethod():
         self.refLength = len(self.references)
 
     def getNrofReferences(self):
-        ''' get the cached reference length '''
+        ''' get the cached references count '''
         return self.refLength
 
 class RsfReader():
@@ -141,6 +143,14 @@ class CloneFinder():
     ''' Search a set of methods with invocations for 
         duplicate parts '''
 
+#
+# TODO: ADT for 'sequence' instead of just a list
+# CloneFinder has too much responsabilities now
+# with cached hash for equality checking.
+# containment information, ie start and end line number
+# operations getSimilar, contained
+#
+
     def __init__(self, treshold):
         ''' treshold is the minimum number of lines a 
             duplication must consist of. Not counting emptylines'''
@@ -174,13 +184,6 @@ class CloneFinder():
                     dups = self.__investigateDuo(mtd1, mtd2, parted)
 
                 if dups:
-                    # now remove sub-duplicates.
-                    # to get better performace these should never
-                    # be added. but in practice the performance hit 
-                    # is not that bad, as long as we'r not in 
-                    # clone heaven
-                    self.__removeSubDuplicates(dups)
-                    # add the remaining clones.
                     duplicates[(mtd1, mtd2)] = dups
 
                 processed[mtdId1][mtdId2] = True
@@ -204,30 +207,69 @@ class CloneFinder():
     def __investigateSingle(self, mtd, parted):
         mtdParts = parted[mtd.getId()]
 
+        # will contain tuples of duplicate sequences
         dups = []
-        # walk the different partition-lengths
-        for seqs in mtdParts.itervalues():
-            # walk these sequences
-            for seq1 in seqs:
-                # find look-a-like sequences
-                for seq2 in self.getSimilar(seq1, seqs):
-                    if (seq2, seq1) in dups: 
-                        continue # dont add it twice
-                    if seq1[0] in seq2 or seq2[0] in seq1:
-                        continue # these have an intersection
-                    dups.append((seq1, seq2))
+        # a clone cant be larger then half the method
+        length = mtd.getNrofReferences()/2
 
-        # now remove sub-duplicates.
-        # to get better performace this should _really_ be done
-        # before comparing, above
-        self.__removeSubDuplicates(dups)
+        while length >= self.treshold:
+            seqs = mtdParts[length] # all sequences of length
+            for seq1 in seqs:
+                # check if a super-sequence is found
+                # to be a clone
+                if self.__superIsDuplicate(seq1, dups):
+                    continue
+                for seq2 in self.getSimilar(seq1, seqs):
+                    if not (seq2, seq1) in dups and\
+                       not self.__doesOverlap(seq1, seq2) and\
+                       not self.__superIsDuplicate(seq2, dups) and\
+                       not self.__overlapseWithOther(seq2, dups):
+                        dups.append((seq1, seq2))
+            length -= 1
+
+        #print ">>>>>>"
+        #for dup in dups:
+        #    print "+"
+        #    print_list(dup[0])
+        #    print_list(dup[1])
         return dups
 
+    def __overlapseWithOther(self, seq, dups):
+        for dup in dups:
+            if self.__doesOverlap(seq, dup[1]):
+                return True
+        return False
+
+    def __superIsDuplicate(self, seq, dups):
+        for dup in dups:
+            if self.__isContained(dup[0], seq) or \
+               self.__isContained(dup[1], seq):
+                return True
+        return False
+
+    def __removeSubDuplicates(self, dups):
+        # warning: ugly & wasteful code ahead
+        toRemove = []
+        for seq in dups:
+            first = seq[0][0]
+            last  = seq[0][-1]
+            for seq2 in dups:
+                #print ">>>>"
+                #print_list(seq[0])
+                #print_list(seq2[0])
+                if seq == seq2: continue
+                if (first in seq2[0] and
+                    last  in seq2[0]):
+                #if self.__isContained(seq2, seq):
+                    # fully contained so remove it
+                    toRemove.append(seq)
+                    break
+                #print "not removed"
+
+        for tr in toRemove:
+            dups.remove(tr)
 
     def __investigateDuo(self, mtd1, mtd2, parted):
-
-        #debug_part(mtd1Parts)
-        #debug_part(mtd2Parts)
 
         if mtd1.getNrofReferences() > mtd2.getNrofReferences():
             # swap, mtd1 should have the least nrof
@@ -244,7 +286,6 @@ class CloneFinder():
         for seqLength, seqs in mtd1Parts.iteritems():
             # mtd2 must have partitions of this length,
             # since its the largest
-
             other = mtd2Parts[seqLength]
             for seq1 in seqs:
                 # ok, lets check if there are clones of 
@@ -252,6 +293,14 @@ class CloneFinder():
                 for seq2 in self.getSimilar(seq1, other):
                     # whoops -> found
                     dups.append((seq1, seq2))
+
+        # now remove sub-duplicates.
+        # to get better performace these should never
+        # be added. but in practice the performance hit 
+        # is not that bad, as long as we'r not in 
+        # clone heaven
+        self.__removeSubDuplicates(dups)
+        # add the remaining clones.
 
         return dups
 
@@ -268,6 +317,7 @@ class CloneFinder():
                 if seq == seq2: continue
                 if (first in seq2[0] and
                     last  in seq2[0]):
+                #if self.__isContained(seq2, seq):
                     # fully contained so remove it
                     toRemove.append(seq)
                     break
@@ -275,6 +325,30 @@ class CloneFinder():
 
         for tr in toRemove:
             dups.remove(tr)
+
+    def __isContained(self, seq1, seq2):
+        ''' predicate to determine if seq2 is contained in seq1.
+             based on line numbers '''
+        # TODO move this to Sequence class
+        if len(seq2) > len(seq1):
+            return False
+        seq1Start = seq1[0].line
+        seq1End = seq1[-1].line
+        seq2Start = seq2[0].line
+        seq2End = seq2[-1].line
+        return seq1Start <= seq2Start and \
+               seq1End >= seq2End
+
+    def __doesOverlap(self, seq1, seq2):
+        ''' predicate to determin wheter seq1 and seq2
+            share a line '''
+        # TODO move this to Sequence class
+        seq1Start = seq1[0].line
+        seq1End = seq1[-1].line
+        seq2Start = seq2[0].line
+        seq2End = seq2[-1].line
+        return (seq1Start <= seq2Start <= seq1End) or\
+               (seq1Start <= seq2End   <= seq1End)
 
 class DuplicatePrinter():
 
@@ -317,29 +391,25 @@ def partition(toSplit, minLength=1):
 def partition2(mtd, minLength=1):
     ''' Compute all sublists which form a sequence
         in the original of minLength.
-        Returns a list of lists. 
-        O(len(toSplit)^2)'''
+        Returns a dictionary with partition lengths 
+        as keys and all partitions of this length
+        as values.'''
     partitioned = {} # { length x [partition] }
     toSplit = mtd.getReferences()
     l = mtd.getNrofReferences()
+
+    # initialize partitioned dict on the expected
+    # partition-lengths
     for i in range(minLength,l+1):
         partitioned[i] = []
-    for i in range(0,l):
-        for j in range(minLength,l-i+1):
-            part = toSplit[i:i+j]
-            partitioned[j].append(part)
-    return partitioned
 
-#
-# to optmize this try either:
-#   + return a tree/graph with 'contains' relation
-#       [1,2,3] -->[1,2]--->[1]
-#          |         |----->[2]
-#          ------->[2,3]--->[3]
-#   + use sets + intersect. need to declare a 
-#              hash for the part
-#   + some dict approach with hashes for parts?
-#
+    # walk the start indeces of partitions
+    for i in range(0,l):
+        # walk the end indeces, construct and append
+        for j in range(minLength,l-i+1):
+            partitioned[j].append(toSplit[i:i+j])
+
+    return partitioned
 
 def print_list(l):
         print "[",

@@ -1,0 +1,47 @@
+MyTest.java:4:	private Uut u = new Uut();
+MyTest.java:5:	public void testOne() {
+MyTest.java:6:		int i = u.go(u.go(1, 2), u.go(2, 3));
+MyTest.java:7:		int j = u.so(u.so(1, 2, 3), u.so(2, 3, 4), u.so(3, 4, 5));
+MyTest.java:9:	public void testTwo() {
+MyTest.java:10:		int i = u.go(u.go(9, 8), u.go(8, 7));
+MyTest.java:11:		int j = u.so(u.so(9, 8, 7), u.so(8, 7, 6), u.so(7, 6, 5));
+Uut.java:2:	public int go(int i, int j) {return 0;}
+Uut.java:3:	public int so(int i, int j, int k) {return 0;}
+org/junit/TestCase.java:4:	static public void     assertEquals(boolean expected, boolean actual){}
+org/junit/TestCase.java:5:	static public void     assertEquals(byte expected, byte actual){}
+org/junit/TestCase.java:6:	static public void     assertEquals(char expected, char actual){}
+org/junit/TestCase.java:7:	static public void     assertEquals(int expected, int actual){}
+org/junit/TestCase.java:8:	static public void     assertEquals(long expected, long actual){}
+org/junit/TestCase.java:9:	static public void     assertEquals(java.lang.Object expected, java.lang.Object actual){}
+org/junit/TestCase.java:10:	static public void     assertEquals(short expected, short actual){}
+org/junit/TestCase.java:11:	static public void     assertEquals(java.lang.String message, boolean expected, boolean actual){}
+org/junit/TestCase.java:12:	static public void     assertEquals(java.lang.String message, byte expected, byte actual){}
+org/junit/TestCase.java:13:	static public void     assertEquals(java.lang.String message, char expected, char actual){}
+org/junit/TestCase.java:14:	static public void     assertEquals(java.lang.String message, double expected, double actual, double delta){}
+org/junit/TestCase.java:15:	static public void     assertEquals(java.lang.String message, float expected, float actual, float delta){}
+org/junit/TestCase.java:16:	static public void     assertEquals(java.lang.String message, int expected, int actual){}
+org/junit/TestCase.java:17:	static public void     assertEquals(java.lang.String message, long expected, long actual){}
+org/junit/TestCase.java:18:	static public void     assertEquals(java.lang.String message, java.lang.Object expected, java.lang.Object actual){}
+org/junit/TestCase.java:19:	static public void     assertEquals(java.lang.String message, short expected, short actual){}
+org/junit/TestCase.java:20:	static public void     assertEquals(java.lang.String expected, java.lang.String actual){}
+org/junit/TestCase.java:21:	static public void     assertEquals(java.lang.String message, java.lang.String expected, java.lang.String actual){}
+org/junit/TestCase.java:22:	static public void     assertEquals(double expected, double actual, double delta){}
+org/junit/TestCase.java:23:	static public void     assertEquals(float expected, float actual, float delta){}
+org/junit/TestCase.java:24:	static public void     assertFalse(boolean condition){}
+org/junit/TestCase.java:25:	static public void     assertFalse(java.lang.String message, boolean condition){}
+org/junit/TestCase.java:26:	static public void     assertNotNull(java.lang.Object object){}
+org/junit/TestCase.java:27:	static public void     assertNotNull(java.lang.String message, java.lang.Object object){}
+org/junit/TestCase.java:28:	static public void     assertNotSame(java.lang.Object expected, java.lang.Object actual){}
+org/junit/TestCase.java:29:	static public void     assertNotSame(java.lang.String message, java.lang.Object expected, java.lang.Object actual){}
+org/junit/TestCase.java:30:	static public void     assertNull(java.lang.Object object){}
+org/junit/TestCase.java:31:	static public void     assertNull(java.lang.String message, java.lang.Object object){}
+org/junit/TestCase.java:32:	static public void     assertSame(java.lang.Object expected, java.lang.Object actual){}
+org/junit/TestCase.java:33:	static public void     assertSame(java.lang.String message, java.lang.Object expected, java.lang.Object actual){}
+org/junit/TestCase.java:34:	static public void     assertTrue(boolean condition){}
+org/junit/TestCase.java:35:	static public void     assertTrue(java.lang.String message, boolean condition){}
+org/junit/TestCase.java:36:	static public void     fail(){}
+org/junit/TestCase.java:37:	static public void     fail(java.lang.String message){}
+org/junit/TestCase.java:38:	private static void     failNotEquals(java.lang.String message, java.lang.Object expected, java.lang.Object 	actual){}
+org/junit/TestCase.java:39:	private static void     failNotSame(java.lang.String message, java.lang.Object expected, java.lang.Object 	actual){}
+org/junit/TestCase.java:40:	private static void     failSame(java.lang.String message){}
+org/junit/TestCase.java:41:	static java.lang.String       format(java.lang.String message, java.lang.Object expected, java.lang.Object actual) { return "";}
