@@ -37,14 +37,14 @@ cat $RSF | crocopat $RML | tee -a $LOG && \
 rm -rf $RML &> /dev/null;
 
 echo "--"
-echo  -n "#AL:`grep ^AssertionLess $LOG | wc -l`" | tee -a $LOG
-echo  -n "#AR:`grep ^AssertionRoulette $LOG | wc -l`" | -a tee $LOG
-echo  -n "#DC:`grep ^DuplicatedCode $LOG | wc -l`" | -a tee $LOG
-echo  -n "#DI:`grep ^IndirectTest $LOG | wc -l`" | -a tee $LOG
-echo  -n "#DE:`grep ^IndentedTest $LOG | wc -l`" | -a tee $LOG
-echo  -n "#MG:`grep ^MysteryGuest $LOG | wc -l`" | -a tee $LOG
-echo  -n "#SE:`grep ^SensitiveEquality $LOG | wc -l`" | -a tee $LOG
-echo  -n "#FT:`grep ^ForTestersOnly $LOG | wc -l`" | -a tee $LOG
+echo  -n " AL:`grep -c ^AssertionLess $LOG`"     | tee -a $LOG
+echo  -n " AR:`grep -c ^AssertionRoulette $LOG`" | tee -a $LOG
+echo  -n " DC:`grep -c ^DuplicatedCode $LOG`"    | tee -a $LOG
+echo  -n " DI:`grep -c ^IndirectTest $LOG`"      | tee -a $LOG
+echo  -n " DE:`grep -c ^IndentedTest $LOG`"      | tee -a $LOG
+echo  -n " MG:`grep -c ^MysteryGuest $LOG`"      | tee -a $LOG
+echo  -n " SE:`grep -c ^SensitiveEquality $LOG`" | tee -a $LOG
+echo  -n " FT:`grep -c ^ForTestersOnly $LOG`"    | tee -a $LOG
 
-echo ">> Took $((`date +%s` - $START)) seconds" | tee -a $LOG
+echo ">> Took $((`date +%s` - $START)) seconds"  | tee -a $LOG
 

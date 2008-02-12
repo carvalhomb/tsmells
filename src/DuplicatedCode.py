@@ -19,7 +19,6 @@
 #
 
 from itertools  import izip
-from copy       import deepcopy
 
 class Reference():
     ''' an access or an invocation '''
@@ -44,7 +43,7 @@ class Reference():
         return str(self.id_) + ":" + str(self.acteeId) + ":" + self.qName
 
     def __eq__(self,other):
-        if other == None: return False
+        # bottleneck so safety checks omitted
         return self.id_ == other.id_
 
 def cmpInv(first, second):
@@ -53,11 +52,12 @@ def cmpInv(first, second):
 class TestMethod():
     ''' A method with its invocations '''
 
-    def __init__(self, id_, qName, srcFile, invoc=[]):
+    def __init__(self, id_, qName, srcFile):
         self.qName = qName # qualified method name
         self.srcFile = srcFile # sourcefile this method lives in
-        self.references = deepcopy(invoc) # to be sorted on linenumber
+        self.references = [] # to be sorted on linenumber
         self.id_ = int(id_)
+        self.refLength = None
 
     def addReference(self, inv):
         self.references.append(inv)
@@ -82,8 +82,7 @@ class TestMethod():
         return self.id_
 
     def __eq__(self, other):
-        ''' this is a bottleneck, 
-            so no None check or anything'''
+        # bottleneck so safety checks omitted
         return self.id_ == other.id_
 
     def __str__(self):
@@ -94,6 +93,14 @@ class TestMethod():
 
     def __hash__(self):
         return self.id_
+
+    def cacheNrofReferences(self):
+        ''' cache the number of references, this shouldnt change anyway'''
+        self.refLength = len(self.references)
+
+    def getNrofReferences(self):
+        ''' get the cached reference length '''
+        return self.refLength
 
 class RsfReader():
     ''' Constructs a list of TestMethods from an RSF file '''
@@ -124,8 +131,9 @@ class RsfReader():
             self.__parseLine(line, mtds)
 
         # sort all invocations on linenumber
-        for mtd in mtds:
-            mtds[mtd].sort()
+        for mtd in mtds.itervalues():
+            mtd.sort()
+            mtd.cacheNrofReferences()
 
         return mtds
 
@@ -145,48 +153,68 @@ class CloneFinder():
             invocations sorted. As returned by RsfReader. '''
         duplicates = {} # { (mtd1, mtd2) x [(part1, part2)] }
         processed  = {} # { mtdId1 x { mtd2 x bool } }
-        parted = {}     # { method x [parts] }
+        parted = {}     # { method x { seqLength x [parts] } }
 
         # partition all methods on their invocations
         for mtdId, mtd in mtds.iteritems():
-            parted[mtdId] = partition(mtd.getReferences(), self.treshold)
+            #parted[mtdId] = partition(mtd.getReferences(), self.treshold)
+            parted[mtdId] = partition2(mtd, self.treshold)
 
         for mtdId in mtds:
             processed[mtdId] = {}
 
         for mtdId1, mtd1 in mtds.iteritems():
             for mtdId2, mtd2 in mtds.iteritems():
-                if not processed[mtdId2].has_key(mtdId1):
-                    if mtd1 == mtd2:
-                        dups = self.__investigateSingle(mtd1, parted)
-                    else:
-                        dups = self.__investigateDuo(mtd1, mtd2, parted)
-                    if dups: duplicates[(mtd1, mtd2)] = dups
-                    processed[mtdId1][mtdId2] = True
+                if processed[mtdId2].has_key(mtdId1):
+                    continue # already done this, order doesnt matter
+
+                if mtd1 == mtd2:
+                    dups = self.__investigateSingle(mtd1, parted)
+                else:
+                    dups = self.__investigateDuo(mtd1, mtd2, parted)
+
+                if dups:
+                    # now remove sub-duplicates.
+                    # to get better performace these should never
+                    # be added. but in practice the performance hit 
+                    # is not that bad, as long as we'r not in 
+                    # clone heaven
+                    self.__removeSubDuplicates(dups)
+                    # add the remaining clones.
+                    duplicates[(mtd1, mtd2)] = dups
+
+                processed[mtdId1][mtdId2] = True
+
         return duplicates
 
-    def getSimilar(self, sequence, other):
-        ''' look for duplicates of sequence in other'''
+    def getSimilar(self, seq1, other):
+        ''' look for duplicates of sequence in other.
+            other is a list of sequences of same length as seq1'''
         similarSeqs = []
-        seqLength = len(sequence)
-        for seq in other:
-            if seqLength != len(seq):
-                continue
-            similar = True
-            for inv1, inv2 in izip(sequence, seq):
-                if not inv1.isSimilarTo(inv2):
-                    similar = False
-                    break
-            if similar: similarSeqs.append(seq)
+        for seq2 in other:
+            self.appendSimilar(seq1, seq2, similarSeqs)
         return similarSeqs
+
+    def appendSimilar(self, seq1, seq2, similarSeqs):
+        for inv1, inv2 in izip(seq1, seq2):
+            if not inv1.isSimilarTo(inv2):
+                return
+        similarSeqs.append(seq2)
 
     def __investigateSingle(self, mtd, parted):
         mtdParts = parted[mtd.getId()]
 
         dups = []
-        for seq1 in mtdParts:
-            for seq2 in self.getSimilar(seq1, mtdParts):
-                if not (seq2, seq1) in dups:
+        # walk the different partition-lengths
+        for seqs in mtdParts.itervalues():
+            # walk these sequences
+            for seq1 in seqs:
+                # find look-a-like sequences
+                for seq2 in self.getSimilar(seq1, seqs):
+                    if (seq2, seq1) in dups: 
+                        continue # dont add it twice
+                    if seq1[0] in seq2 or seq2[0] in seq1:
+                        continue # these have an intersection
                     dups.append((seq1, seq2))
 
         # now remove sub-duplicates.
@@ -197,21 +225,33 @@ class CloneFinder():
 
 
     def __investigateDuo(self, mtd1, mtd2, parted):
-        mtd1Parts = parted[mtd1.getId()]
-        mtd2Parts = parted[mtd2.getId()]
 
         #debug_part(mtd1Parts)
         #debug_part(mtd2Parts)
 
-        dups = [] # all couples of parts which are shared
-        for seq1 in mtd1Parts:
-            for seq2 in self.getSimilar(seq1, mtd2Parts):
-                dups.append((seq1, seq2))
+        if mtd1.getNrofReferences() > mtd2.getNrofReferences():
+            # swap, mtd1 should have the least nrof
+            # references
+            tmp  = mtd1
+            mtd1 = mtd2
+            mtd2 = tmp
 
-        # now remove sub-duplicates.
-        # to get better performace this should _really_ be done
-        # before comparing, above
-        self.__removeSubDuplicates(dups)
+        mtd1Parts = parted[mtd1.getId()]
+        mtd2Parts = parted[mtd2.getId()]
+
+        dups = [] # all couples of parts which are shared
+        # walk the different partition lengths of mtd1
+        for seqLength, seqs in mtd1Parts.iteritems():
+            # mtd2 must have partitions of this length,
+            # since its the largest
+
+            other = mtd2Parts[seqLength]
+            for seq1 in seqs:
+                # ok, lets check if there are clones of 
+                # seq1 in mtd2
+                for seq2 in self.getSimilar(seq1, other):
+                    # whoops -> found
+                    dups.append((seq1, seq2))
 
         return dups
 
@@ -272,6 +312,22 @@ def partition(toSplit, minLength=1):
         for j in range(0,l-i):
             if j+1 >= minLength:
                 partitioned.append(toSplit[i:i+j+1])
+    return partitioned
+
+def partition2(mtd, minLength=1):
+    ''' Compute all sublists which form a sequence
+        in the original of minLength.
+        Returns a list of lists. 
+        O(len(toSplit)^2)'''
+    partitioned = {} # { length x [partition] }
+    toSplit = mtd.getReferences()
+    l = mtd.getNrofReferences()
+    for i in range(minLength,l+1):
+        partitioned[i] = []
+    for i in range(0,l):
+        for j in range(minLength,l-i+1):
+            part = toSplit[i:i+j]
+            partitioned[j].append(part)
     return partitioned
 
 #

@@ -229,7 +229,7 @@ class CloneFinderTest(unittest.TestCase, RsfInvoFixtureBuilder):
         self.mtd1.addReferences(m1inv)
         self.mtd2.addReferences(m2inv)
 
-        #dump_dupli(dupli) 
+        dump_dupli(dupli) 
 
         self.assertEquals(1, len(dupli), \
             "Should find duplicates in a single method, but found " + str(len(dupli)))
@@ -237,7 +237,8 @@ class CloneFinderTest(unittest.TestCase, RsfInvoFixtureBuilder):
                          ((self.mtd2,self.mtd1) in dupli))
         self.assertEquals(1, len(dupli [self.mtd1, self.mtd2]),\
             "Should find a single duplicate for (mtd1, mtd2)")
-        self.assertEquals((dup1inv, dup2inv), dupli[self.mtd1, self.mtd2][0])
+        self.assertTrue( (dup1inv, dup2inv) == dupli[self.mtd1, self.mtd2][0] or\
+                         (dup2inv, dup1inv) == dupli[self.mtd1, self.mtd2][0])
 
     def testDuplicationInSelf(self):
         inv17  = Reference(223,10,178,"Uut.a()")
