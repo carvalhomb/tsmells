@@ -33,12 +33,12 @@ class ReferenceTest(unittest.TestCase):
     def testConstructor(self):
         self.assertEquals(10, self.inv1.id_)
         self.assertEquals(15, self.inv1.line)
-        self.assertEquals(20, self.inv1.acteeId)
+        self.assertEquals(20, self.inv1.targetId)
         self.assertEquals('Class.method()', self.inv1.qName)
 
         self.assertEquals(9, self.inv2.id_)
         self.assertEquals(30, self.inv2.line)
-        self.assertEquals(20, self.inv2.acteeId)
+        self.assertEquals(20, self.inv2.targetId)
         self.assertEquals('Class.method()', self.inv2.qName)
 
     def testEqual(self):
@@ -195,10 +195,10 @@ class CloneFinderTest(unittest.TestCase, RsfInvoFixtureBuilder):
                     self.line21 + self.line22 + self.line23 +\
                     self.line24 + self.line25 + self.line26)
 
-        inv1 = [self.inv11, self.inv12, self.inv13,\
-                self.inv14, self.inv15, self.inv16]
-        inv2 = [self.inv21, self.inv22, self.inv23,\
-                self.inv24, self.inv25, self.inv26]
+        inv1 = Sequence([self.inv11, self.inv12, self.inv13,\
+                self.inv14, self.inv15, self.inv16])
+        inv2 = Sequence([self.inv21, self.inv22, self.inv23,\
+                self.inv24, self.inv25, self.inv26])
 
         self.findSingleCloneHelper(4, rsf, inv1, inv2, inv1, inv2)
 
@@ -212,14 +212,17 @@ class CloneFinderTest(unittest.TestCase, RsfInvoFixtureBuilder):
         inv2a = [self.inv21, self.inv22, self.inv23]
         inv2b = [self.inv24, self.inv25, self.inv26]
 
-        self.findSingleCloneHelper(3, rsf, inv1a, inv2a + inv2b, inv1a, inv2a)
+        self.findSingleCloneHelper(3, rsf, Sequence(inv1a),\
+                    Sequence(inv2a + inv2b), Sequence(inv1a),\
+                    Sequence(inv2a))
 
         self.refresh()
         rsf = iostr(self.line11 + self.line12 + self.line13 +\
                     self.line14 + self.line15 + self.line16 +\
                     self.line21 + self.line22 + self.line23)
 
-        self.findSingleCloneHelper(3, rsf, inv1a+inv1b, inv2a, inv1a, inv2a)
+        self.findSingleCloneHelper(3, rsf, Sequence(inv1a+inv1b),\
+                    Sequence(inv2a), Sequence(inv1a), Sequence(inv2a))
 
     def findSingleCloneHelper(self, tresh, rsf, m1inv, m2inv, dup1inv, dup2inv):
         mtds = self.reader.parse(rsf)
@@ -254,11 +257,13 @@ class CloneFinderTest(unittest.TestCase, RsfInvoFixtureBuilder):
         cf = CloneFinder(3)
         dupli = cf.investigate(mtds)
 
-        #dump_dupli(dupli)
+        dump_dupli(dupli)
 
         inv1 = [self.inv11, self.inv12, self.inv13]
         inv2 = [inv17, inv18, inv19]
-        self.mtd1.addReferences(inv1 + inv2)
+        self.mtd1.addReferences(Sequence(inv1 + inv2))
+        inv1 = Sequence(inv1)
+        inv2 = Sequence(inv2)
 
         self.assertEquals(1, len(dupli))
         self.assertTrue((self.mtd1, self.mtd1) in dupli)
@@ -277,12 +282,12 @@ class CloneFinderTest(unittest.TestCase, RsfInvoFixtureBuilder):
         dupli = cf.investigate(mtds)
         #dump_dupli(dupli)
 
-        inv1 = [self.inv11, self.inv12, self.inv13, \
-                self.inv14, self.inv15, self.inv16]
-        inv2 = [self.inv21, self.inv22, self.inv23, \
-                self.inv24, self.inv25, self.inv26]
-        inv3 = [self.inv31, self.inv32, self.inv33, \
-                self.inv34, self.inv35, self.inv36]
+        inv1 = Sequence([self.inv11, self.inv12, self.inv13, \
+                self.inv14, self.inv15, self.inv16])
+        inv2 = Sequence([self.inv21, self.inv22, self.inv23, \
+                self.inv24, self.inv25, self.inv26])
+        inv3 = Sequence([self.inv31, self.inv32, self.inv33, \
+                self.inv34, self.inv35, self.inv36])
 
         self.mtd1.addReferences(inv1)
         self.mtd2.addReferences(inv2)
@@ -301,25 +306,67 @@ def dump_dupli(toDump):
             print "["
             for j in i:
                 print "<",
-                for k in j:
+                for k in j.ref:
                     print str(k) + "; ",
                 print ">"
             print "]"
 
 
-class PartitionTest(unittest.TestCase):
-    def testSunny(self):
-        parted = partition(range(0,2))
-        for i in [[0,1],[0],[1]]:
-            self.assertTrue(i in parted)
+class MtdStub():
+    def __init__(self, ref, length):
+        self.ref = ref
+        self.length = length
 
-        parted = partition(range(0,4))
-        expected = set()
-        for i in [[0],[1],[2],[3],[0,1],[1,2],[2,3],\
-                  [0,1,2],[1,2,3],[0,1,2,3]]:
-            self.assertTrue(i in parted)
+    def getReferences(self):
+        return self.ref
 
-#if __name__ == "__main__":
-#    unittest.main()
+    def getNrofReferences(self):
+        return self.length
+
+#class PartitionTest(unittest.TestCase):
+#    def testSunny(self):
+#        stub = MtdStub(range(0,2), 2)
+#        parted = partition(stub, 1)
+#        self.assertEquals(2, len(parted))
+#        self.assertEquals([[0,1]], parted[2])
+#        self.assertEquals([[0],[1]], parted[1])
+
+#        stub = MtdStub(range(0,4), 4)
+#        parted = partition(stub, 1)
+#        self.assertEquals(4, len(parted))
+#        self.assertEquals([[0,1,2,3]], parted[4])
+#        self.assertEquals([[0,1,2],[1,2,3]], parted[3])
+#        self.assertEquals([[0,1],[1,2],[2,3]], parted[2])
+#        self.assertEquals([[0],[1],[2],[3]], parted[1])
+
+class RefStub():
+    def __init__(self, targetId, line):
+        self.targetId = targetId
+        self.line = line
+
+class SequenceTest(unittest.TestCase):
+    def setUp(self):
+        self.seq1 = Sequence([RefStub(1,1), RefStub(2,2), RefStub(3,3), RefStub(4,4)])
+        self.seq2 = Sequence([RefStub(2,2), RefStub(3,3)])
+        self.seq3 = Sequence([RefStub(1,1), RefStub(2,2)])
+        self.seq4 = Sequence([RefStub(3,3), RefStub(4,4)])
+        self.seq5 = Sequence([RefStub(10,10), RefStub(15, 15)])
+
+    def testContains(self):
+        self.assertTrue(self.seq1.contains(self.seq2))
+        self.assertFalse(self.seq2.contains(self.seq1))
+        self.assertTrue(self.seq1.contains(self.seq3))
+        self.assertFalse(self.seq3.contains(self.seq1))
+        self.assertTrue(self.seq1.contains(self.seq4))
+        self.assertFalse(self.seq4.contains(self.seq1))
+        self.assertFalse(self.seq5.contains(self.seq1))
+        self.assertFalse(self.seq1.contains(self.seq5))
+
+    def testOverlaps(self):
+        self.assertTrue(self.seq1.overlaps(self.seq2))
+        self.assertTrue(self.seq2.overlaps(self.seq1))
+        self.assertTrue(self.seq2.overlaps(self.seq4))
+        self.assertFalse(self.seq1.overlaps(self.seq5))
+        self.assertFalse(self.seq5.overlaps(self.seq1))
 
 unittest.main()
