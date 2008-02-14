@@ -1,1 +1,1 @@
-writeCppSmelliness.sh "AssertionRoulette" rsf/SixAssertNoMessage.rsf
+writeCppSmelliness.sh "AssertionRoulette" SixAssertNoMessage.rsf 2> /dev/null

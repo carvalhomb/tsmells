@@ -55,12 +55,12 @@ Closure(x,y) := TC(InheritsFromTestCase(x,y));
 
 // test cases indirectly inheriting from TestCase
 ITestCase(x) := Closure(x,_);
-TestCaseId(x) := (DTestCase(x) | ITestCase(x)) & !EX(cln, Class(x, cln) & @"^CppUnit::"(cln));
+TestCaseId(x) := DTestCase(x) | ITestCase(x);
 
 TestMethodId(x) := EX(y, TestCaseId(y) & MethodBelongsToClass(x,y));
-TestCommandId(x) := EX(mn, TestMethodId(x) & Method(x,mn) & @"[.]test.*[(][)]$"(mn));
-TestSetupId(x) := EX(mn, TestMethodId(x) & Method(x,mn) & @"[.]setUp[(][)]$"(mn));
-TestTeardownId(x) := EX(mn, TestMethodId(x) & Method(x,mn) & @"[.]tearDown[(][)]$"(mn));
+TestCommandId(x) := EX(mn, TestMethodId(x) & Method(x,mn) & @"[.]test"(mn) & @"[()]"(mn));
+TestSetupId(x) := EX(mn, TestMethodId(x) & Method(x,mn) & @"[.]setUp"(mn) & @"[()]"(mn));
+TestTeardownId(x) := EX(mn, TestMethodId(x) & Method(x,mn) & @"[.]tearDown"(mn) & @"[()]"(mn));
 TestHelperId(x) := TestMethodId(x) & !TestCommandId(x) & !TestSetupId(x) & !TestTeardownId(x);
 TestChecker(x) := EX(y, Function(x, y) & CheckerSignature(_,y));
 ProductionMethodId(x) := Method(x,_) & !TestMethodId(x);
@@ -103,7 +103,6 @@ NoFailureMessage(x) := EX(y,z, TestChecker(x) & Function(x, y) & CheckerSignatur
  */
 CheckerInvoke(z,y,x) := TestChecker(x) & (TestCommandId(y)|TestHelperId(y)) & PureInvokes(z,y,x);
 
-
 /**
  * contains a cleaned accesses relation. gets rid of the DefinitionForDeclaration step
  * @col id: invoke ID
@@ -112,3 +111,8 @@ CheckerInvoke(z,y,x) := TestChecker(x) & (TestCommandId(y)|TestHelperId(y)) & Pu
  */
 PureAccesses(id,x,y) := EX(u, DefinitionForDeclaration(u,x) & Accesses(id,u,y));
 
+/**
+ *  Predicate which denotes wheter an assertion has a failure message
+ *  @col x: testchecker ID
+ */
+NoFailureMessage(x) := EX(y, TestChecker(x) & Method(x, y) & CheckerSignature("0",y));

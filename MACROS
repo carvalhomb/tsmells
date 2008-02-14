@@ -22,6 +22,8 @@
  * Description of the different macros used in smells scripts
  **/
 
+XUNIT_INIT
+    Full path of the RML which initializes the xUnit test entities
 
 ASSERTIONLESS
     Switch for executing the assertionless script
@@ -64,4 +66,4 @@ SENSITIVE_EQUALITY
     Switch for executing the sensitive equality script
 
 TSMELLS
-    Root of your tsmells isntallation
+    Root of your tsmells installation

@@ -21,8 +21,6 @@
 SMELL=$1
 RSF=$2
 
-CONCATRML=""
-
 if [ "$SMELL" == "MysteryGuest" ]
 then
     RSF="$RSF $TSMELLS/src/MysteryBlacklistCpp.rsf"

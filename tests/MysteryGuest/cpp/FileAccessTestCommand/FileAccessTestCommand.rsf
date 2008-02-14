@@ -1,0 +1,244 @@
+Module	1	"/file"
+Module	2	"/"
+Module	3	"/cppunit"
+ModuleBelongsToModule	1	2
+ModuleBelongsToModule	3	2
+File	1	"file/ifstream.h"
+File	2	"string"
+File	3	"FileMystery.h"
+File	4	"cppunit/TestCase.h"
+File	5	"FileMystery.cxx"
+File	6	"file/stdio.h"
+File	7	"file/unix_fileio.h"
+FileBelongsToModule	1	1
+FileBelongsToModule	2	2
+FileBelongsToModule	3	2
+FileBelongsToModule	4	3
+FileBelongsToModule	5	2
+FileBelongsToModule	6	1
+FileBelongsToModule	7	1
+Include	1	1	2
+Include	2	3	4
+Include	3	5	2
+Include	4	5	3
+Include	5	5	1
+Include	6	5	6
+Include	7	5	7
+Include	8	4	2
+ConditionalCompilation	9	"!CPPUNIT_TESTCASE_H"
+Class	14	"CppUnit::TestCase"
+Class	15	"TestFileInput"
+Class	16	"std::ifstream"
+Class	17	"std::istream"
+ClassBelongsToFile	14	4	18
+ClassBelongsToFile	15	3	5
+ClassBelongsToFile	16	1	19
+ClassBelongsToFile	17	1	7
+InheritsFrom	18	"TestFileInput->CppUnit::TestCase"	15	14
+InheritsFrom	19	"std::ifstream->std::istream"	16	17
+Method	20	"CppUnit::TestCase.tearDown()"
+Method	24	"std::ifstream.is_open()"
+Method	26	"std::ifstream.close()"
+Method	28	"CppUnit::TestCase.~TestCase()"
+Method	29	"std::ifstream.open(char*,ios_base::openmode)"
+Method	34	"CppUnit::TestCase.getName()"
+Method	36	"CppUnit::TestCase.TestCase(std::string)"
+Method	37	"CppUnit::TestCase.TestCase()"
+Method	39	"CppUnit::TestCase.toString()"
+Method	41	"std::istream.getline(char*,streamsize)"
+Method	43	"std::istream.getline(char*,streamsize,char)"
+Method	44	"CppUnit::TestCase.run(TestResult*)"
+Method	45	"CppUnit::TestCase.run()"
+Method	46	"std::istream.read(char*,streamsize)"
+Method	48	"CppUnit::TestCase.setUp()"
+Method	49	"TestFileInput.testCfopen()"
+Method	52	"CppUnit::TestCase.defaultResult()"
+Method	54	"std::ifstream.ifstream(char*,ios_base::openmode)"
+Method	55	"std::ifstream.ifstream()"
+Method	56	"TestFileInput.testIfstream()"
+Method	58	"TestFileInput.testCopen()"
+Method	60	"CppUnit::TestCase.runTest()"
+Method	61	"std::istream.readsome(char*,streamsize)"
+Method	62	"CppUnit::TestCase.countTestCases()"
+MethodBelongsToClass	20	14
+MethodBelongsToClass	24	16
+MethodBelongsToClass	26	16
+MethodBelongsToClass	28	14
+MethodBelongsToClass	29	16
+MethodBelongsToClass	34	14
+MethodBelongsToClass	36	14
+MethodBelongsToClass	37	14
+MethodBelongsToClass	39	14
+MethodBelongsToClass	41	17
+MethodBelongsToClass	43	17
+MethodBelongsToClass	44	14
+MethodBelongsToClass	45	14
+MethodBelongsToClass	46	17
+MethodBelongsToClass	48	14
+MethodBelongsToClass	49	15
+MethodBelongsToClass	52	14
+MethodBelongsToClass	54	16
+MethodBelongsToClass	55	16
+MethodBelongsToClass	56	15
+MethodBelongsToClass	58	15
+MethodBelongsToClass	60	14
+MethodBelongsToClass	61	17
+MethodBelongsToClass	62	14
+InvokableEntityBelongsToFile	20	4	32
+InvokableEntityBelongsToFile	24	1	24
+InvokableEntityBelongsToFile	26	1	25
+InvokableEntityBelongsToFile	28	4	24
+InvokableEntityBelongsToFile	29	1	23
+InvokableEntityBelongsToFile	34	4	28
+InvokableEntityBelongsToFile	36	4	22
+InvokableEntityBelongsToFile	37	4	23
+InvokableEntityBelongsToFile	39	4	29
+InvokableEntityBelongsToFile	41	1	9
+InvokableEntityBelongsToFile	43	1	10
+InvokableEntityBelongsToFile	44	4	26
+InvokableEntityBelongsToFile	45	4	30
+InvokableEntityBelongsToFile	46	1	11
+InvokableEntityBelongsToFile	48	4	31
+InvokableEntityBelongsToFile	49	3	9
+InvokableEntityBelongsToFile	52	4	37
+InvokableEntityBelongsToFile	54	1	22
+InvokableEntityBelongsToFile	55	1	21
+InvokableEntityBelongsToFile	56	3	7
+InvokableEntityBelongsToFile	58	3	8
+InvokableEntityBelongsToFile	60	4	36
+InvokableEntityBelongsToFile	61	1	12
+InvokableEntityBelongsToFile	62	4	27
+InvokableEntityBelongsToFile	50	5	27
+InvokableEntityBelongsToFile	57	5	9
+InvokableEntityBelongsToFile	59	5	41
+InvokableEntityBelongsToFile	21	6	4
+InvokableEntityBelongsToFile	22	6	5
+InvokableEntityBelongsToFile	23	6	2
+InvokableEntityBelongsToFile	25	4	8
+InvokableEntityBelongsToFile	27	7	3
+InvokableEntityBelongsToFile	30	7	1
+InvokableEntityBelongsToFile	31	1	15
+InvokableEntityBelongsToFile	32	4	12
+InvokableEntityBelongsToFile	33	6	1
+InvokableEntityBelongsToFile	35	4	9
+InvokableEntityBelongsToFile	38	6	3
+InvokableEntityBelongsToFile	40	4	11
+InvokableEntityBelongsToFile	42	1	17
+InvokableEntityBelongsToFile	47	7	2
+InvokableEntityBelongsToFile	51	4	7
+InvokableEntityBelongsToFile	53	4	10
+Visibility	20	"public"
+Visibility	24	"public"
+Visibility	26	"public"
+Visibility	28	"public"
+Visibility	29	"public"
+Visibility	34	"public"
+Visibility	36	"public"
+Visibility	37	"public"
+Visibility	39	"public"
+Visibility	41	"public"
+Visibility	43	"public"
+Visibility	44	"public"
+Visibility	45	"public"
+Visibility	46	"public"
+Visibility	48	"public"
+Visibility	49	"public"
+Visibility	52	"protected"
+Visibility	54	"public"
+Visibility	55	"public"
+Visibility	56	"public"
+Visibility	58	"public"
+Visibility	60	"protected"
+Visibility	61	"public"
+Visibility	62	"public"
+Signature	20	"tearDown()"
+Signature	24	"is_open()"
+Signature	26	"close()"
+Signature	28	"~TestCase()"
+Signature	29	"open(char*,ios_base::openmode)"
+Signature	34	"getName()"
+Signature	36	"TestCase(std::string)"
+Signature	37	"TestCase()"
+Signature	39	"toString()"
+Signature	41	"getline(char*,streamsize)"
+Signature	43	"getline(char*,streamsize,char)"
+Signature	44	"run(TestResult*)"
+Signature	45	"run()"
+Signature	46	"read(char*,streamsize)"
+Signature	48	"setUp()"
+Signature	49	"testCfopen()"
+Signature	52	"defaultResult()"
+Signature	54	"ifstream(char*,ios_base::openmode)"
+Signature	55	"ifstream()"
+Signature	56	"testIfstream()"
+Signature	58	"testCopen()"
+Signature	60	"runTest()"
+Signature	61	"readsome(char*,streamsize)"
+Signature	62	"countTestCases()"
+HasType	41	17
+HasType	43	17
+HasType	46	17
+Function	21	"fread(void*,size_t,size_t,FILE*)"
+Function	22	"fclose(FILE*)"
+Function	23	"fgets(char*,int,FILE*)"
+Function	25	"CPPUNIT_ASSERT_MESSAGE(std::string,boolean)"
+Function	27	"close(int)"
+Function	30	"open(char*,int,...)"
+Function	31	"std::operator>>(istream,string)"
+Function	32	"CPPUNIT_ASSERT_EQUAL_MESSAGE(string,T,T)"
+Function	33	"fopen(char*,char*)"
+Function	35	"CPPUNIT_FAIL(std::string)"
+Function	38	"fgetc(FILE*)"
+Function	40	"CPPUNIT_ASSERT_EQUAL(T,T)"
+Function	42	"std::getline(istream,string)"
+Function	47	"read(int,void*,size_t)"
+Function	51	"CPPUNIT_ASSERT(boolean)"
+Function	53	"CPPUNIT_ASSERT_DOUBLES_EQUAL(double,double,double)"
+HasType	31	17
+HasType	42	17
+DefinitionForDeclaration	50	49
+DefinitionForDeclaration	57	56
+DefinitionForDeclaration	59	58
+Invokes	63	59	27
+Invokes	64	57	26
+Invokes	65	50	22
+Invokes	66	50	23
+Invokes	67	50	33
+Invokes	68	57	42
+Invokes	69	57	42
+Invokes	70	57	24
+Invokes	71	59	47
+InvocationLocation	63	5	50
+InvocationLocation	64	5	18
+InvocationLocation	65	5	35
+InvocationLocation	66	5	33
+InvocationLocation	67	5	31
+InvocationLocation	68	5	16
+InvocationLocation	69	5	23
+InvocationLocation	70	5	14
+InvocationLocation	71	5	48
+entityBelongsToBlock	14	9
+entityBelongsToBlock	20	9
+entityBelongsToBlock	28	9
+entityBelongsToBlock	32	9
+entityBelongsToBlock	34	9
+entityBelongsToBlock	36	9
+entityBelongsToBlock	37	9
+entityBelongsToBlock	39	9
+entityBelongsToBlock	40	9
+entityBelongsToBlock	44	9
+entityBelongsToBlock	45	9
+entityBelongsToBlock	48	9
+entityBelongsToBlock	52	9
+entityBelongsToBlock	53	9
+entityBelongsToBlock	60	9
+entityBelongsToBlock	62	9
+Measurement	72	56	"CC"	3
+Measurement	73	56	"NOS"	11
+Measurement	74	56	"LOC"	17
+Measurement	75	49	"CC"	3
+Measurement	76	49	"NOS"	6
+Measurement	77	49	"LOC"	11
+Measurement	78	58	"CC"	3
+Measurement	79	58	"NOS"	6
+Measurement	80	58	"LOC"	12

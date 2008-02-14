@@ -61,7 +61,7 @@ FOR tc IN NoDescAssert(_,x,_) {
             type := "TH";
         }
         // get the filename
-        FileName(x) := EX(y, InvokableEntityBelongsToFile(tc,y,_) & File(y,x));
+        FileName(x) := EX(y,z, DefinitionForDeclaration(z,tc) & InvokableEntityBelongsToFile(z,y,_) & File(y,x));
         // grab the linenumbers of all message-less assertions
         LineNrs(x) := EX(y, NoDescAssert(y,tc, _) & InvocationLocation(y,_,x));
         FOR n IN TCName(x) { // singleton
