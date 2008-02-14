@@ -52,6 +52,9 @@ diffClassInvokes(tcidd, clazz) :=
               ProductionMethodId(y) &
               MethodBelongsToClass(y, clazz));
 
+//PRINT ["diffClassAccess"] diffClassAccess(x,y);
+//PRINT ["diffClassInvokes"] diffClassInvokes(x,y);
+
 
 FOR tcid IN TestCommandId(x) {
     //ninv := #(diffClassInvokes(tcid,z));
@@ -61,8 +64,11 @@ FOR tcid IN TestCommandId(x) {
     ntot := #(diffClassInvokes(tcid, c) | diffClassAccess(tcid, c));
     IF ( ntot >= INDIRECT_TEST_TRESHOLD) {
         TCName(tcnmz) := Method(tcid,tcnmz);
-        FileName(x) := EX(y, InvokableEntityBelongsToFile(tcid,y,_) & File(y,x));
-        LineNr(x) := InvokableEntityBelongsToFile(tcid, _, x);
+        Defin(x) := DefinitionForDeclaration(x, tcid);
+        FOR def IN Defin(x) {
+            FileName(x) := EX(y, InvokableEntityBelongsToFile(def,y,_) & File(y,x));
+            LineNr(x) := InvokableEntityBelongsToFile(def, _, x);
+        }
         FOR file IN FileName(x)  { // singleton
         FOR line IN LineNr(x)    { // singleton
         FOR tcas IN TCName(x)    { // singleton

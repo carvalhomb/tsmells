@@ -11,13 +11,18 @@ FOR tc IN TestChecker(x) {
 
 PRINT ["CheckerInvoke"] CheckerInvoke(x,y,z);
 
-//PRINT ["Stimulates"] Stimulates(x,y,z);
+PRINT ["Stimulates"] Stimulates(x,y,z);
 FOR id IN Stimulates(x,_,_) {
     FOR tc IN Stimulates(id,x,_) {
         TcName(tcn) := Method(tc,tcn);
+
         FOR tcn IN TcName(x) {
             FOR meth IN Stimulates(id,tc,x) {
                 MthName(mnm) := Method(meth,mnm);
+                IF (#(MthName(x)) = 0) {
+                    MthName(y) := Function(meth, y);
+                }
+
                 FOR mnm IN MthName(x) {
                     PRINT tcn, " stimulates ", mnm, ENDL;
                 }
@@ -30,7 +35,7 @@ numCase := #(TestCase(x,y));
 numComm := #(TestCommand(x,y));
 numHelp := #(TestHelper(x,y));
 numCheck := #(CheckerInvoke(x,y,z));
-numStimu := #(Stimulates(id,x,y));
+numStimu := #(Stimulates(u,v,w));
 
 PRINT "<<<<<============================>>>>>", ENDL;
 PRINT "#TestCases       ", numCase, ENDL;
@@ -41,5 +46,7 @@ PRINT "#TestHelpers     ", numHelp, ENDL;
 PRINT "#TestSetup       ", #(TestSetup(x,y)), ENDL;
 PRINT "#TestTeardown    ", #(TestTeardown(x,y)), ENDL;
 PRINT "#Stimulates      ", numStimu, ENDL;
+PRINT "#ProductionMtd   ", #(ProductionMethodId(x)), ENDL;
+PRINT "#ProductionFunct ", #(ProductionFunctionId(x)), ENDL;
 PRINT "<<<<<============================>>>>>", ENDL;
 

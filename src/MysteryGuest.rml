@@ -63,8 +63,11 @@ FOR tc IN MysteryInTc(x,_) {
         MethodName(mn) := Method(tc, mn); 
         MystType(mt) := Blacklist(mt,_,myst);
         MystEnt(mn) := Blacklist(_,mn,myst);
-        FileName(x) := EX(y, InvokableEntityBelongsToFile(tc,y,_) & File(y,x));
-        LineNr(x) := InvokableEntityBelongsToFile(tc, _, x);
+        Definition(tcDef) := DefinitionForDeclaration(tcDef, tc);
+        FOR def IN Definition(x) {
+            FileName(x) := EX(y, InvokableEntityBelongsToFile(def,y,_) & File(y,x));
+            LineNr(x) := InvokableEntityBelongsToFile(def, _, x);
+        }
 
         FOR meth IN MethodName(mn) { // singleton
         FOR type IN MystType(mt)   { // singleton

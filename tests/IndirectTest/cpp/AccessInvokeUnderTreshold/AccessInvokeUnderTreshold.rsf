@@ -1,0 +1,181 @@
+Module	1	"/cppunit"
+Module	2	"/"
+ModuleBelongsToModule	1	2
+File	1	"cppunit/TestCase.h"
+File	2	"string"
+File	3	"MyTest.h"
+File	4	"cppunit/Test.h"
+File	5	"MyTest.cpp"
+File	6	"cppunit/TestSuite.h"
+File	7	"cppunit/TestCaller.h"
+File	8	"Stuff.h"
+FileBelongsToModule	1	1
+FileBelongsToModule	2	2
+FileBelongsToModule	3	2
+FileBelongsToModule	4	1
+FileBelongsToModule	5	2
+FileBelongsToModule	6	1
+FileBelongsToModule	7	1
+FileBelongsToModule	8	2
+Include	1	1	2
+Include	2	3	4
+Include	3	3	1
+Include	4	5	6
+Include	5	5	7
+Include	6	5	3
+Include	7	5	8
+ConditionalCompilation	8	"!CPPUNIT_TESTCASE_H"
+Class	11	"A"
+Class	12	"B"
+Class	13	"C"
+Class	14	"D"
+Class	15	"E"
+Class	16	"F"
+Class	17	"MyTest"
+Class	18	"CppUnit::TestCase"
+ClassBelongsToFile	11	8	2
+ClassBelongsToFile	12	8	7
+ClassBelongsToFile	13	8	12
+ClassBelongsToFile	14	8	17
+ClassBelongsToFile	15	8	22
+ClassBelongsToFile	16	8	27
+ClassBelongsToFile	17	3	8
+ClassBelongsToFile	18	1	18
+InheritsFrom	19	"MyTest->CppUnit::TestCase"	17	18
+Method	20	"A.a()"
+Method	21	"CppUnit::TestCase.runTest()"
+Method	22	"C.c()"
+Method	23	"B.b()"
+Method	24	"MyTest.testCommand()"
+Method	26	"CppUnit::TestCase.~TestCase()"
+Method	27	"CppUnit::TestCase.tearDown()"
+Method	29	"CppUnit::TestCase.getName()"
+Method	32	"CppUnit::TestCase.TestCase(std::string)"
+Method	33	"CppUnit::TestCase.TestCase()"
+Method	34	"CppUnit::TestCase.run(TestResult*)"
+Method	35	"CppUnit::TestCase.run()"
+Method	36	"CppUnit::TestCase.defaultResult()"
+Method	38	"MyTest.suite()"
+Method	40	"CppUnit::TestCase.countTestCases()"
+Method	41	"CppUnit::TestCase.toString()"
+Method	43	"CppUnit::TestCase.setUp()"
+MethodBelongsToClass	20	11
+MethodBelongsToClass	21	18
+MethodBelongsToClass	22	13
+MethodBelongsToClass	23	12
+MethodBelongsToClass	24	17
+MethodBelongsToClass	26	18
+MethodBelongsToClass	27	18
+MethodBelongsToClass	29	18
+MethodBelongsToClass	32	18
+MethodBelongsToClass	33	18
+MethodBelongsToClass	34	18
+MethodBelongsToClass	35	18
+MethodBelongsToClass	36	18
+MethodBelongsToClass	38	17
+MethodBelongsToClass	40	18
+MethodBelongsToClass	41	18
+MethodBelongsToClass	43	18
+InvokableEntityBelongsToFile	20	8	4
+InvokableEntityBelongsToFile	21	1	36
+InvokableEntityBelongsToFile	22	8	14
+InvokableEntityBelongsToFile	23	8	9
+InvokableEntityBelongsToFile	24	3	11
+InvokableEntityBelongsToFile	26	1	24
+InvokableEntityBelongsToFile	27	1	32
+InvokableEntityBelongsToFile	29	1	28
+InvokableEntityBelongsToFile	32	1	22
+InvokableEntityBelongsToFile	33	1	23
+InvokableEntityBelongsToFile	34	1	26
+InvokableEntityBelongsToFile	35	1	30
+InvokableEntityBelongsToFile	36	1	37
+InvokableEntityBelongsToFile	38	3	12
+InvokableEntityBelongsToFile	40	1	27
+InvokableEntityBelongsToFile	41	1	29
+InvokableEntityBelongsToFile	43	1	31
+InvokableEntityBelongsToFile	25	5	9
+InvokableEntityBelongsToFile	39	5	20
+InvokableEntityBelongsToFile	28	1	9
+InvokableEntityBelongsToFile	30	1	11
+InvokableEntityBelongsToFile	31	1	7
+InvokableEntityBelongsToFile	37	1	8
+InvokableEntityBelongsToFile	42	1	10
+InvokableEntityBelongsToFile	44	1	12
+Visibility	20	"public"
+Visibility	21	"protected"
+Visibility	22	"public"
+Visibility	23	"public"
+Visibility	24	"public"
+Visibility	26	"public"
+Visibility	27	"public"
+Visibility	29	"public"
+Visibility	32	"public"
+Visibility	33	"public"
+Visibility	34	"public"
+Visibility	35	"public"
+Visibility	36	"protected"
+Visibility	38	"public"
+Visibility	40	"public"
+Visibility	41	"public"
+Visibility	43	"public"
+Signature	20	"a()"
+Signature	21	"runTest()"
+Signature	22	"c()"
+Signature	23	"b()"
+Signature	24	"testCommand()"
+Signature	26	"~TestCase()"
+Signature	27	"tearDown()"
+Signature	29	"getName()"
+Signature	32	"TestCase(std::string)"
+Signature	33	"TestCase()"
+Signature	34	"run(TestResult*)"
+Signature	35	"run()"
+Signature	36	"defaultResult()"
+Signature	38	"suite()"
+Signature	40	"countTestCases()"
+Signature	41	"toString()"
+Signature	43	"setUp()"
+Attribute	45	"D.d"
+Attribute	46	"E.e"
+Attribute	47	"F.f"
+AttributeBelongsToClass	45	14
+AttributeBelongsToClass	46	15
+AttributeBelongsToClass	47	16
+Function	28	"CPPUNIT_FAIL(std::string)"
+Function	30	"CPPUNIT_ASSERT_EQUAL(T,T)"
+Function	31	"CPPUNIT_ASSERT(boolean)"
+Function	37	"CPPUNIT_ASSERT_MESSAGE(std::string,boolean)"
+Function	42	"CPPUNIT_ASSERT_DOUBLES_EQUAL(double,double,double)"
+Function	44	"CPPUNIT_ASSERT_EQUAL_MESSAGE(string,T,T)"
+DefinitionForDeclaration	25	24
+DefinitionForDeclaration	39	38
+Invokes	49	25	20
+Invokes	50	25	23
+Invokes	51	39	24
+InvocationLocation	49	5	12
+InvocationLocation	50	5	13
+InvocationLocation	51	5	22
+Accesses	48	25	45
+AccessLocation	48	5	17
+entityBelongsToBlock	18	8
+entityBelongsToBlock	21	8
+entityBelongsToBlock	26	8
+entityBelongsToBlock	27	8
+entityBelongsToBlock	29	8
+entityBelongsToBlock	30	8
+entityBelongsToBlock	32	8
+entityBelongsToBlock	33	8
+entityBelongsToBlock	34	8
+entityBelongsToBlock	35	8
+entityBelongsToBlock	36	8
+entityBelongsToBlock	40	8
+entityBelongsToBlock	41	8
+entityBelongsToBlock	42	8
+entityBelongsToBlock	43	8
+entityBelongsToBlock	44	8
+Measurement	52	24	"CC"	1
+Measurement	53	24	"NOS"	7
+Measurement	54	24	"LOC"	10
+Measurement	55	38	"CC"	1
+Measurement	56	38	"NOS"	3
+Measurement	57	38	"LOC"	5

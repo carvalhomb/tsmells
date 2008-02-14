@@ -80,6 +80,10 @@ TestHelper(x,y) := TestHelperId(x) & Method(x,y);
 //PRINT ["TestTeardown"] TestTeardown(x,y);
 //PRINT ["TestHelper"] TestHelper(x,y);
 
+// fix to have a definition for declaration for all functions.
+DefintionForDeclaration(x,y) := DefinitionForDeclaration(x,y) |
+                                (Function(x,_) & !EX(z, DefinitionForDeclaration(z,x)) & x=y);
+
 /**
  * contains a cleaned invoke relation. gets rid of the DefinitionForDeclaration step
  * @col id: invoke ID

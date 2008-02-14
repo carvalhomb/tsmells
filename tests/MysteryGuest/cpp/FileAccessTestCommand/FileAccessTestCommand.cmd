@@ -1,1 +1,1 @@
-writeCppSmelliness.sh MysteryGuest FileAccessTestCommand_Fixed.rsf 2> /dev/null
+writeCppSmelliness.sh MysteryGuest FileAccessTestCommand.rsf 2> /dev/null
