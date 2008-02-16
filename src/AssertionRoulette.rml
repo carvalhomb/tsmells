@@ -48,33 +48,104 @@ NoDescAssert(id,x,y) := NoFailureMessage(y) & CheckerInvoke(id,x,y) & (TestComma
 //PRINT ["CheckerInvoke"] CheckerInvoke(x,y,z);
 //PRINT ["TestHelper"] TestHelper(x,y);
 
+/**
+ * All test command|helper ID's which exceed the descriptionless
+ * assert limit
+ **/
+
+// this a bit clumsy. done because crocopat doesnt allow 
+// to add items to the universe dynamicly
+count("1","1");
+count("2","2");
+count("3","3");
+count("4","4");
+count("5","5");
+count("6","6");
+count("7","7");
+count("8","8");
+count("9","9");
+count("10","10");
+count("11","11");
+count("12","12");
+count("13","13");
+count("14","14");
+count("15","15");
+count("16","16");
+count("17","17");
+count("18","18");
+count("19","19");
+count("20","20");
+count("alot", "-1");
+
+AssertionRouletteId("", "", "");
+
 FOR tc IN NoDescAssert(_,x,_) {
-    // log roulette if more then 3 message-less invokes
-    // TODO parameterize this
-    num := #(NoDescAssert(a,tc,b));
-    IF ( num >= 3 ) {
-        TCName(x) := TestCommand(tc,x);
-        type := "TC";
-        IF (#(TCName(x)) = 0) {
-            // this is a testhelper
-            TCName(x) := TestHelper(tc,x);
-            type := "TH";
-        }
-        // get the filename
-        FileName(x) := EX(y,z, DefinitionForDeclaration(z,tc) & InvokableEntityBelongsToFile(z,y,_) & File(y,x));
-        // grab the linenumbers of all message-less assertions
-        LineNrs(x) := EX(y, NoDescAssert(y,tc, _) & InvocationLocation(y,_,x));
-        FOR n IN TCName(x) { // singleton
-            total := #(CheckerInvoke(a,tc,b));
-            PRINT "AssertionRoulette;", type, ";", n, ";", total, ";", num, ";";
-            FOR f IN FileName(x) { // singleton
-                 PRINT f;
-            }
-            FOR l IN LineNrs(x) {
-                PRINT ";", l;
-            }
-            PRINT ENDL;
+    cnt := #(NoDescAssert(a,tc,b));
+    tot := #(CheckerInvoke(a,tc,b));
+    IF ( cnt >= ASSERTION_ROULETTE_TRESHOLD) {
+        // got one
+        AssertionRouletteId(x, all, num) := 
+            AssertionRouletteId(x,all,num) |
+            (x = tc & 
+                ( count(STRING(cnt), num) & 
+                  count(STRING(tot), all)//|
+                  //((cnt > 20) & (count("alot", num)))
+                )
+            );
+        IF ( (cnt > 20) | (tot > 20)) {
+            AssertionRouletteId(x, all, num) := 
+                AssertionRouletteId(x,all,num) |
+                (x = tc & count("alot", num) & count("alot", all));
         }
     }
 }
+
+RouletteType("0","TC"); // roulette in test command
+RouletteType("1","TH"); // roulette in test helper
+
+//PRINT ["AssertionRouletteId"] AssertionRouletteId(x,num,b);
+
+AssertionRoulette(type, rltNm, total, num, file, line) :=
+    EX(rltId, def, fid,
+            AssertionRouletteId(rltId, total, num) &
+            ((TestCommandId(rltId) & RouletteType("0", type)) |
+             (TestHelperId(rltId)  & RouletteType("1", type))) &
+            Method(rltId, rltNm) &
+            DefinitionForDeclaration(def, rltId) &
+            InvokableEntityBelongsToFile(def, fid, line) &
+            File(fid, file) 
+      );
+
+PRINT ["AssertionRoulette"] AssertionRoulette(a,b,c,d,e,f);
+
+// old, slow implementation
+// FOR tc IN NoDescAssert(_,x,_) {
+//     // log roulette if more then 3 message-less invokes
+//     // TODO parameterize this
+//     num := #(NoDescAssert(a,tc,b));
+//     IF ( num >= 3 ) {
+//         TCName(x) := TestCommand(tc,x);
+//         type := "TC";
+//         IF (#(TCName(x)) = 0) {
+//             // this is a testhelper
+//             TCName(x) := TestHelper(tc,x);
+//             type := "TH";
+//         }
+//         // get the filename
+//         FileName(x) := EX(y,z, DefinitionForDeclaration(z,tc) & InvokableEntityBelongsToFile(z,y,_) & File(y,x));
+//         // grab the linenumbers of all message-less assertions
+//         LineNrs(x) := EX(y, NoDescAssert(y,tc, _) & InvocationLocation(y,_,x));
+//         FOR n IN TCName(x) { // singleton
+//             total := #(CheckerInvoke(a,tc,b));
+//             PRINT "AssertionRoulette;", type, ";", n, ";", total, ";", num, ";";
+//             FOR f IN FileName(x) { // singleton
+//                  PRINT f;
+//             }
+//             FOR l IN LineNrs(x) {
+//                 PRINT ";", l;
+//             }
+//             PRINT ENDL;
+//         }
+//     }
+// }
 

@@ -27,7 +27,9 @@
 
 define(`TSMELLS', `/home/nix/JaarProj/SmellsGgl')
 include(XUNIT_INIT)
+
 ifdef(`ASSERTIONLESS', `include(TSMELLS`/src/AssertionLess.rml')', `')
+ifdef(`ASSERTION_ROULETTE_TRESHOLD', `', `define(`ASSERTION_ROULETTE_TRESHOLD', `3')')
 ifdef(`ASSERTION_ROULETTE', `include(TSMELLS`/src/AssertionRoulette.rml')', `')
 ifdef(`DUPLICATED_CODE_TRESHOLD', `', `define(`DUPLICATED_CODE_TRESHOLD', `5')')
 ifdef(`DUPLICATED_CODE', `include(TSMELLS`/src/DuplicatedCode.rml')', `')

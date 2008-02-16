@@ -1,1 +1,1 @@
-writeCppSmelliness.sh "AssertionRoulette" SixAssertNoMessage.rsf 2> /dev/null
+writeCppSmellinessMacro.sh SixAssertNoMessage.rsf  -DASSERTION_ROULETTE -DASSERTION_ROULETTE_TRESHOLD=6

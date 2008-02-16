@@ -1,1 +1,1 @@
-../generic.cmd
+link ../generic.cmd

@@ -31,6 +31,10 @@ ASSERTIONLESS
 ASSERTION_ROULETTE
     Switch for executing the assertionroulette script
 
+ASSERTION_ROULETTE_TRESHOLD
+    Number of required descriptionless asserts per test command to
+    trigger an assertion roulette
+
 DUPLICATED_CODE
     Switch for executing the duplicated code 
 
