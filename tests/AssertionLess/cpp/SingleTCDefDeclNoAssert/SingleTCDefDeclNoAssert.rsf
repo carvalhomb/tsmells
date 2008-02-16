@@ -1,0 +1,118 @@
+Module	1	"/cppunit"
+Module	2	"/"
+ModuleBelongsToModule	1	2
+File	1	"cppunit/TestCase.h"
+File	2	"string"
+File	3	"MyTest.cxx"
+File	4	"MyTest.h"
+FileBelongsToModule	1	1
+FileBelongsToModule	2	2
+FileBelongsToModule	3	2
+FileBelongsToModule	4	2
+Include	1	1	2
+Include	2	3	4
+Include	3	4	1
+ConditionalCompilation	4	"!CPPUNIT_TESTCASE_H"
+Class	7	"MyTest"
+Class	8	"CppUnit::TestCase"
+ClassBelongsToFile	7	4	5
+ClassBelongsToFile	8	1	18
+InheritsFrom	9	"MyTest->CppUnit::TestCase"	7	8
+Method	10	"CppUnit::TestCase.runTest()"
+Method	11	"CppUnit::TestCase.toString()"
+Method	12	"MyTest.testCommand()"
+Method	14	"CppUnit::TestCase.tearDown()"
+Method	16	"CppUnit::TestCase.getName()"
+Method	18	"CppUnit::TestCase.TestCase(std::string)"
+Method	19	"CppUnit::TestCase.TestCase()"
+Method	20	"CppUnit::TestCase.run(TestResult*)"
+Method	21	"CppUnit::TestCase.run()"
+Method	24	"CppUnit::TestCase.defaultResult()"
+Method	25	"CppUnit::TestCase.countTestCases()"
+Method	26	"CppUnit::TestCase.~TestCase()"
+Method	28	"CppUnit::TestCase.setUp()"
+MethodBelongsToClass	10	8
+MethodBelongsToClass	11	8
+MethodBelongsToClass	12	7
+MethodBelongsToClass	14	8
+MethodBelongsToClass	16	8
+MethodBelongsToClass	18	8
+MethodBelongsToClass	19	8
+MethodBelongsToClass	20	8
+MethodBelongsToClass	21	8
+MethodBelongsToClass	24	8
+MethodBelongsToClass	25	8
+MethodBelongsToClass	26	8
+MethodBelongsToClass	28	8
+InvokableEntityBelongsToFile	10	1	36
+InvokableEntityBelongsToFile	11	1	29
+InvokableEntityBelongsToFile	12	4	7
+InvokableEntityBelongsToFile	14	1	32
+InvokableEntityBelongsToFile	16	1	28
+InvokableEntityBelongsToFile	18	1	22
+InvokableEntityBelongsToFile	19	1	23
+InvokableEntityBelongsToFile	20	1	26
+InvokableEntityBelongsToFile	21	1	30
+InvokableEntityBelongsToFile	24	1	37
+InvokableEntityBelongsToFile	25	1	27
+InvokableEntityBelongsToFile	26	1	24
+InvokableEntityBelongsToFile	28	1	31
+InvokableEntityBelongsToFile	13	3	3
+InvokableEntityBelongsToFile	15	1	9
+InvokableEntityBelongsToFile	17	1	7
+InvokableEntityBelongsToFile	22	1	11
+InvokableEntityBelongsToFile	23	1	8
+InvokableEntityBelongsToFile	27	1	10
+InvokableEntityBelongsToFile	29	1	12
+Visibility	10	"protected"
+Visibility	11	"public"
+Visibility	12	"public"
+Visibility	14	"public"
+Visibility	16	"public"
+Visibility	18	"public"
+Visibility	19	"public"
+Visibility	20	"public"
+Visibility	21	"public"
+Visibility	24	"protected"
+Visibility	25	"public"
+Visibility	26	"public"
+Visibility	28	"public"
+Signature	10	"runTest()"
+Signature	11	"toString()"
+Signature	12	"testCommand()"
+Signature	14	"tearDown()"
+Signature	16	"getName()"
+Signature	18	"TestCase(std::string)"
+Signature	19	"TestCase()"
+Signature	20	"run(TestResult*)"
+Signature	21	"run()"
+Signature	24	"defaultResult()"
+Signature	25	"countTestCases()"
+Signature	26	"~TestCase()"
+Signature	28	"setUp()"
+Function	15	"CPPUNIT_FAIL(std::string)"
+Function	17	"CPPUNIT_ASSERT(boolean)"
+Function	22	"CPPUNIT_ASSERT_EQUAL(T,T)"
+Function	23	"CPPUNIT_ASSERT_MESSAGE(std::string,boolean)"
+Function	27	"CPPUNIT_ASSERT_DOUBLES_EQUAL(double,double,double)"
+Function	29	"CPPUNIT_ASSERT_EQUAL_MESSAGE(string,T,T)"
+DefinitionForDeclaration	13	12
+entityBelongsToBlock	8	4
+entityBelongsToBlock	10	4
+entityBelongsToBlock	11	4
+entityBelongsToBlock	14	4
+entityBelongsToBlock	16	4
+entityBelongsToBlock	18	4
+entityBelongsToBlock	19	4
+entityBelongsToBlock	20	4
+entityBelongsToBlock	21	4
+entityBelongsToBlock	22	4
+entityBelongsToBlock	24	4
+entityBelongsToBlock	25	4
+entityBelongsToBlock	26	4
+entityBelongsToBlock	27	4
+entityBelongsToBlock	28	4
+entityBelongsToBlock	29	4
+Measurement	30	12	"CC"	1
+Measurement	31	12	"NOS"	0
+Measurement	32	12	"LOC"	1

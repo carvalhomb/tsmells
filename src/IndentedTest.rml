@@ -35,7 +35,7 @@ FOR tcid IN TestCommandId(x) {
     ncs := SUM(LoopCount(x)) + SUM(CondCount(y)); // summing over a single element ..
     IF ( ncs > 0) {
         TCName(tcnm) := Method(tcid,tcnm); // single element
-        FileName(x) := EX(y, InvokableEntityBelongsToFile(tcid,y,_) & File(y,x));
+        FileName(x) := EX(y, def, DefinitionForDeclaration(def, tcid) & InvokableEntityBelongsToFile(def,y,_) & File(y,x));
         LineNr(x) := InvokableEntityBelongsToFile(tcid, _, x);
         FOR f IN FileName(x)  {
         FOR l IN LineNr(x)    {
@@ -51,7 +51,7 @@ FOR thid IN TestHelperId(x) {
     ncs := SUM(LoopCount(x)) + SUM(CondCount(y)); // summing over a single element ..
     IF ( ncs > 0) {
         THName(thnm) := Method(thid,thnm); // single element
-        FileName(x) := EX(y, InvokableEntityBelongsToFile(thid,y,_) & File(y,x));
+        FileName(x) := EX(y, def, DefinitionForDeclaration(def, thid) & InvokableEntityBelongsToFile(def,y,_) & File(y,x));
         LineNr(x) := InvokableEntityBelongsToFile(thid, _, x);
         FOR f IN FileName(x)  {
         FOR l IN LineNr(x)    {

@@ -1,2 +1,2 @@
-AssertionLess;MyTest.testCommand();MyTest.java;11
-AssertionLess;MyTest.testMore();MyTest.java;16
+AssertionLess	"MyTest.testCommand()"	"MyTest.java"	11
+AssertionLess	"MyTest.testMore()"	"MyTest.java"	16

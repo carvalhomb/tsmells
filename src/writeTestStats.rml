@@ -12,7 +12,16 @@ FOR tc IN TestChecker(x) {
 PRINT ["CheckerInvoke"] CheckerInvoke(x,y,z);
 
 PRINT ["Stimulates"] Stimulates(x,y,z);
-FOR id IN Stimulates(x,_,_) {
+Stim("==stimulates==>");
+
+StimulInfo(tcnm, txt, stnm) := 
+    EX(id, tcid, stimid,
+        Stimulates(id, tcid, stimid) & 
+        Method(tcid, tcnm) & Stim(txt) & 
+        (Method(stimid, stnm)|Function(stimid,stnm)));
+PRINT StimulInfo(x,y,z);
+
+/*FOR id IN Stimulates(x,_,_) {
     FOR tc IN Stimulates(id,x,_) {
         TcName(tcn) := Method(tc,tcn);
 
@@ -29,7 +38,7 @@ FOR id IN Stimulates(x,_,_) {
             }
         }
     }
-}
+}*/
 
 numCase := #(TestCase(x,y));
 numComm := #(TestCommand(x,y));

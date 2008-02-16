@@ -93,13 +93,14 @@ def evalTest(name):
         if not ret:
             res.status = ERROR
             res.color  = "black"
-            res.what = "Failed to excute"
+            res.what = "Failed to excute\n" +\
+                        res.got
 
         else:
             res.exp  = readFile(name + '.exp')
             res.what = compare(res.got, res.exp)
 
-            if res.what == "":
+            if res.what == "" or len(res.what) == 0:
                 # success
                 res.color  = "green"
                 res.status = PASS
@@ -110,6 +111,9 @@ def evalTest(name):
             else:
                 res.color  = "red"
                 res.status = FAIL
+                f = open(name + '.res', 'w')
+                f.write(res.got)
+                f.close()
 
     except Exception, e:
         res.status = ERROR

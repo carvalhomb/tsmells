@@ -38,11 +38,12 @@
  * @col file:   filename
  **/
 ComInvoke(tcid, iid, invid, line, tcx, inv, file) := 
-   EX(x, fid, 
+   EX(x, fid, def,
               TestMethodId(tcid) & 
               PureInvokes(iid, tcid, invid) & 
               InvocationLocation(iid, _, line) &
-              InvokableEntityBelongsToFile(tcid,fid, x) &
+              DefinitionForDeclaration(def, tcid) &
+              InvokableEntityBelongsToFile(def,fid, x) &
               Method(tcid,tcx) &
               (Method(invid, inv) | Function(invid, inv)) &
               File(fid, file)
@@ -71,11 +72,12 @@ PRINT ["ComInvoke"] ComInvoke(a_dc,b_dc,c_dc,d_dc,e_dc,f_dc,g_dc) TO "tmp_duplic
  * @col file:  filename
  **/
 ComAccess(tcid_ca, aid, attid, line2, tc2, att, file2) := 
-   EX(x, fid, attrid, 
+   EX(x, fid, attrid, def,
               TestMethodId(tcid_ca) & 
               PureAccesses(aid, tcid_ca, attrid) & 
               AccessLocation(aid, _, line2) &
-              InvokableEntityBelongsToFile(tcid_ca,fid, x) &
+              DefinitionForDeclaration(def, tcid_ca) &
+              InvokableEntityBelongsToFile(def,fid, x) &
               Method(tcid_ca,tc2) &
               Attribute(attrid, att) &
               HasType(attrid, attid) &

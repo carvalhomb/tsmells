@@ -64,7 +64,7 @@ TestTeardownId(x) := EX(mn, TestMethodId(x) & Method(x,mn) & @"[.]tearDown[(][)]
 TestHelperId(x) := TestMethodId(x) & !TestCommandId(x) & !TestSetupId(x) & !TestTeardownId(x);
 TestChecker(x) := EX(y, Function(x, y) & CheckerSignature(_,y));
 ProductionMethodId(x) := Method(x,_) & !TestMethodId(x);
-ProductionFunctionId(x) := Function(x,_); // how to distinguish between 'test-helper-functions'?
+ProductionFunctionId(x) := Function(x,_) & !TestChecker(x); // how to distinguish between 'test-helper-functions'?
 
 // these are needed for backwards compatibility.
 // prolly they'll vanish for good, one day

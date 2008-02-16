@@ -48,7 +48,7 @@ ForTestersOnlyId(x) := Stimulates(_,_,x) & !EX(y,z, ProductionMethodId(y) & !=(x
 
 FOR fto IN ForTestersOnlyId(x) {
     MtdName(mnm) := Method(fto, mnm);
-    FileName(x) := EX(y, InvokableEntityBelongsToFile(fto,y,_) & File(y,x));
+    FileName(x) := EX(y, def, DefinitionForDeclaration(def, fto) & InvokableEntityBelongsToFile(def,y,_) & File(y,x));
     LineNr(x) := InvokableEntityBelongsToFile(fto, _, x);
     FOR mnm IN MtdName(x) {
     FOR f IN FileName(x)  {
