@@ -46,13 +46,14 @@ ForTestersOnlyId(x) := Stimulates(_,_,x) & !EX(y,z, ProductionMethodId(y) & !=(x
 //PRINT ["Stimulates"] Stimulates(x,y,z);
 //PRINT ["ForTestersOnlyMethID"] ForTestersOnlyId(x);
 
+// TODO rewrite this with an instant dump instead of looping, which is terribly slow
 FOR fto IN ForTestersOnlyId(x) {
     MtdName(mnm) := Method(fto, mnm);
     FileName(x) := EX(y, def, DefinitionForDeclaration(def, fto) & InvokableEntityBelongsToFile(def,y,_) & File(y,x));
     LineNr(x) := InvokableEntityBelongsToFile(fto, _, x);
     FOR mnm IN MtdName(x) {
-    FOR f IN FileName(x)  {
+    FOR f IN FileName(x)  { 
     FOR l IN LineNr(x)    {
-        PRINT "ForTestersOnly;", mnm, ";", f, ";", l, ENDL;
+        PRINT "ForTestersOnly	", mnm, "	", f, "	", l, ENDL;
     }}}
 }
