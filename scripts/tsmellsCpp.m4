@@ -27,6 +27,8 @@
 
 define(`TSMELLS', `/home/nix/JaarProj/SmellsGgl')
 include(XUNIT_INIT)
+include(TSMELLS`/src/count.rml')
+include(TSMELLS`/src/initAuxRel.rml')
 
 ifdef(`ASSERTIONLESS', `include(TSMELLS`/src/AssertionLess.rml')', `')
 ifdef(`ASSERTION_ROULETTE_TRESHOLD', `', `define(`ASSERTION_ROULETTE_TRESHOLD', `3')')

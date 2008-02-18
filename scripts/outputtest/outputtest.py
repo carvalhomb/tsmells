@@ -79,7 +79,8 @@ def execute(command, timeout=10):
         indicating success/failure"""
     
     # run command
-    process   = popen2.Popen4(command, True)
+    #process   = popen2.Popen4(command, True)
+    process   = popen2.Popen3(command, True)
     sleepTime = 0.1
     current   = 0.0
     
@@ -99,7 +100,8 @@ def execute(command, timeout=10):
     if process.poll() != 0:
         success = False
     
-    return "".join(process.fromchild.readlines()), success
+    return "".join(process.fromchild.readlines()), \
+           "".join(process.childerr.readlines()), success
 
 def validate_input(command, expected):
     if not (type(expected) in [str, file]):

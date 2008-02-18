@@ -32,7 +32,7 @@ RML=$(mktemp) &&\
 m4  $MACRO $M4SCRIPT > $RML &&\
 cat $RML > rml.tmp &&\
 #cat $RSF | crocopat $RML 2> /dev/null &&\
-cat $RSF | crocopat $RML | tee -a $LOG && \
+cat $RSF | crocopat -m 250 $RML | tee -a $LOG && \
 rm -rf $RML &> /dev/null;
 
 echo "--"

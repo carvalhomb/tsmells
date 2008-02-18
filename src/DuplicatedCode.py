@@ -378,17 +378,18 @@ class DuplicatePrinter():
     def briefCsv(self, clones):
         #DuplicatedCode;6;MyTest.firstCom();MyTest.java;7;MyTest.secondCom();MyTest.java;16
         #dump_dupli(clones)
+        delim = "\t"
         for mtds in clones:
             mtd1 = mtds[0]
             mtd2 = mtds[1]
             for cpl in clones[mtds]:
                 seq1 = cpl[0]
                 seq2 = cpl[1]
-                print "DuplicatedCode;" + mtd1.getName() +\
-                      ";" + mtd1.getSrcFile() + ";" + str(seq1.start) +\
-                      ";" + str(seq1.end)+ ";" + mtd2.getName() +\
-                      ";" + mtd2.getSrcFile() + ";" + str(seq2.start) +\
-                      ";" + str(seq2.end) 
+                print "DuplicatedCode" + delim + mtd1.getName() +\
+                      delim + mtd1.getSrcFile() + delim + str(seq1.start) +\
+                      delim + str(seq1.end)+ delim + mtd2.getName() +\
+                      delim + mtd2.getSrcFile() + delim + str(seq2.start) +\
+                      delim + str(seq2.end) 
 
 def partition(mtd, minLength=1):
     ''' Compute all sublists which form a sequence

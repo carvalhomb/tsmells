@@ -86,14 +86,14 @@ TestHelper(x,y) := TestHelperId(x) & Method(x,y);
  * @col x:  x caller
  * @col y:  y callee
  */
-PureInvokes(id,x,y) := EX(u, DefinitionForDeclaration(u,x) & Invokes(id,u,y));
+//PureInvokes(id,x,y) := EX(u, DefinitionForDeclaration(u,x) & Invokes(id,u,y));
 
 //PRINT ["ProductionFunctionId"] ProductionFunctionId(y);
 
-Stimulates(id,x,y) := PureInvokes(id,x,y) & TestMethodId(x) &  (ProductionMethodId(y) | ProductionFunctionId(y));
+//Stimulates(id,x,y) := PureInvokes(id,x,y) & TestMethodId(x) &  (ProductionMethodId(y) | ProductionFunctionId(y));
 //Stimulates(id,x,y) := PureInvokes(id,x,y) & TestMethodId(x) & ProductionFunctionId(y);
 
-NoFailureMessage(x) := EX(y,z, TestChecker(x) & Function(x, y) & CheckerSignature(z,y) & No(z));
+//NoFailureMessage(x) := EX(y,z, TestChecker(x) & Function(x, y) & CheckerSignature(z,y) & No(z));
 
 /**
  * Checkers invoked in TestCommands/TestHelpers
@@ -101,7 +101,7 @@ NoFailureMessage(x) := EX(y,z, TestChecker(x) & Function(x, y) & CheckerSignatur
  * @col y:  testcommand/helper ID
  * @col x:  testchecker ID
  */
-CheckerInvoke(z,y,x) := TestChecker(x) & (TestCommandId(y)|TestHelperId(y)) & PureInvokes(z,y,x);
+//CheckerInvoke(z,y,x) := TestChecker(x) & (TestCommandId(y)|TestHelperId(y)) & PureInvokes(z,y,x);
 
 /**
  * contains a cleaned accesses relation. gets rid of the DefinitionForDeclaration step
@@ -109,10 +109,10 @@ CheckerInvoke(z,y,x) := TestChecker(x) & (TestCommandId(y)|TestHelperId(y)) & Pu
  * @col x:  x caller
  * @col y:  y attribute
  */
-PureAccesses(id,x,y) := EX(u, DefinitionForDeclaration(u,x) & Accesses(id,u,y));
+//PureAccesses(id,x,y) := EX(u, DefinitionForDeclaration(u,x) & Accesses(id,u,y));
 
 /**
  *  Predicate which denotes wheter an assertion has a failure message
  *  @col x: testchecker ID
  */
-NoFailureMessage(x) := EX(y, TestChecker(x) & Method(x, y) & CheckerSignature("0",y));
+//NoFailureMessage(x) := EX(y, TestChecker(x) & Method(x, y) & CheckerSignature("0",y));

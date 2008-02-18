@@ -1,1 +1,1 @@
-writeCppSmelliness.sh "AssertionLess" "SingleTCAssert.rsf" 2> /dev/null
+writeCppSmelliness.sh "AssertionLess" "SingleTCAssert.rsf"

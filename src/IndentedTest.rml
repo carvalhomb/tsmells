@@ -29,35 +29,79 @@
 //Measurement    212    8    "COND"    1
 //Measurement    213    10    "LOOP"    1
 
-FOR tcid IN TestCommandId(x) {
-    LoopCount(numx) := Measurement(_, tcid, "LOOP", numx);
-    CondCount(numx) := Measurement(_, tcid, "COND", numx);
-    ncs := SUM(LoopCount(x)) + SUM(CondCount(y)); // summing over a single element ..
-    IF ( ncs > 0) {
-        TCName(tcnm) := Method(tcid,tcnm); // single element
-        FileName(x) := EX(y, def, DefinitionForDeclaration(def, tcid) & InvokableEntityBelongsToFile(def,y,_) & File(y,x));
-        LineNr(x) := InvokableEntityBelongsToFile(tcid, _, x);
-        FOR f IN FileName(x)  {
-        FOR l IN LineNr(x)    {
-        FOR tcnm IN TCName(x) {
-            PRINT "IndentedTest;TC;", tcnm, ";", ncs, ";", f, ";", l, ENDL;
-        }}}
+IndentedTestType("0", "TC");
+IndentedTestType("1", "TH");
+
+CtrlStructCount("","","");
+
+LoopCount(id, cnt) := TestCommandId(id) & Measurement(_,id, "LOOP", cnt);
+CondCount(id, cnt) := TestCommandId(id) & Measurement(_,id, "COND", cnt);
+FOR sid IN TestCommandId(x) {
+    cnt := SUM(LoopCount(sid,x)) + SUM(CondCount(sid, y));
+    IF (cnt > 0) {
+        CtrlStructCount(x,y,z) := CtrlStructCount(x,y,z) |
+            x = sid & IndentedTestType("0", y) & count(STRING(cnt), z);
     }
 }
 
-FOR thid IN TestHelperId(x) {
-    LoopCount(numx) := Measurement(_, thid, "LOOP", numx);
-    CondCount(numx) := Measurement(_, thid, "COND", numx);
-    ncs := SUM(LoopCount(x)) + SUM(CondCount(y)); // summing over a single element ..
-    IF ( ncs > 0) {
-        THName(thnm) := Method(thid,thnm); // single element
-        FileName(x) := EX(y, def, DefinitionForDeclaration(def, thid) & InvokableEntityBelongsToFile(def,y,_) & File(y,x));
-        LineNr(x) := InvokableEntityBelongsToFile(thid, _, x);
-        FOR f IN FileName(x)  {
-        FOR l IN LineNr(x)    {
-        FOR thnm IN THName(x) {
-            PRINT "IndentedTest;TH;", thnm, ";", ncs, ";", f, ";", l, ENDL;
-        }}}
+LoopCount(id, cnt2) := TestHelperId(id) & Measurement(_,id, "LOOP", cnt2);
+CondCount(id, cnt2) := TestHelperId(id) & Measurement(_,id, "COND", cnt2);
+FOR id IN TestHelperId(x) {
+    cnt2 := SUM(LoopCount(id,x)) + SUM(CondCount(id, y));
+    IF (cnt2 > 0) {
+        CtrlStructCount(x,y,z) := CtrlStructCount(x,y,z) |
+            x = id & IndentedTestType("1", y) & count(STRING(cnt2), z);
     }
 }
 
+/**
+ * Fetch the number of conditionals and 
+ * loops for all test commands and helpers
+ * 
+ * @col type:  "TC" or "TH", denoting the type
+ * @col tnm:  test command/helper qualified name
+ * @col num:  number of control structures used in tid
+ * @col file: sourcefile the method is implemented in
+ * @col line: startline of method definition
+ **/
+IndentedTest(type, tnm, num, file, line) := 
+    EX(tid,
+            CtrlStructCount(tid,type,num) &
+            TestEntityInfo(tid,tnm,file,line)
+      );
+
+PRINT ["IndentedTest"] IndentedTest(a,b,c,d,e);
+
+// old, slow implementation
+// FOR tcid IN TestCommandId(x) {
+//     LoopCount(numx) := Measurement(_, tcid, "LOOP", numx);
+//     CondCount(numx) := Measurement(_, tcid, "COND", numx);
+//     ncs := SUM(LoopCount(x)) + SUM(CondCount(y)); // summing over a single element ..
+//     IF ( ncs > 0) {
+//         TCName(tcnm) := Method(tcid,tcnm); // single element
+//         FileName(x) := EX(y, def, DefinitionForDeclaration(def, tcid) & InvokableEntityBelongsToFile(def,y,_) & File(y,x));
+//         LineNr(x) := InvokableEntityBelongsToFile(tcid, _, x);
+//         FOR f IN FileName(x)  {
+//         FOR l IN LineNr(x)    {
+//         FOR tcnm IN TCName(x) {
+//             PRINT "IndentedTest;TC;", tcnm, ";", ncs, ";", f, ";", l, ENDL;
+//         }}}
+//     }
+// }
+// 
+// FOR thid IN TestHelperId(x) {
+//     LoopCount(numx) := Measurement(_, thid, "LOOP", numx);
+//     CondCount(numx) := Measurement(_, thid, "COND", numx);
+//     ncs := SUM(LoopCount(x)) + SUM(CondCount(y)); // summing over a single element ..
+//     IF ( ncs > 0) {
+//         THName(thnm) := Method(thid,thnm); // single element
+//         FileName(x) := EX(y, def, DefinitionForDeclaration(def, thid) & InvokableEntityBelongsToFile(def,y,_) & File(y,x));
+//         LineNr(x) := InvokableEntityBelongsToFile(thid, _, x);
+//         FOR f IN FileName(x)  {
+//         FOR l IN LineNr(x)    {
+//         FOR thnm IN THName(x) {
+//             PRINT "IndentedTest;TH;", thnm, ";", ncs, ";", f, ";", l, ENDL;
+//         }}}
+//     }
+// }
+// 

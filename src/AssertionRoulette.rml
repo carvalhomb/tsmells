@@ -53,29 +53,7 @@ NoDescAssert(id,x,y) := NoFailureMessage(y) & CheckerInvoke(id,x,y) & (TestComma
  * assert limit
  **/
 
-// this a bit clumsy. done because crocopat doesnt allow 
-// to add items to the universe dynamicly
-count("1","1");
-count("2","2");
-count("3","3");
-count("4","4");
-count("5","5");
-count("6","6");
-count("7","7");
-count("8","8");
-count("9","9");
-count("10","10");
-count("11","11");
-count("12","12");
-count("13","13");
-count("14","14");
-count("15","15");
-count("16","16");
-count("17","17");
-count("18","18");
-count("19","19");
-count("20","20");
-count("alot", "-1");
+
 
 AssertionRouletteId("", "", "");
 
@@ -92,7 +70,7 @@ FOR tc IN NoDescAssert(_,x,_) {
                   //((cnt > 20) & (count("alot", num)))
                 )
             );
-        IF ( (cnt > 20) | (tot > 20)) {
+        IF ( (cnt > COUNT_MAX ) | (tot > COUNT_MAX)) {
             AssertionRouletteId(x, all, num) := 
                 AssertionRouletteId(x,all,num) |
                 (x = tc & count("alot", num) & count("alot", all));
@@ -106,14 +84,11 @@ RouletteType("1","TH"); // roulette in test helper
 //PRINT ["AssertionRouletteId"] AssertionRouletteId(x,num,b);
 
 AssertionRoulette(type, rltNm, total, num, file, line) :=
-    EX(rltId, def, fid,
+    EX(rltId,
             AssertionRouletteId(rltId, total, num) &
             ((TestCommandId(rltId) & RouletteType("0", type)) |
              (TestHelperId(rltId)  & RouletteType("1", type))) &
-            Method(rltId, rltNm) &
-            DefinitionForDeclaration(def, rltId) &
-            InvokableEntityBelongsToFile(def, fid, line) &
-            File(fid, file) 
+            TestEntityInfo(rltId, rltNm, file, line)
       );
 
 PRINT ["AssertionRoulette"] AssertionRoulette(a,b,c,d,e,f);

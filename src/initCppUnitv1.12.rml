@@ -94,11 +94,11 @@ DefintionForDeclaration(x,y) := DefinitionForDeclaration(x,y) |
  * @col x:  x caller
  * @col y:  y callee
  */
-PureInvokes(id,x,y) := EX(u, DefinitionForDeclaration(u,x) & Invokes(id,u,y));
+//PureInvokes(id,x,y) := EX(u, DefinitionForDeclaration(u,x) & Invokes(id,u,y));
 
 //PRINT ["ProductionFunctionId"] ProductionFunctionId(y);
 
-NoFailureMessage(x) := EX(y,z, TestChecker(x) & Function(x, y) & CheckerSignature(z,y) & No(z));
+//NoFailureMessage(x) := EX(y,z, TestChecker(x) & Function(x, y) & CheckerSignature(z,y) & No(z));
 
 /**
  * Checkers invoked in TestCommands/TestHelpers
@@ -106,7 +106,7 @@ NoFailureMessage(x) := EX(y,z, TestChecker(x) & Function(x, y) & CheckerSignatur
  * @col y:  testcommand/helper ID
  * @col x:  testchecker ID
  */
-CheckerInvoke(z,y,x) := TestChecker(x) & (TestCommandId(y)|TestHelperId(y)) & PureInvokes(z,y,x);
+//CheckerInvoke(z,y,x) := TestChecker(x) & (TestCommandId(y)|TestHelperId(y)) & PureInvokes(z,y,x);
 
 
 /**
@@ -115,6 +115,6 @@ CheckerInvoke(z,y,x) := TestChecker(x) & (TestCommandId(y)|TestHelperId(y)) & Pu
  * @col x:  x caller
  * @col y:  y attribute
  */
-PureAccesses(id,x,y) := EX(u, DefinitionForDeclaration(u,x) & Accesses(id,u,y));
+//PureAccesses(id,x,y) := EX(u, DefinitionForDeclaration(u,x) & Accesses(id,u,y));
 
-Stimulates(id,x,y) := PureInvokes(id,x,y) & TestMethodId(x) &  (ProductionMethodId(y) | ProductionFunctionId(y));
+//Stimulates(id,x,y) := PureInvokes(id,x,y) & TestMethodId(x) &  (ProductionMethodId(y) | ProductionFunctionId(y));

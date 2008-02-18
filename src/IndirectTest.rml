@@ -28,6 +28,25 @@
 //PRINT "IndirectTest;MyTest.testCommand();",treshold,";6", ENDL;
 
 /**
+ * All helpers thid invoked from command tcid
+ **/
+ComHelpers(tcid, thid) := 
+    TestCommandId(tcid) & TestHelperId(thid) & PureInvokes(_,tcid, thid);
+TestHelperInvoke(thid1, thid2) := 
+    TestHelperId(thid1) & PureInvokes(_, thid1, thid2) & TestHelperId(thid2);
+
+/**
+ * All helpers thid invoked from tcid, directly & indirectly
+ **/
+TransComHelper(tcid, thid) :=
+    ComHelpers(tcid, thid) | 
+    EX(z, ComHelpers(tcid,z) & TC(TestHelperInvoke(z, thid)));
+
+//PRINT ["ComHelpers"] ComHelpers(x,y);
+//PRINT ["TestHelperInvoke"] TestHelperInvoke(x,y);
+//PRINT ["TransComHelpers"] TransComHelpers(x,y);
+
+/**
  * Contains the different classes a test command accesses. 
  * Not counting itself, nor other Test Commands.
  *
@@ -38,6 +57,12 @@ diffClassAccess(tcidd, clazz) :=
     EX(y, id, TestCommandId(tcidd) & 
               PureAccesses(id,tcidd,y) & 
               AttributeBelongsToClass(y,clazz) & 
+              !TestCaseId(clazz));
+diffClassAccessHelper(tcidd,clazz) :=
+    EX(y, thid, id,
+              TransComHelper(tcidd, thid) &
+              PureAccess(id, thid, y) &
+              AttributeBelongsToClass(y, clazz) &
               !TestCaseId(clazz));
 
 /**
@@ -51,29 +76,80 @@ diffClassInvokes(tcidd, clazz) :=
               PureInvokes(id, tcidd, y) &
               ProductionMethodId(y) &
               MethodBelongsToClass(y, clazz));
+diffClassInvokesHelper(tcidd, clazz) :=
+    EX(y, thid, id,
+              TransComHelper(tcidd, thid) &
+              PureInvokes(id, thid, y) &
+              ProductionMethodId(y) &
+              MethodBelongsToClass(y, clazz));
 
 //PRINT ["diffClassAccess"] diffClassAccess(x,y);
 //PRINT ["diffClassInvokes"] diffClassInvokes(x,y);
 
+/**
+ * TestCommand id's which are flagged as 
+ * indirect test, as well as the NPTU
+ **/
+IndirectTestId("", "");
 
 FOR tcid IN TestCommandId(x) {
-    //ninv := #(diffClassInvokes(tcid,z));
-    //nacc := #(diffClassAccess(tcid, z));
-    //ntot := ninv + nacc;
-    //diffClassInvAcc(c) := diffClassInvokes(tcid, c) | diffClassAccess(tcid, c);
-    ntot := #(diffClassInvokes(tcid, c) | diffClassAccess(tcid, c));
-    IF ( ntot >= INDIRECT_TEST_TRESHOLD) {
-        TCName(tcnmz) := Method(tcid,tcnmz);
-        Defin(x) := DefinitionForDeclaration(x, tcid);
-        FOR def IN Defin(x) {
-            FileName(x) := EX(y, InvokableEntityBelongsToFile(def,y,_) & File(y,x));
-            LineNr(x) := InvokableEntityBelongsToFile(def, _, x);
+    nptu := #(diffClassInvokes(tcid,c) | diffClassInvokesHelper(tcid,c) |
+              diffClassAccess(tcid,c)  | diffClassAccessHelper(tcid, c));
+    IF ( nptu >= INDIRECT_TEST_TRESHOLD) {
+        // got one
+        IndirectTestId(x, num) := 
+            IndirectTestId(x,num) |
+            (x = tcid & 
+                ( count(STRING(nptu), num) )
+            );
+        IF ( (nptu > COUNT_MAX) ) {
+            // larger then the count relation. log this is as 'A LOT'
+            IndirectTestId(x, num) := 
+                IndirectTestId(x,num) |
+                (x = tcid & 
+                    ( count(STRING(nptu), num) )
+                );
         }
-        FOR file IN FileName(x)  { // singleton
-        FOR line IN LineNr(x)    { // singleton
-        FOR tcas IN TCName(x)    { // singleton
-            PRINT "IndirectTest;", tcas, ";", INDIRECT_TEST_TRESHOLD, ";", 
-                  ntot,";", file, ";", line, ENDL;
-        }}}
     }
 }
+
+/**
+ * Contains full indirect test information
+ * 
+ * @col tcnm: test command name
+ * @col tres: treshold for ptmi
+ * @col nptu: number of production type uses
+ * @col file: sourcefile with tcnm's implementation
+ * @col line: line this test command is defined on
+ **/
+IndirectTest(tcnm, tres, nptu_x, file, line) :=
+    EX(tcid,
+            IndirectTestId(tcid, nptu_x) &
+            tres = "INDIRECT_TEST_TRESHOLD" &
+            TestEntityInfo(tcid, tcnm, file, line)
+      );
+
+PRINT ["IndirectTest"] IndirectTest(aa,bb,cc,dd,ee);
+
+// old, slow implementation
+// FOR tcid IN TestCommandId(x) {
+//     //ninv := #(diffClassInvokes(tcid,z));
+//     //nacc := #(diffClassAccess(tcid, z));
+//     //ntot := ninv + nacc;
+//     //diffClassInvAcc(c) := diffClassInvokes(tcid, c) | diffClassAccess(tcid, c);
+//     ntot := #(diffClassInvokes(tcid, c) | diffClassAccess(tcid, c));
+//     IF ( ntot >= INDIRECT_TEST_TRESHOLD) {
+//         TCName(tcnmz) := Method(tcid,tcnmz);
+//         Defin(x) := DefinitionForDeclaration(x, tcid);
+//         FOR def IN Defin(x) {
+//             FileName(x) := EX(y, InvokableEntityBelongsToFile(def,y,_) & File(y,x));
+//             LineNr(x) := InvokableEntityBelongsToFile(def, _, x);
+//         }
+//         FOR file IN FileName(x)  { // singleton
+//         FOR line IN LineNr(x)    { // singleton
+//         FOR tcas IN TCName(x)    { // singleton
+//             PRINT "IndirectTest;", tcas, ";", INDIRECT_TEST_TRESHOLD, ";", 
+//                   ntot,";", file, ";", line, ENDL;
+//         }}}
+//     }
+// }

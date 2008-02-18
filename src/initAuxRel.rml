@@ -1,0 +1,53 @@
+/**
+ * contains a cleaned invoke relation. gets rid of the DefinitionForDeclaration step
+ * @col id: invoke ID
+ * @col x:  x caller
+ * @col y:  y callee
+ */
+PureInvokes(id,x,y) := EX(u, DefinitionForDeclaration(u,x) & Invokes(id,u,y));
+
+//PRINT ["ProductionFunctionId"] ProductionFunctionId(y);
+
+Stimulates(id,x,y) := PureInvokes(id,x,y) & TestMethodId(x) &  (ProductionMethodId(y) | ProductionFunctionId(y));
+
+/**
+ *  Predicate which denotes wheter an assertion has a failure message
+ *  @col x: testchecker ID
+ */
+NoFailureMessage(x) := EX(y,z, TestChecker(x) & (Function(x, y)|Method(x,y)) & CheckerSignature(z,y) & No(z));
+
+/**
+ * Checkers invoked in TestCommands/TestHelpers
+ * @col z:  invocation ID
+ * @col y:  testcommand/helper ID
+ * @col x:  testchecker ID
+ */
+CheckerInvoke(z,y,x) := TestChecker(x) & (TestCommandId(y)|TestHelperId(y)) & PureInvokes(z,y,x);
+
+
+/**
+ * contains a cleaned accesses relation. gets rid of the DefinitionForDeclaration step
+ * @col id: invoke ID
+ * @col x:  x caller
+ * @col y:  y attribute
+ */
+PureAccesses(id,x,y) := EX(u, DefinitionForDeclaration(u,x) & Accesses(id,u,y));
+
+
+/**
+ * Test Command & Helper information.
+ * Prebuilt sinced used extensivly when dumping smell stats
+ *
+ * @col tid:  test command or helper id
+ * @col name: fully qualified method name
+ * @col file: sourcefile this method is defined in
+ * @col line: starting linenumber of the method definition
+ **/
+TestEntityInfo(tid, name, file, line) :=
+    EX(def, fid,
+            (TestCommandId(tid) | TestHelperId(tid)) &
+            Method(tid, name) &
+            DefinitionForDeclaration(def, tid) &
+            InvokableEntityBelongsToFile(def, fid, line) &
+            File(fid, file)
+      );

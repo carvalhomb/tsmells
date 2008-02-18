@@ -1,6 +1,6 @@
 import org.junit.TestCase;
 
 public class C extends TestCase {
-    public void c() {}
+    public void testc() {}
 }
  

@@ -40,8 +40,8 @@ InheritsFrom	14	"org::junit::TestCase->java::lang::Object"	7	8
 InheritsFrom	15	"B->java::lang::Object"	4	8
 InheritsFrom	16	"C->java::lang::Object"	5	8
 InheritsFrom	17	"A->java::lang::Object"	3	8
-Method	18	"A.a()"
-Method	20	"C.c()"
+Method	18	"A.testa()"
+Method	20	"C.testc()"
 Method	22	"MyTest.testCommand()"
 Method	24	"org::junit::TestCase.assertEquals(boolean,boolean)"
 Method	28	"org::junit::TestCase.assertEquals(byte,byte)"
@@ -300,8 +300,8 @@ Visibility	202	"public"
 Visibility	204	"public"
 Visibility	206	"public"
 Visibility	209	"public"
-Signature	18	"a()"
-Signature	20	"c()"
+Signature	18	"testa()"
+Signature	20	"testc()"
 Signature	22	"testCommand()"
 Signature	24	"assertEquals(boolean,boolean)"
 Signature	28	"assertEquals(byte,byte)"
@@ -408,7 +408,7 @@ DefinitionForDeclaration	207	206
 DefinitionForDeclaration	210	209
 Invokes	214	23	18
 Invokes	215	23	20
-Invokes	216	23	48
+Invokes	216	23	24
 InvocationLocation	214	6	13
 InvocationLocation	215	6	15
 InvocationLocation	216	6	16

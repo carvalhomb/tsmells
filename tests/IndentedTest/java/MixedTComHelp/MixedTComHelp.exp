@@ -1,2 +1,2 @@
-IndentedTest;TC;MyTest.testCommand();1;MyTest.java;4
-IndentedTest;TH;MyTest.helper();1;MyTest.java;18
+IndentedTest	TC	"MyTest.testCommand()"	1	"MyTest.java"	4
+IndentedTest	TH	"MyTest.helper()"	1	"MyTest.java"	18

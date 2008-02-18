@@ -32,6 +32,7 @@ class TestResult():
         self.cmd      = ""
         self.exp      = ""
         self.got      = ""
+        self.err      = ""
         self.what     = ""
         self.sources  = []
 
@@ -79,7 +80,7 @@ def evalTest(name):
 
     try:
         res.cmd = readFile(name + '.cmd')
-        res.got, ret = execute(res.cmd)
+        res.got, res.err, ret = execute(res.cmd)
 
         #linesAdded = ""
         #cntr = 1;

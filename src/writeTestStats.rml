@@ -2,12 +2,12 @@ PRINT ["TestCase"] TestCase(x,y);
 PRINT ["TestCommand"] TestCommand(x,y);
 PRINT ["TestHelper"] TestHelper(x,y);
 
-FOR tc IN TestChecker(x) {
-    TcName(x) := Method(tc,x);
-    FOR n IN TcName(x) {
-        PRINT "TestChecker", tc, "  ", n, ENDL;
-    }
-}
+// FOR tc IN TestChecker(x) {
+//     TcName(x) := Method(tc,x);
+//     FOR n IN TcName(x) {
+//         PRINT "TestChecker", tc, "  ", n, ENDL;
+//     }
+// }
 
 PRINT ["CheckerInvoke"] CheckerInvoke(x,y,z);
 

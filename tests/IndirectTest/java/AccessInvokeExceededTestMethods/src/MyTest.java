@@ -10,9 +10,9 @@ public class MyTest extends TestCase {
         C c = new C();
         Integer i;
 
-        a.a();
+        a.testa();
         i = b.b;
-        c.c();
+        c.testc();
         assertEquals(1, 1);
     }
 

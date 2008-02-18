@@ -8,6 +8,6 @@ then
 fi
 
 TMPFILE=$(mktemp)
-cat $TSMELLS/src/initJavaTestEntities.rml $TSMELLS/src/writeTestStats.rml > $TMPFILE
+cat $TSMELLS/src/initJavaTestEntities.rml $TSMELLS/src/initAuxRel.rml $TSMELLS/src/writeTestStats.rml > $TMPFILE
 #cp $TMPFILE ./concat.rml
 cat $1 | crocopat -m $CROCOMEM $TMPFILE
