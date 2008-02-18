@@ -58,6 +58,7 @@ MysteryInTc(a,b) := TestCommand(a,_) & Stimulates(_,a,b) & Blacklist(_,_,b);
 //PRINT "BLACK ", Blacklist(x,y,z),  ENDL;
 
 // print results
+// TODO rewrite this with instant dump instead of looping. this is way too inefficient.
 FOR tc IN MysteryInTc(x,_) {
     FOR myst IN MysteryInTc(tc,x) {
         MethodName(mn) := Method(tc, mn); 
@@ -75,8 +76,8 @@ FOR tc IN MysteryInTc(x,_) {
         FOR file IN FileName(x)    { // singleton
         FOR line IN LineNr(x)      { // singleton
             // print twice since smell in tc itself
-            PRINT "MysteryGuest;", meth, ";", file, ";", line, ";",
-                  meth, ";", file, ";", line, ";", type, ";", myst, ENDL;
+            PRINT "MysteryGuest	", meth, "	", file, "	", line, "	",
+                  meth, "	", file, "	", line, "	", type, "	", myst, ENDL;
         }}}}}
     }
 }
@@ -118,8 +119,8 @@ FOR tc IN MysteryInM(x,_,_) {
             FOR line IN LineNr(x)       { // singleton
             FOR mfil IN MFileName(x)    { // singleton
             FOR mlin IN MLineNr(x)      { // singleton
-                PRINT "MysteryGuest;", cmd, ";", file, ";", line, ";",
-                      meth, ";", mfil, ";", mlin, ";", type, ";", myst, ENDL;
+                PRINT "MysteryGuest	", cmd, "	", file, "	", line, "	",
+                      meth, "	", mfil, "	", mlin, "	", type, "	", myst, ENDL;
             }}}}}}}}
         }
     }

@@ -34,6 +34,8 @@
 // TODO paremeterize this, eg blacklist
 ToStringId(x):=EX(y,Method(x,y) & @"[.]toString()"(y));
 
+// TODO transform this into an instant dump instead of looping.
+// way faster
 FOR tcid IN TestCommandId(x) {
     ToStringInvokes(y) := EX(x,PureInvokes(y,tcid,x) & ToStringId(x));
     ntstr := #(ToStringInvokes(y));
@@ -44,7 +46,7 @@ FOR tcid IN TestCommandId(x) {
         FOR file IN FileName(x)  { // singleton
         FOR line IN LineNr(x)    { // singleton
         FOR tcom IN TCName(x)    { // singleton
-            PRINT "SensitiveEquality;TC;", tcom, ";", ntstr, ";", file, ";", line, ENDL;
+            PRINT "SensitiveEquality	TC	", tcom, "	", ntstr, "	", file, "	", line, ENDL;
         }}}
     }
 }
@@ -59,7 +61,7 @@ FOR thid IN TestHelperId(x) {
         FOR file IN FileName(x)  { // singleton
         FOR line IN LineNr(x)    { // singleton
         FOR thel IN THName(x)    { // singleton
-            PRINT "SensitiveEquality;TH;", thel, ";", ntstr, ";", file, ";", line, ENDL;
+            PRINT "SensitiveEquality	TH	", thel, "	", ntstr, "	", file, "	", line, ENDL;
         }}}
     }
 }

@@ -1,3 +1,3 @@
-MysteryGuest;TestFileInput.testCfopen();FileMystery.cxx;27;TestFileInput.testCfopen();FileMystery.cxx;27;file;fgets(char*,int,FILE*)
-MysteryGuest;TestFileInput.testIfstream();FileMystery.cxx;9;TestFileInput.testIfstream();FileMystery.cxx;9;file;std::getline(istream,string)
-MysteryGuest;TestFileInput.testCopen();FileMystery.cxx;41;TestFileInput.testCopen();FileMystery.cxx;41;file;read(int,void*,size_t)
+MysteryGuest	TestFileInput.testCfopen()	FileMystery.cxx	27	TestFileInput.testCfopen()	FileMystery.cxx	27	file	fgets(char*,int,FILE*)
+MysteryGuest	TestFileInput.testIfstream()	FileMystery.cxx	9	TestFileInput.testIfstream()	FileMystery.cxx	9	file	std::getline(istream,string)
+MysteryGuest	TestFileInput.testCopen()	FileMystery.cxx	41	TestFileInput.testCopen()	FileMystery.cxx	41	file	read(int,void*,size_t)

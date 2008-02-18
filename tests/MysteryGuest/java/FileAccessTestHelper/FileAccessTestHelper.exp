@@ -1,1 +1,1 @@
-MysteryGuest;FileAccessTest.testSomething();FileAccessTest.java;6;FileAccessTest.readFile(String);FileAccessTest.java;12;file;java::io::BufferedReader.readLine()
+MysteryGuest	FileAccessTest.testSomething()	FileAccessTest.java	6	FileAccessTest.readFile(String)	FileAccessTest.java	12	file	java::io::BufferedReader.readLine()
