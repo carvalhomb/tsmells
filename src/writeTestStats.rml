@@ -50,6 +50,12 @@ PRINT StimulInfo(x,y,z);
     }
 }*/
 
+CtrlStructs(x,nm) := (TestCommandId(x)|TestHelperId(x) ) & Measurement(_,"LOOP",x) | Measurement(_,"COND",x) & Method(x,nm);
+PRINT ["CtrlStructs1"] CtrlStructs(x,y);
+
+CtrlStructs(x,nm) := (TestCommandId(x)|TestHelperId(x) ) & EX(y, DefinitionForDeclaration(y, x) & Measurement(_,"LOOP",y) | Measurement(_,"COND",y)) & Method(x,nm);
+PRINT ["CtrlStructs2"] CtrlStructs(x,y);
+
 numCase := #(TestCase(x,y));
 numComm := #(TestCommand(x,y));
 numHelp := #(TestHelper(x,y));

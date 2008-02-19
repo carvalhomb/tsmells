@@ -327,11 +327,9 @@ class CloneFinder():
         mtd2Parts = parted[mtd2.getId()]
 
         dups = [] # all couples of parts which are shared
-        tmp = []
         # walk the different partition lengths of mtd1
         currentLength = mtd1.getNrofReferences()
         while currentLength >= self.treshold:
-#        for seqLength, seqs in mtd1Parts.iteritems():
             # mtd2 must have partitions of this length,
             # since its the largest
             seqs = mtd1Parts[currentLength]
@@ -346,13 +344,6 @@ class CloneFinder():
                     dups.append((seq1, seq2))
             currentLength -= 1
 
-        # now remove sub-duplicates.
-        # to get better performace these should never
-        # be added. but in practice the performance hit 
-        # is not that bad, as long as we'r not in 
-        # clone heaven
-        #self.__removeSubDuplicates(dups)
-
         return dups
 
     def __duplicateHasSuperDuplicate(self, seq1, seq2, dups):
@@ -361,26 +352,6 @@ class CloneFinder():
                pair[1].contains(seq2):
                 return True
         return False
-
-    def __removeSubDuplicates(self, dups):
-        ''' remove all smaller cloes from dups. ie
-            those with a sequence that is fully contained 
-            in another one'''
-        toRemove = []
-        for seq in dups:
-            #first = seq[0].ref[0]
-            #last  = seq[0].ref[-1]
-            for seq2 in dups:
-                if seq == seq2: continue
-                #if (first in seq2[0].ref and
-                #    last  in seq2[0].ref):
-                if seq2[0].contains(seq[0]): #and \
-                   #seq2[1].contains(seq[1]):
-                    toRemove.append(seq)
-                    break
-
-        for tr in toRemove:
-            dups.remove(tr)
 
 class DuplicatePrinter():
 

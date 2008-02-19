@@ -28,12 +28,12 @@ No("0");
  * @col : denotes if this assertion has a failure message
  * @col : assertion signature
  **/
-CheckerSignature("1","CPPUNIT_ASSERT_MESSAGE(std::string,boolean)");
+CheckerSignature("1","CPPUNIT_ASSERT_MESSAGE(std::string,bool)");
 CheckerSignature("0","CPPUNIT_ASSERT_DOUBLES_EQUAL(double,double,double)");
 CheckerSignature("0","CPPUNIT_ASSERT_EQUAL(T,T)");
 CheckerSignature("1","CPPUNIT_ASSERT_EQUAL_MESSAGE(string,T,T)");
 CheckerSignature("1","CPPUNIT_FAIL(std::string)");
-CheckerSignature("0","CPPUNIT_ASSERT(boolean)");
+CheckerSignature("0","CPPUNIT_ASSERT(bool)");
 
 
 

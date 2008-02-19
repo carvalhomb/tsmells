@@ -4,12 +4,13 @@
 RSF=$1
 RML=$2
 PROJ=$3
+MEM=$4
 LOG=$PROJ.tsmell
 
 START=$(date +%s)
 echo "(00) Starting crocopat ... "
 cat $1 | \
-crocopat $RML + 2>&1 > "$LOG" |\
+crocopat -m $MEM $RML + 2>&1 > "$LOG" |\
 grep -Ev \(FALSE\|^Warning\|^used\)
 
 

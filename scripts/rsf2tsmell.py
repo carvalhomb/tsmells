@@ -26,51 +26,57 @@ XINIT_DEFAULTS = \
     {
         "junit3"   :"src/initJavaTestEntities.rml",
         "junitana"    :"src/initJavaTestEntitiesAnastacia.rml",
-        "cppunit12":"src/initCppUnitv1.12.rml",
-        "cppunit06":"src/initCppUnitTeamspirit.rml",
-        "cppunitpt":"src/initCppTestEntities.rml",
+        "cppunit1-12":"src/initCppUnitv1-12.rml",
+        "cppunit0-06":"src/initCppUnitv0-06.rml",
     }
 
+AS    = "ASSERTIONLESS"
+AR    = "ASSERTION_ROULETTE"
+DC    = "DUPLICATED_CODE"
+FTO   = "FOR_TESTERS_ONLY"
+INDIR = "INDIRECT_TEST"
+INDEN = "INDENTED_TEST"
+MG    = "MYSTERY_GUEST"
+SE    = "SENSITIVE_EQUALITY"
+
 # all m4-smell keys
-SMELLS = \
-    [
-        "ASSERTIONLESS",
-        "ASSERTION_ROULETTE",
-        "DUPLICATED_CODE",
-        "FOR_TESTERS_ONLY"
-        "INDIRECT_TEST",
-        "INDENTED_TEST",
-        "MYSTERY_GUEST",
-        "SENSITIVE_EQUALITY",
-    ]
+SMELLS = [ AS,AR,DC,FTO,INDIR,INDEN,MG,SE ]
+
+TRESH = "_TRESHOLD"
+AR_TRESH = AR + TRESH
+DC_TRESH = DC + TRESH
+DC_SCRIPT = DC + "_PYGEN"
+INDIR_TRESH = INDIR + TRESH
+MG_BLACK = MG + "_BLACKLIST"
+
 
 # additional smell parameters passed to m4
 PARAMS_DEFAULTS = \
     {
-        "ASSERTION_ROULETTE_TRESHOLD":"3",
-        "DUPLICATED_CODE_PYGEN":"src/DuplicatedCode.py",
-        "DUPLICATED_CODE_TRESHOLD":"8",
-        "INDIRECT_TEST_TRESHOLD":"5",
-        "MYSTERY_GUEST_BLACKLIST": 
+        AR_TRESH    :"3",
+        DC_SCRIPT   :"src/DuplicatedCode.py",
+        DC_TRESH    :"8",
+        INDIR_TRESH :"5",
+        MG_BLACK    : 
         {
             "junit3":"src/MysteryBlacklistJava.rml",
             "junitana" :"src/MysteryBlacklistJava.rml",
-            "cppunit12":"src/MysteryBlacklistCppFile.rml",
-            "cppunit06":"src/MysteryBlacklistCppFile.rml",
-            "cppunitpt":"src/MysteryBlacklistCppFile.rml"
+            "cppunit1-12":"src/MysteryBlacklistCppFile.rml",
+            "cppunit0-06":"src/MysteryBlacklistCppFile.rml",
         }
     }
 
 def usage():
     scr = sys.argv[0].split('/')[-1]
-    print "usage: " + scr + " <project> <xinit>"
+    print "usage: " + scr + " <rsf> <xinit> [<mem>]"
     print "       " + scr + " <config>"
     print ""
     print "  xinit:   xUnit framework initialization RML file path"
     print "           or a predefined one: ",
     print XINIT_DEFAULTS.keys()
-    print "  project: project source root directory"
+    print "  rsf:     source RSF model"
     print "  config:  configuration file"
+    print "  mem:     # megabytes crocopat may use"
     print ""
     print "TSMELLS variable should point to your tsmells installation root"
     sys.exit(1)
@@ -96,21 +102,19 @@ def fillDefault(xinit):
     if not XINIT_DEFAULTS.has_key(xinit): usage()
     tsmellsRoot = os.getenv("TSMELLS")
     if not tsmellsRoot: usage()
-    xinitFile = os.path.join(tsmellsRoot, XINIT_DEFAULTS[xinit])
 
     # default to all smells
     smells = copy.copy(SMELLS)
     params = copy.copy(PARAMS_DEFAULTS)
 
-    params["MYSTERY_GUEST_BLACKLIST"] = \
-        os.path.join(tsmellsRoot,params["MYSTERY_GUEST_BLACKLIST"][xinit])
-
-    params["DUPLICATED_CODE_PYGEN"] = \
-        os.path.join(tsmellsRoot, params["DUPLICATED_CODE_PYGEN"])
-
-    m4Def = os.path.join(tsmellsRoot, "scripts/tsmells.m4")
-    if not os.path.exists(m4Def):
-        print "m4 macro script does not exist [" + m4Def + "]"
+    xinitFile =         \
+        os.path.join(tsmellsRoot, XINIT_DEFAULTS[xinit])
+    params[MG_BLACK] =  \
+        os.path.join(tsmellsRoot,params[MG_BLACK][xinit])
+    params[DC_SCRIPT] = \
+        os.path.join(tsmellsRoot, params[DC_SCRIPT])
+    m4Def =             \
+        os.path.join(tsmellsRoot, "scripts/tsmells.m4")
 
     return tsmellsRoot, xinitFile, smells, params, m4Def
 
@@ -127,29 +131,30 @@ if __name__ == '__main__':
     smells = [] # fill this, gets passed to m4 script
     params = {} # this too, { name x value }
 
-    if len(sys.argv) == 1 or len(sys.argv) > 3:
+    if len(sys.argv) == 1 or len(sys.argv) > 4:
         usage()
     elif len(sys.argv) == 2:
         configPath = sys.argv[1]
-        pass; print "config TODO"; exit(2)
-    elif len(sys.argv) == 3:
+        pass; print "config TODO"; usage()
+    elif len(sys.argv) in [ 3, 4]:
         xinit = sys.argv[2]
-        rsf = sys.argv[1]
-        if not os.path.exists(rsf):
-            print "rsf does not exist [" + rsf + "]"
-            usage()
-
-        proj = rsf.split('.rsf')[0]
+        rsf   = sys.argv[1]
+        proj  = rsf.split('.rsf')[0]
         tsmellsRoot, xinit, smells, params, m4Def = fillDefault(xinit)
+        mem = "50"
+        if len(sys.argv) == 4:
+            mem = str(int(sys.argv[3]))
 
     checkFilesExist([(rsf, "rsf"), (xinit, "xUnit RML"), (m4Def, "m4 script"),
-                     (params["DUPLICATED_CODE_PYGEN"], "duplicated code python source "),
-                     (params["MYSTERY_GUEST_BLACKLIST"], "mystery guest blacklist")])
+                     (params[DC_SCRIPT], "duplicated code python source "),
+                     (params[MG_BLACK], "mystery guest blacklist")])
 
     m4Input = buildM4Input(xinit, smells, params, tsmellsRoot)
     tmpFile = tempfile.mkstemp()[1]
     os.system("m4 " + m4Input + " " + m4Def + " > " + tmpFile)
     os.system("cp " + tmpFile + " " + proj + ".rml")
-    os.system(os.path.join(tsmellsRoot,"scripts","rsf2tsmell.sh") +\
-              " " + rsf + " " + tmpFile + " " + " " + proj)
+
+    rsf2tsmellsh = os.path.join(tsmellsRoot,"scripts","rsf2tsmell.sh")
+    os.system( rsf2tsmellsh + " " + rsf + " " + tmpFile + " " + " " + proj + " " + mem)
+
     os.remove(tmpFile)

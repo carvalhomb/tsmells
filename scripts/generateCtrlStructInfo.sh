@@ -53,7 +53,7 @@ function jloop {
 }
 
 function ccond {
-	for i in $(find -L . -name "*.cxx" -o -name "*.cpp" -o -name "*.c" -o -name "*.h" -o -name "*.hh" -o -name "*.hpp"); do
+	for i in $(find -L . -name "*.cxx" -o -name "*.cpp" -o -name "*.c" -o -name "*.cc" -o -name "*.h" -o -name "*.hh" -o -name "*.hpp"); do
 		cat $i |\
 		$TSMELLS/scripts/removeComments.pl |\
 		grep -noHE "(( |	|^)(if|switch)( |	|\(|$))" |\
@@ -63,7 +63,7 @@ function ccond {
 }
 
 function cloop {
-	for i in $(find -L . -name "*.cxx" -o -name "*.cpp" -o -name "*.c" -o -name "*.h" -o -name "*.hh" -o -name "*.hpp"); do
+	for i in $(find -L . -name "*.cxx" -o -name "*.cpp" -o -name "*.c" -o -name "*.cc" -o -name "*.h" -o -name "*.hh" -o -name "*.hpp"); do
 		cat $i |\
 		$TSMELLS/scripts/removeComments.pl |\
 		grep -noHE "(( |	|^)(for|while|do)( |	|\(|$))" |\
