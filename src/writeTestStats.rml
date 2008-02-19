@@ -11,7 +11,17 @@ PRINT ["TestHelper"] TestHelper(x,y);
 
 PRINT ["CheckerInvoke"] CheckerInvoke(x,y,z);
 
-PRINT ["Stimulates"] Stimulates(x,y,z);
+Checks("==checkers==>");
+CheckInfo(chnm, txt, cmdnm):=
+    EX(cid, tid, invid,
+        CheckerInvoke(invid, tid, cid) &
+        Method(tid, cmdnm) &
+        Checks(txt) &
+        (Function(cid, chnm) | Method(cid, chnm))
+      );
+PRINT CheckInfo(x,y,z);
+
+//PRINT ["Stimulates"] Stimulates(x,y,z);
 Stim("==stimulates==>");
 
 StimulInfo(tcnm, txt, stnm) := 

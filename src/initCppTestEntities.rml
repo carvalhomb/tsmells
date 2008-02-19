@@ -28,12 +28,12 @@ No("0");
  * @col : denotes if this assertion has a failure message
  * @col : assertion signature
  **/
-CheckerSignature("1","CPPUNIT_ASSERT_MESSAGE(std::string,boolean)");
+CheckerSignature("1","CPPUNIT_ASSERT_MESSAGE(std::string,bool)");
 CheckerSignature("0","CPPUNIT_ASSERT_DOUBLES_EQUAL(double,double,double)");
 CheckerSignature("0","CPPUNIT_ASSERT_EQUAL(T,T)");
 CheckerSignature("1","CPPUNIT_ASSERT_EQUAL_MESSAGE(string,T,T)");
 CheckerSignature("1","CPPUNIT_FAIL(std::string)");
-CheckerSignature("0","CPPUNIT_ASSERT(boolean)");
+CheckerSignature("0","CPPUNIT_ASSERT(bool)");
 
 
 
@@ -83,36 +83,4 @@ TestHelper(x,y) := TestHelperId(x) & Method(x,y);
 // fix to have a definition for declaration for all functions.
 DefintionForDeclaration(x,y) := DefinitionForDeclaration(x,y) |
                                 (Function(x,_) & !EX(z, DefinitionForDeclaration(z,x)) & x=y);
-
-/**
- * contains a cleaned invoke relation. gets rid of the DefinitionForDeclaration step
- * @col id: invoke ID
- * @col x:  x caller
- * @col y:  y callee
- */
-//PureInvokes(id,x,y) := EX(u, DefinitionForDeclaration(u,x) & Invokes(id,u,y));
-
-//PRINT ["ProductionFunctionId"] ProductionFunctionId(y);
-
-//Stimulates(id,x,y) := PureInvokes(id,x,y) & TestMethodId(x) &  (ProductionMethodId(y) | ProductionFunctionId(y));
-//Stimulates(id,x,y) := PureInvokes(id,x,y) & TestMethodId(x) & ProductionFunctionId(y);
-
-//NoFailureMessage(x) := EX(y,z, TestChecker(x) & Function(x, y) & CheckerSignature(z,y) & No(z));
-
-/**
- * Checkers invoked in TestCommands/TestHelpers
- * @col z:  invocation ID
- * @col y:  testcommand/helper ID
- * @col x:  testchecker ID
- */
-//CheckerInvoke(z,y,x) := TestChecker(x) & (TestCommandId(y)|TestHelperId(y)) & PureInvokes(z,y,x);
-
-
-/**
- * contains a cleaned accesses relation. gets rid of the DefinitionForDeclaration step
- * @col id: invoke ID
- * @col x:  x caller
- * @col y:  y attribute
- */
-//PureAccesses(id,x,y) := EX(u, DefinitionForDeclaration(u,x) & Accesses(id,u,y));
 

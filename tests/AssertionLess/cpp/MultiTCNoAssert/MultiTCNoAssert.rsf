@@ -61,7 +61,7 @@ InvokableEntityBelongsToFile	27	3	27
 InvokableEntityBelongsToFile	28	3	24
 InvokableEntityBelongsToFile	30	3	31
 InvokableEntityBelongsToFile	13	1	3
-InvokableEntityBelongsToFile	24	1	4
+InvokableEntityBelongsToFile	24	1	6
 InvokableEntityBelongsToFile	15	3	9
 InvokableEntityBelongsToFile	17	3	11
 InvokableEntityBelongsToFile	18	3	7
@@ -98,14 +98,14 @@ Signature	28	"~TestCase()"
 Signature	30	"setUp()"
 Function	15	"CPPUNIT_FAIL(std::string)"
 Function	17	"CPPUNIT_ASSERT_EQUAL(T,T)"
-Function	18	"CPPUNIT_ASSERT(boolean)"
-Function	25	"CPPUNIT_ASSERT_MESSAGE(std::string,boolean)"
+Function	18	"CPPUNIT_ASSERT(bool)"
+Function	25	"CPPUNIT_ASSERT_MESSAGE(std::string,bool)"
 Function	29	"CPPUNIT_ASSERT_DOUBLES_EQUAL(double,double,double)"
 Function	31	"CPPUNIT_ASSERT_EQUAL_MESSAGE(string,T,T)"
 DefinitionForDeclaration	13	12
 DefinitionForDeclaration	24	23
 Invokes	32	24	18
-InvocationLocation	32	1	5
+InvocationLocation	32	1	7
 entityBelongsToBlock	8	4
 entityBelongsToBlock	10	4
 entityBelongsToBlock	11	4
@@ -124,7 +124,7 @@ entityBelongsToBlock	30	4
 entityBelongsToBlock	31	4
 Measurement	33	12	"CC"	1
 Measurement	34	12	"NOS"	0
-Measurement	35	12	"LOC"	1
+Measurement	35	12	"LOC"	2
 Measurement	36	23	"CC"	1
 Measurement	37	23	"NOS"	1
 Measurement	38	23	"LOC"	3

@@ -34,8 +34,8 @@ IndentedTestType("1", "TH");
 
 CtrlStructCount("","","");
 
-LoopCount(id, cnt) := TestCommandId(id) & Measurement(_,id, "LOOP", cnt);
-CondCount(id, cnt) := TestCommandId(id) & Measurement(_,id, "COND", cnt);
+LoopCount(id, cntx) := TestCommandId(id) & Measurement(_,id, "LOOP", cntx);
+CondCount(id, cntx) := TestCommandId(id) & Measurement(_,id, "COND", cntx);
 FOR sid IN TestCommandId(x) {
     cnt := SUM(LoopCount(sid,x)) + SUM(CondCount(sid, y));
     IF (cnt > 0) {

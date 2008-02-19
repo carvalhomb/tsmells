@@ -196,6 +196,11 @@ class CloneFinder():
     ''' Search a set of methods with invocations for 
         duplicate parts '''
 
+# TODO this class is too big
+# introduce the concept of a Duplicate
+# which is now just represented by a pair
+# of sequences
+
     def __init__(self, treshold):
         ''' treshold is the minimum number of lines a 
             duplication must consist of. Not counting emptylines'''
@@ -324,25 +329,38 @@ class CloneFinder():
         dups = [] # all couples of parts which are shared
         tmp = []
         # walk the different partition lengths of mtd1
-        for seqLength, seqs in mtd1Parts.iteritems():
+        currentLength = mtd1.getNrofReferences()
+        while currentLength >= self.treshold:
+#        for seqLength, seqs in mtd1Parts.iteritems():
             # mtd2 must have partitions of this length,
             # since its the largest
-            other = mtd2Parts[seqLength]
+            seqs = mtd1Parts[currentLength]
+            other = mtd2Parts[currentLength]
             for seq1 in seqs:
                 # ok, lets check if there are clones of 
                 # seq1 in mtd
                 for seq2 in seq1.computeSimilar(other):
                     # whoops -> found
+                    if self.__duplicateHasSuperDuplicate(seq1, seq2, dups):
+                        continue
                     dups.append((seq1, seq2))
+            currentLength -= 1
 
         # now remove sub-duplicates.
         # to get better performace these should never
         # be added. but in practice the performance hit 
         # is not that bad, as long as we'r not in 
         # clone heaven
-        self.__removeSubDuplicates(dups)
+        #self.__removeSubDuplicates(dups)
 
         return dups
+
+    def __duplicateHasSuperDuplicate(self, seq1, seq2, dups):
+        for pair in dups:
+            if pair[0].contains(seq1) and \
+               pair[1].contains(seq2):
+                return True
+        return False
 
     def __removeSubDuplicates(self, dups):
         ''' remove all smaller cloes from dups. ie
@@ -350,12 +368,14 @@ class CloneFinder():
             in another one'''
         toRemove = []
         for seq in dups:
-            first = seq[0].ref[0]
-            last  = seq[0].ref[-1]
+            #first = seq[0].ref[0]
+            #last  = seq[0].ref[-1]
             for seq2 in dups:
                 if seq == seq2: continue
-                if (first in seq2[0].ref and
-                    last  in seq2[0].ref):
+                #if (first in seq2[0].ref and
+                #    last  in seq2[0].ref):
+                if seq2[0].contains(seq[0]): #and \
+                   #seq2[1].contains(seq[1]):
                     toRemove.append(seq)
                     break
 
@@ -442,7 +462,7 @@ if __name__=='__main__':
     import sys
     rsf = open(sys.argv[1])
     tresh = 5
-    if len(sys.argv) > 2: 
+    if len(sys.argv) > 2:
         tresh = int(sys.argv[2])
 
     reader = RsfReader()

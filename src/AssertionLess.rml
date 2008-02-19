@@ -51,12 +51,13 @@ CheckerInvokeHelper(invid, tcid) :=
 AssertionLessId("0"); // without this line crocopat spews an assertion
 // crocopat: relYacc.y:232: int yyparse(): Assertion `gVariables.find(*yyvsp[-6].rel_String) == gVariables.end()' failed.
 
+
 FOR tc IN TestCommandId(x) {
     //PRINT tc, " ",  #(CheckerInvoke(x,tc,y)), " " , #(CheckerInvokeHelper(x,tc)), ENDL;;
-    IF ((#(CheckerInvoke(x,tc,y)) = 0) & 
-        (#(CheckerInvokeHelper(x,tc)) = 0)) {
+    IF ((#(CheckerInvoke(x_al,tc,y_al)) = 0) & 
+        (#(CheckerInvokeHelper(x_al,tc)) = 0)) {
         // assertionless testcommand detected
-        AssertionLessId(x) := AssertionLessId(x) | x = tc;
+        AssertionLessId(x_al3) := AssertionLessId(x_al3) | x_al3 = tc;
     }
 }
 

@@ -13,62 +13,62 @@ Include	1	1	2
 Include	2	2	3
 Include	3	3	4
 ConditionalCompilation	4	"!CPPUNIT_TESTCASE_H"
-Class	7	"CppUnit::TestCase"
-Class	8	"TestStuff"
-ClassBelongsToFile	7	3	18
-ClassBelongsToFile	8	2	5
-InheritsFrom	9	"TestStuff->CppUnit::TestCase"	8	7
+Class	7	"MyTest"
+Class	8	"CppUnit::TestCase"
+ClassBelongsToFile	7	2	5
+ClassBelongsToFile	8	3	18
+InheritsFrom	9	"MyTest->CppUnit::TestCase"	7	8
 Method	10	"CppUnit::TestCase.runTest()"
-Method	11	"CppUnit::TestCase.run(TestResult*)"
-Method	12	"CppUnit::TestCase.run()"
-Method	13	"CppUnit::TestCase.tearDown()"
-Method	15	"CppUnit::TestCase.getName()"
+Method	11	"CppUnit::TestCase.toString()"
+Method	12	"MyTest.testCommand()"
+Method	14	"CppUnit::TestCase.tearDown()"
+Method	16	"CppUnit::TestCase.getName()"
 Method	18	"CppUnit::TestCase.TestCase(std::string)"
 Method	19	"CppUnit::TestCase.TestCase()"
-Method	20	"CppUnit::TestCase.toString()"
-Method	21	"TestStuff.testCommand()"
+Method	20	"CppUnit::TestCase.run(TestResult*)"
+Method	21	"CppUnit::TestCase.run()"
 Method	24	"CppUnit::TestCase.defaultResult()"
 Method	25	"CppUnit::TestCase.countTestCases()"
 Method	26	"CppUnit::TestCase.~TestCase()"
 Method	28	"CppUnit::TestCase.setUp()"
-MethodBelongsToClass	10	7
-MethodBelongsToClass	11	7
+MethodBelongsToClass	10	8
+MethodBelongsToClass	11	8
 MethodBelongsToClass	12	7
-MethodBelongsToClass	13	7
-MethodBelongsToClass	15	7
-MethodBelongsToClass	18	7
-MethodBelongsToClass	19	7
-MethodBelongsToClass	20	7
+MethodBelongsToClass	14	8
+MethodBelongsToClass	16	8
+MethodBelongsToClass	18	8
+MethodBelongsToClass	19	8
+MethodBelongsToClass	20	8
 MethodBelongsToClass	21	8
-MethodBelongsToClass	24	7
-MethodBelongsToClass	25	7
-MethodBelongsToClass	26	7
-MethodBelongsToClass	28	7
+MethodBelongsToClass	24	8
+MethodBelongsToClass	25	8
+MethodBelongsToClass	26	8
+MethodBelongsToClass	28	8
 InvokableEntityBelongsToFile	10	3	36
-InvokableEntityBelongsToFile	11	3	26
-InvokableEntityBelongsToFile	12	3	30
-InvokableEntityBelongsToFile	13	3	32
-InvokableEntityBelongsToFile	15	3	28
+InvokableEntityBelongsToFile	11	3	29
+InvokableEntityBelongsToFile	12	2	7
+InvokableEntityBelongsToFile	14	3	32
+InvokableEntityBelongsToFile	16	3	28
 InvokableEntityBelongsToFile	18	3	22
 InvokableEntityBelongsToFile	19	3	23
-InvokableEntityBelongsToFile	20	3	29
-InvokableEntityBelongsToFile	21	2	7
+InvokableEntityBelongsToFile	20	3	26
+InvokableEntityBelongsToFile	21	3	30
 InvokableEntityBelongsToFile	24	3	37
 InvokableEntityBelongsToFile	25	3	27
 InvokableEntityBelongsToFile	26	3	24
 InvokableEntityBelongsToFile	28	3	31
-InvokableEntityBelongsToFile	22	1	3
-InvokableEntityBelongsToFile	14	3	9
-InvokableEntityBelongsToFile	16	3	11
+InvokableEntityBelongsToFile	13	1	3
+InvokableEntityBelongsToFile	15	3	9
 InvokableEntityBelongsToFile	17	3	7
+InvokableEntityBelongsToFile	22	3	11
 InvokableEntityBelongsToFile	23	3	8
 InvokableEntityBelongsToFile	27	3	10
 InvokableEntityBelongsToFile	29	3	12
 Visibility	10	"protected"
 Visibility	11	"public"
 Visibility	12	"public"
-Visibility	13	"public"
-Visibility	15	"public"
+Visibility	14	"public"
+Visibility	16	"public"
 Visibility	18	"public"
 Visibility	19	"public"
 Visibility	20	"public"
@@ -78,53 +78,43 @@ Visibility	25	"public"
 Visibility	26	"public"
 Visibility	28	"public"
 Signature	10	"runTest()"
-Signature	11	"run(TestResult*)"
-Signature	12	"run()"
-Signature	13	"tearDown()"
-Signature	15	"getName()"
+Signature	11	"toString()"
+Signature	12	"testCommand()"
+Signature	14	"tearDown()"
+Signature	16	"getName()"
 Signature	18	"TestCase(std::string)"
 Signature	19	"TestCase()"
-Signature	20	"toString()"
-Signature	21	"testCommand()"
+Signature	20	"run(TestResult*)"
+Signature	21	"run()"
 Signature	24	"defaultResult()"
 Signature	25	"countTestCases()"
 Signature	26	"~TestCase()"
 Signature	28	"setUp()"
-Function	14	"CPPUNIT_FAIL(std::string)"
-Function	16	"CPPUNIT_ASSERT_EQUAL(T,T)"
+Function	15	"CPPUNIT_FAIL(std::string)"
 Function	17	"CPPUNIT_ASSERT(bool)"
+Function	22	"CPPUNIT_ASSERT_EQUAL(T,T)"
 Function	23	"CPPUNIT_ASSERT_MESSAGE(std::string,bool)"
 Function	27	"CPPUNIT_ASSERT_DOUBLES_EQUAL(double,double,double)"
 Function	29	"CPPUNIT_ASSERT_EQUAL_MESSAGE(string,T,T)"
-DefinitionForDeclaration	22	21
-Invokes	30	22	17
-Invokes	31	22	17
-Invokes	32	22	17
-Invokes	33	22	17
-Invokes	34	22	17
-Invokes	35	22	17
+DefinitionForDeclaration	13	12
+Invokes	30	13	17
 InvocationLocation	30	1	4
-InvocationLocation	31	1	5
-InvocationLocation	32	1	6
-InvocationLocation	33	1	7
-InvocationLocation	34	1	8
-InvocationLocation	35	1	9
-entityBelongsToBlock	7	4
+entityBelongsToBlock	8	4
 entityBelongsToBlock	10	4
 entityBelongsToBlock	11	4
-entityBelongsToBlock	12	4
-entityBelongsToBlock	13	4
-entityBelongsToBlock	15	4
+entityBelongsToBlock	14	4
 entityBelongsToBlock	16	4
 entityBelongsToBlock	18	4
 entityBelongsToBlock	19	4
 entityBelongsToBlock	20	4
+entityBelongsToBlock	21	4
+entityBelongsToBlock	22	4
 entityBelongsToBlock	24	4
 entityBelongsToBlock	25	4
 entityBelongsToBlock	26	4
 entityBelongsToBlock	27	4
 entityBelongsToBlock	28	4
 entityBelongsToBlock	29	4
-Measurement	36	21	"CC"	1
-Measurement	37	21	"NOS"	6
-Measurement	38	21	"LOC"	8
+Measurement	31	12	"CC"	1
+Measurement	32	12	"NOS"	1
+Measurement	33	12	"LOC"	3
