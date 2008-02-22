@@ -20,13 +20,23 @@
 
 /**
  * Indirect test is somewhat fuzzy described in litarature.
- * Simple heuristic: treshold on the number different classes
- * a TC invokes/accesses
+ * A heuristic is used; a treshold on the number of
+ * different classes a TC invokes/accesses (aka NPTU). 
+ * This treshold is configurable.
+ *
+ * For a formal definition see formspec.pdf
  **/
 
-// fake it implementation
-//PRINT "IndirectTest;MyTest.testCommand();",treshold,";6", ENDL;
+// TODO there's something fishy with this script.
+// All pieces tests pass but on real code no 
+// IndirectTests get found, even with a ridiculously
+// low treshold. Maybe some variable pollution 
+// introduced by other scripts ???
 
+
+// TODO move ComHelpers & TransComHelper to a common
+// script. AssertionLess could use this information as
+// well instead of recomputing a closure.
 /**
  * All helpers thid invoked from command tcid
  **/
@@ -41,10 +51,6 @@ TestHelperInvoke(thid1, thid2) :=
 TransComHelper(tcid, thid) :=
     ComHelpers(tcid, thid) | 
     EX(z, ComHelpers(tcid,z) & TC(TestHelperInvoke(z, thid)));
-
-//PRINT ["ComHelpers"] ComHelpers(x,y);
-//PRINT ["TestHelperInvoke"] TestHelperInvoke(x,y);
-//PRINT ["TransComHelpers"] TransComHelpers(x,y);
 
 /**
  * Contains the different classes a test command accesses. 
@@ -96,13 +102,15 @@ FOR tcid IN TestCommandId(x) {
     nptu := #(diffClassInvokes(tcid,c) | diffClassInvokesHelper(tcid,c) |
               diffClassAccess(tcid,c)  | diffClassAccessHelper(tcid, c));
     IF ( nptu >= INDIRECT_TEST_TRESHOLD) {
-        // got one
-        IndirectTestId(x, num) := 
-            IndirectTestId(x,num) |
-            (x = tcid & 
-                ( count(STRING(nptu), num) )
-            );
-        IF ( (nptu > COUNT_MAX) ) {
+        // got one, append
+        IF (nptu <= COUNT_MAX) {
+            IndirectTestId(x, num) := 
+                IndirectTestId(x,num) |
+                (
+                    x = tcid & 
+                    ( count(STRING(nptu), num) )
+                );
+        } ELSE {
             // larger then the count relation. log this is as 'A LOT'
             IndirectTestId(x, num) := 
                 IndirectTestId(x,num) |
@@ -130,26 +138,3 @@ IndirectTest(tcnm, tres, nptu_x, file, line) :=
       );
 
 PRINT ["IndirectTest"] IndirectTest(aa,bb,cc,dd,ee);
-
-// old, slow implementation
-// FOR tcid IN TestCommandId(x) {
-//     //ninv := #(diffClassInvokes(tcid,z));
-//     //nacc := #(diffClassAccess(tcid, z));
-//     //ntot := ninv + nacc;
-//     //diffClassInvAcc(c) := diffClassInvokes(tcid, c) | diffClassAccess(tcid, c);
-//     ntot := #(diffClassInvokes(tcid, c) | diffClassAccess(tcid, c));
-//     IF ( ntot >= INDIRECT_TEST_TRESHOLD) {
-//         TCName(tcnmz) := Method(tcid,tcnmz);
-//         Defin(x) := DefinitionForDeclaration(x, tcid);
-//         FOR def IN Defin(x) {
-//             FileName(x) := EX(y, InvokableEntityBelongsToFile(def,y,_) & File(y,x));
-//             LineNr(x) := InvokableEntityBelongsToFile(def, _, x);
-//         }
-//         FOR file IN FileName(x)  { // singleton
-//         FOR line IN LineNr(x)    { // singleton
-//         FOR tcas IN TCName(x)    { // singleton
-//             PRINT "IndirectTest;", tcas, ";", INDIRECT_TEST_TRESHOLD, ";", 
-//                   ntot,";", file, ";", line, ENDL;
-//         }}}
-//     }
-// }

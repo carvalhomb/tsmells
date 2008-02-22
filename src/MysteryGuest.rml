@@ -18,19 +18,6 @@
  * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
  */
 
-/**
- * Append test entities and mystery-blacklist.
- * Functions/methods in the blacklist will only be handled if their
- * declaration is present in the model. 
- *
- * TestEntities: + writeCppTestEntities.rml
- *               + writeJavaTestEntities.rml
- *
- **/
-
-// fake it implementation
-// PRINT "mine::tests::FileAccessTest.testSomething(),mine::tests::FileAccessTest::testSomething(),file, java::io::BufferedReader::readLine()", ENDL;
-//        ^^ testcase.testcommand()                   ^^ entitity which invokes smelly entity      ^^ mystery-type  ^^ smelly entity 
 
 /**
  * fetches the IDs of blacklisted methods
@@ -41,10 +28,6 @@
 Blacklist(x,y,z) := MysteryBlacklist(x,y) & (Method(z,y) | Function(z,y));
 BlackID(x) := EX(y, MysteryBlacklist(_,y) & (Method(x,y) | Function(x,y)));
 
-//PRINT ["Blacklist"] Blacklist(x,y,z);
-//PRINT ["TestCommand"] TestCommand(x,y);
-//PRINT ["Stimulates"] Stimulates(x,y,z);
-
 /**
  * holds all testcommands containing a direct mystery invoke
  * @col a: TestCommand ID
@@ -52,13 +35,8 @@ BlackID(x) := EX(y, MysteryBlacklist(_,y) & (Method(x,y) | Function(x,y)));
  */
 MysteryInTc(a,b) := TestCommand(a,_) & Stimulates(_,a,b) & Blacklist(_,_,b);
 
-//PRINT ["MysteryInTc"] MysteryInTc(x,y);
-//PRINT "TC     ", TestCommand(x,y),  ENDL;
-//PRINT "STIM     ", Stimulates(x,y,z), ENDL;
-//PRINT "BLACK ", Blacklist(x,y,z),  ENDL;
-
-// print results
-// TODO rewrite this with instant dump instead of looping. this is way too inefficient.
+// TODO rewrite this with instant dump instead of looping. 
+// right now this is way too inefficient. (and ugly)
 FOR tc IN MysteryInTc(x,_) {
     FOR myst IN MysteryInTc(tc,x) {
         MethodName(mn) := Method(tc, mn); 
@@ -88,13 +66,12 @@ FOR tc IN MysteryInTc(x,_) {
  * @col b: Method ID which invokes the blacklisted
  * @col c: Blacklisted method ID
  **/
-//MysteryInTH(a,b,c) := TestHelper(b,_) & PureInvokes(_,b,c) & BlackID(c) & TestCommand(a,_) & PureInvokes(_,a,b);
 TransInvokes(x,y) := TC(PureInvokes(_,x,y));
 MysteryInM(a,b,c) :=  (Method(b,_) | Function(b,_)) & PureInvokes(_,b,c) & BlackID(c) & TestCommand(a,_) & TransInvokes(a,b);
 
-//PRINT TransInvokes(x,y);
-
 // print result
+// TODO same remark as above, rewrite this as a 
+// single relation + DUMP
 FOR tc IN MysteryInM(x,_,_) {
     FOR th IN MysteryInM(tc,x,_) {
         FOR myst IN MysteryInM(tc,th,x) {

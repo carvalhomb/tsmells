@@ -18,6 +18,20 @@
 # Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
 #
 
+#
+# Script called from DuplicatedCode.rml
+#
+
+#
+# TODO:
+#  + solve mysterious linenumber swap bug, see failing pieces tests
+#  + fix, clean (and extend?) unittests
+#  + introduce n-way code clone logging! all combinations now, bad
+#  + investigate 'equal' optimization for sequences, with 3 or so hashes
+#  + introduce loop and variable information when this becomes available
+#    through Fetch
+#
+
 from itertools import izip
 
 class Reference():
@@ -196,10 +210,12 @@ class CloneFinder():
     ''' Search a set of methods with invocations for 
         duplicate parts '''
 
+#
 # TODO this class is too big
 # introduce the concept of a Duplicate
 # which is now just represented by a pair
 # of sequences
+#
 
     def __init__(self, treshold):
         ''' treshold is the minimum number of lines a 

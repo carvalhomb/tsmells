@@ -20,22 +20,13 @@
 
 /**
  * Detection of 'toString' in test commands and helpers
- *
- * TestEntities: + initCppTestEntities.rml
- *               + initJavaTestEntities.rml
- * 
  **/
 
-// fake it implementation
-//PRINT "SensitiveEquality;MyTest.testCommand();1", ENDL;
-//       ^^ testcase.testcommand(), total number of toStrings
-
-//ToStringId(x):=Method(x,"java::lang::Object.toString()");
-// TODO paremeterize this, eg blacklist
+// TODO paremeterize this with a blacklist
 ToStringId(x):=EX(y,Method(x,y) & @"[.]toString()"(y));
 
-// TODO transform this into an instant dump instead of looping.
-// way faster
+// TODO rewrite this into a single instant dump instead of 
+// looping. way faster and cleaner
 FOR tcid IN TestCommandId(x) {
     ToStringInvokes(y) := EX(x,PureInvokes(y,tcid,x) & ToStringId(x));
     ntstr := #(ToStringInvokes(y));

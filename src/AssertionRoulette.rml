@@ -18,59 +18,44 @@
  * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
  */
 
+
 /**
- * Append xUnit framework checker methods!
- * Messageless TestCheckers will only be detected if they were
- * marked as such and handed to writeXTestEntities.rml
+ * A test command or helper has AssertionRoulette if it
+ * invokes a high number of descriptionless checker methods.
+ * This treshold is configurable through the 
+ * 'ASSERTION_ROULETTE_TRESHOLD' macro
  *
- * TestEntities: + writeCppTestEntities.rml
- *               + writeJavaTestEntities.rml
- * 
- * eg: appendJavaTE.sh rsf/SixAssertEqualsNoDesc.rsf  | \
- *            crocopat ${TSMELLS}/src/AssertionRoulette.rml
- *
+ * For a formal description see formspec.pdf
  **/
 
-// fake it implementation
-// PRINT "MyTest.myCommand(),6,6", ENDL;
-//        ^^ testcase.testcommand(), total number of checkers, number of messageless checkers
 
 /**
  * holds test commands/helpers with message-less checker methods
- * @col id:  invoke ID
+ * @col id:  invocation ID
  * @col x:   test command/helper ID
  * @col y:   message-less assert ID
  */
-NoDescAssert(id,x,y) := NoFailureMessage(y) & CheckerInvoke(id,x,y) & (TestCommandId(x) | TestHelperId(x));
+NoDescAssert(id,x,y) := 
+    NoFailureMessage(y) & 
+    CheckerInvoke(id,x,y) & 
+    (TestCommandId(x) | TestHelperId(x));
 
-//PRINT ["NoDescAssert"] NoDescAssert(x,y,z);
-//PRINT ["TestCommand"] TestCommand(x,y);
-//PRINT ["CheckerInvoke"] CheckerInvoke(x,y,z);
-//PRINT ["TestHelper"] TestHelper(x,y);
-
-/**
- * All test command|helper ID's which exceed the descriptionless
- * assert limit
- **/
-
-
-
-AssertionRouletteId("", "", "");
+AssertionRouletteId("", "", ""); // without this crocopat borks
 
 FOR tc IN NoDescAssert(_,x,_) {
     cnt := #(NoDescAssert(a,tc,b));
     tot := #(CheckerInvoke(a,tc,b));
     IF ( cnt >= ASSERTION_ROULETTE_TRESHOLD) {
-        // got one
-        AssertionRouletteId(x, all, num) := 
-            AssertionRouletteId(x,all,num) |
-            (x = tc & 
-                ( count(STRING(cnt), num) & 
-                  count(STRING(tot), all)//|
-                  //((cnt > 20) & (count("alot", num)))
-                )
-            );
-        IF ( (cnt > COUNT_MAX ) | (tot > COUNT_MAX)) {
+        // got one, append it
+        IF ( (cnt <= COUNT_MAX) & (tot <=COUNT_MAX)) {
+            AssertionRouletteId(x, all, num) := 
+                AssertionRouletteId(x,all,num) |
+                (x = tc & 
+                count(STRING(cnt), num) & 
+                count(STRING(tot), all));
+        } ELSE {
+            // too high a number of assertions, log as 'alot'
+            // wee bit clumsy but ok
             AssertionRouletteId(x, all, num) := 
                 AssertionRouletteId(x,all,num) |
                 (x = tc & count("alot", num) & count("alot", all));
@@ -81,8 +66,9 @@ FOR tc IN NoDescAssert(_,x,_) {
 RouletteType("0","TC"); // roulette in test command
 RouletteType("1","TH"); // roulette in test helper
 
-//PRINT ["AssertionRouletteId"] AssertionRouletteId(x,num,b);
-
+/**
+ * Grab the command/helper name, source file linenumber and more
+ **/
 AssertionRoulette(type, rltNm, total, num, file, line) :=
     EX(rltId,
             AssertionRouletteId(rltId, total, num) &
@@ -92,35 +78,3 @@ AssertionRoulette(type, rltNm, total, num, file, line) :=
       );
 
 PRINT ["AssertionRoulette"] AssertionRoulette(a,b,c,d,e,f);
-
-// old, slow implementation
-// FOR tc IN NoDescAssert(_,x,_) {
-//     // log roulette if more then 3 message-less invokes
-//     // TODO parameterize this
-//     num := #(NoDescAssert(a,tc,b));
-//     IF ( num >= 3 ) {
-//         TCName(x) := TestCommand(tc,x);
-//         type := "TC";
-//         IF (#(TCName(x)) = 0) {
-//             // this is a testhelper
-//             TCName(x) := TestHelper(tc,x);
-//             type := "TH";
-//         }
-//         // get the filename
-//         FileName(x) := EX(y,z, DefinitionForDeclaration(z,tc) & InvokableEntityBelongsToFile(z,y,_) & File(y,x));
-//         // grab the linenumbers of all message-less assertions
-//         LineNrs(x) := EX(y, NoDescAssert(y,tc, _) & InvocationLocation(y,_,x));
-//         FOR n IN TCName(x) { // singleton
-//             total := #(CheckerInvoke(a,tc,b));
-//             PRINT "AssertionRoulette;", type, ";", n, ";", total, ";", num, ";";
-//             FOR f IN FileName(x) { // singleton
-//                  PRINT f;
-//             }
-//             FOR l IN LineNrs(x) {
-//                 PRINT ";", l;
-//             }
-//             PRINT ENDL;
-//         }
-//     }
-// }
-

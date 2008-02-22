@@ -12,7 +12,7 @@ def get_page(name):
     return Template(file="%s.tmpl" % name)
 
 class Root():
-    
+
     def __init__(self):
         self.results = None
         self.all = ["All"]
@@ -22,7 +22,7 @@ class Root():
         self.smellSuites.sort()
         self.otherSuites = ["TestEntities", "AddObject", "RmComments", "GenCtrlStructInfo"]
         self.suites  = self.all + self.smellSuites + self.otherSuites
-    
+
     @expose
     def index(self, go=None, suite=None):
         page = get_page("index")

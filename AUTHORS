@@ -1,0 +1,9 @@
+MAINTAINERS
+
+Bart Du Bois <bart.dubois@ua.ac.be> - core, c++ resolvers
+Bart Van Rompaey <bart.vanrompaey2@ua.ac.be> - core, java
+
+CONTRIBUTIONS
+
+Matthias Rieger <matthias.rieger@gmail.com> - parser extensions
+Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be> - various patches to parsing scripts

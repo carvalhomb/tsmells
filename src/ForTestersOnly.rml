@@ -18,38 +18,28 @@
  * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
  */
 
+
+// TODO add a whitelist for library functions
+
 /**
- * Detection of methodes in the production code which are exclusivly for 
- * testing purposes
- *
- * TestEntities: + initCppTestEntities.rml
- *               + initJavaTestEntities.rml
+ * Contains invokable entity ids {methods, functions} 
+ * of production methods which get called in a 
+ * test command/helper but not in production code.
  * 
- * usage: writeJavaSmelliness.sh ForTestersOnly myModel.rsf
- *
- * or direct: 1. concatenate 'initJavaTestEntities.rml' with this file
- *            2. cat myModel.rsf | crocopat concat.rml
+ * @col x : method, function ID
  **/
-
-// fake it
-//PRINT "ForTestersOnly;MyUUT.myFTOMethod()", ENDL;
-
-/**
- * Relation with FTO method IDs, ie methods which are invoked only in test-code
- *
- * @col x : method ID
- **/
-// TODO dont log predefined library functions
-ForTestersOnlyId(x) := Stimulates(_,_,x) & !EX(y,z, ProductionMethodId(y) & !=(x,y) & PureInvokes(z,y,x));
-
-//PRINT ["ProductionMethodId"] ProductionMethodId(x);
-//PRINT ["Stimulates"] Stimulates(x,y,z);
-//PRINT ["ForTestersOnlyMethID"] ForTestersOnlyId(x);
+ForTestersOnlyId(x) :=
+    Stimulates(_,_,x) & 
+    !EX(y,z, ProductionMethodId(y) & !=(x,y) & 
+    PureInvokes(z,y,x));
 
 // TODO rewrite this with an instant dump instead of looping, which is terribly slow
+//      also use information from the `TestEntityInfo' relation instead of recomputing
+//      filename, linenumber & methodname ...
 FOR fto IN ForTestersOnlyId(x) {
     MtdName(mnm) := Method(fto, mnm);
-    FileName(x) := EX(y, def, DefinitionForDeclaration(def, fto) & InvokableEntityBelongsToFile(def,y,_) & File(y,x));
+    FileName(x) := EX(y, def, DefinitionForDeclaration(def, fto) &
+                              InvokableEntityBelongsToFile(def,y,_) & File(y,x));
     LineNr(x) := InvokableEntityBelongsToFile(fto, _, x);
     FOR mnm IN MtdName(x) {
     FOR f IN FileName(x)  { 

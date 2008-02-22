@@ -18,22 +18,21 @@
  * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
  */
 
-// fake it
-//PRINT "DuplicatedCode;6;MyTest.firstCom();MyTest.java;7;MyTest.secondCom();MyTest.java;16", ENDL;
-//                    ^lengtOfDuplication   ^^ both duplicator test methods with filename and starting line
-
-//PRINT "A", ENDL;
-//EXEC "date";
 
 /**
- * The invocations of a testcommand, with
+ * Duplication in tests is nefast, introduce helpers or 
+ * move to fixture.
+ **/
+
+/**
+ * The invocations of a testmethod with
  * filename and linenumber.
  *
- * @col tcid:   invoker method id (test command)
+ * @col tcid:   invoker test method id
  * @col iid:    invocation id
  * @col invid:  invokee id
  * @col line:   invocation line number
- * @col tc:     qualified testcommand name
+ * @col tc:     qualified testmethod name
  * @col inv:    qualified invokee name
  * @col file:   filename
  **/
@@ -47,27 +46,20 @@ ComInvoke(tcid, iid, invid, line, tcx, inv, file) :=
               Method(tcid,tcx) &
               (Method(invid, inv) | Function(invid, inv)) &
               File(fid, file)
-              );
+     );
 
 EXEC "rm -rf tmp_duplic_code__";
-
-//PRINT "B", ENDL;
-//EXEC "date";
-
 PRINT ["ComInvoke"] ComInvoke(a_dc,b_dc,c_dc,d_dc,e_dc,f_dc,g_dc) TO "tmp_duplic_code__";
 
-//PRINT "C", ENDL;
-//EXEC "date";
-
 /**
- * The accesses of a testcommand, with
+ * The accesses of a testmethod, with
  * filename and linenumber.
  *
- * @col tcid:  accessor method id (test command)
+ * @col tcid:  accessor test method id
  * @col aid:   access id
  * @col attid: attribute type id (was attribute id)
  * @col line:  access line number
- * @col tc:    qualified testcommand name
+ * @col tc:    qualified testmethod name
  * @col att:   qualified attribute name
  * @col file:  filename
  **/
@@ -82,19 +74,10 @@ ComAccess(tcid_ca, aid, attid, line2, tc2, att, file2) :=
               Attribute(attrid, att) &
               HasType(attrid, attid) &
               File(fid, file2)
-              );
-
-//PRINT "D", ENDL;
-//EXEC "date";
+     );
 
 PRINT ["ComAccess"] ComAccess(a_dc,b_dc,c_dc,d_dc,e_dc,f_dc,g_dc) TO "tmp_duplic_code__";
 
-//PRINT "E", ENDL;
-//EXEC "date";
-
+// now execute a python script which computes the clones
 EXEC "python DUPLICATED_CODE_PYGEN tmp_duplic_code__ DUPLICATED_CODE_TRESHOLD";
-
-//PRINT "F", ENDL;
-//EXEC "date";
-
 //EXEC "rm -rf tmp_duplic_code__";

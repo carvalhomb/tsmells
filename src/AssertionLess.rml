@@ -19,73 +19,46 @@
  */
 
 /**
- * Append xUnit framework checker methods!
- * No checker method defined = all tests marked as smelly ...
+ * A test command is said to be AssertionLess if it doesnt invoke
+ * any checker methods (assertions).
  *
- * TestEntities: + writeCppTestEntities.rml
- *               + writeJavaTestEntities.rml
- * 
- * eg: appendJavaTE.sh rsf/SingleTCNoAssert.rsf  | \
- *            crocopat ${TSMELLS}/src/AssertionLess.rml
- *
+ * For a formal description see formspec.pdf
  **/
 
-// fake it
-//PRINT "MyTest.testCommand()", ENDL;
-
+/**
+ * All invocations of entity y in test command/helper x
+ **/
 TestInvokes(x,y) := PureInvokes(_,x,y) & (TestCommandId(x) | TestHelperId(x));
-TCTestInvokes(x,y) := TC(TestInvokes(x,y)); 
 
+/**
+ * All invocations, direct and indirect
+ **/
+TCTestInvokes(x,y) := TC(TestInvokes(x,y));
+
+/**
+ * All checker invocations in a nested testhelper for tcid
+ **/
 CheckerInvokeHelper(invid, tcid) := 
     EX(y, CheckerInvoke(invid, y, _) & TCTestInvokes(tcid,y) & TestHelperId(y));
-
-//AssertionLess(tcnm, file, line) := 
-//    EX(tcid, def, fid,
-//            TestCommandId(tcid) & 
-//            // are there zero asserts used, in self + helper invokee's ?
-//            #(CheckerInvoke(x,tcid,y)) = 0 & #(CheckerInvokeHelper(x,tcid)) = 0 &
-//                              ^^^ THIS DOESNT WORK. oddly, tcid stays unbound (free)
-//            Method(tcid, tcnm) & DefinitionForDeclaration(def, tcid) & 
-//            InvokableEntityBelongsToFile(def,fid, line) & File(fid,file));
 
 AssertionLessId("0"); // without this line crocopat spews an assertion
 // crocopat: relYacc.y:232: int yyparse(): Assertion `gVariables.find(*yyvsp[-6].rel_String) == gVariables.end()' failed.
 
 
 FOR tc IN TestCommandId(x) {
-    //PRINT tc, " ",  #(CheckerInvoke(x,tc,y)), " " , #(CheckerInvokeHelper(x,tc)), ENDL;;
     IF ((#(CheckerInvoke(x_al,tc,y_al)) = 0) & 
         (#(CheckerInvokeHelper(x_al,tc)) = 0)) {
-        // assertionless testcommand detected
+        // this command has no direct or indirect assertion invocations
         AssertionLessId(x_al3) := AssertionLessId(x_al3) | x_al3 = tc;
     }
 }
 
+/**
+ * Get the command name, the sourcefile its declared in plus linenumber
+ **/
 AssertionLess(tcnm, file, line) :=
-    EX(tcid, def, fid,
+    EX(tcid,
             AssertionLessId(tcid) &
-            Method(tcid, tcnm) & DefinitionForDeclaration(def, tcid) &
-            InvokableEntityBelongsToFile(def, fid, line) & File(fid, file));
+            TestEntityInfo(tcid, tcnm, file, line) );
 
 PRINT ["AssertionLess"] AssertionLess(x,y,z);
-
-//  old, slow implementation
-// FOR tc IN TestCommandId(x) {
-//     // direct checker invokes in testcommand?
-//     num := #(CheckerInvoke(x,tc,y));
-//     IF ( num = 0 ) {
-//         // indirect checker invokes through testhelpers?
-//         AssertInHelper(x) := EX(y, CheckerInvoke(x,y,_) & TCTestInvokes(tc,y) & TestHelperId(y));
-//         num2 := #(AssertInHelper(x));
-//         IF ( num2 = 0 ) { // woops, no assertions!
-//             CmdName(x) := Method(tc,x);
-//             FileName(x) := EX(y, def, DefinitionForDeclaration(def, tc) & InvokableEntityBelongsToFile(def,y,_) & File(y,x));
-//             LineNr(x) := InvokableEntityBelongsToFile(tc, _, x);
-//             FOR f IN FileName(x) {
-//             FOR l IN LineNr(x)   {
-//             FOR i IN CmdName(x)  {
-//                 PRINT "AssertionLess;", i, ";", f, ";", l,  ENDL;
-//             }}}
-//         }
-//     }
-// }

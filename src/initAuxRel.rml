@@ -1,20 +1,53 @@
 /**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+
+/**
+ * Some helper relations
+ **/
+
+/**
  * contains a cleaned invoke relation. gets rid of the DefinitionForDeclaration step
  * @col id: invoke ID
  * @col x:  x caller
  * @col y:  y callee
  */
-PureInvokes(id,x,y) := EX(u, DefinitionForDeclaration(u,x) & Invokes(id,u,y));
+PureInvokes(id,x,y) := 
+    EX(u, 
+        DefinitionForDeclaration(u,x) & 
+        Invokes(id,u,y));
 
-//PRINT ["ProductionFunctionId"] ProductionFunctionId(y);
-
-Stimulates(id,x,y) := PureInvokes(id,x,y) & TestMethodId(x) &  (ProductionMethodId(y) | ProductionFunctionId(y));
+Stimulates(id,x,y) := 
+        PureInvokes(id,x,y) & 
+        TestMethodId(x) &  
+        (ProductionMethodId(y) | ProductionFunctionId(y));
 
 /**
  *  Predicate which denotes wheter an assertion has a failure message
  *  @col x: testchecker ID
  */
-NoFailureMessage(x) := EX(y,z, TestChecker(x) & (Function(x, y)|Method(x,y)) & CheckerSignature(z,y) & No(z));
+NoFailureMessage(x) := 
+    EX(y,z, 
+        TestChecker(x) & 
+        (Function(x, y)|Method(x,y)) & 
+        CheckerSignature(z,y) & No(z));
 
 /**
  * Checkers invoked in TestCommands/TestHelpers
@@ -22,7 +55,10 @@ NoFailureMessage(x) := EX(y,z, TestChecker(x) & (Function(x, y)|Method(x,y)) & C
  * @col y:  testcommand/helper ID
  * @col x:  testchecker ID
  */
-CheckerInvoke(z,y,x) := TestChecker(x) & (TestCommandId(y)|TestHelperId(y)) & PureInvokes(z,y,x);
+CheckerInvoke(z,y,x) := 
+        TestChecker(x) & 
+        (TestCommandId(y)|TestHelperId(y)) & 
+        PureInvokes(z,y,x);
 
 
 /**
@@ -31,7 +67,10 @@ CheckerInvoke(z,y,x) := TestChecker(x) & (TestCommandId(y)|TestHelperId(y)) & Pu
  * @col x:  x caller
  * @col y:  y attribute
  */
-PureAccesses(id,x,y) := EX(u, DefinitionForDeclaration(u,x) & Accesses(id,u,y));
+PureAccesses(id,x,y) := 
+    EX(u, 
+        DefinitionForDeclaration(u,x) & 
+        Accesses(id,u,y));
 
 
 /**
@@ -45,7 +84,7 @@ PureAccesses(id,x,y) := EX(u, DefinitionForDeclaration(u,x) & Accesses(id,u,y));
  **/
 TestEntityInfo(tid, name, file, line) :=
     EX(def, fid,
-            (TestCommandId(tid) | TestHelperId(tid)) &
+            TestMethodId(tid) &
             Method(tid, name) &
             DefinitionForDeclaration(def, tid) &
             InvokableEntityBelongsToFile(def, fid, line) &

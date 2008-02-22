@@ -1,6 +1,6 @@
 // this a bit clumsy. done because crocopat doesnt allow 
-// to add items to the universe dynamicly
-// when a number of items is computed this cant be added in a relation
+// to add items (eg number of items) to the universe dynamicly
+// when a number of items is computed it cant be added to a relation
 // with this little trick, it can.
 count("1","1");
 count("2","2");

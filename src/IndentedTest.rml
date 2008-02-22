@@ -19,15 +19,8 @@
  */
 
 /**
- * Unittests shouldnt be riddled with control structures
- *
+ * Unittests shouldnt be riddled with control structures.
  **/
-
-// fake it implementation
-//PRINT "IndentedTest;TC;MyTest.testCommand();1", ENDL;
-
-//Measurement    212    8    "COND"    1
-//Measurement    213    10    "LOOP"    1
 
 IndentedTestType("0", "TC");
 IndentedTestType("1", "TH");
@@ -71,37 +64,3 @@ IndentedTest(type, tnm, num, file, line) :=
       );
 
 PRINT ["IndentedTest"] IndentedTest(a,b,c,d,e);
-
-// old, slow implementation
-// FOR tcid IN TestCommandId(x) {
-//     LoopCount(numx) := Measurement(_, tcid, "LOOP", numx);
-//     CondCount(numx) := Measurement(_, tcid, "COND", numx);
-//     ncs := SUM(LoopCount(x)) + SUM(CondCount(y)); // summing over a single element ..
-//     IF ( ncs > 0) {
-//         TCName(tcnm) := Method(tcid,tcnm); // single element
-//         FileName(x) := EX(y, def, DefinitionForDeclaration(def, tcid) & InvokableEntityBelongsToFile(def,y,_) & File(y,x));
-//         LineNr(x) := InvokableEntityBelongsToFile(tcid, _, x);
-//         FOR f IN FileName(x)  {
-//         FOR l IN LineNr(x)    {
-//         FOR tcnm IN TCName(x) {
-//             PRINT "IndentedTest;TC;", tcnm, ";", ncs, ";", f, ";", l, ENDL;
-//         }}}
-//     }
-// }
-// 
-// FOR thid IN TestHelperId(x) {
-//     LoopCount(numx) := Measurement(_, thid, "LOOP", numx);
-//     CondCount(numx) := Measurement(_, thid, "COND", numx);
-//     ncs := SUM(LoopCount(x)) + SUM(CondCount(y)); // summing over a single element ..
-//     IF ( ncs > 0) {
-//         THName(thnm) := Method(thid,thnm); // single element
-//         FileName(x) := EX(y, def, DefinitionForDeclaration(def, thid) & InvokableEntityBelongsToFile(def,y,_) & File(y,x));
-//         LineNr(x) := InvokableEntityBelongsToFile(thid, _, x);
-//         FOR f IN FileName(x)  {
-//         FOR l IN LineNr(x)    {
-//         FOR thnm IN THName(x) {
-//             PRINT "IndentedTest;TH;", thnm, ";", ncs, ";", f, ";", l, ENDL;
-//         }}}
-//     }
-// }
-// 

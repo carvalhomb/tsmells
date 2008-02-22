@@ -16,9 +16,67 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
  *
  * Copyright 2007 Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+ * Extensivly modified by:
+ *                Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
  **/
 
-// modified and extended for use with TSmells by <manuel.breugelmans@student.ua.ac.be>
+
+/**
+ * Finds all test cases among the classes,
+ * both directly as well as indirectly 
+ * inheriting from TestCase
+ * 
+ **/
+
+// retrieve the test framework generic TestCase class
+IsTestCase(y) := 
+        Class(y,"org::junit::TestCase");
+
+InheritsFromTestCase(x,y) := 
+        IsTestCase(y) & 
+        InheritsFrom(_,_,x,y);
+
+// test cases directly inheriting from TestCase
+DTestCase(x) := 
+        InheritsFromTestCase(x,_);
+//PRINT DTestCase(x);
+InheritsFromTestCase(x,y) := 
+        DTestCase(y) & 
+        InheritsFrom(_,_,x,y);
+Closure(x,y) := 
+        TC(InheritsFromTestCase(x,y));
+
+// test cases indirectly inheriting from TestCase
+ITestCase(x) := 
+        Closure(x,_);
+TestCaseId(x) := 
+        DTestCase(x) | ITestCase(x);
+
+TestMethodId(x) := 
+    EX(y, 
+        TestCaseId(y) & 
+        MethodBelongsToClass(x,y));
+TestCommandId(x) := 
+    EX(mn, 
+        TestMethodId(x) & 
+        Method(x,mn) & 
+        @"[.]test"(mn) & @"[()]"(mn));
+TestSetupId(x) := 
+    EX(mn, 
+        TestMethodId(x) & 
+        Method(x,mn) & 
+        @"[.]setUp"(mn) & @"[()]"(mn));
+TestTeardownId(x) := 
+    EX(mn, 
+        TestMethodId(x) & 
+        Method(x,mn) & 
+        @"[.]tearDown"(mn) & @"[()]"(mn));
+TestHelperId(x) := 
+        TestMethodId(x) & 
+        !TestCommandId(x) & 
+        !TestSetupId(x) & 
+        !TestTeardownId(x);
+
 
 No("0");
 Yes("1");
@@ -65,80 +123,29 @@ CheckerSignature("1","org::junit::TestCase.assertSame(java.lang.String,java.lang
 CheckerSignature("1","org::junit::TestCase.fail(java.lang.String)");
 CheckerSignature("1","org::junit::TestCase.assertTrue(java.lang.String,boolean)");
 
-/**
- * Finds all test cases among the classes,
- * both directly as well as indirectly 
- * inheriting from TestCase
- * 
- **/
-
-// retrieve the test framework generic TestCase class
-IsTestCase(y) := Class(y,"org::junit::TestCase");
-
-InheritsFromTestCase(x,y) := IsTestCase(y) & InheritsFrom(_,_,x,y);
-
-// test cases directly inheriting from TestCase
-DTestCase(x) := InheritsFromTestCase(x,_);
-//PRINT DTestCase(x);
-InheritsFromTestCase(x,y) := DTestCase(y) & InheritsFrom(_,_,x,y);
-Closure(x,y) := TC(InheritsFromTestCase(x,y));
-
-// test cases indirectly inheriting from TestCase
-ITestCase(x) := Closure(x,_);
-TestCaseId(x) := DTestCase(x) | ITestCase(x);
-
-TestMethodId(x) := EX(y, TestCaseId(y) & MethodBelongsToClass(x,y));
-TestCommandId(x) := EX(mn, TestMethodId(x) & Method(x,mn) & @"[.]test"(mn) & @"[()]"(mn));
-TestSetupId(x) := EX(mn, TestMethodId(x) & Method(x,mn) & @"[.]setUp"(mn) & @"[()]"(mn));
-TestTeardownId(x) := EX(mn, TestMethodId(x) & Method(x,mn) & @"[.]tearDown"(mn) & @"[()]"(mn));
-TestHelperId(x) := TestMethodId(x) & !TestCommandId(x) & !TestSetupId(x) & !TestTeardownId(x);
-TestChecker(x) := EX(y, Method(x, y) & CheckerSignature(_,y));
-ProductionMethodId(x) := Method(x,_) & !TestMethodId(x) & !TestChecker(x);
+TestChecker(x) := 
+    EX(y, 
+        Method(x, y) & 
+        CheckerSignature(_,y));
+ProductionMethodId(x) := 
+        Method(x,_) & 
+        !TestMethodId(x) & 
+        !TestChecker(x);
 
 // these are needed for backwards compatibility.
 // prolly they'll vanish for good, one day
-TestCase(x,y) := TestCaseId(x) & Class(x,y);
-TestCommand(x,y) := TestCommandId(x) & Method(x,y);
-TestSetup(x,y) := TestSetupId(x) & Method(x,y);
-TestTeardown(x,y) := TestTeardownId(x) & Method(x,y);
-TestHelper(x,y) := TestHelperId(x) & Method(x,y);
-
-//PRINT ["TestCase"] TestCase(x,y);
-//PRINT ["TestCommand"] TestCommand(x,y);
-//PRINT ["TestSetup"] TestSetup(x,y);
-//PRINT ["TestTeardown"] TestTeardown(x,y);
-//PRINT ["TestHelper"] TestHelper(x,y);
-//PRINT ["TestChecker"] TestChecker(x);
-
-/**
- * contains a cleaned invoke relation. gets rid of the DefinitionForDeclaration step
- * @col id: invoke ID
- * @col x:  x caller
- * @col y:  y callee
- */
-//PureInvokes(id,x,y) := EX(u, DefinitionForDeclaration(u,x) & Invokes(id,u,y));
-
-//Stimulates(id,x,y) := PureInvokes(id,x,y) & TestMethodId(x) & ProductionMethodId(y);
-
-/**
- * contains a cleaned accesses relation. gets rid of the DefinitionForDeclaration step
- * @col id: invoke ID
- * @col x:  x caller
- * @col y:  y attribute
- */
-//PureAccesses(id,x,y) := EX(u, DefinitionForDeclaration(u,x) & Accesses(id,u,y));
-
-
-/**
- *  Predicate which denotes wheter an assertion has a failure message
- *  @col x: testchecker ID
- */
-//NoFailureMessage(x) := EX(y, TestChecker(x) & Method(x, y) & CheckerSignature("0",y));
-
-/**
- * Checkers invoked in TestCommands/TestHelpers
- * @col z:  invocation ID
- * @col y:  testcommand/helper ID
- * @col x:  testchecker ID
- */
-//CheckerInvoke(z,y,x) := TestChecker(x) & (TestCommandId(y)|TestHelperId(y)) & PureInvokes(z,y,x);
+TestCase(x,y) := 
+        TestCaseId(x) & 
+        Class(x,y);
+TestCommand(x,y) := 
+        TestCommandId(x) & 
+        Method(x,y);
+TestSetup(x,y) := 
+        TestSetupId(x) & 
+        Method(x,y);
+TestTeardown(x,y) := 
+        TestTeardownId(x) & 
+        Method(x,y);
+TestHelper(x,y) := 
+        TestHelperId(x) & 
+        Method(x,y);
