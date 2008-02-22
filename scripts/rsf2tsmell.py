@@ -56,7 +56,7 @@ PARAMS_DEFAULTS = \
         AR_TRESH    :"3",
         DC_SCRIPT   :"src/DuplicatedCode.py",
         DC_TRESH    :"8",
-        INDIR_TRESH :"5",
+        INDIR_TRESH :"4",
         MG_BLACK    : 
         {
             "junit3":"src/MysteryBlacklistJava.rml",
@@ -151,10 +151,13 @@ if __name__ == '__main__':
 
     m4Input = buildM4Input(xinit, smells, params, tsmellsRoot)
     tmpFile = tempfile.mkstemp()[1]
-    os.system("m4 " + m4Input + " " + m4Def + " > " + tmpFile)
-    os.system("cp " + tmpFile + " " + proj + ".rml")
 
-    rsf2tsmellsh = os.path.join(tsmellsRoot,"scripts","rsf2tsmell.sh")
-    os.system( rsf2tsmellsh + " " + rsf + " " + tmpFile + " " + " " + proj + " " + mem)
+    # construct the RML with m4
+    os.system("m4 " + m4Input + " " + m4Def + " > " + tmpFile)
+
+    sh     = os.path.join(tsmellsRoot,"scripts","rsf2tsmell.sh")
+    params = " " + rsf + " " + tmpFile + " " + " " + proj + " " + mem
+    # call rsf2tsmell.sh, which will call crocopat
+    os.system( sh + params)
 
     os.remove(tmpFile)

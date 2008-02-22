@@ -1,12 +1,64 @@
 #!/usr/bin/python
 
-import sys
-import os
+import sys, os, popen2, hashlib, signal, difflib, time
 
 from os import listdir, path, chdir, remove
 from glob import glob
 
-from outputtest import execute, compare
+
+def execute(command, timeout=10):
+    """ Executes the 'command' in a shell. After timeout RuntimeError
+        gets raised. stdout & stderr get returned, together with a boolean
+        indicating success/failure"""
+
+    # run command
+    #process   = popen2.Popen4(command, True)
+    process   = popen2.Popen3(command, True)
+    sleepTime = 0.1
+    current   = 0.0
+
+    # wait for completion or timeout
+    while (process.poll() == -1) and (current < timeout):
+        current = current + sleepTime
+        time.sleep(sleepTime)
+
+    # throw if we got a timeout
+    if current >= timeout:
+        os.kill(process.pid, signal.SIGTERM)
+        raise RuntimeError(command + " is taking too long,"\
+                +  " raise timeout?")
+
+    # check if if command was successful
+    success = True
+    if process.poll() != 0:
+        success = False
+
+    return "".join(process.fromchild.readlines()), \
+           "".join(process.childerr.readlines()), success
+
+
+def compare(output, expected):
+    """ Compares the string in output with expected 
+        returns the empty string if equal, a unified diff otherwise """
+
+    outputHash   = hashlib.md5(output).hexdigest()
+    expectedHash = hashlib.md5(expected).hexdigest()
+    if outputHash == expectedHash:
+        # equal, return empty
+        return ""
+    else:
+        return get_diff(expected, output)
+
+
+def get_diff(a, b):
+    aLines = [ l.rstrip('\t') for l in a.splitlines()]
+    bLines = [ l.rstrip('\t') for l in b.splitlines()]
+    gen = difflib.unified_diff(aLines,bLines)
+    diff_output = list(gen)
+    if len(diff_output) != 0:
+        return "\n".join(diff_output)
+    else:
+        return ""
 
 def subdirs(dirname):
     dirs = [f for f in listdir(dirname) if path.isdir(path.join(dirname,f))]

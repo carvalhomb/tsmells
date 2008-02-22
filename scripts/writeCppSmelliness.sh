@@ -18,6 +18,19 @@
 # Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
 #
 
+#
+# Some pieces tests still use this script but its terribly
+# deprecated. use rsf2tsmell.py instead
+#
+#$ grep -R "writeCppSmelliness.sh" *
+#tests/MysteryGuest/cpp/FileAccessTestCommand/FileAccessTestCommand.cmd
+#tests/AssertionLess/cpp/MultiTCNoAssert/MultiTCNoAssert.cmd
+#tests/AssertionLess/cpp/SingleTCDefDeclNoAssert/SingleTCDefDeclNoAssert.cmd
+#tests/AssertionLess/cpp/SingleTCDefDeclAssert/SingleTCDefDeclAssert.cmd
+#tests/AssertionLess/cpp/SingleTCAssert/SingleTCAssert.cmd
+#tests/AssertionLess/cpp/SingleTCNoAssert/SingleTCNoAssert.cmd
+#
+
 SMELL=$1
 RSF=$2
 

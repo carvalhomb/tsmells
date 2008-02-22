@@ -14,13 +14,13 @@ crocopat -m $MEM $RML + 2>&1 > "$LOG" |\
 grep -Ev \(FALSE\|^Warning\|^used\)
 
 
-echo  -n "[ AL:`grep -c ^AssertionLess $LOG`"
-echo  -n " AR:`grep -c ^AssertionRoulette $LOG`"
-echo  -n " DC:`grep -c ^DuplicatedCode $LOG`"
-echo  -n " FT:`grep -c ^ForTestersOnly $LOG`"
-echo  -n " DI:`grep -c ^IndirectTest $LOG`"
-echo  -n " DE:`grep -c ^IndentedTest $LOG`"
-echo  -n " MG:`grep -c ^MysteryGuest $LOG`"
-echo     " SE:`grep -c ^SensitiveEquality $LOG` ]"
+echo  -n "[ AL:`grep -c ^AssertionLess $LOG`" | tee -a $LOG
+echo  -n " AR:`grep -c ^AssertionRoulette $LOG`" | tee -a $LOG
+echo  -n " DC:`grep -c ^DuplicatedCode $LOG`" | tee -a $LOG
+echo  -n " FT:`grep -c ^ForTestersOnly $LOG`" | tee -a $LOG
+echo  -n " DI:`grep -c ^IndirectTest $LOG`" | tee -a $LOG
+echo  -n " DE:`grep -c ^IndentedTest $LOG`" | tee -a $LOG
+echo  -n " MG:`grep -c ^MysteryGuest $LOG`" | tee -a $LOG
+echo     " SE:`grep -c ^SensitiveEquality $LOG` ]" | tee -a $LOG
 
-echo "elapsed: $((`date +%s` - $START))s result: $LOG"
+echo "elapsed: $((`date +%s` - $START))s result: $LOG" | tee -a $LOG

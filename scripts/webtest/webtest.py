@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 from os                 import environ
-from run                import runTests
+from testrunner         import runTests
 from time               import time
 from cherrypy           import expose,\
                                quickstart
@@ -27,18 +27,21 @@ class Root():
     def index(self, go=None, suite=None):
         page = get_page("index")
         page.suites = self.suites;
-        if go:
-            root = environ["TSMELLS"] + "/tests"
-            if suite == 'All':
-                toRun = self.smellSuites
-            else:
-                toRun = [suite]
-            before = time()
-            self.results, page.stats = runTests(root, toRun)
-            after = time()
-            page.secElapsed = int(after - before)
-            page.usecElapsed = int( ((after - before) - page.secElapsed) * 1000)
-            page.results = self.results
+        if not go:
+            return str(page)
+
+        root = environ["TSMELLS"] + "/tests"
+        if suite == 'All':
+            toRun = self.smellSuites
+        else:
+            toRun = [suite]
+        before = time()
+        self.results, page.stats = runTests(root, toRun)
+        after = time()
+        page.secElapsed = int(after - before)
+        page.usecElapsed = int( ((after - before) - page.secElapsed) * 1000)
+        page.results = self.results
+
         return str(page)
 
     @expose

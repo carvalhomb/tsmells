@@ -27,12 +27,6 @@
  * For a formal definition see formspec.pdf
  **/
 
-// TODO there's something fishy with this script.
-// All pieces tests pass but on real code no 
-// IndirectTests get found, even with a ridiculously
-// low treshold. Maybe some variable pollution 
-// introduced by other scripts ???
-
 
 // TODO move ComHelpers & TransComHelper to a common
 // script. AssertionLess could use this information as
@@ -60,14 +54,15 @@ TransComHelper(tcid, thid) :=
  * @col clazz: accessed class
  **/
 diffClassAccess(tcidd, clazz) := 
-    EX(y, id, TestCommandId(tcidd) & 
-              PureAccesses(id,tcidd,y) & 
-              AttributeBelongsToClass(y,clazz) & 
+    EX(y_dca,
+              TestCommandId(tcidd) & 
+              PureAccesses(_,tcidd,y_dca) & 
+              AttributeBelongsToClass(y_dca,clazz) & 
               !TestCaseId(clazz));
 diffClassAccessHelper(tcidd,clazz) :=
-    EX(y, thid, id,
+    EX(y, thid, 
               TransComHelper(tcidd, thid) &
-              PureAccess(id, thid, y) &
+              PureAccess(_, thid, y) &
               AttributeBelongsToClass(y, clazz) &
               !TestCaseId(clazz));
 
@@ -78,14 +73,15 @@ diffClassAccessHelper(tcidd,clazz) :=
  * @col clazz: invoked class
  **/
 diffClassInvokes(tcidd, clazz) :=
-    EX(y, id, TestCommandId(tcidd) &
-              PureInvokes(id, tcidd, y) &
+    EX(y,
+              TestCommandId(tcidd) &
+              PureInvokes(_, tcidd, y) &
               ProductionMethodId(y) &
               MethodBelongsToClass(y, clazz));
 diffClassInvokesHelper(tcidd, clazz) :=
-    EX(y, thid, id,
+    EX(y, thid,
               TransComHelper(tcidd, thid) &
-              PureInvokes(id, thid, y) &
+              PureInvokes(_, thid, y) &
               ProductionMethodId(y) &
               MethodBelongsToClass(y, clazz));
 
@@ -98,24 +94,24 @@ diffClassInvokesHelper(tcidd, clazz) :=
  **/
 IndirectTestId("", "");
 
-FOR tcid IN TestCommandId(x) {
-    nptu := #(diffClassInvokes(tcid,c) | diffClassInvokesHelper(tcid,c) |
-              diffClassAccess(tcid,c)  | diffClassAccessHelper(tcid, c));
+FOR tcid_idt IN TestCommandId(x) {
+    nptu := #(diffClassInvokes(tcid_idt,c) | diffClassInvokesHelper(tcid_idt,c) |
+              diffClassAccess(tcid_idt,c)  | diffClassAccessHelper(tcid_idt, c));
     IF ( nptu >= INDIRECT_TEST_TRESHOLD) {
         // got one, append
         IF (nptu <= COUNT_MAX) {
             IndirectTestId(x, num) := 
                 IndirectTestId(x,num) |
                 (
-                    x = tcid & 
+                    x = tcid_idt & 
                     ( count(STRING(nptu), num) )
                 );
         } ELSE {
             // larger then the count relation. log this is as 'A LOT'
             IndirectTestId(x, num) := 
                 IndirectTestId(x,num) |
-                (x = tcid & 
-                    ( count(STRING(nptu), num) )
+                (x = tcid_idt & 
+                    ( count("alot", num) )
                 );
         }
     }
@@ -131,10 +127,10 @@ FOR tcid IN TestCommandId(x) {
  * @col line: line this test command is defined on
  **/
 IndirectTest(tcnm, tres, nptu_x, file, line) :=
-    EX(tcid,
-            IndirectTestId(tcid, nptu_x) &
+    EX(tcid_idx,
+            IndirectTestId(tcid_idx, nptu_x) &
             tres = "INDIRECT_TEST_TRESHOLD" &
-            TestEntityInfo(tcid, tcnm, file, line)
+            TestEntityInfo(tcid_idx, tcnm, file, line)
       );
 
 PRINT ["IndirectTest"] IndirectTest(aa,bb,cc,dd,ee);

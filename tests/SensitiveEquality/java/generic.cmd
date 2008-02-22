@@ -1,1 +1,1 @@
-writeJavaSmellinessMacro.sh "*.rsf" -DSENSITIVE_EQUALITY
+javarsf2tsmell.sh "*.rsf" -DSENSITIVE_EQUALITY

@@ -1,1 +1,1 @@
-writeCppSmellinessMacro.sh AssertNoMessageALot.rsf  -DASSERTION_ROULETTE -DASSERTION_ROULETTE_TRESHOLD=6
+cpprsf2tsmell.sh AssertNoMessageALot.rsf  -DASSERTION_ROULETTE -DASSERTION_ROULETTE_TRESHOLD=6

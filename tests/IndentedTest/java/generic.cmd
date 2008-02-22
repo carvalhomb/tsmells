@@ -1,1 +1,1 @@
-writeJavaSmellinessMacro.sh "*.rsf" -DINDENTED_TEST
+javarsf2tsmell.sh "*.rsf" -DINDENTED_TEST
