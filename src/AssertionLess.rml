@@ -25,6 +25,8 @@
  * For a formal description see formspec.pdf
  **/
 
+// TODO dont recompute the closure here but use 'TransComHelper' relation
+
 /**
  * All invocations of entity y in test command/helper x
  **/

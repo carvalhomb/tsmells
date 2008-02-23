@@ -29,7 +29,7 @@ PRINT "(01) RSF model loaded in memory", ENDL TO STDERR;
 PRINT "(02) extracting xUnit entities ... ", ENDL TO STDERR;
 include(XUNIT_INIT)
 include(TSMELLS`/src/count.rml')
-include(TSMELLS`/src/initAuxRel.rml')
+include(TSMELLS`/src/initAuxiliaryTestRelations.rml')
 
 PRINT "(03) AssertionLess ... ", ENDL TO STDERR;
 ifdef(`ASSERTIONLESS', `include(TSMELLS`/src/AssertionLess.rml')', `')

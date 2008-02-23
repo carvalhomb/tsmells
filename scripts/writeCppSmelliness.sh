@@ -40,6 +40,6 @@ then
 fi
 
 TMPFILE=$(mktemp) && \
-cat $TSMELLS/src/initCppTestEntities.rml $TSMELLS/src/initAuxRel.rml $TSMELLS/src/$SMELL.rml > $TMPFILE && \
+cat $TSMELLS/src/initCppTestEntities.rml $TSMELLS/src/initAuxiliaryTestRelations.rml $TSMELLS/src/$SMELL.rml > $TMPFILE && \
 cat $RSF | crocopat $TMPFILE && \
 rm -rf $TMPFILE &> /dev/null;

@@ -15,6 +15,6 @@ then
 fi
 
 TMPFILE=$(mktemp)
-cat $XUNITRML $TSMELLS/src/initAuxRel.rml  $TSMELLS/src/writeTestStats.rml > $TMPFILE
+cat $XUNITRML $TSMELLS/src/initAuxiliaryTestRelations.rml  $TSMELLS/src/writeTestStats.rml > $TMPFILE
 #cp $TMPFILE ./concat.rml
 cat $1 | crocopat -m $CROCOMEM $TMPFILE

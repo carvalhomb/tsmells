@@ -30,7 +30,7 @@ include(TSMELLS`/src/count.rml')
 
 ifdef(`BASIC_JUNIT', `include(TSMELLS`/src/initJavaTestEntities.rml')', `')
 ifdef(`ANAST_JUNIT', `include(TSMELLS`/src/initJavaTestEntitiesAnastacia.rml')', `')
-include(TSMELLS`/src/initAuxRel.rml')
+include(TSMELLS`/src/initAuxiliaryTestRelations.rml')
 ifdef(`ASSERTIONLESS', `include(TSMELLS`/src/AssertionLess.rml')', `')
 ifdef(`ASSERTION_ROULETTE_TRESHOLD', `', `define(`ASSERTION_ROULETTE_TRESHOLD', `3')')
 ifdef(`ASSERTION_ROULETTE', `include(TSMELLS`/src/AssertionRoulette.rml')', `')

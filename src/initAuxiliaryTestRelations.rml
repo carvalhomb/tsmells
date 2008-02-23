@@ -90,3 +90,18 @@ TestEntityInfo(tid, name, file, line) :=
             InvokableEntityBelongsToFile(def, fid, line) &
             File(fid, file)
       );
+
+/**
+ * All helpers thid invoked from command tcid
+ **/
+ComHelpers(tcid, thid) := 
+    TestCommandId(tcid) & TestHelperId(thid) & PureInvokes(_,tcid, thid);
+TestHelperInvoke(thid1, thid2) := 
+    TestHelperId(thid1) & PureInvokes(_, thid1, thid2) & TestHelperId(thid2);
+
+/**
+ * All helpers thid invoked from tcid, directly & indirectly
+ **/
+TransComHelper(tcid, thid) :=
+    ComHelpers(tcid, thid) | 
+    EX(z, ComHelpers(tcid,z) & TC(TestHelperInvoke(z, thid)));

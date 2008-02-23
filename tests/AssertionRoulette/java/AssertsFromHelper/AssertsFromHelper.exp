@@ -1,1 +1,1 @@
-AssertionRoulette	TH	"MyTest.helper()"	3	3	"MyTest.java"	15
+AssertionRoulette	TC	"MyTest.testCommand()"	3	3	"MyTest.java"	11

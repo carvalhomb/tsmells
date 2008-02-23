@@ -30,21 +30,31 @@
 
 
 /**
- * holds test commands/helpers with message-less checker methods
+ * holds test commands with message-less checker methods
  * @col id:  invocation ID
- * @col x:   test command/helper ID
+ * @col x:   test command ID
  * @col y:   message-less assert ID
  */
-NoDescAssert(id,x,y) := 
+NoDescAssertDirect(id,x,y) := 
     NoFailureMessage(y) & 
     CheckerInvoke(id,x,y) & 
-    (TestCommandId(x) | TestHelperId(x));
+    (TestCommandId(x));
+NoDescAssertInHelper(id,x,y) := 
+    NoFailureMessage(y) & 
+    EX(thid, TransComHelper(x, thid) &
+             CheckerInvoke(id,thid,y));
+NoDescAssert(id,x,y) := 
+    NoDescAssertDirect(id,x,y) | 
+    NoDescAssertInHelper(id,x,y);
 
 AssertionRouletteId("", "", ""); // without this crocopat borks
 
 FOR tc IN NoDescAssert(_,x,_) {
     cnt := #(NoDescAssert(a,tc,b));
-    tot := #(CheckerInvoke(a,tc,b));
+    tot := #(CheckerInvoke(a,tc,b) | 
+             EX(th,
+                TransComHelper(tc,th) & 
+                CheckerInvoke(a,th,b)));
     IF ( cnt >= ASSERTION_ROULETTE_TRESHOLD) {
         // got one, append it
         IF ( (cnt <= COUNT_MAX) & (tot <=COUNT_MAX)) {
@@ -64,16 +74,17 @@ FOR tc IN NoDescAssert(_,x,_) {
 }
 
 RouletteType("0","TC"); // roulette in test command
-RouletteType("1","TH"); // roulette in test helper
+//RouletteType("1","TH"); // roulette in test helper
 
 /**
- * Grab the command/helper name, source file linenumber and more
+ * Grab the command name, source file linenumber and more
  **/
 AssertionRoulette(type, rltNm, total, num, file, line) :=
     EX(rltId,
             AssertionRouletteId(rltId, total, num) &
-            ((TestCommandId(rltId) & RouletteType("0", type)) |
-             (TestHelperId(rltId)  & RouletteType("1", type))) &
+            //((TestCommandId(rltId) & RouletteType("0", type)) |
+            // (TestHelperId(rltId)  & RouletteType("1", type))) &
+            RouletteType("0", type) &
             TestEntityInfo(rltId, rltNm, file, line)
       );
 

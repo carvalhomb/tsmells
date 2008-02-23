@@ -1,0 +1,9 @@
+
+v0.0.2 2008-02-xx
+  + comments of B. VanRompaey incorporated in formal specification
+    and implementation. Assertionroulette works recursivly on test 
+    commands now. [ used to log commands separate from helpers ]
+  + fixed a variable bind defect in IndirectTest.rml
+
+v0.0.1 2008-02-21
+  + initial release
