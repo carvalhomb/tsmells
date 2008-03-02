@@ -1,0 +1,124 @@
+#
+# Wat              Verslag Interview Requirements
+# Onderwerp        Jaarproject Bachelor Test Smells - Fetch
+# Aanwezig         Bart Van Rompaey, Manuel Breugelmans
+# Datum            2007-10-10 10:00
+#
+
+-- A. ALGEMEEN ---------------------------------------------------------------------
+
+
+  Het systeem wordt opgedeeld in 
+
+    + [Stats]
+      Statistieken over de aanwezige test smells. Bij voorkeur in een
+      `comma seperated values` formaat. Deze data moet los verkrijgbaar
+      zijn. Een gebruiker kan eigen interpratie en/of verwerkingscripts
+      gebruiken. Dit deel wordt gecodeerd in RML.
+
+    + [Iface]
+      Een frontend voor ontwikkelaars. Er moet op een voor mensen 
+      overzichtelijke manier gerapporteerd worden. Mogelijk grafisch. 
+      Hier dient dus (ook) een interpratie van de resultaten te gebeuren.
+
+-- B. FUNCTIONELE VEREISTEN -------------------------------------------------------
+
+ *) [Stats]
+
+   Zie [link] voor een beknopte beschrijving van de verschillende smells. Enkel
+   statische smells moeten behandeld worden. Er is geen infrastructuur aanwezig
+   om de dynamische te detecteren.
+
+   De smells die geimplementeerd moeten worden zijn: 
+
+     + Mystery Guest
+         Dit wordt gedecteerd door te zoeken naar C++/Java aanroepen van input 
+         functies/methodes. 100% dekking is moeilijk/onmogelijk, enkel populaire 
+         libraries moeten ondersteund worden. De blacklist moet eenvoudig 
+         aanpasbaar zijn. [eigen noot: best aparte lijsten per taal]
+
+     + Lazy Test
+         Vrij eenduidig op te sporen door te scannen naar herhaling van geteste
+         methoden in eenzelfde testcase.
+
+     + Assertion Roulette & Assertionless
+         Komt neer op het tellen van asserts per testmethode en deze te 
+         vergelijken met een bovenwaarde.
+
+     + Indirect Testing
+         Deze smell is minder eenvoudig op te sporen. Er moet nagegaan worden of
+         methoden van aggregaatobjecten (van de te-testen klasse) aangeroepen
+         worden.
+
+     + For Testers Only
+         Indien de aangereikte RSF over informatie beschikt waar een methode/
+         functie overal opgeroepen wordt is dit eenduidig te detecteren.
+
+     + Sensitive Equality
+         toString() opsporen voor Java volstaat. Net zoals bij Mystery Guest de
+         blacklist eenvoudig aanpasbaar maken, bv pickle voor Python.
+
+     + Test Code Duplication
+         Duplicatie is moeilijk automatisch te detecteren. Mogelijk kunnen
+         gelijkaardige sequenties opgespoord worden.
+
+     + Guarded Test
+         Relatief eenvoudig indien data over conditionals & scope aangereikt 
+         wordt, wat momenteel niet het geval is. Extra processing van de 
+         (test)-sources is noodzakelijk, naast sourcenavigator & parserext 
+         scripts.
+
+   Eager en General Fixture zijn reeds beschikbaar.
+
+   Concrete inspiratie voor de implementatie kan gehaald worden uit 'TestLint', 
+   een smalltalk smell-detectie tool door Stefan Reichart.
+
+ *) [Iface]
+
+   Deze werden niet concreet gespecifieerd. Duidelijk is dat de aanwezigheid
+   van bovenstaande smells geraporteerd moet worden op overzichtelijke wijze. 
+
+   Dit deel zal pas in het 2e semester gestart worden, eventuele verduidelijking
+   kan dan.
+
+-- C. NIET-FUNCTIONELE VEREISTEN --------------------------------------------------
+
+  + Platform onafhankelijk
+       Aangezien Fetch momenteel beschikbaar is onder Linux, OSX & Cygwin moet
+       mijn bijdrage ook deze eigenschap hebben. Dit heeft gevolgen voor
+       zowel de programeertaal als de gebruikte formaten. Zoals eerder vermeld
+       wordt het [Stats] gedeelte in RML geschreven. Voor [Iface] lijkt Python 
+       aangewezen. Dit aangezien het reeds uitvoerig gebruikt wordt in Fetch 
+       (en bijgevolg geen extra beperkingen oplegt).
+
+  + Programmertaal abstractie
+       Momenteel kan Fetch enkel overweg met C++ en Java. Het is echter goed
+       om zoveel mogelijk abstractie te maken van de taal. Het ondersteunen
+       van andere talen in mijn bijdrage moet pijnloos uit te voeren zijn.
+
+  + Alleenstaande GUI
+       Het onderdeel voor ontwikkelaars moet alleenstaand zijn. Integratie in
+       IDE's zou mooi zijn maar niet het hoofddoel. HTML lijk ideaal. Elk 
+       populair OS heeft wel een browser en vele IDEs kunnen dit formaat ook 
+       aan.
+
+  + OSS
+       Aangezien Fetch onder de GNU Public License is uitgegeven moet mijn
+       bijdrage dit ook zijn.
+
+  + Losse koppeling
+       Deel A, [Stats], en B, [Iface], moeten zo gescheiden mogelijk zijn. 
+       Communicatie van A naar B verloopt dan ook best via het bestandssysteem, 
+       in `comma seperated values` formaat. Een semi-standaard gedocumenteerde 
+       structuur in deze csv's is wenselijk.
+
+  + Smell modulariteit
+       Extra smells moeten eenvoudig toe te voegen zijn aan het systeem. Er
+       wordt een onderscheid gemaakt tussen smells: 
+          - TestCase      [Lazy Test, Indirect Testing, Duplication,
+                           General Fixture]
+          - TestMethode   [Mystery Guest, Assertion Roulette, Sensitive Equality,
+                           Guarded Test, Eager Test]
+          - ProductieCode [For Testers Only]
+
+-----------------------------------------------------------------------------------

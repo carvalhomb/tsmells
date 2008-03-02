@@ -1,0 +1,45 @@
+--------------------------------------------------------------------------------------------------
+|  wat:        Verslag meeting functionaliteit tsmells-viz
+|  tijdstip:   2008-02-28 13u30
+|  aanwezig:   Bart Van Rompaey, Manuel Breugelmans
+|  auteur:     Manuel Breugelmans
+|  opgesteld:  2008-03-02
+--------------------------------------------------------------------------------------------------
+
+Het gesprek werd gevoerd aan de hand van:
+  + korte use case geintroduceerd in `UseCasesKort.txt'
+  + 2 papers over visualizatie van software systemen [1,2]
+  + een (evolutionair) prototype 
+
+De volgende cases als onbelangrijk aangeduid:
+
+  + UC02   Het draaien van fetch & tsmells-stat via de shell wordt verkozen in plaats van 
+           geintegreerd in de GUI.
+  + UC03ab Een enkele visualizatie volstaat. Namelijk een mix tussen System Wide View & 
+           Test Case View. Zoals gepresenteerd in het prototype
+  + UC04   Een tekstueel overzicht van de commands per case moet niet expliciet aanwezig zijn
+  + UC06ab Idem aan UC03ab
+  + UC15   Gewichten toekennen aan specifieke smells is niet prioritair
+  + UC18   Het exporteren van annotaties naar IDE's is niet prioritair
+  + UC21   Configuratie en parametrisatie van de polymetrisch views is niet nodig. Een vaste 
+           keuze voor de metrieken volstaat
+
+Opmerkingen over de cases die wel geimplementeerd worden:
+
+  + UC01   Gebeurt best in een tussenstap, vertrekkend van de tsmell-stats tab-separated dumps
+           naar een lokaal formaat. Dit om performantie redenen. Extra informatie over de test
+           suite topologie moet nog toegevoegd worden. De dumps kunnen los gemanipuleerd worden
+           in een spreadsheet.
+  + UC05,UC08,UC09
+           Voorstellen van gerelateerde metrieken is vereist. Dit kan ruwweg op 2 manieren;
+           los van de GUI (bv in html tabellen) of geintegreerd in het geheel. De tweede optie
+           valt te verkiezen. Naast tabellen kunnen grafiekjes best ook nuttig zijn.
+  + UC13   De source koppeling via een externe editor is OK bevonden. Ondersteuning voor een
+           aantal editors moet aanwezig zijn. Gebruiksvriendelijke extensie voor eigen editors
+           is aangewezen
+  + UC16,UC17
+           Gegenereerde tabellen, grafiekjes etc dienen niet naar disk opgeslagen te worden.
+
+
+[1] B. Van Rompaey, S. Demeyer "Exploring the Composition of Unit Test Suites"
+[2] M. Lanza, S. Ducasse "Polymetric views - a lightweight visual approach to reverse engineering"

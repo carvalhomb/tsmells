@@ -1,0 +1,93 @@
+#
+# Wat              Beknopte samenvatting van de verschillende referenties
+# Onderwerp        Test Smells
+# Wie              Manuel Breugelmans
+# Doel             Snel informatie vinden tijdens coderen
+# Datum            2007-10-14
+#
+
+-- Refactoring Test Code - Van Deursen -----------------------------------------
+
+Deze paper introduceert naamgeving voor test smells en 1 a 2 alineas uitleg.
+Hoewel niet expliciet vermeld wordt er gefocust op Java/Junit. Vooral statische
+smells komen aan bod.
+
+Besproken worden:
+    + Mystery Guest
+    + Ressource Optimism
+    + Test Run War
+    + General Fixture
+    + Eager Test
+    + Lazy Test
+    + Assertion Roulette
+    + Indirect Testing
+    + For Testers Only
+    + Sensitive Equality
+    + Test Code Duplication
+
+Daarnaast worden oplossingen voorgesteld aan de hand van enkele refactorings-
+methoden.
+
+-- Test Automation Manifesto - Meszaros ----------------------------------------
+
+Een aanvulling op 'Refactoring Test Code'. Zowel statische als dynamische 
+worden beschreven in typisch 3-5 lijnen. Velen zijn identisch aan RTC.
+
+Statisch smells:
+    + Hard Coded Test Data
+    + Test Code Duplication
+    + Mystery Guest
+    + Complex Test Code
+    + Can't See the Forest for the Trees
+    + Conditional Test Logic
+    + Complex Undo Logic
+
+Naast (of in plaats van) refactoring pleit de paper voor vroegtijdig herkennen
+en voorkomen van slechte test code. Dit aan de hand van een Manifesto en een
+20 tal patterns. Het manifesto bestaat uit 12 termen die eigenschappen van een 
+goede unittest omschrijven. 
+
+-- Metrics Based Approach for General Fixture and Eager Test - Van Rompaey -----
+
+Terminologie gerelateerd aan Unittesten wordt formeel beschreven, aan de hand 
+van verzamelingenleer.
+
+Definities:
+    + Unit Testing Framework
+    + Test Cases
+    + Test Code
+    + Production Code
+    + Test Command
+    + Invocations from Test Commands
+    + Fixture
+    + Test Helper
+
+Hiermee worden General Fixture en Eager Test besproken. In het vervolg wordt
+ArgoUML getoest aan deze beschrijving, alsook een uitvoerige Pilot Study.
+ 
+-- Assessing Test Quality - Reichhart ------------------------------------------
+
+Vooral hoofdstuk 4 en appendix A bevatten nuttige informatie voor mijn project.
+In hoofdstuk4, getitteld 'Test Smells' worden statische en dynamische smells
+relatief uitgebreid toegelicht, met een sterke Smalltalk bias. 
+
+De naamgeving en inhoud komen niet overeen met RTC. Daarnaast bevatten sommige 
+smells tegenstrijdigheden met RTC. bv 'Literal Pollution' stelt dat testdata 
+best extern aan de unittest code staat, terwijl 'Mystery Guest' dat net afraadt.
+
+Statische Smells:
+    + Improper Test Method Location
+    + Mixed Selectors
+    + Anonymous Test
+    + Literal Pollution
+    + Assertionless Test
+    + Overreferencing
+    + Overcommented Test
+    + Long Test
+    + Guarded Test
+
+Appendix A bevat concrete informate over TestLint, een Smalltalk tool om Test
+Smells te detecteren. A.1 geeft een lijst van alle ondersteunde smells. A.2
+geeft design informatie over de implementatie.
+
+--------------------------------------------------------------------------------

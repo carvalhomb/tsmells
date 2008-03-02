@@ -1,0 +1,82 @@
+--------------------------------------------------------------------------------------------------
+|  wat:    Korte Use Cases voor tsmells-viz
+|  auteur: Manuel Breugelmans
+|  datum:  2008-02-24
+--------------------------------------------------------------------------------------------------
+
+-- I. Actors -------------------------------------------------------------------------------------
+
+Primary
+    Developper: Persoon die de kwaliteit van een unit test suite onderzoekt
+
+Secondary
+    fetch: systeem dat een abstract model extraheert uit sources
+    tsmells-stats: systeem dat test smells opspoort via een abstract model
+
+-- II. Korte UC ----------------------------------------------------------------------------------
+
+Elke dag bezit 8 werkuur. De geschatte tijd omvat zowel de initiele uitwerking als wijzigingen of
+onderhoud op een later tijdstip.
+Risico wordt gegeven op een vijfpunts schaal, waarbij 1 het laagste risico voorstelt.
+
+ id    beschrijving                                                          pre     #dagen risico
+ 01 -> Dev selecteert en laadt smell dump. convertie naar lokaal formaat     [  ]       3      2
+ 02 -> Dev selecteert project + raamwerk & genereert smell dump              [  ]       3      3
+ 03 -> Dev bekijkt test suite topologie [Test Case view]                     [01]       0.5    3
+ 03a                                    [System Wide Test Suite]             [03]       0.5    1
+ 03b                                    [Unit Under Test]                    [03]       1      1
+ 04 -> Dev vraagt een lijst van commands per case                            [01]       1      1
+ 05 -> Dev bekijkt test suite metrieken in tabel [1]                         [01]       2      4
+ 06 -> Dev beschouwt grafisch overzicht smells per case, command [Case View] [03]       0.5    3
+ 06a                                           [System Wide Test Suite]      [06]       0.5    1
+ 06b                                           [Unit Under Test]             [06]       0.5    1
+ 07 -> Dev localizeert cases met hoge smell factor [visueel]                 [06]       0.5    1
+ 08 -> Dev vraagt smell statistieken per test entiteit [case, command] [2]   [01]       2      4
+ 09 -> Dev vraagt globale smell metrieken in tabel [3]                       [01]       2(-1)  2
+ 10 -> Dev filtert op smell-type                                             [01]       1      4
+ 11 -> Dev vraagt smell-type omschrijving                                    [06]       1      1
+ 12 -> Dev opent source locatie van test entiteit [case, command]            [03]       1      3
+ 13 -> Dev opent source-oorzaak van smell                                    [06]       1      3
+ 14 -> Dev markeert smell als valse positief                                 [06]       1      2
+ 15 -> Dev annoteert smell [sterk, onfris, licht]                            [06]       1      2
+ 16 -> Dev slaat huidige toestand systeem op naar disk                       [01]       0      1
+ 17 -> Dev laadt opgeslagen toestand                                         [16]       0      1
+ 18 -> Dev exporteert smell locaties naar ze'n favoriet IDE                  [13, 15]
+           KDevelop                                                                     4      5
+           Vim                                                                          3      5
+           Eclipse                                                                      5      5
+           Visual Studio                                                                7      5
+ 19 -> Dev bekijkt Polymetric view Test Suite adhv [1]                       [05]       2(-1)  3
+ 20 -> Dev bekijkt Polymetric view Smells adhv [3]                           [08]       2(-1)  3
+ 21 -> Dev configureert het polymetric view                                  [19|20]    3      4
+
+-- III. Metrieken -------------------------------------------------------------------------------
+
+[1] test suite metrieken
+    + suite LOC
+    + production LOC
+    + production/suite LOC
+    + #test cases
+    + #test commands
+    + #test cases/commands
+    + #test helpers
+    + #setup
+    + #teardown
+    + #statische checker invocaties.
+
+[2]
+    + #smells
+    + #smells per type
+
+[3] smell metrieken
+    + #smells
+    + #smells per type
+    + #smelly cases
+    + #niet-smelly cases
+    + case-smell ratio
+    + #smelly commands
+    + #niet-smelly commands
+    + command-smell ratio
+    + de voorgaande gegroepeerd per smell-type
+
+-------------------------------------------------------------------------------------------------

@@ -1,0 +1,111 @@
+--------------------------------------------------------------------------------------------------
+|  wat:    Casual Use Cases voor tsmells-viz
+|  auteur: Manuel Breugelmans
+|  datum:  2008-03-02
+--------------------------------------------------------------------------------------------------
+
+-- Intro -----------------------------------------------------------------------------------------
+
+Dit document bevat een beknopte versie van de UC die geselecteerd tijdens het 
+functionaliteitsgesprek [1]. Actors en nummering uit het initiele UC document [2] worden niet 
+herhaald.
+
+-- UC01 Laden Smell Data -------------------------------------------------------------------------
+
+Een developper converteert een smell-dump naar een werkbaar formaat voor visualizatie. Deze 
+smell-dump werd vooraf gegenereerd door tsmells-stats. Vervolgens start de developper de GUI en 
+selecteert het bestand dat deze nieuwe voorstelling bevat. Het systeem verwerkt en initialiseert 
+deze smells & test suite informatie. De suite topologie (UC03) wordt getoond.
+
+-- UC03 Suite Topologie --------------------------------------------------------------------------
+
+Na smell data te laden, vraagt de developper om een grafisch overzicht van de test suite in
+onderzoek. Deze topologie toont de verschillende test entiteiten in een graph structuur. Deze 
+entiteiten zijn modules, test cases, commands, helpers & fixture setup/teardown met de vanzelf-
+sprekende inclusie relaties. De developper kan inzoomen op de graph.
+
+-- UC05 Suite Metrieken --------------------------------------------------------------------------
+
+De developper vraagt een overzicht van directe metrieken over de globale test suite. Deze worden 
+getoond in tabel vorm. Een lijst van deze metrieken is opgesomd in [2]
+
+-- UC06 Visualisatie Smells ----------------------------------------------------------------------
+
+Als de developper vraagt om smell data te tonen worden deze gemapt op de visualizatie uit UC03.
+Elke smell hoort bij 1 (of meerdere) test entiteiten. Deze inclusie relatie wordt ook hier 
+omgezet in knopen & edges.
+
+-- UC07 Visuele lokalizatie Smell concentratie ---------------------------------------------------
+
+De developper kan met een oogopslag de test entiteiten opsporen met een hoge smelliness. Dit
+vereist de visualisatie uit UC06. Het systeem verandert eigenschappen [grootte, kleur] van deze
+entiteiten. [Noot: sterke link met UC20]
+
+-- UC08 Smell Metrieken per Case/Command ---------------------------------------------------------
+
+De developper selecteert een test entiteit in de graph-visualizatie en vraagt een overzicht van 
+directe smell-metrieken. Deze worden getoond in een aparte tabel. Een lijst van metrieken is
+opgesomd in [2].
+
+-- UC09 Globale Smell Metrieken ------------------------------------------------------------------
+
+De developper vraagt een globaal overzicht van de smell metrieken. Deze worden getoond in een 
+aparte tabel. Een lijst van metrieken is opgesomd in [2].
+
+-- UC10 Filter op Smell Type ---------------------------------------------------------------------
+
+De developper selecteert een smell-type en vraagt dit te filteren uit het graph representatie. 
+Al de smell-nodes van dit type worden verborgen. Deze operatie kan ongedaan gemaakt worden.
+
+-- UC11 Smell Omschrijving -----------------------------------------------------------------------
+
+Als een smell in de graph representatie geselecteerd wordt, toont het systeem een identikit van
+deze smell. Dit omvat de naam van de entiteit(en) waarin de smell voorkomt, source locatie(s), 
+extra informatie zoals gerelateerde metrieken alsook een beknopte omschrijving van het smelltype.
+
+-- UC12 Terugkoppeling Source Test Entiteiten ----------------------------------------------------
+
+Vanuit de graph representatie selecteert de developper een test entiteit. Vervolgens vraagt
+z/hij om de source locatie van deze entiteit te openen. Het systeem opent de source en springt
+naar het lijnnummer, als toepasbaar. Er wordt steeds de definitie geopend.
+
+-- UC13 Terugkoppeling Source Smells -------------------------------------------------------------
+
+Vanuit de graph representatie selecteert de developper een smell. Vervolgens vraagt
+z/hij om de source locatie(s) van deze smell te openen. Het systeem opent de source en springt
+naar het lijnnummer, als toepasbaar.
+
+-- UC14 Verwijderen False Positives --------------------------------------------------------------
+
+De developper beoordeelt een gedecteerde smell als false positive. De developper selecteert de
+smell in de graph-representatie en vraagt deze te verwijderen. Het systeem verwijdert de smell
+uit het model.
+
+-- UC16 Persistentie -----------------------------------------------------------------------------
+
+De developper slaat de huidige graph toestand op naar disk. Metriek tabellen & grafieken worden
+niet onthouden.
+
+-- UC17 Herladen Opgeslagen Toestand -------------------------------------------------------------
+
+De developper haalt een opgeslagen toestand af van disk. Het systeem laadt deze vorige toestand
+in en toont de test suite topologie (UC03)
+
+-- UC19 Polymetric View Suite --------------------------------------------------------------------
+
+Aan de hand van de metrieken uit UC05 vraagt de developper om een polymetric view. De nodes uit
+de graph representatie van UC03, zoals test modules, cases & commands, worden aangevuld met deze
+metriek data.
+
+-- UC20 Polymetric View Smells -------------------------------------------------------------------
+
+Aan de hand van de metrieken uit UC08 vraagt de developper om een polymetric view. De nodes uit
+de graph representatie van UC06, zoals test cases & commands, worden aangevuld met deze
+metriek data. Individuele smell nodes worden niet aangepast, enkel de omringende entiteiten.
+
+-- Referenties -----------------------------------------------------------------------------------
+
+[1] VerslagNegotiatieFunctionaliteitViz.txt
+[2] UseCasesKort.txt
+
+--------------------------------------------------------------------------------------------------

@@ -1,0 +1,10 @@
+#
+# Wat            Scope tsmells-viz
+# Datum          2007-12-21
+#
+
+tsmells-viz verzorgt de visualizatie van test smell data gegenereerd door tsmells-stats op een 
+gegeven project. Doel is de locatie van smelly stukken (test) code te presenteren begrijpelijk 
+voor de developer. Er moet zowel een overzicht van smell & unit test informatie aanwezig zijn 
+alsook terugkoppeling naar de overtredende source. Begeleidende beschrijving van smell 
+terminologie lijkt aangewezen.

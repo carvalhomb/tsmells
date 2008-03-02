@@ -1,0 +1,119 @@
+#
+# Wat              Verslag Interview Requirements 2.0
+# Onderwerp        Jaarproject Bachelor Test Smells - Fetch
+# Aanwezig         Bart Van Rompaey, Manuel Breugelmans
+# Datum            2007-12-19 11:00
+#
+
+-- A. GEBRUIKERSINTERFACE ------------------------------------------------------
+
+Samengevat zijn er 3 valabele opties:
+
+    (1) statisch HTML rapport genereren met test-smell statistiek
+        - absoluut mimimum
+        - geen interactie mogelijk
+        + weinig arbeid
+
+    (2) web service, interactief
+        + project source on-the-fly inladen, niet vooraf transformeren naar html
+        + settings per project
+        + interactief false-positves laten filteren
+        + draaien van crocopat (& s2f? ) binnen applicatie
+        + gebruiksvriendelijke configuratie van xUnit framework
+        + mogelijke extensie: evolutie van de test-batterij 
+             ie #smells, # entities
+
+    (3) IDE (eclipse?) integratie
+        + dezelfde pluspunten als bij (2) gelden
+        + krachtige source-annotatie koppeling
+        + gebruiksgemak
+        - slechte interfacing tussen crocopat & eclipse
+        - relatief veel werk
+        - zware afhankelijkheid (tov lichtgewicht (2) )
+        - c++ ondersteuning eclipse niet perfect, vervelend om grote projecten
+            in te laden
+
+Na kort overleg aan de hand van de opgesomde plus en minpunten werd geopteerd
+voor (2).
+
+Qua modellen zijn use cases zeker aangewezen. Andere (architectuur) 
+artefacts lijken overkill maar zullen gebruikt worden als de vraag zich stelt.
+
+Bij de implementatie (en planning van de implementatie) zijn bepaalde uses 
+cases prioritair. 
+bv:
+    +++ test smells rapport overzichtelijk weergeven
+    +++ terugkoppilng naar de source
+     ++ interactief false positives filteren
+     ++ draaien crocopat
+      + geschiedenis &  evolutie per project
+      + draaien s2f
+      - generisch smells toevoegen
+      - exporteren naar {PDF|XML|TXT}
+
+Deze prioriteiten worden beter uitgewerkt bij het maken van de planning & het
+schrijven van de use cases.
+
+Qua testing is het voldoende om een degelijke & uitgebreide unit-test-suite
+te hebben. Automatische gui en/of html blackbox testing zijn niet aangewezen.
+Een manuele test-checklist met gebruikscenarios (use cases?) is wel nuttig.
+
+-- B. SMELLS -------------------------------------------------------------------
+
++ For Tester Only
+    Er moet ondersteuning komen om bibliotheek false positives te laten 
+    filteren. Het is niet de bedoeling zelf te detecteren welke methodes 
+    tot de interface behoren (en dus zowiezo FTO gaan triggeren)
+
++ Test Code Duplicaton
+    Crocopat lijkt niet geschikt om code duplicatie te detecteren. Ik stelde
+    voor eventueel PMD's 'CPD' tooltje te gebruiken. Dit werkt echter op de 
+    tekstuele source code en is dus niet geschikt. Een ander tool is 'ccfinder',
+    dit werkt op token niveau, maar is niet open-source. Bart  stelde voor
+    deze smell maar te laten vallen.
+
++ Indirect Testing
+    XP2001 & Xunitpatterns.com (+ boek) geven tegenstrijdige invulling aan dit
+    anti-pattern.
+    (a) XP2001
+        Een TestCase verifieert ook gedrag van andere klassen dan de
+        'geteste' klasse zelf. Bv door referenties in de geteste
+    (b) xUnitPatterns.com
+        Verificatie (in een TestCommand) van gedrag van een klasse _door_ een
+        andere klasse. Bv busseness logic testen door de presentatie laag
+
+    Beide definties gebruiken het concept 'geteste klasse', hetwelke 
+    (momenteel) niet triviaal te achterhalen is. 
+
+    Bart stelt voor om IT op te sporen per TestCommand door te kijken naar
+    het aantal access op verschillende klassen. Als dit boven een bepaalde
+    grens komt wordt er positief geflagd. Deze bovengrens is best 
+    configureerbaar.
+
+-- C. S2F ISSUES ---------------------------------------------------------------
+
++ Inbouwen van een library niveau in s2f (en FAMIX + RSF?) wordt op de lange
+  baan geschoven. Ie niet binnen het komende half jaar.
+
++ De verdwenen CppUnit inheritance staat op Bart's TODO lijstje, alsook 
+  het getNamespaces.pl symlink probleem.
+
++ Het toevoegen van source informatie aan het rsf formaat is noodzakelijk voor
+  de smell-source koppeling in de interface. Dit is in principe enkel een
+  aanpassing aan mdr2rsf (en dus niet s2f). Dit gebeurt best door een aparte
+  relatie in te voeren, en dus de dimensies van de huidige relaties te behouden.
+  Ik zal dit korteling implementeren.
+
++ De insaneInvocation (en basic) resolvers hebben moeilijkheden met overloaded
+  methoden. Kennis hiervan is noodzakelijk voor oa AssertionRoulette. Dit is 
+  echter het gevolg van fouten in Source Navigator en dus niet triviaal op
+  te lossen.
+
++ Huidige macro ondersteuning in s2f is minimaal. Oa voor cppunit assertions.
+  Bart gaat ook dit, met lagere prioriteit, fixen.
+
++ Source Navigator is gebaseerd op een hopeloos verouderde Java 1.0 parser.
+  Oa annotaties uit jUnit 4.x vormen een probleem, alsook templates. Hiervoor
+  ondersteuning bieden vergt echter te veel inspanning.
+
+--------------------------------------------------------------------------------

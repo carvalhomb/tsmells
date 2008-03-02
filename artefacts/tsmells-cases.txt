@@ -1,0 +1,73 @@
++ java
+	+ junit
+		+ pmd
+		+ ant
+		+ jfreechart
+		+ argouml
+		+ anastacia
++ cpp
+	+ cppunit
+		+ poco (forked) 225 KLOC Totaal; 50KLOC Test; 178 TC
+		+ kmymoney 65KLOC total; 7.5KLOC Test
+		+ akenti 40KLOC total; 7KLOC Test
+		+ aria 40KLOC total; 10KLOC Test
+		+ teamspirit 
+		[ blender, wxWidgets relatief kleine suites ]
+	+ qtunit
+		+ krita (koffice) 120KLOC; 7.5 KLOC
+		+ qca (cryptografix framework) 20KLOC; 9KLOC
+		+ svn://labs.trolltech.com/svn assortiment (officiele) qt onderdelen
+
+
+-- poco ---------------------------------------------------------------------
+
+Fetch, Copyright (C) 2006-2007 Bart Du Bois and Bart Van Rompaey
+Fetch is Open Source Software/Free Software, licensed under the
+GNU GPL.
+This script relies on a robust parser.
+(01/10) Running Source Navigator ... pass (42 sec.)
+(02/10) Dumping SN database ... pass (12 sec.)
+(03/10) Collecting conditional compilation and macro definition directives ... pass (51 sec.)
+(04/10) Collecting include directives ... pass (0 sec.)
+(05/10) Collecting namespace declarations and uses ... pass (7 sec.)
+(06/10) Grepping loop and conditionals ... pass (0 sec.)
+(07/10) Calculating metrics via Pmccabe ... pass (3 sec.)
+(08/10) Cleaning temporary files ... pass (0 sec.)
+(09/10) Running snavtofamix ... pass (3012 sec.)
+(10/10) Running CDIF2RSF ... pass (130 sec.)
+--> see details in log file /home/nix/JaarProj/CaseStud/cpp/poco-trunk-080228/src/fetchCpp2rsf.err
+--> CDIF written to /home/nix/JaarProj/CaseStud/cpp/poco-trunk-080228/src.cdif
+--> RSF written to /home/nix/JaarProj/CaseStud/cpp/poco-trunk-080228/src.rsf
+MO: 2240FI: 30198CL: 18262GV: 0ME: 12457FU: 2726IN: 18925AC: 18445MT: 14861
+
+<<<<<============================>>>>>
+#TestCases       178
+#TestCommands    1097
+#TestCheckers    0
+#CheckerInvokes  0
+#TestHelpers     646
+#TestSetup       178
+#TestTeardown    178
+#Stimulates      5257
+#ProductionMtd   10358
+#ProductionFunct 2726
+<<<<<============================>>>>>
+
+
+-- kmymoney -----------------------------------------------------------------------
+
+This script relies on a robust parser.
+(01/10) Running Source Navigator ... pass (19 sec.)
+(02/10) Dumping SN database ... pass (5 sec.)
+(03/10) Collecting conditional compilation and macro definition directives ... pass (13 sec.)
+(04/10) Collecting include directives ... pass (0 sec.)
+(05/10) Collecting namespace declarations and uses ... pass (1 sec.)
+(06/10) Grepping loop and conditionals ... pass (0 sec.)
+(07/10) Calculating metrics via Pmccabe ... pass (1 sec.)
+(08/10) Cleaning temporary files ... pass (0 sec.)
+(09/10) Running snavtofamix ... pass (101 sec.)
+(10/10) Running CDIF2RSF ... pass (27 sec.)
+--> see details in log file /home/nix/Stuff/Projects/JaarProj/CaseStud/cpp/kmymoney2-0.8.8/kmymoney2/fetchCpp2rsf.err
+--> CDIF written to /home/nix/Stuff/Projects/JaarProj/CaseStud/cpp/kmymoney2-0.8.8/kmymoney2.cdif
+--> RSF written to /home/nix/Stuff/Projects/JaarProj/CaseStud/cpp/kmymoney2-0.8.8/kmymoney2.rsf
+MO: 832FI: 8088CL: 5921GV: 0ME: 4082FU: 141IN: 11253AC: 10304MT: 9328

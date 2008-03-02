@@ -28,6 +28,7 @@ XINIT_DEFAULTS = \
         "junitana"    :"src/initJavaTestEntitiesAnastacia.rml",
         "cppunit1-12":"src/initCppUnitv1-12.rml",
         "cppunit0-06":"src/initCppUnitv0-06.rml",
+        "cppunitpoco":"src/initCppUnitPoco.rml"
     }
 
 AS    = "ASSERTIONLESS"
@@ -63,6 +64,7 @@ PARAMS_DEFAULTS = \
             "junitana" :"src/MysteryBlacklistJava.rml",
             "cppunit1-12":"src/MysteryBlacklistCppFile.rml",
             "cppunit0-06":"src/MysteryBlacklistCppFile.rml",
+            "cppunitpoco":"src/MysteryBlacklistCppFile.rml"
         }
     }
 

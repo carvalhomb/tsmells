@@ -1,0 +1,110 @@
+/**
+ * This file is part of Fetch (the Fact Extraction Tool CHain).
+ *
+ * Fetch is free software; you can redistribute it and/or modify it under the 
+ * terms of the GNU General Public License as published by the Free Software 
+ * Foundation; either version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * Fetch is distributed in the hope that it will be useful, but WITHOUT ANY 
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with Fetch; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+ * Extensivly modified by:
+ *                Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ **/
+
+
+/**
+ * Finds all test cases among the classes,
+ * both directly as well as indirectly 
+ * inheriting from TestCase
+ * 
+ **/
+IsTestCase(y) := 
+        Class(y,"CppUnit::TestCase");
+InheritsFromTestCase(x,y) := 
+        IsTestCase(y) & 
+        InheritsFrom(_,_,x,y);
+
+// test cases directly inheriting from TestCase
+DTestCase(x) := 
+        InheritsFromTestCase(x,_);
+InheritsFromTestCase(x,y) := 
+        DTestCase(y) & 
+        InheritsFrom(_,_,x,y);
+Closure(x,y) := 
+        TC(InheritsFromTestCase(x,y));
+
+// test cases indirectly inheriting from TestCase
+ITestCase(x) := 
+        Closure(x,_);
+TestCaseId(x) := 
+        (DTestCase(x) | ITestCase(x)) & 
+        !EX(cln, Class(x, cln) & 
+        @"^CppUnit::"(cln));
+
+TestMethodId(x) := 
+    EX(y, 
+        TestCaseId(y) & 
+        MethodBelongsToClass(x,y));
+TestCommandId(x) := 
+    EX(mn, 
+        TestMethodId(x) & 
+        Method(x,mn) & 
+        @"[.]test.*[(][)]$"(mn));
+TestSetupId(x) := 
+    EX(mn, 
+        TestMethodId(x) & 
+        Method(x,mn) & 
+        @"[.]setUp[(][)]$"(mn));
+TestTeardownId(x) := 
+    EX(mn, 
+        TestMethodId(x) & 
+        Method(x,mn) & 
+        @"[.]tearDown[(][)]$"(mn));
+TestHelperId(x) := 
+        TestMethodId(x) & 
+        !TestCommandId(x) & 
+        !TestSetupId(x) & 
+        !TestTeardownId(x);
+
+TestChecker(x) := 
+    EX(y, 
+        Function(x, y) & 
+        CheckerSignature(_,y));
+ProductionMethodId(x) := 
+        Method(x,_) & 
+        !TestMethodId(x);
+ProductionFunctionId(x) := 
+        Function(x,_)  & 
+        !TestChecker(x); 
+
+// these are needed for backwards compatibility.
+// prolly they'll vanish for good, one day
+TestCase(x,y) := 
+        TestCaseId(x) & 
+        Class(x,y);
+TestCommand(x,y) := 
+        TestCommandId(x) & 
+        Method(x,y);
+TestSetup(x,y) := 
+        TestSetupId(x) & 
+        Method(x,y);
+TestTeardown(x,y) := 
+        TestTeardownId(x) & 
+        Method(x,y);
+TestHelper(x,y) := 
+        TestHelperId(x) & 
+        Method(x,y);
+
+// fix to have a definition for declaration for all functions.
+DefintionForDeclaration(x,y) := DefinitionForDeclaration(x,y) |
+                                (Function(x,_) & !EX(z, DefinitionForDeclaration(z,x)) & x=y);
+

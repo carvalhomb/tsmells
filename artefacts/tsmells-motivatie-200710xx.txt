@@ -1,0 +1,12 @@
+Het doel van mijn jaarproject is een systeem dat Unit Test broncode statisch
+analyseert op kwaliteit. Dit gebeurt via aftoetsen aan een handvol anti-patterns 
+aka Test Smells, die reeds beschreven werden in enkele papers/boeken. Het geheel 
+wordt geintegreerd in Fetch, een onderzoekstool van LORE. De resultaten dienen 
+op een mensvriendelijke wijze gepresenteerd worden, ie een gebruikersinterface.
+
+Ik heb dit gekozen omdat:
+  + Het een goede voorbereiding op een Master SE lijkt
+  + Interessant onderwerp, naast pure project/programmeerervaring zal
+    ik ook echt iets bijgeleerd hebben.
+  + Voortbouwend op een bestaande codebase. Aanwezige expertise, ``do and donts''
+  + Contact met andere talen dan Java/C++.

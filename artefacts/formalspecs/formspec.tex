@@ -1,0 +1,141 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage{fullpage}
+\usepackage{simplemargins}
+\usepackage{bbold}
+\title{TSmells Formal Specification}
+ \author{Manuel Breugelmans\\
+University of Antwerp}
+ \date{\small{\today}}
+\makeatletter
+\def\section{\@ifstar\unnumberedsection\numberedsection}
+\def\numberedsection{\@ifnextchar[%]
+  \numberedsectionwithtwoarguments\numberedsectionwithoneargument}
+\def\unnumberedsection{\@ifnextchar[%]
+  \unnumberedsectionwithtwoarguments\unnumberedsectionwithoneargument}
+\def\numberedsectionwithoneargument#1{\numberedsectionwithtwoarguments[#1]{#1}}
+\def\unnumberedsectionwithoneargument#1{\unnumberedsectionwithtwoarguments[#1]{#1}}
+\def\numberedsectionwithtwoarguments[#1]#2{%
+  \ifhmode\par\fi
+  \removelastskip
+  \vskip 5ex\goodbreak
+  \refstepcounter{section}%
+  \hbox to \hsize{\hss\vbox{\advance\hsize by 0cm
+      \noindent
+      \leavevmode\Large\bfseries\raggedright
+      \thesection.\ 
+      #2\par
+      \vskip -2ex
+      \noindent\hrulefill
+      }}\nobreak
+  \vskip 2ex\nobreak
+  \addcontentsline{toc}{section}{%
+    \protect\numberline{\thesection}%
+    #1}%
+  }
+\def\unnumberedsectionwithtwoarguments[#1]#2{%
+  \ifhmode\par\fi
+  \removelastskip
+  \vskip 5ex\goodbreak
+%  \refstepcounter{section}%
+  \hbox to \hsize{\hss\vbox{\advance\hsize by 0cm
+      \noindent
+      \leavevmode\Large\bfseries\raggedright
+%      \thesection\ 
+      #2\par
+      \vskip -2ex
+      \noindent\hrulefill
+      }}\nobreak
+  \vskip 2ex\nobreak
+  \addcontentsline{toc}{section}{%
+%    \protect\numberline{\thesection}%
+    #1}%
+  }
+\makeatother
+\pagestyle{plain}
+\pagenumbering{arabic}
+\begin{document}
+\maketitle
+\setallmargins{0.75in}
+
+\section*{Introduction}
+This writing aims to formalize a selected set of test smells to form a solid base for automated detection \cite{manu:TSMELLS}. These smells are rechewed versions originating elsewhere \cite{mes:XTP, deu:RTC, rei:ATQ}. To reach a degree of formalism an abstract mathematical model for xUnit concepts introduced in On The Detection of Test Smells \cite{rom:OTDOTS} is applied. Definitions and concepts declared there are not repeated.
+
+\section*{Fixture}
+In the following a couple of symbols are, unless overriden, inheritly bound:
+\begin{itemize}
+ \item $tc$ is a test case, ie $tc\ \epsilon\ TC$
+ \item $tm$ is a test command, ie $tm\ \epsilon\ TM$
+ \item $th$ is a test helper,  ie $tm\ \epsilon\ TH$
+ \item $te$ is a test command or helper, ie $te\ \epsilon\ TM \cup TH$
+ \item $TTH(tm)$ is the set of all test helpers invoked by command tm, directly or nested in other helpers
+\[TTH(tm)=\bigcup_{i=0}^{\infty}TH_{i}(tm)\]
+ \item $TIM_{c}(tm)$ is the set of all framework checker method invocations in commmand tm. either directly or indirectly through test helpers.
+\[TIM_{c}(tm)= IM_{c}(tm)\ \bigcup\ \bigcup_{t\ \epsilon\ TTH(tm)}IM_{c}(t)\ \]
+
+\end{itemize}
+
+\section{Assertionless}
+A test command is assertionless if it does not invoke framework checker methods, either direct or indirect. These commands are useless and potentially misleading, thus should be avoided, tagged or at least enumerated. 
+
+\[ALESS=\{\ tm\ |\ TIM_{c}(tm)\  =\ \phi \}\]
+
+\section{Assertion Roulette}
+High numbers of descriptionless checker invocations make for hard to read tests. In case of failure manual intervention and (a) rerun(s) might be required. These descriptionless assertions are counted for a test command and all its helpers. $TCFM$ is partitioned in a set containing checker methods with a description, and one without.
+\vspace{5mm}
+
+\[TFCM=TFCM_{descr}\ \cup\ TFCM_{nodescr}\]
+\[TIM_{cnd}(te)=TIM_{c}(te)\ \cap\ TFCM_{nodescr}\]
+\[n\ \epsilon\ \mathbb{N}_{0},\ AROUL(n) = \{\ te\ |\ \mid TIM_{cnd}(te) \mid\ \geq\ n \}\]
+
+\section{Duplicated Code}
+Code clones in unit tests have a bad effect on maintainability, since modifications to the UUT might result in a multitude of changes. Duplication is considered a strong smell since regression testing is the main goal of automation. Duplicate statements should be refactored to setup, teardown or helper methods.
+\vspace{5mm}
+
+Detecting clones is accomplished by comparing the contents of (test) methods against one another. Each method gets partitioned in sequences of adjacent accesses and invocations. These accesses and invocations are identified on the type and declaration level, no name tokens or anything involved. Common partitions between methods are reported. The minimum size of these reported partitions is configurable.
+\vspace{5mm}
+
+Control structure information is not taken into account. However, false positives are a non-issue since loops and conditionals should be rare in test code. Variable declaration statements are not used either. Describing this smell with the current formalism is impossible since there's no ordering on invocations and accesses.
+
+\section{For Testers Only}
+Methods only used by test code do not belong in the production class. One can move these methods to a subclass in test code. Detecting FTO can result in a fair share of false positives, eg when the UUT is itself a library. A modifiable whitelist $WL$ of methods should be used.
+\vspace{5mm}
+
+\[WL=\{ pm\ \epsilon\ M(PROD)\ |\ pm\ is\ whitelisted\}\]
+\[FTO= (M(PROD)\ \cap\ IM(TEST)) \setminus (WL\ \cup\ IM(PROD))\]
+
+\section{Indented Test}
+Loops and conditionals break the linear character of a test, and might make it too complex. Who's going to test the test? To fight duplication Indented Test is flagged for commands and helpers seperatly.
+\vspace{5mm}
+
+COND(m) and LOOP(m) denote the sets of conditionals and loops used in the implementation of method m.
+
+\vspace{5mm}
+
+\[INDENT=\{te\ |\ COND(te)\ \cup\ LOOP(te) \neq\ \phi\}\]
+
+\section{Indirect Test}
+Testing bussiness logic through the presentation layer is an example of Indirect Test. A test case should test its counterpart in the production code. However, pinpointing the 'tested class' is not trivial. Instead a heuristic based on the number of production types used aka NPTU is employed, defined in \cite{rom:OTDOTS}.
+\vspace{5mm}
+
+\[n\ \epsilon\ \mathbb{N}_{0}, INDIR(n)=\{tm\ |\ NPTU(tm)\ \geq\ n\}\]
+
+\section{Mystery Guest}
+The use of external resources in unit tests is considered not done. It lowers a tests documentational value. Also, the extra dependency might introduce subtle circumstancial failures. And last but not least I/O has a negative effect on speed. Examples include file access, database connections. To make static detection feasible the system should be learned which methods are not wanted. Direct or indirect invocations of such blacklisted methods $\epsilon\ MYST$ in commands and helpers will be flagged. $IM_{i}(te)$ stands for the set of all invoked methods at level $i$ of indirection in helper or command $te$.
+\vspace{5mm}
+
+\[IM_{0}(te)=IM(te)\]
+\[i \epsilon\ \mathbb{N},\ IM_{i+1}(te)=\bigcup_{t\epsilon IM_{i}(te)}SIM(t) \cup PIM(t)\]
+\[TIM(te)=\bigcup_{i=0}^{\infty}IM_{i}(te)\]
+\[MYST=\{m\ \epsilon\ M(C)|\ m\ is\ blacklisted\}\]
+\[MGUES=\{te\ |\ TIM(te)\ \cap\ MYST\ \neq\ \phi\}\]
+
+\section{Sensitive Equality}
+Verification by dumping an object's characteristics to string is easy and fast. However by doing so a dependancy on irrelevant details like formatting characters is created. Whenever the toString implementation changes, tests will start failing. Detecting this in Java code boils down to the usage of 'toString' in a test framework checker method, either nested or indirect. For other languages a method blacklist $SEBL$ is needed. As a heuristic for 'linked to a checker method' all invocations in a helper or command are taken into account, which obviously results in false positives.
+\vspace{5mm}
+\[SEBL=\{m\ \epsilon\ M(C)\ |\ m\ dumps\ to\ string\ and\ was\ blacklisted\}\]
+\[SEQUAL=\{te |\ IM(te)\ \cap\ SEBL\ \neq\ \phi\}\]
+\pagebreak 
+
+\bibliographystyle{ieeetr}
+\bibliography{formspec}
+\end{document}

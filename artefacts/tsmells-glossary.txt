@@ -1,0 +1,31 @@
+--------------------------------------------------------------------------------------------------
+|  wat:    Glossary voor tsmells
+|  auteur: Manuel Breugelmans
+|  datum:  2008-03-02
+--------------------------------------------------------------------------------------------------
+
++ tsmells-stats
+    Subsysteem van tsmells dat de smells detectie uitvoert. Input is een abstract model van
+    een software systeem in RSF formaat.
+
++ tsmells-viz
+    Subsysteem van tsmells dat de visualizatie van test smells alsook een terug-
+    kopelling met de source verzorgt. Input hier is de output van tsmells-stats
+
++ RSF
+    Voorstelling van n-ary relaties, die als input gelden voor crocopat. In de tsmell context
+    stelt dit het software systeem voor, gegeneerd door Fetch.
+
++ RML
+    Logische/relationele taal geschikt om het RSF model te bevragen. Test smells worden
+    gededecteerd via RML scripts.
+
++ crocopat
+    interpreter voor de RML taal.
+
++ test smell
+    Een 'bad practice' of nog 'anti pattern' in xUnit test code. In dit kader vooral met het oog
+    op maintainability & readability.
+
++ test entiteit
+    De verzameling van test modules, cases, commands, helpers & fixture.
