@@ -1,1 +1,1 @@
-ForTestersOnly	mypkg::MyUUT.myFTOMethod()	mypkg/MyUUT.java	4
+ForTestersOnly	"mypkg::MyUUT.myFTOMethod()"	"mypkg/MyUUT.java"	4

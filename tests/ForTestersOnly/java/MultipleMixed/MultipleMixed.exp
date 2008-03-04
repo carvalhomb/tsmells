@@ -1,2 +1,2 @@
-ForTestersOnly	MyUUT.anotherFto()	MyUUT.java	7
-ForTestersOnly	MyUUT.ftoMethod()	MyUUT.java	2
+ForTestersOnly	"MyUUT.anotherFto()"	"MyUUT.java"	7
+ForTestersOnly	"MyUUT.ftoMethod()"	"MyUUT.java"	2

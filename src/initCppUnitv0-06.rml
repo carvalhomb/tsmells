@@ -55,6 +55,33 @@ TestMethodId(x) :=
     EX(y, 
         TestCaseId(y) & 
         MethodBelongsToClass(x,y));
+
+// this is temporary, to remove CPPUNIT_TEST and 
+// CPPUNIT_TEST_SUITE as methods
+CppUnitMacro(x) := 
+    EX(mn,
+        TestMethodId(x) &
+        Method(x, mn) & 
+        @"CPPUNIT_TEST"(mn));
+
+TestConstructor(x) :=
+   EX(mn,
+       TestMethodId(x) &
+       Method(x, mn) &
+       @"^.*(::)?(.*)\.\2[(].*[)]$"(mn));
+
+TestDestructor(x) :=
+   EX(mn,
+       TestMethodId(x) &
+       Method(x, mn) &
+       @"^.*(::)?(.*)\.~\2[(][)]$"(mn));
+
+CppUnitSuiteMethod(x) := 
+    EX(mn,
+        TestMethodId(x) &
+        Method(x, mn) & 
+        @"\.suite[(][)]$"(mn));
+
 TestCommandId(x) := 
     EX(mn, 
         TestMethodId(x) & 
@@ -74,7 +101,11 @@ TestHelperId(x) :=
         TestMethodId(x) & 
         !TestCommandId(x) & 
         !TestSetupId(x) & 
-        !TestTeardownId(x);
+        !TestTeardownId(x) &
+        !CppUnitMacro(x) &
+        !TestConstructor(x) &
+        !TestDestructor(x) &
+        !CppUnitSuiteMethod(x);
 
 Yes("1");
 No("0");

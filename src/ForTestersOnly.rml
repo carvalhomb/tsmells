@@ -33,17 +33,22 @@ ForTestersOnlyId(x) :=
     !EX(y,z, ProductionMethodId(y) & !=(x,y) & 
     PureInvokes(z,y,x));
 
-// TODO rewrite this with an instant dump instead of looping, which is terribly slow
-//      also use information from the `TestEntityInfo' relation instead of recomputing
-//      filename, linenumber & methodname ...
-FOR fto IN ForTestersOnlyId(x) {
-    MtdName(mnm) := Method(fto, mnm);
-    FileName(x) := EX(y, def, DefinitionForDeclaration(def, fto) &
-                              InvokableEntityBelongsToFile(def,y,_) & File(y,x));
-    LineNr(x) := InvokableEntityBelongsToFile(fto, _, x);
-    FOR mnm IN MtdName(x) {
-    FOR f IN FileName(x)  { 
-    FOR l IN LineNr(x)    {
-        PRINT "ForTestersOnly	", mnm, "	", f, "	", l, ENDL;
-    }}}
-}
+/**
+ * Contains invokable entity ids {methods, functions} 
+ * of production methods which get called in a 
+ * test command/helper but not in production code.
+ * 
+ * @col ent : qualified method or function name
+ * @col file: file this entity is defined in
+ * @col line: starting linenumber (of definition)
+ **/
+ForTestersOnly(ent,file,line) :=
+	EX(id, def, fid,
+		ForTestersOnlyId(id) &
+		Method(id, ent) &
+		DefinitionForDeclaration(def, id) &
+		InvokableEntityBelongsToFile(def, fid, line) &
+		File(fid, file));
+
+PRINT ["ForTestersOnly"] ForTestersOnly(x,y,z);
+
