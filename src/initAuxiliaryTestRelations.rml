@@ -92,16 +92,33 @@ TestEntityInfo(tid, name, file, line) :=
       );
 
 /**
- * All helpers thid invoked from command tcid
+ * Extended test command, helper & fixture information
+ * with the owner test case
+ *
+ * @col tid:  test command or helper id
+ * @col name: qualified method name
+ * @col file: sourcefile this method is defined in
+ * @col line: starting linenumber of the method definition
+ * @col tcid: owner testcase id
+ * @col case: owner testcase fully qualified name
  **/
-ComHelpers(tcid, thid) := 
+TestEntityInfoWithOwner(tid, name, file, line, tcid, case) :=
+    TestEntityInfo(tid, name, file, line) &
+    MethodBelongsToClass(tid, tcid) &
+    Class(tcid, case);
+
+/**
+ * All helpers thid invoked directly from command tcid
+ **/
+ComHelpers(tcid, thid) :=
     TestCommandId(tcid) & TestHelperId(thid) & PureInvokes(_,tcid, thid);
-TestHelperInvoke(thid1, thid2) := 
+TestHelperInvoke(thid1, thid2) :=
     TestHelperId(thid1) & PureInvokes(_, thid1, thid2) & TestHelperId(thid2);
 
 /**
  * All helpers thid invoked from tcid, directly & indirectly
+ * where tcid is a testcommand id
  **/
 TransComHelper(tcid, thid) :=
-    ComHelpers(tcid, thid) | 
+    ComHelpers(tcid, thid) |
     EX(z, ComHelpers(tcid,z) & TC(TestHelperInvoke(z, thid)));

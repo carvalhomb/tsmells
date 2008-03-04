@@ -1,0 +1,11 @@
+TestCase	"BarTest"	"BarTest.java"	3	
+TestCase	"foo::FooTest"	"foo/FooTest.java"	5	
+TestCase	"test::BazTest"	"test/BazTest.java"	6	
+TestCommand	"BarTest.testCompute()"	"BarTest.java"	17	"BarTest"	
+TestCommand	"foo::FooTest.testAdd()"	"foo/FooTest.java"	7	"foo::FooTest"	
+TestCommand	"foo::FooTest.testMult()"	"foo/FooTest.java"	12	"foo::FooTest"	
+TestCommand	"test::BazTest.testInt()"	"test/BazTest.java"	13	"test::BazTest"	
+TestHelper	"BarTest.helper()"	"BarTest.java"	14	"BarTest"	
+TestSetup	"BarTest.setUp()"	"BarTest.java"	7	"BarTest"	
+TestSetup	"test::BazTest.setUp()"	"test/BazTest.java"	9	"test::BazTest"	
+TestTeardown	"BarTest.tearDown()"	"BarTest.java"	11	"BarTest"

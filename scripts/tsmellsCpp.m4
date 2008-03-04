@@ -30,6 +30,7 @@ include(XUNIT_INIT)
 include(TSMELLS`/src/count.rml')
 include(TSMELLS`/src/initAuxiliaryTestRelations.rml')
 
+ifdef(`DUMP_TEST_ENTITIES', `include(TSMELLS`/src/dumpTestEntities.rml')', `')
 ifdef(`ASSERTIONLESS', `include(TSMELLS`/src/AssertionLess.rml')', `')
 ifdef(`ASSERTION_ROULETTE_TRESHOLD', `', `define(`ASSERTION_ROULETTE_TRESHOLD', `3')')
 ifdef(`ASSERTION_ROULETTE', `include(TSMELLS`/src/AssertionRoulette.rml')', `')

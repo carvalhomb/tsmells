@@ -1,0 +1,105 @@
+//
+//TestModule(name) := 
+//   EX(tcid, modid, fid,
+//       TestCaseId(tcid) & 
+//        ClassBelongsToFile(tcid, fid, _) &
+//        FileBelongsToModule(fid, modid) &
+//        Module(modid,name));
+//
+//PRINT ["TestModule"] TestModule(x);
+//
+
+// TestConstr(nm) := 
+//     EX(x, 
+//         TestConstructor(x) &
+//         TestEntityInfo(x, nm, _, _));
+// PRINT ["TestConstr"] TestConstr(x);
+// 
+// TestDestr(nm) := 
+//     EX(x, 
+//         TestDestructor(x) &
+//         TestEntityInfo(x, nm, _, _));
+// PRINT ["TestDestr"] TestDestr(x);
+// 
+// SuiteMethod(nm) := 
+//     EX(x, 
+//         CppUnitSuiteMethod(x) &
+//         TestEntityInfo(x, nm, _, _));
+// PRINT ["Sutie"] SuiteMethod(x);
+
+/**
+ * Name, file & linenumber of testcases
+ *
+ * @col name: qualified testcase name
+ * @col file: file this testcase is declared in
+ * @col line: linenumber of the declaration
+ **/
+TestCaseInfo(name, file, line) :=
+    EX(tcid, fid,
+        TestCaseId(tcid) &
+        Class(tcid, name) &
+        ClassBelongsToFile(tcid, fid, line) &
+        File(fid, file));
+
+PRINT ["TestCase"] TestCaseInfo(x,y,z);
+
+/**
+ * Name, file, linenumber & owner testcase of testcommands
+ * 
+ * @col name: qualified testcommand name
+ * @col file: filename this command is defined in
+ * @col case: qualified testcase name which owns the command
+ **/
+TestCommandInfo(name, file, line, case) :=
+    EX(comid,
+        TestCommandId(comid) &
+        TestEntityInfoWithOwner(comid, name, file, line, _, case)
+      );
+
+PRINT ["TestCommand"] TestCommandInfo(u,v,w,x);
+
+/**
+ * Name, file, linenumber & owner testcase of testhelpers
+ * 
+ * @col name: qualified testhelper name
+ * @col file: filename this helper is defined in
+ * @col case: qualified testcase name which owns the helper
+ **/
+TestHelperInfo(name, file, line, case) :=
+    EX(helid, 
+        TestHelperId(helid) &
+        TestEntityInfoWithOwner(helid, name, file, line, _, case)
+      );
+
+PRINT ["TestHelper"] TestHelperInfo(u,v,w,x);
+
+
+/**
+ * Name, file, linenumber & owner testcase of testsetup
+ *
+ * @col name: qualified testsetup name
+ * @col file: filename this setup is defined in
+ * @col case: qualified testcase owner name
+ **/
+TestSetupInfo(name, file, line, case) :=
+    EX(fixid, 
+        TestSetupId(fixid) &
+        TestEntityInfoWithOwner(fixid, name, file, line, _, case)
+      );
+
+PRINT ["TestSetup"] TestSetupInfo(u,v,w,x);
+
+/**
+ * Name, file, linenumber & owner testcase of testteardown
+ *
+ * @col name: qualified testteardown name
+ * @col file: filename this teardown is defined in
+ * @col case: qualified testcase owner name
+ **/
+TestTeardownInfo(name, file, line, case) :=
+    EX(fixid, 
+        TestTeardownId(fixid) &
+        TestEntityInfoWithOwner(fixid, name, file, line, _, case)
+      );
+
+PRINT ["TestTeardown"] TestTeardownInfo(u,v,w,x);

@@ -30,6 +30,7 @@ PRINT "(02) extracting xUnit entities ... ", ENDL TO STDERR;
 include(XUNIT_INIT)
 include(TSMELLS`/src/count.rml')
 include(TSMELLS`/src/initAuxiliaryTestRelations.rml')
+include(TSMELLS`/src/dumpTestEntities.rml')
 
 PRINT "(03) AssertionLess ... ", ENDL TO STDERR;
 ifdef(`ASSERTIONLESS', `include(TSMELLS`/src/AssertionLess.rml')', `')

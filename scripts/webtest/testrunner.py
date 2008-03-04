@@ -119,6 +119,10 @@ def text2html(ascii):
             i = "&nbsp;&nbsp;&nbsp;&nbsp;"
         elif i in [' ']:
             i = "&nbsp;"
+        elif i == '<':
+            i = "&lt;"
+        elif i == '>':
+            i = "&gt;"
         html += i
     return html
 

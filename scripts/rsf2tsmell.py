@@ -90,7 +90,8 @@ def buildM4Input(xinit, smells, params, tsmellsRoot):
         smells: smell keys
         params: aditional m4 input'''
 
-    m4Input = " -DTSMELLS=" + tsmellsRoot + " -DXUNIT_INIT=" + xinit 
+    m4Input = " -DTSMELLS=" + tsmellsRoot + " -DXUNIT_INIT=" + xinit \
+              + " -DDUMP_TEST_ENTITIES"
     for smell in smells:
         m4Input += " -D" + smell
     for k,v in params.iteritems():
