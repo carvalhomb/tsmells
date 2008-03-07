@@ -19,13 +19,19 @@
 # Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
 #
 
-import unittest, sys
-from cStringIO import StringIO as iostr
-sys.path.append("../../src")
-sys.path.append("../../src/contract")
-from tsmells2gdf import *
+import sys
 
-class RootTest(unittest.TestCase):
+sys.path.append("../../src/viz")
+sys.path.append("../../src/contract")
+
+from unittest    import TestCase
+from unittest    import main
+from tsmells2gdf import *
+from cStringIO   import StringIO as iostr
+
+SMELL_NODE_COLOR = "red"
+
+class RootTest(TestCase):
 	''' abstract root test'''
 	def verifyParse(self, parser, toParse, key, location):
 		parser.parse(toParse)
@@ -79,13 +85,14 @@ class TestCasesTest(RootTest):
 		self.assertTrue(expNode2 in nodes)
 		self.assertTrue(expNode3 in nodes)
 
-	def testGenerateLocationNodes(self):
-		self.cases.parse(self.toParse)
-		locations = self.cases.generateLocationNodes()
-		self.expLocation = LocationNode("SRC_" + "TestCases0", self.location)
+	# Transform this into a appendSrcLoc test
+	#def testGenerateLocationNodes(self):
+		#self.cases.parse(self.toParse)
+		#locations = self.cases.generateLocationNodes()
+		#self.expLocation = LocationNode("SRC_" + "TestCases0", self.location)
 
-		self.assertEquals(1, len(locations))
-		self.assertTrue(self.expLocation in locations)
+		#self.assertEquals(1, len(locations))
+		#self.assertTrue(self.expLocation in locations)
 
 
 class TestCommandsTest(RootTest):
@@ -163,7 +170,7 @@ class AssertionLesssTest(RootTest):
 		self.assertionlesss = AssertionLesss()
 		self.key = "FooTest.testFoo()"		
 		self.toParse = ["AssertionLess", self.key, "FooTest.java", "25"]
-		self.expNode = Node(name="AssertionLess0", color="black",\
+		self.expNode = Node(name="AssertionLess0", color=SMELL_NODE_COLOR,\
 		 					label="AssertionLess", entity="smell", \
 							style=3)
 
@@ -186,7 +193,7 @@ class AssertionRoulettesTest(RootTest):
 		self.assertEquals(10, self.assertionroulettes.getTotalAsserts(key))
 		self.assertEquals(8, self.assertionroulettes.getDescriptionlessAsserts(key))
 
-class DuplicatedCodesTest(unittest.TestCase):
+class DuplicatedCodesTest(TestCase):
 	def setUp(self):
 		self.duplicatedcodes = DuplicatedCodes()
 		self.mtd1 = "BtPieceMessageTest.testChokingEvent_inAmAllowedIndexSet()"
@@ -200,16 +207,17 @@ class DuplicatedCodesTest(unittest.TestCase):
 	def testParse(self):
 		self.duplicatedcodes.parse(self.toParse)
 
-	def testGenerateLocationNodes(self):
-		self.duplicatedcodes.parse(self.toParse)
-		locations = self.duplicatedcodes.generateLocationNodes()
-		dupLocNode1 = LocationNode("SRC_DuplicatedCodes0", self.dupLoc1)
-		dupLocNode2 = LocationNode("SRC_DuplicatedCodes1", self.dupLoc2)
+	# Transform this into a appendSrcLoc test
+	#def testGenerateLocationNodes(self):
+		#self.duplicatedcodes.parse(self.toParse)
+		#locations = self.duplicatedcodes.generateLocationNodes()
+		#dupLocNode1 = LocationNode("SRC_DuplicatedCodes0", self.dupLoc1)
+		#dupLocNode2 = LocationNode("SRC_DuplicatedCodes1", self.dupLoc2)
 
-		self.assertEquals(2, len(locations))
+		#self.assertEquals(2, len(locations))
 		
-		self.assertTrue(dupLocNode1 in locations)
-		self.assertTrue(dupLocNode2 in locations)
+		#self.assertTrue(dupLocNode1 in locations)
+		#self.assertTrue(dupLocNode2 in locations)
 
 class ForTestersOnlysTest(RootTest):
 	def setUp(self):
@@ -234,8 +242,8 @@ class IndentedTestsTest(RootTest):
 		self.assertEquals(1, self.indentedtests.getCount(self.key))
 
 	def testGenerateNodes(self):
-		self.expNode = Node(name="IndentedTest0", color="black", entity="smell",\
-						label="IndentedTest", style=3)
+		self.expNode = Node(name="IndentedTest0", color=SMELL_NODE_COLOR, \
+							entity="smell", label="IndentedTest", style=3)
 		self.verifyGenerateNodes(self.indentedtests, self.expNode)
 
 	def testGenerateEdges(self):
@@ -246,13 +254,14 @@ class IndentedTestsTest(RootTest):
 		self.assertEquals(1, len(edges))
 		self.assertTrue(self.expEdge in edges)
 
-	def testGenerateLocationNodes(self):
-		self.indentedtests.parse(self.toParse)
-		locations = self.indentedtests.generateLocationNodes()
-		self.expLocation = LocationNode('SRC_' + "IndentedTests0", self.location)
+	# Transform this into a appendSrcLoc test
+	#def testGenerateLocationNodes(self):
+		#self.indentedtests.parse(self.toParse)
+		#locations = self.indentedtests.generateLocationNodes()
+		#self.expLocation = LocationNode('SRC_' + "IndentedTests0", self.location)
 
-		self.assertEquals(1, len(locations))
-		self.assertTrue(self.expLocation in locations)
+		#self.assertEquals(1, len(locations))
+		#self.assertTrue(self.expLocation in locations)
 
 class IndirectTestsTest(RootTest):
 	def setUp(self):
@@ -278,7 +287,7 @@ class SensitiveEqualitysTest(RootTest):
 		self.assertEquals(1, self.sensitiveequalitys.getCount(key))
 		self.assertEquals("TC", self.sensitiveequalitys.getType(key))
 
-class MysteryGuestsTest(unittest.TestCase):
+class MysteryGuestsTest(TestCase):
 	def setUp(self):
 		self.mysteryguests = MysteryGuests()
 		self.command = "MysteryTest.testSomething()"
@@ -288,28 +297,28 @@ class MysteryGuestsTest(unittest.TestCase):
 		self.toParse=["MysteryGuest", self.command , "MysteryTest.java", "5",\
 					 self.target, "MyOtherProductionClass.java","6","file",\
 					 "java::io::BufferedReader.readLine()"]
-		self.expCmdLocation = LocationNode("SRC_MysteryGuests0", self.commandLocation)
+#		self.expCmdLocation = LocationNode("SRC_MysteryGuests0", self.commandLocation)
 
 	def testParse(self):
 		self.mysteryguests.parse(self.toParse)
 
-	def testGenerateLocationNodes(self):
-		self.mysteryguests.parse(self.toParse)
-		locations = self.mysteryguests.generateLocationNodes()
-		self.expTargetLocation = LocationNode("SRC_MysteryGuests1", self.targetLocation)
-		self.assertEqual(2, len(locations))
-		self.assertTrue(self.expCmdLocation in locations)
-		self.assertTrue(self.expTargetLocation in locations)
+	#def testGenerateLocationNodes(self):
+		#self.mysteryguests.parse(self.toParse)
+		#locations = self.mysteryguests.generateLocationNodes()
+		#self.expTargetLocation = LocationNode("SRC_MysteryGuests1", self.targetLocation)
+		#self.assertEqual(2, len(locations))
+		#self.assertTrue(self.expCmdLocation in locations)
+		#self.assertTrue(self.expTargetLocation in locations)
 
-	def testGenLocationDirectMystery(self):
-		toParse = self.toParse
-		toParse[4] = self.command
-		toParse[5] = self.commandLocation[0]
-		toParse[6] = str(self.commandLocation[1])
-		self.mysteryguests.parse(toParse)
-		locations = self.mysteryguests.generateLocationNodes()
-		self.assertEqual(1, len(locations))
-		self.assertTrue(self.expCmdLocation in locations)
+	#def testGenLocationDirectMystery(self):
+		#toParse = self.toParse
+		#toParse[4] = self.command
+		#toParse[5] = self.commandLocation[0]
+		#toParse[6] = str(self.commandLocation[1])
+		#self.mysteryguests.parse(toParse)
+		#locations = self.mysteryguests.generateLocationNodes()
+		#self.assertEqual(1, len(locations))
+		#self.assertTrue(self.expCmdLocation in locations)
 
 	#def testGenLocationComma(self):
 		#toParse = self.toParse
@@ -322,7 +331,7 @@ class MysteryGuestsTest(unittest.TestCase):
 		#print expLocation
 		#self.assertTrue(expLocation in locations)
 
-class NodeTest(unittest.TestCase):
+class NodeTest(TestCase):
 	def testConstructor(self):
 		node = Node(name="TestFoo", color="black", entity="testcase", label="TestFoo", style=1)
 		self.assertEquals("TestFoo", node.name)
@@ -331,21 +340,5 @@ class NodeTest(unittest.TestCase):
 		self.assertEquals("TestFoo", node.label)
 		self.assertEquals("1", node.style)
 
-class LocationNodeTest(unittest.TestCase):
-	def setUp(self):
-		self.name = "srcloc_" + "FooTest"
-		self.srcloc = ("TestFoo.java", 2)
-		self.locNode = LocationNode(name = self.name, srcloc=self.srcloc)
-
-	def testConstructor(self):
-		self.assertEquals(self.name, self.locNode.name)
-		self.assertEquals(self.srcloc, self.locNode.srcloc)
-
-	def testWrite(self):
-		output = iostr()
-		self.locNode.write(output)
-		expected = self.name + ",location," + self.srcloc[0] + "," +\
-					str(self.srcloc[1]) + ",0\n"
-		self.assertEquals(expected, output.getvalue())
-
-unittest.main()
+if __name__=='__main__':
+	main() # fetches & executes all tests

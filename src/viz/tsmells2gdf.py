@@ -19,8 +19,6 @@
 # Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
 #
 
-import cPickle
-
 def isSourceLine(toCheck):
 	""" verify if toCheck is a legal source line number
 		line numbers should be integers and strict positive """
@@ -59,16 +57,6 @@ class SourceEntityz(object):
 			self.hasKey(qualifiedName)
 		"""
 		return self.dict[qualifiedName][0]
-
-	def generateLocationNodes(self):
-		nodes = []
-		count = 0
-		for entity in self.dict:
-			nodes.append(LocationNode(
-					"SRC_" + self.__class__.__name__ + str(count),
-					self.dict[entity][0]))
-			count += 1
-		return nodes
 
 class TestEntitiez(SourceEntityz):
 	def __init__(self):
@@ -438,19 +426,6 @@ class MysteryGuests(object):
 			srcDict["MysteryGuest" + str(counter)] = [(mystery[2], mystery[3]), mystery[5], mystery[6]]
 			counter += 1
 
-	def generateLocationNodes(self):
-		# deprecated
-		nodes = []
-		counter = 0
-		for mystery in self.mysteries:
-			nodes.append(LocationNode("SRC_MysteryGuests" + str(counter), (mystery[2], int(mystery[3]))))
-			if self.__isDirectMystery(mystery):
-				counter += 1
-				continue
-			nodes.append(LocationNode("SRC_MysteryGuests" + str(counter), (mystery[5], int(mystery[6]))))
-			counter += 1
-		return nodes
-
 	def __isDirectMystery(self, mystery):
 		# a mystery guest is direct if the blacklisted method gets called
 		# in the testcommand/helper/setup.
@@ -501,17 +476,6 @@ class DuplicatedCodes(object):
 		for duplicate in self.duplicates:
 			srcDict["DuplicatedCode" + str(counter)] = [(duplicate[2], duplicate[3]), (duplicate[6], duplicate[7])]
 			counter += 1
-
-	def generateLocationNodes(self):
-		#deprecated
-		nodes = []
-		counter = 0
-		for duplicate in self.duplicates:
-			nodes.append(LocationNode("SRC_DuplicatedCodes" + str(counter), (duplicate[2], int(duplicate[3]))))
-			counter += 1
-			nodes.append(LocationNode("SRC_DuplicatedCodes" + str(counter), (duplicate[6], int(duplicate[7]))))
-			counter += 1
-		return nodes
 
 	def parse(self, toParse):
 		"""
@@ -604,50 +568,8 @@ class Edge():
 		output.write('edgedef>node1,node2,directed,visible,color\n')
 	writeHeader = staticmethod(writeHeader)
 
-
-class LocationNode():
-	def __init__(self, name, srcloc):
-		'''
-			pre:
-				name.startswith('SRC_')
-				len(srcloc) == 2
-				isSourceLine(srcloc[1])
-		'''
-		self.name = name
-		self.srcloc = srcloc
-
-	def __eq__(self, other):
-		if self is other:
-			return True
-		if other is None:
-			return False
-		if not (isinstance(other, LocationNode)):
-			return False
-		if self.name == other.name and\
-			self.srcloc[0] == other.srcloc[0] and\
-			self.srcloc[1] == other.srcloc[1]:
-			return True
-		return False
-
-	def __str__(self):
-		return "LocationNode[" + self.name + "," + self.srcloc[0] + "," + str(self.srcloc[1]) + "]"
-
-	def write(self,output):
-		'''
-			todo precondition that output was opened in write mode
-		'''
-		#nodedef>name,entity VARCHAR(32),file VARCHAR(64),line INT,visible
-		output.write(self.name + "," + "location," + self.srcloc[0] +\
-					 "," + str(self.srcloc[1]) + ",0\n")	
-
-	def writeHeader(output):
-		'''
-			todo precondition requiring that output was opened in write mode
-		'''
-		output.write('nodedef>name,entity VARCHAR(32),file VARCHAR(64),line INT,visible\n')
-	writeHeader = staticmethod(writeHeader)
-
 import inspect
+import cPickle
 
 def isDumpEntityCollection(object):
 	""" introspection predicate to filter only those classes
@@ -691,16 +613,12 @@ class EntityConverter():
 		Node.writeHeader(output)
 		self.__generateGdfPart('generateNodes', output)
 		self.__writeSpacer(output)
-		
-		#LocationNode.writeHeader(output)
-		#self.__generateGdfPart('generateLocationNodes', output)
-		#self.__writeSpacer(output)
 
 		Edge.writeHeader(output)
 		self.__generateGdfPart('generateEdges', output)
 		output.close()
 
-	def writeSrcPickle(self, filename, root):
+	def writeSourceLocationInfo(self, filename, root):
 		output = open(filename, 'wb')
 		srcDict = {}
 		srcDict['ProjectSourceRootDirectory'] = root
@@ -736,4 +654,4 @@ if __name__=='__main__':
 	converter.readDump(smellDump)
 	prefix = smellDump[0:smellDump.rfind('.')]
 	converter.writeGdf( prefix + ".gdf")
-	converter.writeSrcPickle( prefix + ".srcmap.pickle", root)
+	converter.writeSourceLocationInfo( prefix + "_srcloc.pickle", root)
