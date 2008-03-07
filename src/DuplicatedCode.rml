@@ -36,6 +36,8 @@
  * @col inv:    qualified invokee name
  * @col file:   filename
  **/
+// NOTE assertion's are removed since sequences of them
+// result in (loads of) false positives
 ComInvoke(tcid, iid, invid, line, tcx, inv, file) := 
    EX(x, fid, def,
               TestMethodId(tcid) & 
@@ -45,7 +47,8 @@ ComInvoke(tcid, iid, invid, line, tcx, inv, file) :=
               InvokableEntityBelongsToFile(def,fid, x) &
               Method(tcid,tcx) &
               (Method(invid, inv) | Function(invid, inv)) &
-              File(fid, file)
+              File(fid, file) &
+              !TestChecker(invid)
      );
 
 EXEC "rm -rf tmp_duplic_code__";

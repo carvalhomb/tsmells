@@ -594,7 +594,6 @@ class EntityConverter():
 			splitted = [filterComma(elem.strip('"')) for elem in line.split('\t')]
 			if splitted[-1] == '\n': splitted = splitted[:-1]
 			#dispatch
-			print splitted
 			try: self.entities[splitted[0] + "s"].parse(splitted)
 			except KeyError, e: print e
 		dump.close()
@@ -654,4 +653,4 @@ if __name__=='__main__':
 	converter.readDump(smellDump)
 	prefix = smellDump[0:smellDump.rfind('.')]
 	converter.writeGdf( prefix + ".gdf")
-	converter.writeSourceLocationInfo( prefix + "_srcloc.pickle", root)
+	converter.writeSourceLocationInfo( prefix + ".srcloc", root)
