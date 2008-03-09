@@ -42,7 +42,8 @@ ComInvoke(tcid, iid, invid, line, tcx, inv, file) :=
    EX(x, fid, def,
               TestMethodId(tcid) & 
               PureInvokes(iid, tcid, invid) & 
-              InvocationLocation(iid, _, line) &
+              //InvocationLocation(iid, _, line) &
+              LineNo(iid, _, line) &
               DefinitionForDeclaration(def, tcid) &
               InvokableEntityBelongsToFile(def,fid, x) &
               Method(tcid,tcx) &
@@ -70,7 +71,8 @@ ComAccess(tcid_ca, aid, attid, line2, tc2, att, file2) :=
    EX(x, fid, attrid, def,
               TestMethodId(tcid_ca) & 
               PureAccesses(aid, tcid_ca, attrid) & 
-              AccessLocation(aid, _, line2) &
+              //AccessLocation(aid, _, line2) &
+              LineNo(aid, _, line2) &
               DefinitionForDeclaration(def, tcid_ca) &
               InvokableEntityBelongsToFile(def,fid, x) &
               Method(tcid_ca,tc2) &

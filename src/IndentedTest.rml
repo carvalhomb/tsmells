@@ -25,10 +25,20 @@
 IndentedTestType("0", "TC");
 IndentedTestType("1", "TH");
 
-CtrlStructCount("","","");
+/**
+ * CtrlStructCount(tid, type ,cnt)
+ *
+ * @col tid:  test method id {command, helper}
+ * @col type: "TC" if found in a command, "TH" if found in a helper
+ * @col cnt:  number of control structures
+ **/
+CtrlStructCount("","",""); // without initialization crocopat crashes
 
 LoopCount(id, cntx) := TestCommandId(id) & Measurement(_,id, "LOOP", cntx);
 CondCount(id, cntx) := TestCommandId(id) & Measurement(_,id, "COND", cntx);
+
+//PRINT ["CondCount"] CondCount(o,p);
+
 FOR sid IN TestCommandId(x) {
     cnt := SUM(LoopCount(sid,x)) + SUM(CondCount(sid, y));
     IF (cnt > 0) {
@@ -46,6 +56,8 @@ FOR id IN TestHelperId(x) {
             x = id & IndentedTestType("1", y) & count(STRING(cnt2), z);
     }
 }
+
+//PRINT ["CtrlStructCount"] CtrlStructCount(o,p,q);
 
 /**
  * Fetch the number of conditionals and 

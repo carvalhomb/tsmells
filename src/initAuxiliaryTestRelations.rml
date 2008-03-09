@@ -33,11 +33,14 @@ PureInvokes(id,x,y) :=
     EX(u, 
         DefinitionForDeclaration(u,x) & 
         Invokes(id,u,y));
+// PRINT ["PureInvokes"] PureInvokes(o,p,q);
 
 Stimulates(id,x,y) := 
         PureInvokes(id,x,y) & 
         TestMethodId(x) &  
         (ProductionMethodId(y) | ProductionFunctionId(y));
+// PRINT ["Stimulates"] Stimulates(o,p,q);
+
 
 /**
  *  Predicate which denotes wheter an assertion has a failure message
@@ -59,7 +62,8 @@ CheckerInvoke(z,y,x) :=
         TestChecker(x) & 
         (TestCommandId(y)|TestHelperId(y)) & 
         PureInvokes(z,y,x);
-
+// PRINT "#CheckerInvoke ", #(CheckerInvoke(o,p,q)), ENDL;
+// PRINT ["CheckerInvoke"] CheckerInvoke(o,p,q);
 
 /**
  * contains a cleaned accesses relation. gets rid of the DefinitionForDeclaration step

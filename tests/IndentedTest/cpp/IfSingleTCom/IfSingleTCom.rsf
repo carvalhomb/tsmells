@@ -1,0 +1,173 @@
+Module	1	"/"
+Module	2	"/cppunit"
+Module	3	"/cppunit/extensions"
+ModuleBelongsToModule	2	1
+ModuleBelongsToModule	3	2
+File	1	"FooTest.cpp"
+File	2	"FooTest.h"
+File	3	"cppunit/TestCase.h"
+File	4	"cppunit/TestFixture.h"
+File	5	"cppunit/TestSuite.h"
+File	6	"cppunit/extensions/HelperMacros.h"
+FileBelongsToModule	1	1
+FileBelongsToModule	2	1
+FileBelongsToModule	3	2
+FileBelongsToModule	4	2
+FileBelongsToModule	5	2
+FileBelongsToModule	6	3
+Include	8	6	5
+Include	18	3	4
+Include	24	1	2
+Include	27	1	5
+Include	29	2	4
+ConditionalCompilation	30	"!CPPUNIT_TESTFIXTURE_H // -*- C++ -*-"
+ConditionalCompilation	31	"!CPPUNIT_TESTSUITE_H // -*- C++ -*-"
+ConditionalCompilation	32	"!FOOTEST_INCLUDED"
+ConditionalCompilation	33	"!CPPUNIT_TESTCASE_H"
+ConditionalCompilation	34	"!CPPUNIT_EXTENSIONS_HELPERMACROS_H"
+ConditionalCompilation	35	"!CPPUNIT_TESTSUITE_H // -*- C++ -*- && CPPUNIT_NEED_DLL_DECL"
+Class	42	"FooTest"
+Class	43	"CppUnit::TestCase"
+Class	44	"CppUnit::TestFixture"
+Class	45	"CppUnit::TestSuite"
+ClassBelongsToFile	42	2	7
+ClassBelongsToFile	43	3	16
+ClassBelongsToFile	44	4	9
+ClassBelongsToFile	45	5	18
+InheritsFrom	46	"FooTest->CppUnit::TestCase"	42	43
+InheritsFrom	47	"CppUnit::TestCase->CppUnit::TestFixture"	43	44
+Method	48	"CppUnit::TestFixture.~TestFixture()"
+Method	50	"FooTest.testFoo()"
+Method	52	"CppUnit::TestFixture.tearDown()"
+Method	55	"CppUnit::TestSuite.addTest(Test*)"
+Method	56	"CppUnit::TestCase.~TestCase()"
+Method	58	"CppUnit::TestSuite.TestSuite(std::string)"
+Method	59	"CppUnit::TestSuite.doGetChildTestAt(int)"
+Method	60	"CppUnit::TestCase.getName()"
+Method	62	"CppUnit::TestCase.TestCase(std::string)"
+Method	63	"CppUnit::TestCase.TestCase()"
+Method	65	"CppUnit::TestSuite.getChildTestCount()"
+Method	66	"CppUnit::TestSuite.getTests()"
+Method	67	"CppUnit::TestCase.run(TestResult*)"
+Method	68	"CppUnit::TestFixture.setUp()"
+Method	72	"CppUnit::TestSuite.deleteContents()"
+Method	73	"CppUnit::TestSuite.~TestSuite()"
+Method	74	"CppUnit::TestCase.runTest()"
+MethodBelongsToClass	48	44
+MethodBelongsToClass	50	42
+MethodBelongsToClass	52	44
+MethodBelongsToClass	55	45
+MethodBelongsToClass	56	43
+MethodBelongsToClass	58	45
+MethodBelongsToClass	59	45
+MethodBelongsToClass	60	43
+MethodBelongsToClass	62	43
+MethodBelongsToClass	63	43
+MethodBelongsToClass	65	45
+MethodBelongsToClass	66	45
+MethodBelongsToClass	67	43
+MethodBelongsToClass	68	44
+MethodBelongsToClass	72	45
+MethodBelongsToClass	73	45
+MethodBelongsToClass	74	43
+Visibility	50	"public"
+Visibility	55	"public"
+Visibility	56	"public"
+Visibility	58	"public"
+Visibility	59	"public"
+Visibility	60	"public"
+Visibility	62	"public"
+Visibility	63	"public"
+Visibility	65	"public"
+Visibility	66	"public"
+Visibility	67	"public"
+Visibility	72	"public"
+Visibility	73	"public"
+Visibility	74	"public"
+Signature	48	"~TestFixture()"
+Signature	50	"testFoo()"
+Signature	52	"tearDown()"
+Signature	55	"addTest(Test*)"
+Signature	56	"~TestCase()"
+Signature	58	"TestSuite(std::string)"
+Signature	59	"doGetChildTestAt(int)"
+Signature	60	"getName()"
+Signature	62	"TestCase(std::string)"
+Signature	63	"TestCase()"
+Signature	65	"getChildTestCount()"
+Signature	66	"getTests()"
+Signature	67	"run(TestResult*)"
+Signature	68	"setUp()"
+Signature	72	"deleteContents()"
+Signature	73	"~TestSuite()"
+Signature	74	"runTest()"
+Function	54	"CPPUNIT_ASSERT_MESSAGE(std::string,boolean)"
+Function	57	"CPPUNIT_ASSERT_EQUAL_MESSAGE(string,T,T)"
+Function	61	"CPPUNIT_FAIL(std::string)"
+Function	64	"CPPUNIT_ASSERT_EQUAL(T,T)"
+Function	70	"CPPUNIT_ASSERT(boolean)"
+Function	71	"CPPUNIT_ASSERT_DOUBLES_EQUAL(double,double,double)"
+InvokableEntityBelongsToFile	48	4	12
+InvokableEntityBelongsToFile	50	2	10
+InvokableEntityBelongsToFile	52	4	14
+InvokableEntityBelongsToFile	55	5	23
+InvokableEntityBelongsToFile	56	3	21
+InvokableEntityBelongsToFile	58	5	21
+InvokableEntityBelongsToFile	59	5	27
+InvokableEntityBelongsToFile	60	3	23
+InvokableEntityBelongsToFile	62	3	19
+InvokableEntityBelongsToFile	63	3	20
+InvokableEntityBelongsToFile	65	5	26
+InvokableEntityBelongsToFile	66	5	24
+InvokableEntityBelongsToFile	67	3	22
+InvokableEntityBelongsToFile	68	4	13
+InvokableEntityBelongsToFile	72	5	25
+InvokableEntityBelongsToFile	73	5	22
+InvokableEntityBelongsToFile	74	3	24
+InvokableEntityBelongsToFile	49	4	12
+InvokableEntityBelongsToFile	51	1	7
+InvokableEntityBelongsToFile	53	4	14
+InvokableEntityBelongsToFile	69	4	13
+InvokableEntityBelongsToFile	54	6	14
+InvokableEntityBelongsToFile	57	6	18
+InvokableEntityBelongsToFile	61	6	15
+InvokableEntityBelongsToFile	64	6	17
+InvokableEntityBelongsToFile	70	6	13
+InvokableEntityBelongsToFile	71	6	16
+DefinitionForDeclaration	49	48
+DefinitionForDeclaration	51	50
+DefinitionForDeclaration	53	52
+DefinitionForDeclaration	69	68
+entityBelongsToBlock	43	33
+entityBelongsToBlock	45	31
+entityBelongsToBlock	47	33
+entityBelongsToBlock	48	30
+entityBelongsToBlock	49	30
+entityBelongsToBlock	50	32
+entityBelongsToBlock	52	30
+entityBelongsToBlock	53	30
+entityBelongsToBlock	54	34
+entityBelongsToBlock	55	31
+entityBelongsToBlock	56	33
+entityBelongsToBlock	57	34
+entityBelongsToBlock	58	31
+entityBelongsToBlock	59	31
+entityBelongsToBlock	60	33
+entityBelongsToBlock	61	34
+entityBelongsToBlock	62	33
+entityBelongsToBlock	63	33
+entityBelongsToBlock	64	34
+entityBelongsToBlock	65	31
+entityBelongsToBlock	66	31
+entityBelongsToBlock	67	33
+entityBelongsToBlock	68	30
+entityBelongsToBlock	69	30
+entityBelongsToBlock	70	34
+entityBelongsToBlock	71	34
+entityBelongsToBlock	72	31
+entityBelongsToBlock	73	31
+entityBelongsToBlock	74	33
+Measurement	75	50	"CC"	2
+Measurement	76	50	"NOS"	2
+Measurement	77	50	"LOC"	7
+Measurement	78	50	"COND"	1
