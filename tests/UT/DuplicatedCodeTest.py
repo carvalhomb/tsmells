@@ -232,7 +232,7 @@ class CloneFinderTest(unittest.TestCase, RsfInvoFixtureBuilder):
         self.mtd1.addReferences(m1inv)
         self.mtd2.addReferences(m2inv)
 
-        dump_dupli(dupli) 
+        #dump_dupli(dupli) 
 
         self.assertEquals(1, len(dupli), \
             "Should find duplicates in a single method, but found " + str(len(dupli)))
@@ -248,8 +248,8 @@ class CloneFinderTest(unittest.TestCase, RsfInvoFixtureBuilder):
         line17 = 'ComInvoke\t11\t223\t178\t10\tMyTest.testOne()\tUut.a()\tMyTest.java\n'
         inv18  = Reference(225,11,180,"Uut.b()")
         line18 = 'ComInvoke\t11\t225\t180\t11\tMyTest.testOne()\tUut.b()\tMyTest.java\n'
-        inv19  = Reference(227, 12, 182, "Uut.c()")
-        line19 = 'ComInvoke\t11\t227\t182\t12\tMyTest.testOne()\tUut.c()\tMyTest.java\n'
+        inv19  = Reference(227, 13, 182, "Uut.c()")
+        line19 = 'ComInvoke\t11\t227\t182\t13\tMyTest.testOne()\tUut.c()\tMyTest.java\n'
 
         rsf = iostr(self.line11 + self.line12 + self.line13 +\
                     line17 + line18 + line19)
@@ -257,7 +257,7 @@ class CloneFinderTest(unittest.TestCase, RsfInvoFixtureBuilder):
         cf = CloneFinder(3)
         dupli = cf.investigate(mtds)
 
-        dump_dupli(dupli)
+        #dump_dupli(dupli)
 
         inv1 = [self.inv11, self.inv12, self.inv13]
         inv2 = [inv17, inv18, inv19]
@@ -268,7 +268,8 @@ class CloneFinderTest(unittest.TestCase, RsfInvoFixtureBuilder):
         self.assertEquals(1, len(dupli))
         self.assertTrue((self.mtd1, self.mtd1) in dupli)
         self.assertEquals(1, len(dupli[(self.mtd1, self.mtd1)]))
-        self.assertTrue((inv1, inv2) in dupli[(self.mtd1, self.mtd1)])
+        self.assertTrue(((inv1, inv2) == dupli[(self.mtd1, self.mtd1)][0]) or \
+                        ((inv2, inv1) == dupli[(self.mtd1, self.mtd1)][0]))
 
     def testTripleDuplication(self):
         rsf = iostr(self.line11 + self.line12 + self.line13 +\
@@ -280,6 +281,7 @@ class CloneFinderTest(unittest.TestCase, RsfInvoFixtureBuilder):
         mtds = self.reader.parse(rsf)
         cf = CloneFinder(4)
         dupli = cf.investigate(mtds)
+        dupli = cf.squashCombinations(dupli)
         #dump_dupli(dupli)
 
         inv1 = Sequence([self.inv11, self.inv12, self.inv13, \
@@ -294,9 +296,14 @@ class CloneFinderTest(unittest.TestCase, RsfInvoFixtureBuilder):
         self.mtd3.addReferences(inv3)
 
         self.assertEquals(1, len(dupli))
-        self.assertTrue((self.mtd1, self.mtd2, self.mtd3) in dupli)
-        self.assertEquals(1, len(dupli[(self.mtd1, self.mtd2, self.mtd3)]))
-        self.asertTrue((inv1, inv2, inv3) in dupli[(self.mtd1, self.mtd2, self.mtd3)])
+        self.assertTrue(inv1.refStr in dupli)
+        self.assertTrue(inv2.refStr in dupli)
+        self.assertTrue(inv3.refStr in dupli)
+        refStr = inv1.refStr
+        self.assertTrue((self.mtd1, inv1.start, inv1.end) in dupli[refStr])
+        self.assertTrue((self.mtd2, inv2.start, inv2.end) in dupli[refStr])
+        self.assertTrue((self.mtd3, inv3.start, inv3.end) in dupli[refStr])
+
 
 def dump_dupli(toDump):
     ''' debug function which prints a duplication result'''

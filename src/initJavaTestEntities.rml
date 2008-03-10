@@ -32,25 +32,11 @@
 IsTestCase(y) := 
         Class(y,"org::junit::TestCase");
 
-InheritsFromTestCase(x,y) := 
-        IsTestCase(y) & 
-        InheritsFrom(_,_,x,y);
-
-// test cases directly inheriting from TestCase
-DTestCase(x) := 
-        InheritsFromTestCase(x,_);
-//PRINT DTestCase(x);
-InheritsFromTestCase(x,y) := 
-        DTestCase(y) & 
-        InheritsFrom(_,_,x,y);
-Closure(x,y) := 
-        TC(InheritsFromTestCase(x,y));
-
-// test cases indirectly inheriting from TestCase
-ITestCase(x) := 
-        Closure(x,_);
-TestCaseId(x) := 
-        DTestCase(x) | ITestCase(x);
+TestCaseId(tcid) :=
+     EX(root,
+         IsTestCase(root) &
+         (InheritsFrom(_,_,tcid,root) |
+          TC(InheritsFrom(_,_,tcid,root))));
 
 TestMethodId(x) := 
     EX(y, 

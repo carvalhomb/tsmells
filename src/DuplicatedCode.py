@@ -161,10 +161,10 @@ class Sequence():
     def __init__(self, references):
         self.ref = references
         self.length = len(references)
-        self.refHash = ""
+        self.refStr = ""
         for i in self.ref:
-            self.refHash += str(i.targetId)
-        self.refHash = hash(self.refHash)
+            self.refStr += str(i.targetId)
+        self.refHash = hash(self.refStr)
         self.start = references[0].line
         self.end = references[-1].line
 
@@ -206,6 +206,16 @@ class Sequence():
                (self.start <= other.end   <= self.end) or\
                (other.start <= self.start <= other.end)
 
+    def __str__(self):
+        toReturn = ">>"
+        for ref in self.ref:
+            toReturn += str(ref)
+        toReturn += "<<"
+        return toReturn
+
+    def __eq__(self, other):
+        return (self.refHash == other.refHash)
+
 class CloneFinder():
     ''' Search a set of methods with invocations for 
         duplicate parts '''
@@ -219,7 +229,7 @@ class CloneFinder():
 
     def __init__(self, treshold):
         ''' treshold is the minimum number of lines a 
-            duplication must consist of. Not counting emptylines'''
+            duplication must consist of.'''
         assert treshold >= 3
         self.treshold = treshold
 
@@ -306,7 +316,8 @@ class CloneFinder():
             if not (seq, seq2) in dups and\
                not seq.overlaps(seq2) and\
                not self.__superIsDuplicate(seq2, dups) and\
-               not self.__overlapseWithOther(seq2, dups):
+               not self.__overlapseWithOther(seq2, dups) and\
+               (seq.end - seq.start) >= (self.treshold/2):
                 # whoops, got one
                 dups.append((seq, seq2))
 
@@ -357,6 +368,9 @@ class CloneFinder():
                     # whoops -> found
                     if self.__duplicateHasSuperDuplicate(seq1, seq2, dups):
                         continue
+                    if (int(seq1.end) - int(seq1.start)) + 1 < (self.treshold/2):
+                        print int(seq1.end) - int(seq1.start)
+                        continue
                     dups.append((seq1, seq2))
             currentLength -= 1
 
@@ -369,34 +383,38 @@ class CloneFinder():
                 return True
         return False
 
+    def squashCombinations(self, clones):
+        squashed = {} # {refStr x [(mtd, start, end)] }
+        for (mtd1,mtd2),couples in clones.iteritems():
+            for (seq1, seq2) in couples:
+                if not squashed.has_key(seq1.refStr):
+                    squashed[seq1.refStr] = []
+                # seq1.refStr equals seq2.refStr, or it wouldnt be clones
+                squashed[seq1.refStr].append((mtd1, seq1.start, seq1.end))
+                squashed[seq1.refStr].append((mtd2, seq2.start, seq2.end))
+        return squashed
+
+
 class DuplicatePrinter():
 
-    def extensive(self, clones):
-        # defect
-        for k,v in clones:
-            mtd1 = k[0]
-            mtd2 = k[1]
-            seq1 = v[0]
-            seq2 = v[1]
-            print str(mtd1) + " <--> " + str(mtd2)
-            print_list(seq1)
-            print_list(seq2)
-
     def briefCsv(self, clones):
-        #DuplicatedCode;6;MyTest.firstCom();MyTest.java;7;MyTest.secondCom();MyTest.java;16
-        #dump_dupli(clones)
         delim = "\t"
-        for mtds in clones:
-            mtd1 = mtds[0]
-            mtd2 = mtds[1]
-            for cpl in clones[mtds]:
-                seq1 = cpl[0]
-                seq2 = cpl[1]
+        for (mtd1,mtd2),couples in clones.iteritems():
+            for (seq1,seq2) in couples:
                 print "DuplicatedCode" + delim + mtd1.getName() +\
                       delim + mtd1.getSrcFile() + delim + str(seq1.start) +\
                       delim + str(seq1.end)+ delim + mtd2.getName() +\
                       delim + mtd2.getSrcFile() + delim + str(seq2.start) +\
                       delim + str(seq2.end) 
+
+    def briefCsvSquashed(self, clones):
+        delim = "\t"
+        for clone in clones.itervalues():
+            line = "DuplicatedCode"
+            for sloc in clone:
+                line += delim + sloc[0].getName() + delim + sloc[0].getSrcFile() +\
+                        delim + str(sloc[1]) + delim + str(sloc[2])
+            print line
 
 def partition(mtd, minLength=1):
     ''' Compute all sublists which form a sequence
@@ -457,5 +475,6 @@ if __name__=='__main__':
     cf = CloneFinder(tresh)
     dupli = cf.investigate(mtds)
     dp = DuplicatePrinter()
-    #dp.extensive(dupli)
-    dp.briefCsv(dupli)
+    #dp.briefCsv(dupli)
+    dupli = cf.squashCombinations(dupli)
+    dp.briefCsvSquashed(dupli)

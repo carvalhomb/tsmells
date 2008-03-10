@@ -31,25 +31,18 @@
 // retrieve the test framework generic TestCase class
 IsTestCase(y) := 
         Class(y,"CppUnit::TestCase");
-InheritsFromTestCase(x,y) := 
-        IsTestCase(y) & 
-        InheritsFrom(_,_,x,y);
 
-// test cases directly inheriting from TestCase
-DTestCase(x) := 
-        InheritsFromTestCase(x,_);
-InheritsFromTestCase(x,y) := 
-        DTestCase(y) & 
-        InheritsFrom(_,_,x,y);
-Closure(x,y) := 
-        TC(InheritsFromTestCase(x,y));
+IsFrameworkClass(x):=
+    EX(cln,
+        Class(x, cln) & 
+        @"^CppUnit::"(cln));
 
-// test cases indirectly inheriting from TestCase
-ITestCase(x) := 
-        Closure(x,_);
-TestCaseId(x) := 
-        (DTestCase(x) | ITestCase(x)) & 
-        !EX(cln, Class(x, cln) & @"^CppUnit::"(cln)); // exclude framework classes
+TestCaseId(tcid) :=
+     EX(root,
+         IsTestCase(root) &
+         (InheritsFrom(_,_,tcid,root) |
+          TC(InheritsFrom(_,_,tcid,root))) &
+         !IsFrameworkClass(tcid));
 
 TestMethodId(x) := 
     EX(y, 

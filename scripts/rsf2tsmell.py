@@ -26,6 +26,7 @@ XINIT_DEFAULTS = \
     {
         "junit3"   :"src/initJavaTestEntities.rml",
         "junitana"    :"src/initJavaTestEntitiesAnastacia.rml",
+        "junit-3.x_pmd-3.5" : "src/initJunit-3.x_Pmd-3.5.rml",
         "cppunit1-12":"src/initCppUnitv1-12.rml",
         "cppunit0-06":"src/initCppUnitv0-06.rml",
         "cppunitpoco":"src/initCppUnitPoco.rml"
@@ -62,6 +63,7 @@ PARAMS_DEFAULTS = \
         {
             "junit3":"src/MysteryBlacklistJava.rml",
             "junitana" :"src/MysteryBlacklistJava.rml",
+            "junit-3.x_pmd-3.5" : "src/MysteryBlacklistJava.rml",
             "cppunit1-12":"src/MysteryBlacklistCppFile.rml",
             "cppunit0-06":"src/MysteryBlacklistCppFile.rml",
             "cppunitpoco":"src/MysteryBlacklistCppFile.rml"

@@ -1,10 +1,10 @@
 #!/bin/bash
 
-XUNITRML=$TSMELLS/src/initCppTestEntities.rml
+XUNITRML=initCppTestEntities.rml
 
 if [ "$2" != "" ]
 then
-    XUNITRML=$TSMELLS/src/$2
+    XUNITRML=$2
 fi
 
 CROCOMEM="50"
@@ -15,6 +15,6 @@ then
 fi
 
 TMPFILE=$(mktemp)
-cat $XUNITRML $TSMELLS/src/initAuxiliaryTestRelations.rml  $TSMELLS/src/writeTestStats.rml > $TMPFILE
+cat $TSMELLS/src/$XUNITRML $TSMELLS/src/initAuxiliaryTestRelations.rml  $TSMELLS/src/writeTestStats.rml > $TMPFILE
 #cp $TMPFILE ./concat.rml
 cat $1 | crocopat -m $CROCOMEM $TMPFILE
