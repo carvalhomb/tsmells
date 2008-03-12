@@ -106,7 +106,7 @@ class TestCases(TestEntitiez):
             toParse[0] == "TestCase"
             len(toParse) == 4
             isSourceLine(toParse[3])
-            
+
         post:
             self.hasKey(toParse[1])
             self.getLocation(toParse[1]) == (toParse[2], int(toParse[3]))
@@ -541,7 +541,7 @@ class Node():
     writeHeader = staticmethod(writeHeader)
 
 class Edge():
-    def __init__(self, node1, node2, directed="true", visible="true", color="lightgray"):
+    def __init__(self, node1, node2, directed="false", visible="true", color="lightgray"):
         self.node1 = node1
         self.node2 = node2
         self.directed = directed

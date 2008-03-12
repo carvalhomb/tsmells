@@ -25,33 +25,35 @@
  *
  **/
 
+define(`DUMP_DIR',TSMELLS`/src/dump/')
+
 PRINT "(01) RSF model loaded in memory", ENDL TO STDERR;
 PRINT "(02) extracting xUnit entities ... ", ENDL TO STDERR;
 include(XUNIT_INIT)
-include(TSMELLS`/src/count.rml')
-include(TSMELLS`/src/initAuxiliaryTestRelations.rml')
-include(TSMELLS`/src/dumpTestEntities.rml')
+include(DUMP_DIR`provideCount.rml')
+include(DUMP_DIR`initAuxiliary.rml')
+include(DUMP_DIR`writeTestEntities.rml')
 
 PRINT "(03) AssertionLess ... ", ENDL TO STDERR;
-ifdef(`ASSERTIONLESS', `include(TSMELLS`/src/AssertionLess.rml')', `')
+ifdef(`ASSERTIONLESS', `include(DUMP_DIR`computeAssertionLess.rml')', `')
 
 PRINT "(04) AssertionRoulette ... ", ENDL TO STDERR;
-ifdef(`ASSERTION_ROULETTE', `include(TSMELLS`/src/AssertionRoulette.rml')', `')
+ifdef(`ASSERTION_ROULETTE', `include(DUMP_DIR`computeAssertionRoulette.rml')', `')
 
 PRINT "(05) DuplicatedCode ... ", ENDL TO STDERR;
-ifdef(`DUPLICATED_CODE', `include(TSMELLS`/src/DuplicatedCode.rml')', `')
+ifdef(`DUPLICATED_CODE', `include(DUMP_DIR`computeDuplicatedCode.rml')', `')
 
 PRINT "(06) ForTestersOnly ... ", ENDL TO STDERR;
-ifdef(`FOR_TESTERS_ONLY', `include(TSMELLS`/src/ForTestersOnly.rml')', `')
+ifdef(`FOR_TESTERS_ONLY', `include(DUMP_DIR`computeForTestersOnly.rml')', `')
 
 PRINT "(07) IndentedTest ...", ENDL TO STDERR;
-ifdef(`INDENTED_TEST', `include(TSMELLS`/src/IndentedTest.rml')', `')
+ifdef(`INDENTED_TEST', `include(DUMP_DIR`computeIndentedTest.rml')', `')
 
 PRINT "(08) IndirectTest ... ", ENDL TO STDERR;
-ifdef(`INDIRECT_TEST', `include(TSMELLS`/src/IndirectTest.rml')', `')
+ifdef(`INDIRECT_TEST', `include(DUMP_DIR`computeIndirectTest.rml')', `')
 
 PRINT "(09) MysteryGuest ... ", ENDL TO STDERR;
-ifdef(`MYSTERY_GUEST', `include(TSMELLS`/src/MysteryGuest.rml')', `')
+ifdef(`MYSTERY_GUEST', `include(DUMP_DIR`computeMysteryGuest.rml')', `')
 
 PRINT "(10) SensitiveEquality ... ", ENDL TO STDERR;
-ifdef(`SENSITIVE_EQUALITY', `include(TSMELLS`/src/SensitiveEquality.rml')', `')
+ifdef(`SENSITIVE_EQUALITY', `include(DUMP_DIR`computeSensitiveEquality.rml')', `')

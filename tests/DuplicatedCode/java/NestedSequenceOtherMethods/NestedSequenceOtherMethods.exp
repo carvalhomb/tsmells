@@ -1,3 +1,2 @@
-DuplicatedCode	MyTest.testOne()	MyTest.java	7	16	MyTest.testTwo()	MyTest.java	20	29
-DuplicatedCode	MyTest.testThree()	MyTest.java	33	37	MyTest.testTwo()	MyTest.java	25	29
-DuplicatedCode	MyTest.testOne()	MyTest.java	12	16	MyTest.testThree()	MyTest.java	33	37
+DuplicatedCode	MyTest.testThree()	MyTest.java	33	37	MyTest.testOne()	MyTest.java	12	16	MyTest.testThree()	MyTest.java	33	37	MyTest.testTwo()	MyTest.java	25	29
+DuplicatedCode	MyTest.testTwo()	MyTest.java	20	29	MyTest.testOne()	MyTest.java	7	16

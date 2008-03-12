@@ -1,1 +1,1 @@
-DuplicatedCode	MyTest.testOne()	MyTest.java	8	13	MyTest.testTwo()	MyTest.java	18	23
+DuplicatedCode	MyTest.testTwo()	MyTest.java	18	23	MyTest.testOne()	MyTest.java	8	13

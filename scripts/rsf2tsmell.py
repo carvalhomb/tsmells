@@ -24,12 +24,13 @@ import sys, os, copy, tempfile
 # some default xUnit RML initialization scripts
 XINIT_DEFAULTS = \
     {
-        "junit3"   :"src/initJavaTestEntities.rml",
-        "junitana"    :"src/initJavaTestEntitiesAnastacia.rml",
-        "junit-3.x_pmd-3.5" : "src/initJunit-3.x_Pmd-3.5.rml",
-        "cppunit1-12":"src/initCppUnitv1-12.rml",
-        "cppunit0-06":"src/initCppUnitv0-06.rml",
-        "cppunitpoco":"src/initCppUnitPoco.rml"
+        "junit-3.x"   :"src/dump/initJavaTestEntities.rml",
+        "junit-3.x_ana"    :"src/dump/initJavaTestEntitiesAnastacia.rml",
+        "junit-3.x_pmd-3.5" : "src/dump/initJunit-3.x_Pmd-3.5.rml",
+        "junit-3.8_nostub" : "src/dump/initJunit-3.8_nostub.rml",
+        "cppunit-1.12":"src/dump/initCppUnitv1-12.rml",
+        "cppunit-0.06":"src/dump/initCppUnitv0-06.rml",
+        "cppunit_poco":"src/dump/initCppUnitPoco.rml"
     }
 
 AS    = "ASSERTIONLESS"
@@ -52,21 +53,25 @@ INDIR_TRESH = INDIR + TRESH
 MG_BLACK = MG + "_BLACKLIST"
 
 
+MG_JAVA_BLACKLIST = "src/dump/provideMysteryBlacklistJava.rml"
+MG_CPP_BLACKLIST = "src/dump/provideMysteryBlacklistCppFile.rml"
+
 # additional smell parameters passed to m4
 PARAMS_DEFAULTS = \
     {
-        AR_TRESH    :"3",
-        DC_SCRIPT   :"src/DuplicatedCode.py",
+        AR_TRESH    :"5",
+        DC_SCRIPT   :"src/dump/DuplicatedCode.py",
         DC_TRESH    :"8",
         INDIR_TRESH :"4",
         MG_BLACK    : 
         {
-            "junit3":"src/MysteryBlacklistJava.rml",
-            "junitana" :"src/MysteryBlacklistJava.rml",
-            "junit-3.x_pmd-3.5" : "src/MysteryBlacklistJava.rml",
-            "cppunit1-12":"src/MysteryBlacklistCppFile.rml",
-            "cppunit0-06":"src/MysteryBlacklistCppFile.rml",
-            "cppunitpoco":"src/MysteryBlacklistCppFile.rml"
+            "junit-3.x": MG_JAVA_BLACKLIST,
+            "junit-3.x_ana" : MG_JAVA_BLACKLIST,
+            "junit-3.x_pmd-3.5" : MG_JAVA_BLACKLIST,
+            "junit-3.8_nostub" : MG_JAVA_BLACKLIST,
+            "cppunit-1.12": MG_CPP_BLACKLIST,
+            "cppunit-0.06": MG_CPP_BLACKLIST,
+            "cppunit_poco": MG_CPP_BLACKLIST
         }
     }
 

@@ -25,8 +25,7 @@
 #
 # TODO:
 #  + solve mysterious linenumber swap bug, see failing pieces tests
-#  + fix, clean (and extend?) unittests
-#  + introduce n-way code clone logging! all combinations now, bad
+#  + write more tests
 #  + investigate 'equal' optimization for sequences, with 3 or so hashes
 #  + introduce loop and variable information when this becomes available
 #    through Fetch

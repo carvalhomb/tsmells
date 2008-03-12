@@ -1,0 +1,144 @@
+/**
+ * This file is part of Fetch (the Fact Extraction Tool CHain).
+ *
+ * Fetch is free software; you can redistribute it and/or modify it under the 
+ * terms of the GNU General Public License as published by the Free Software 
+ * Foundation; either version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * Fetch is distributed in the hope that it will be useful, but WITHOUT ANY 
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with Fetch; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+ * Extensivly modified by:
+ *                Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ **/
+
+
+/**
+ * Finds all test cases among the classes,
+ * both directly as well as indirectly 
+ * inheriting from TestCase
+ * 
+ **/
+
+// retrieve the test framework generic TestCase class
+IsTestCase(y) := 
+        Class(y,"junit::framework::TestCase");
+
+// IsFrameworkClass(x):=
+//     EX(cln,
+//         Class(x, cln) & 
+//         (@"test::net::sourceforge::pmd::testframework::"(cln) |
+//          @"junit::framework::"(cln)));
+
+TestCaseId(tcid) :=
+     EX(root,
+         IsTestCase(root) &
+         (InheritsFrom(_,_,tcid,root) |
+          TC(InheritsFrom(_,_,tcid,root))) &
+         !IsFrameworkClass(tcid));
+
+TestMethodId(x) := 
+    EX(y, 
+        TestCaseId(y) & 
+        MethodBelongsToClass(x,y));
+TestCommandId(x) := 
+    EX(mn, 
+        TestMethodId(x) & 
+        Method(x,mn) & 
+        @"[.]test"(mn) & @"[(][)]"(mn));
+TestSetupId(x) := 
+    EX(mn, 
+        TestMethodId(x) & 
+        Method(x,mn) & 
+        @"[.]setUp"(mn) & @"[(][)]"(mn));
+TestTeardownId(x) := 
+    EX(mn, 
+        TestMethodId(x) & 
+        Method(x,mn) & 
+        @"[.]tearDown"(mn) & @"[(][)]"(mn));
+TestHelperId(x) := 
+        TestMethodId(x) & 
+        !TestCommandId(x) & 
+        !TestSetupId(x) & 
+        !TestTeardownId(x);
+
+
+No("0");
+Yes("1");
+
+/**
+ * Assertions
+ * @col : denotes if this assertion has a failure message
+ * @col : assertion signature
+ **/
+CheckerSignature("0","junit::framework::TestCase.assertEquals(boolean,boolean)");
+CheckerSignature("0","junit::framework::TestCase.assertEquals(byte,byte)");
+CheckerSignature("0","junit::framework::TestCase.assertEquals(char,char)");
+CheckerSignature("1","junit::framework::TestCase.assertEquals(double,double,double)"); // on purpose, for SN mistakes
+CheckerSignature("1","junit::framework::TestCase.assertEquals(float,float,float)"); // idem
+CheckerSignature("0","junit::framework::TestCase.assertEquals(int,int)");
+CheckerSignature("0","junit::framework::TestCase.assertEquals(long,long)");
+CheckerSignature("0","junit::framework::TestCase.assertEquals(java.lang.Object,java.lang.Object)");
+CheckerSignature("0","junit::framework::TestCase.assertEquals(short,short)");
+CheckerSignature("0","junit::framework::TestCase.assertEquals(java.lang.String,java.lang.String)");
+CheckerSignature("0","junit::framework::TestCase.assertFalse(boolean)");
+CheckerSignature("0","junit::framework::TestCase.assertNotNull(java.lang.Object)");
+CheckerSignature("0","junit::framework::TestCase.assertNotSame(java.lang.Object,java.lang.Object)");
+CheckerSignature("0","junit::framework::TestCase.assertNull(java.lang.Object)");
+CheckerSignature("0","junit::framework::TestCase.assertSame(java.lang.Object,java.lang.Object)");
+CheckerSignature("0","junit::framework::TestCase.assertTrue(boolean)");
+CheckerSignature("0","junit::framework::TestCase.fail()");
+
+CheckerSignature("1","junit::framework::TestCase.assertEquals(java.lang.String,boolean,boolean)");
+CheckerSignature("1","junit::framework::TestCase.assertEquals(java.lang.String,byte,byte)");
+CheckerSignature("1","junit::framework::TestCase.assertEquals(java.lang.String,char,char)");
+CheckerSignature("1","junit::framework::TestCase.assertEquals(java.lang.String,double,double,double)");
+CheckerSignature("1","junit::framework::TestCase.assertEquals(java.lang.String,float,float,float)");
+CheckerSignature("1","junit::framework::TestCase.assertEquals(java.lang.String,int,int)");
+CheckerSignature("1","junit::framework::TestCase.assertEquals(java.lang.String,long,long)");
+CheckerSignature("1","junit::framework::TestCase.assertEquals(java.lang.String,java.lang.Object,java.lang.Object)");
+CheckerSignature("1","junit::framework::TestCase.assertEquals(java.lang.String,short,short)");
+CheckerSignature("1","junit::framework::TestCase.assertEquals(java.lang.String,java.lang.String)");
+CheckerSignature("1","junit::framework::TestCase.assertEquals(java.lang.String,java.lang.String,java.lang.String)");
+CheckerSignature("1","junit::framework::TestCase.assertFalse(java.lang.String,boolean)");
+CheckerSignature("1","junit::framework::TestCase.assertNotNull(java.lang.String,java.lang.Object)");
+CheckerSignature("1","junit::framework::TestCase.assertNotSame(java.lang.String,java.lang.Object,java.lang.Object)");
+CheckerSignature("1","junit::framework::TestCase.assertNull(java.lang.String,java.lang.Object)");
+CheckerSignature("1","junit::framework::TestCase.assertSame(java.lang.String,java.lang.Object,java.lang.Object)");
+CheckerSignature("1","junit::framework::TestCase.fail(java.lang.String)");
+CheckerSignature("1","junit::framework::TestCase.assertTrue(java.lang.String,boolean)");
+
+TestChecker(x) := 
+    EX(y, 
+        Method(x, y) & 
+        CheckerSignature(_,y));
+ProductionMethodId(x) := 
+        Method(x,_) & 
+        !TestMethodId(x) & 
+        !TestChecker(x);
+
+// these are needed for backwards compatibility.
+// prolly they'll vanish for good, one day
+TestCase(x,y) := 
+        TestCaseId(x) & 
+        Class(x,y);
+TestCommand(x,y) := 
+        TestCommandId(x) & 
+        Method(x,y);
+TestSetup(x,y) := 
+        TestSetupId(x) & 
+        Method(x,y);
+TestTeardown(x,y) := 
+        TestTeardownId(x) & 
+        Method(x,y);
+TestHelper(x,y) := 
+        TestHelperId(x) & 
+        Method(x,y);
