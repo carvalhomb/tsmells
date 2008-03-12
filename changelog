@@ -1,5 +1,11 @@
 
-v0.0.2 2008-02-xx
+v0.0.3 2008-03-12
+  + rml script name convention introduced
+  + tsmellviz.py, visualization in guess!
+  + tsmells2gdf script
+  + n-ary duplications, instead of all combinations
+
+v0.0.2 2008-02-29
   + comments of B. VanRompaey incorporated in formal specification
     and implementation. Assertionroulette works recursivly on test 
     commands now. [ used to log commands separate from helpers ]
