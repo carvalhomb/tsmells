@@ -26,7 +26,7 @@
  **/
 
 define(`TSMELLS', `/home/nix/JaarProj/SmellsGgl')
-define(`DUMP_DIR', TSMELLS`/src/dump/')
+define(`DUMP_DIR', TSMELLS`/src/dump/rml/')
 include(XUNIT_INIT)
 include(DUMP_DIR`provideCount.rml')
 include(DUMP_DIR`initAuxiliary.rml')

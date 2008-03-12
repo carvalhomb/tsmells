@@ -36,10 +36,10 @@ RSF=$2
 
 if [ "$SMELL" == "MysteryGuest" ]
 then
-    RSF="$RSF $TSMELLS/src/dump/MysteryBlacklistCpp.rsf"
+    RSF="$RSF $TSMELLS/src/dump/rml/MysteryBlacklistCpp.rsf"
 fi
 
 TMPFILE=$(mktemp) && \
-cat $TSMELLS/src/dump/initCppTestEntities.rml $TSMELLS/src/dump/initAuxiliary.rml $TSMELLS/src/dump/compute$SMELL.rml > $TMPFILE && \
+cat $TSMELLS/src/dump/rml/initCppTestEntities.rml $TSMELLS/src/dump/rml/initAuxiliary.rml $TSMELLS/src/dump/rml/compute$SMELL.rml > $TMPFILE && \
 cat $RSF | crocopat $TMPFILE && \
 rm -rf $TMPFILE &> /dev/null;

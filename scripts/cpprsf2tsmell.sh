@@ -23,7 +23,7 @@ RSF=$1
 PARAMS=( $@ )
 M4SCRIPT=$TSMELLS/scripts/tsmellsCpp.m4
 
-MACRO="-DXUNIT_INIT=$TSMELLS/src/dump/initCppTestEntities.rml"
+MACRO="-DXUNIT_INIT=$TSMELLS/src/dump/rml/initCppTestEntities.rml"
 for i in $(seq 1 $(( $# - 1 )))
 do
     MACRO="$MACRO ${PARAMS[i]}"

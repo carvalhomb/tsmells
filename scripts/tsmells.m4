@@ -25,7 +25,7 @@
  *
  **/
 
-define(`DUMP_DIR',TSMELLS`/src/dump/')
+define(`DUMP_DIR',TSMELLS`/src/dump/rml/')
 
 PRINT "(01) RSF model loaded in memory", ENDL TO STDERR;
 PRINT "(02) extracting xUnit entities ... ", ENDL TO STDERR;

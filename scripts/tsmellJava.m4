@@ -26,7 +26,7 @@
  **/
 
 define(`TSMELLS', `/home/nix/JaarProj/SmellsGgl/')
-define(`DUMP_DIR', TSMELLS`src/dump/')
+define(`DUMP_DIR', TSMELLS`src/dump/rml/')
 include(DUMP_DIR`provideCount.rml')
 
 ifdef(`BASIC_JUNIT', `include(DUMP_DIR`initJavaTestEntities.rml')', `')
