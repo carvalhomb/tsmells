@@ -31,7 +31,7 @@ done
 
 RML=$(mktemp) && \
 m4  $MACRO $M4SCRIPT > $RML &&\
-#cat $RML &&\
+#cat $RML > tmp.rml &&\
 #cat $RSF | crocopat $RML 2> /dev/null && \
 cat $RSF | crocopat $RML && \
 rm -rf $RML &> /dev/null;

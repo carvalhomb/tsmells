@@ -45,8 +45,31 @@ DUPLICATED_CODE_TRESHOLD
 DUPLICATED_CODE_PYGEN
     Full path of the code duplication python script
 
+EAGER_TEST
+    Switch for executing the eager test rml script
+
+EAGER_TEST_PTMI_TRESHOLD
+    Metric treshold which defines the minimum number of production method
+    invocations before flagging a command as eager.
+
 FOR_TESTERS_ONLY
     Switch for executing the for testers only script
+
+GENERAL_FIXTURE
+    Switch for executing the general fixture detection script. The treshold
+    on the metrics is OR'ed. So one violation triggers detection.
+
+GENERAL_FIXTURE_NFOB_TRESHOLD
+    Positive integer which defines the minimum Number of Fixture Objects
+    before a test case gets logged
+
+GENERAL_FIXTURE_NFPT_TRESHOLD
+    Positive integer which defines the minimum Number of Fixture Production
+    Types before a test case gets flagged as GeneralFixture
+
+GENERAL_FIXTURE_NOBU_TRESHOLD
+    Positive integer which defines the minimum Number of Object Uses in setup. 
+    Exceeding this minimum will result in flagging.
 
 INDENTED_TEST
     Switch for executing the indented test script

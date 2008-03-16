@@ -24,26 +24,28 @@ import sys, os, copy, tempfile
 # some default xUnit RML initialization scripts
 XINIT_DEFAULTS = \
     {
-        "junit-3.x"   :"src/dump/initJavaTestEntities.rml",
-        "junit-3.x_ana"    :"src/dump/initJavaTestEntitiesAnastacia.rml",
-        "junit-3.x_pmd-3.5" : "src/dump/initJunit-3.x_Pmd-3.5.rml",
-        "junit-3.8_nostub" : "src/dump/initJunit-3.8_nostub.rml",
-        "cppunit-1.12":"src/dump/initCppUnitv1-12.rml",
-        "cppunit-0.06":"src/dump/initCppUnitv0-06.rml",
-        "cppunit_poco":"src/dump/initCppUnitPoco.rml"
+        "junit-3.x"   :"src/dump/rml/initJavaTestEntities.rml",
+        "junit-3.x_ana"    :"src/dump/rml/initJavaTestEntitiesAnastacia.rml",
+        "junit-3.x_pmd-3.5" : "src/dump/rml/initJunit-3.x_Pmd-3.5.rml",
+        "junit-3.8_nostub" : "src/dump/rml/initJunit-3.8_nostub.rml",
+        "cppunit-1.12":"src/dump/rml/initCppUnitv1-12.rml",
+        "cppunit-0.06":"src/dump/rml/initCppUnitv0-06.rml",
+        "cppunit_poco":"src/dump/rml/initCppUnitPoco.rml"
     }
 
 AS    = "ASSERTIONLESS"
 AR    = "ASSERTION_ROULETTE"
 DC    = "DUPLICATED_CODE"
 FTO   = "FOR_TESTERS_ONLY"
+GF    = "GENERAL_FIXTURE"
 INDIR = "INDIRECT_TEST"
 INDEN = "INDENTED_TEST"
 MG    = "MYSTERY_GUEST"
 SE    = "SENSITIVE_EQUALITY"
+ET    = "EAGER_TEST"
 
 # all m4-smell keys
-SMELLS = [ AS,AR,DC,FTO,INDIR,INDEN,MG,SE ]
+SMELLS = [ AS,AR,DC,FTO,INDIR,INDEN,MG,SE,GF,ET ]
 
 TRESH = "_TRESHOLD"
 AR_TRESH = AR + TRESH
@@ -51,17 +53,20 @@ DC_TRESH = DC + TRESH
 DC_SCRIPT = DC + "_PYGEN"
 INDIR_TRESH = INDIR + TRESH
 MG_BLACK = MG + "_BLACKLIST"
+GF_NFOB = GF + "_NFOB" + TRESH
+GF_NFPT = GF + "_NFPT" + TRESH
+GF_NOBU = GF + "_NOBU" + TRESH
+ET_PTMI = ET + "_PTMI" + TRESH
 
-
-MG_JAVA_BLACKLIST = "src/dump/provideMysteryBlacklistJava.rml"
-MG_CPP_BLACKLIST = "src/dump/provideMysteryBlacklistCppFile.rml"
+MG_JAVA_BLACKLIST = "src/dump/rml/provideMysteryBlacklistJava.rml"
+MG_CPP_BLACKLIST = "src/dump/rml/provideMysteryBlacklistCppFile.rml"
 
 # additional smell parameters passed to m4
 PARAMS_DEFAULTS = \
     {
         AR_TRESH    :"5",
         DC_SCRIPT   :"src/dump/DuplicatedCode.py",
-        DC_TRESH    :"8",
+        DC_TRESH    :"6",
         INDIR_TRESH :"4",
         MG_BLACK    : 
         {
@@ -72,7 +77,11 @@ PARAMS_DEFAULTS = \
             "cppunit-1.12": MG_CPP_BLACKLIST,
             "cppunit-0.06": MG_CPP_BLACKLIST,
             "cppunit_poco": MG_CPP_BLACKLIST
-        }
+        },
+        GF_NFOB : "5",
+        GF_NFPT : "5",
+        GF_NOBU : "5",
+        ET_PTMI : "5"
     }
 
 def usage():

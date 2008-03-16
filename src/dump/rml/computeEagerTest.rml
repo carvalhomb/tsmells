@@ -1,0 +1,81 @@
+/**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+
+/**
+ * Contains the different production methods a test command 
+ * invokes a method from. Used for the Production Type Method 
+ * Invocations aka PTMI
+ *
+ * @col tcid_et: test command id
+ * @col mtdid: invoked class
+ **/
+DProdMtdInvocation(tcid_et, mtdid) :=
+		TestCommandId(tcid_et) &
+		PureInvokes(_, tcid_et, mtdid) &
+		ProductionMethodId(mtdid);
+
+IProdMtdInvocation(tcid_et, mtdid) :=
+	EX(thid,
+		TransComHelper(tcid_et, thid) &
+		PureInvokes(_, thid, mtdid) &
+		ProductionMethodId(mtdid));
+
+ProdMtdInvocation(tcid_et, mtdid) :=
+		DProdMtdInvocation(tcid_et, mtdid) |
+		IProdMtdInvocation(tcid_et, mtdid);
+
+
+/**
+ * TestCommand id's which are flagged as 
+ * eager test, as well as their PTMI
+ **/
+EagerTestId("", "");
+
+FOR tcid_et IN TestCommandId(x) {
+	ptmi := #(ProdMtdInvocation(tcid_et, x));
+	IF ( ptmi >= EAGER_TEST_PTMI_TRESHOLD) {
+		// got one, append
+		EagerTestId(x, num) := 
+			EagerTestId(x,num) |
+			(
+				x = tcid_et & 
+				(count(STRING(ptmi), num))
+			);
+	}
+}
+
+/**
+ * Contains full eager test information
+ * 
+ * @col tcnm: test command name
+ * @col tres: treshold for PMTI
+ * @col ptmi: number of production type method invocations
+ * @col file: sourcefile with tcnm's implementation
+ * @col line: line this test command is defined on
+ **/
+EagerTest(tcnm, tres, ptmi_et, file, line) :=
+	EX(tcid_idx,
+		EagerTestId(tcid_idx, ptmi_et) &
+		tres = "EAGER_TEST_PTMI_TRESHOLD" &
+		TestEntityInfo(tcid_idx, tcnm, file, line)
+		);
+
+PRINT ["EagerTest"] EagerTest(aa,bb,cc,dd,ee);

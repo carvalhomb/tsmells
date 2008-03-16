@@ -233,6 +233,7 @@ class StuffTable(javax.swing.JTable):
         secondRun = true
 
 class Stuff(JPanel,com.hp.hpl.guess.ui.Dockable,com.hp.hpl.guess.ui.GraphMouseListener):
+
     def __init__(self):
         global testcases
 

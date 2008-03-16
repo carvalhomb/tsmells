@@ -43,17 +43,23 @@ ifdef(`ASSERTION_ROULETTE', `include(DUMP_DIR`computeAssertionRoulette.rml')', `
 PRINT "(05) DuplicatedCode ... ", ENDL TO STDERR;
 ifdef(`DUPLICATED_CODE', `include(DUMP_DIR`computeDuplicatedCode.rml')', `')
 
+PRINT "(06) EagerTest ...", ENDL TO STDERR;
+ifdef(`EAGER_TEST', `include(DUMP_DIR`computeEagerTest.rml')', `')
+
 PRINT "(06) ForTestersOnly ... ", ENDL TO STDERR;
 ifdef(`FOR_TESTERS_ONLY', `include(DUMP_DIR`computeForTestersOnly.rml')', `')
 
-PRINT "(07) IndentedTest ...", ENDL TO STDERR;
+PRINT "(07) GeneralFixture ... ", ENDL TO STDERR;
+ifdef(`GENERAL_FIXTURE', `include(DUMP_DIR`computeGeneralFixture.rml')', `')
+
+PRINT "(08) IndentedTest ...", ENDL TO STDERR;
 ifdef(`INDENTED_TEST', `include(DUMP_DIR`computeIndentedTest.rml')', `')
 
-PRINT "(08) IndirectTest ... ", ENDL TO STDERR;
+PRINT "(09) IndirectTest ... ", ENDL TO STDERR;
 ifdef(`INDIRECT_TEST', `include(DUMP_DIR`computeIndirectTest.rml')', `')
 
-PRINT "(09) MysteryGuest ... ", ENDL TO STDERR;
+PRINT "(10) MysteryGuest ... ", ENDL TO STDERR;
 ifdef(`MYSTERY_GUEST', `include(DUMP_DIR`computeMysteryGuest.rml')', `')
 
-PRINT "(10) SensitiveEquality ... ", ENDL TO STDERR;
+PRINT "(11) SensitiveEquality ... ", ENDL TO STDERR;
 ifdef(`SENSITIVE_EQUALITY', `include(DUMP_DIR`computeSensitiveEquality.rml')', `')

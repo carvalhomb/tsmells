@@ -1,0 +1,182 @@
+Module	1	"/"
+Module	2	"/cppunit"
+ModuleBelongsToModule	2	1
+File	1	"Bar.h"
+File	2	"Baz.h"
+File	3	"Fal.h"
+File	4	"Foo.h"
+File	5	"FooTest.cpp"
+File	6	"FooTest.h"
+File	7	"Fuu.h"
+File	8	"cppunit/TestCase.h"
+FileBelongsToModule	1	1
+FileBelongsToModule	2	1
+FileBelongsToModule	3	1
+FileBelongsToModule	4	1
+FileBelongsToModule	5	1
+FileBelongsToModule	6	1
+FileBelongsToModule	7	1
+FileBelongsToModule	8	2
+Include	10	5	6
+Include	11	6	8
+Include	12	6	4
+Include	13	6	7
+Include	14	6	3
+Include	15	6	1
+Include	16	6	2
+ConditionalCompilation	17	"!CPPUNIT_TESTCASE_H"
+Class	20	"Bar"
+Class	21	"Baz"
+Class	22	"Fal"
+Class	23	"Foo"
+Class	24	"FooTest"
+Class	25	"Fuu"
+Class	26	"CppUnit::TestCase"
+ClassBelongsToFile	20	1	1
+ClassBelongsToFile	21	2	1
+ClassBelongsToFile	22	3	1
+ClassBelongsToFile	23	4	1
+ClassBelongsToFile	24	6	12
+ClassBelongsToFile	25	7	1
+ClassBelongsToFile	26	8	18
+InheritsFrom	27	"FooTest->CppUnit::TestCase"	24	26
+Method	28	"CppUnit::TestCase.runTest()"
+Method	29	"FooTest.testFoo()"
+Method	31	"CppUnit::TestCase.run(TestResult*)"
+Method	32	"CppUnit::TestCase.run()"
+Method	33	"CppUnit::TestCase.tearDown()"
+Method	35	"FooTest.setUp()"
+Method	37	"CppUnit::TestCase.setUp()"
+Method	39	"CppUnit::TestCase.TestCase(std::string)"
+Method	40	"CppUnit::TestCase.TestCase()"
+Method	41	"CppUnit::TestCase.toString()"
+Method	44	"CppUnit::TestCase.defaultResult()"
+Method	45	"CppUnit::TestCase.countTestCases()"
+Method	46	"CppUnit::TestCase.~TestCase()"
+Method	48	"CppUnit::TestCase.getName()"
+MethodBelongsToClass	28	26
+MethodBelongsToClass	29	24
+MethodBelongsToClass	31	26
+MethodBelongsToClass	32	26
+MethodBelongsToClass	33	26
+MethodBelongsToClass	35	24
+MethodBelongsToClass	37	26
+MethodBelongsToClass	39	26
+MethodBelongsToClass	40	26
+MethodBelongsToClass	41	26
+MethodBelongsToClass	44	26
+MethodBelongsToClass	45	26
+MethodBelongsToClass	46	26
+MethodBelongsToClass	48	26
+Visibility	28	"protected"
+Visibility	29	"public"
+Visibility	31	"public"
+Visibility	32	"public"
+Visibility	33	"public"
+Visibility	35	"public"
+Visibility	37	"public"
+Visibility	39	"public"
+Visibility	40	"public"
+Visibility	41	"public"
+Visibility	44	"protected"
+Visibility	45	"public"
+Visibility	46	"public"
+Visibility	48	"public"
+Signature	28	"runTest()"
+Signature	29	"testFoo()"
+Signature	31	"run(TestResult*)"
+Signature	32	"run()"
+Signature	33	"tearDown()"
+Signature	35	"setUp()"
+Signature	37	"setUp()"
+Signature	39	"TestCase(std::string)"
+Signature	40	"TestCase()"
+Signature	41	"toString()"
+Signature	44	"defaultResult()"
+Signature	45	"countTestCases()"
+Signature	46	"~TestCase()"
+Signature	48	"getName()"
+Attribute	50	"FooTest.bar"
+Attribute	51	"FooTest.baz"
+Attribute	52	"FooTest.fal"
+Attribute	53	"FooTest.foo"
+Attribute	54	"FooTest.fuu"
+AttributeBelongsToClass	50	24
+AttributeBelongsToClass	51	24
+AttributeBelongsToClass	52	24
+AttributeBelongsToClass	53	24
+AttributeBelongsToClass	54	24
+HasType	50	20
+HasType	51	21
+HasType	52	22
+HasType	53	23
+HasType	54	25
+Function	34	"CPPUNIT_FAIL(std::string)"
+Function	38	"CPPUNIT_ASSERT(bool)"
+Function	42	"CPPUNIT_ASSERT_EQUAL(T,T)"
+Function	43	"CPPUNIT_ASSERT_MESSAGE(std::string,bool)"
+Function	47	"CPPUNIT_ASSERT_DOUBLES_EQUAL(double,double,double)"
+Function	49	"CPPUNIT_ASSERT_EQUAL_MESSAGE(string,T,T)"
+InvokableEntityBelongsToFile	28	8	36
+InvokableEntityBelongsToFile	29	6	17
+InvokableEntityBelongsToFile	31	8	26
+InvokableEntityBelongsToFile	32	8	30
+InvokableEntityBelongsToFile	33	8	32
+InvokableEntityBelongsToFile	35	6	16
+InvokableEntityBelongsToFile	37	8	31
+InvokableEntityBelongsToFile	39	8	22
+InvokableEntityBelongsToFile	40	8	23
+InvokableEntityBelongsToFile	41	8	29
+InvokableEntityBelongsToFile	44	8	37
+InvokableEntityBelongsToFile	45	8	27
+InvokableEntityBelongsToFile	46	8	24
+InvokableEntityBelongsToFile	48	8	28
+InvokableEntityBelongsToFile	30	5	12
+InvokableEntityBelongsToFile	36	5	3
+InvokableEntityBelongsToFile	34	8	9
+InvokableEntityBelongsToFile	38	8	7
+InvokableEntityBelongsToFile	42	8	11
+InvokableEntityBelongsToFile	43	8	8
+InvokableEntityBelongsToFile	47	8	10
+InvokableEntityBelongsToFile	49	8	12
+DefinitionForDeclaration	30	29
+DefinitionForDeclaration	36	35
+Invokes	60	30	38
+LineNo	60	5	14
+Accesses	55	36	50
+Accesses	56	36	51
+Accesses	57	36	52
+Accesses	58	36	53
+Accesses	59	36	54
+LineNo	55	5	5
+LineNo	56	5	6
+LineNo	57	5	7
+LineNo	58	5	8
+LineNo	59	5	9
+LeftValueAccess	55
+LeftValueAccess	56
+LeftValueAccess	57
+LeftValueAccess	58
+LeftValueAccess	59
+entityBelongsToBlock	26	17
+entityBelongsToBlock	28	17
+entityBelongsToBlock	31	17
+entityBelongsToBlock	32	17
+entityBelongsToBlock	33	17
+entityBelongsToBlock	37	17
+entityBelongsToBlock	39	17
+entityBelongsToBlock	40	17
+entityBelongsToBlock	41	17
+entityBelongsToBlock	42	17
+entityBelongsToBlock	44	17
+entityBelongsToBlock	45	17
+entityBelongsToBlock	46	17
+entityBelongsToBlock	47	17
+entityBelongsToBlock	48	17
+entityBelongsToBlock	49	17
+Measurement	61	35	"CC"	1
+Measurement	62	35	"NOS"	5
+Measurement	63	35	"LOC"	8
+Measurement	64	29	"CC"	1
+Measurement	65	29	"NOS"	1
+Measurement	66	29	"LOC"	4

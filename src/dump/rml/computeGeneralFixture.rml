@@ -1,0 +1,224 @@
+/**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Adapted version of $FETCH/scripts/rml/computeTestCaseMetrics.rml
+ * Original author: Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+
+//GeneralFixture	TestCase	NFOB	NFPT	NOBU	File			LineNr
+//GeneralFixture	"FooTest"		5		5		"FooTest.java"	3
+//PRINT "GeneralFixture	FooTest	5	5	5	FooTest.java	3", ENDL;
+
+/**
+ * The test commands of a testcase
+ *
+ * @col tcid_gf: test case id
+ * @col tmid: test command id
+ **/
+ChildTestCommand(tcid_gf, tmid) := 
+		TestCommandId(tmid) & 
+		TestCaseId(tcid_gf) & 
+		MethodBelongsToClass(tmid,tcid_gf);
+
+
+/**
+ * compute the transitive set of super classes of test case
+ *
+ * @col tcid_gf: test case id
+ * @col super: super class id
+ **/
+// test cases directly inhered by tc
+DTestCase(tcid_gf,super) := 
+		TestCaseId(tcid_gf) & 
+		InheritsFrom(_,_,tcid_gf,super);
+
+// test cases indirectly inherited by tc
+ITestCase(tcid_gf,super) := 
+	EX(y, 
+		TestCaseId(tcid_gf) &
+		InheritsFrom(_,_,tcid_gf,y) & 
+		TC(InheritsFrom(_,_,y,super)));
+
+// both indirect & direct
+InheritedTestCase(tcid_gf, super) := 
+		DTestCase(tcid_gf,super) | 
+		ITestCase(tcid_gf,super);
+
+
+/**
+ * compute the transitive set of test helpers of test setup ts
+ * 
+ * broken & not used
+ *
+ * @col tcid_gf: test case id
+ * @col thid: test helper id
+ **/
+// InheritedTestHelpers(tcid_gf, thid) := 
+// 	EX(y, TestHelper(x,_) & InheritedTestCase(y) & MethodBelongsToClass(x,y));
+
+
+/**
+ * various helper relations for metrics computation
+ **/
+
+DirectFixtureObject(tcid_gf, x) := 
+		TestCaseId(tcid_gf) &
+		Attribute(x,_) & 
+		AttributeBelongsToClass(x,tcid_gf);
+
+IndirectFixtureObject(tcid_gf, x) := 
+	EX(y, 
+		Attribute(x,_) & 
+		InheritedTestCase(tcid_gf, y) & 
+		AttributeBelongsToClass(x,y));
+
+FixtureObject(tcid_gf, x) := 
+		DirectFixtureObject(tcid_gf, x) | 
+		IndirectFixtureObject(tcid_gf, x);
+
+ProductionClassId(x) := !TestCaseId(x);
+
+DirectFixturePType(tcid_gf, x) := 
+	EX(y, 
+		TestCaseId(tcid_gf) &
+		Attribute(y,_) & 
+		ProductionClassId(x) & 
+		HasType(y,x) & 
+		AttributeBelongsToClass(y,tcid_gf));
+
+IndirectFixturePType(tcid_gf, x) := 
+	EX(y,z, 
+		Attribute(y,_) & 
+		ProductionClassId(x) & 
+		HasType(y,x)  & 
+		InheritedTestCase(tcid_gf, z) & 
+		AttributeBelongsToClass(y,z));
+
+FixturePType(tcid_gf, x) := 
+		DirectFixturePType(tcid_gf, x) | 
+		IndirectFixturePType(tcid_gf, x);
+
+
+HasSetup(tcid_gf) := 
+	EX(setid, 
+		TestSetupId(setid) & 
+		TestCaseId(tcid_gf) &
+		MethodBelongsToClass(setid,tcid_gf)
+		);
+
+TrTestSetup(tcid_gf, x) := 
+		TestSetupId(x) & 
+		TestCaseId(tcid_gf) &
+		( 
+			MethodBelongsToClass(x,tcid_gf) | 
+			EX(y, 
+				InheritedTestCase(tcid_gf, y) & 
+				MethodBelongsToClass(x,y))
+		);
+
+
+// doesn't seem to work ...
+// InvocationOnObjectInSetup(x) :=
+// 	EX(y,z,yd,zd, 
+// 		TrTestSetup(y) & 
+// 		(
+// 			MethodBelongsToClass(y,tc) |
+// 			EX(q, 
+// 				InheritedTestCase(q) & 
+// 				MethodBelongsToClass(y,q))
+// 		) & 
+// 		ProductionMethod(z) & 
+// 		DefinitionForDeclaration(yd,y) & 
+// 		DefinitionForDeclaration(zd,z) & 
+// 		Invokes(x,yd,zd)
+// 	);
+
+AccessOnObjectInSetup(tcid_gf, accid) :=
+	EX(setup,attr,prod, setupdef,
+		TestCaseId(tcid_gf) &
+		TestSetupId(setup) &
+		//TrTestSetup(tcid_gf, setup) & 
+		MethodBelongsToClass(setup,tcid_gf) & 
+		Attribute(attr,_) & 
+		ProductionClassId(prod) & 
+		HasType(attr,prod) & 
+		DefinitionForDeclaration(setupdef, setup) &
+		Accesses(accid,setupdef,attr));
+
+//PRINT AccessOnObjectInSetup(x,y);
+
+
+ObjectUsesInSetup(tcid_gf, x) := 
+//		InvocationOnObjectInSetup(x) |
+		AccessOnObjectInSetup(tcid_gf, x);
+
+//PRINT ObjectUsesInSetup(x,y);
+
+/**
+ * @col tcid_gf: test case id
+ * @col nfob: number of attributes
+ * @col nfpt: number of production types
+ * @col nobu: number of object uses in setup [just access for now]
+ **/
+GeneralFixtureData("", "", "", "");
+
+FOR tcid_x IN HasSetup(x) {
+	//notc := #(ChildTestCommand(tcid, tm));
+	nfob := #(FixtureObject(tcid_x, x));
+	nfpt := #(FixturePType(tcid_x, x)); // correlation was to weak to report about
+	nobu := #(ObjectUsesInSetup(tcid_x, x));
+	// need to know attribute type for that...
+
+	//PRINT tcid_x, "	nfob: ", nfob, "	nfpt:", nfpt, "	nobu:", nobu, ENDL;
+
+	IF ( (nfob >= GENERAL_FIXTURE_NFOB_TRESHOLD) |
+		 (nfpt >= GENERAL_FIXTURE_NFPT_TRESHOLD) | 
+		 (nobu >= GENERAL_FIXTURE_NOBU_TRESHOLD)) {
+		GeneralFixtureData(tcid_, nfob_, nfpt_, nobu_) :=
+			GeneralFixtureData(tcid_, nfob_, nfpt_, nobu_) |
+			(
+				tcid_ = tcid_x &
+				count(STRING(nfob), nfob_) &
+				count(STRING(nfpt), nfpt_) &
+				count(STRING(nobu), nobu_)
+			);
+	}
+}
+
+//PRINT ["GeneralFixtureData"] GeneralFixtureData(x,y,z,a);
+
+TestCaseDefinitionFile(tcid_gf, fid) :=
+	EX(mtdid, def,
+		TestCaseId(tcid_gf) &
+		MethodBelongsToClass(mtdid, tcid_gf) &
+		DefinitionForDeclaration(def, mtdid) &
+		InvokableEntityBelongsToFile(def, fid, _));
+
+//PRINT ["TestCaseDefinitionFile"] TestCaseDefinitionFile(x,y);
+
+GeneralFixture(tc_nm, nfob2, nfpt2, nobu2, file, line) :=
+	EX(tcid_gf, fid,
+		GeneralFixtureData(tcid_gf, nfob2, nfpt2, nobu2) &
+		Class(tcid_gf, tc_nm) &
+		TestCaseDefinitionFile(tcid_gf, fid) &
+		File(fid, file) &
+		count("0", line));
+
+PRINT ["GeneralFixture"] GeneralFixture(o,p,q,r,s,t);

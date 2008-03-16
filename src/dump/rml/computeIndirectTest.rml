@@ -78,7 +78,7 @@ IndirectTestId("", "");
 
 FOR tcid_idt IN TestCommandId(x) {
     nptu := #(diffClassInvokes(tcid_idt,c) | diffClassInvokesHelper(tcid_idt,c) |
-              diffClassAccess(tcid_idt,c)  | diffClassAccessHelper(tcid_idt, c));
+              diffClassAccess(tcid_idt,c)  | diffClassAccessHelper(tcid_idt,c));
     IF ( nptu >= INDIRECT_TEST_TRESHOLD) {
         // got one, append
         IF (nptu <= COUNT_MAX) {
