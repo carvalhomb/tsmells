@@ -60,7 +60,25 @@ class RootTest(TestCase):
 		self.assertTrue(key in srcDict)
 		self.assertTrue(self.location in srcDict[key])
 
+	def verifyAppendMetricsInfo(self, generator, identif, toParse, metricVal):
+		generator.parse(self.toParse)
+		metricDict = self.setupMetricDict()
+		generator.appendMetricInfo(metricDict)
 
+		self.assertTrue(identif in metricDict)
+		metrics = metricDict[identif]
+		self.assertEquals(1, len(metrics), \
+						"Should contain a single indentedtest metric dict")
+		self.assertTrue(identif + "0" in metrics)
+		metrics = metrics[identif + "0"]
+		for name, val in metricVal:
+			self.assertEquals(val, metrics[name]) 
+
+	def setupMetricDict(self):
+		metricDict = {}
+		metricDict['Translation'] = {}
+		return metricDict
+	
 class TestCasesTest(RootTest):
 	def setUp(self):
 		self.cases = TestCases()
@@ -194,17 +212,36 @@ class AssertionLesssTest(RootTest):
 class AssertionRoulettesTest(RootTest):
 	def setUp(self):
 		self.assertionroulettes = AssertionRoulettes()
+		self.AR = 'AssertionRoulette'
+		self.toParse = [ self.AR , "TC", "FooTest.testFoo()", "10", "8", "FooTest.java", "228"]
 		
 	def testParse(self):
-		toParse = [ "AssertionRoulette", "TC", "FooTest.testFoo()", "10", "8", "FooTest.java", "228"]
 		key = "FooTest.testFoo()"
 		location = ("FooTest.java", 228)
-		self.verifyParse(self.assertionroulettes, toParse, key, location)
+		self.verifyParse(self.assertionroulettes, self.toParse, key, location)
 		self.assertEquals(10, self.assertionroulettes.getTotalAsserts(key))
 		self.assertEquals(8, self.assertionroulettes.getDescriptionlessAsserts(key))
 
+	def testAppendMetrics(self):
+		self.verifyAppendMetricsInfo(self.assertionroulettes, self.AR, self.toParse, [('NrA', 10),('NrDA', 8)])
+
+	def testAppendMultiMetrics(self):
+		self.assertionroulettes.parse(self.toParse)
+		self.toParse2 = [ self.AR, "TH", "BarTest.testBar()", "15", "5", "BarTest.java", "220"]
+		self.assertionroulettes.parse(self.toParse)
+		self.assertionroulettes.parse(self.toParse2)
+		metricDict = self.setupMetricDict()
+		self.assertionroulettes.appendMetricInfo(metricDict)
+		self.assertTrue(self.AR in metricDict)
+		metrics = metricDict[self.AR]
+		self.assertEquals(2, len(metrics), str(metrics))
+		self.assertEquals({'NrA':10, 'NrDA':8}, metrics[self.AR + '0'])
+		self.assertEquals({'NrA':15, 'NrDA':5}, metrics[self.AR + '1'])
+
 class DuplicatedCodesTest(TestCase):
 	def setUp(self):
+		# GeneralFixture here :))
+		self.DP = "DuplicatedCode"
 		self.duplicatedcodes = DuplicatedCodes()
 		self.mtd1 = "BtPieceMessageTest.testChokingEvent_inAmAllowedIndexSet()"
 		self.mtd2 = "BtPieceMessageTest.testChokingEvent_somwhere()"
@@ -298,6 +335,44 @@ class DuplicatedCodesTest(TestCase):
 		self.assertTrue(self.edge1 in edges)
 		self.assertTrue(self.edge2 in edges)
 
+	def testCalculateANrSLSingle(self):
+		self.dupli = [self.DP, "Foo.foo()", "Foo.java", 2, 10]
+		ANrSL = self.duplicatedcodes.calculateANrSL(self.dupli)
+		self.assertEquals(ANrSL, 9)
+
+	def testCalculateANrSLDuo(self):
+		self.dupli = [self.DP, "Foo.foo()", "Foo.java", 2, 10, \
+							   "Bar.bar()", "Bar.java", 10, 18]
+		ANrSL = self.duplicatedcodes.calculateANrSL(self.dupli)
+		self.assertEquals(ANrSL, 9)
+
+		self.dupli = [self.DP, "Foo.foo()", "Foo.java", 2, 10, \
+							   "Bar.bar()", "Bar.java", 10, 16]
+		ANrSL = self.duplicatedcodes.calculateANrSL(self.dupli)
+		self.assertEquals(ANrSL, 8)
+
+	def testCalculateANrSLTriple(self):
+		self.dupli = [self.DP, "Foo.foo()", "Foo.java", 2, 10, \
+							   "Bar.bar()", "Bar.java", 10, 16, \
+							   "Baz.baz()", "Baz.java", 16, 20]
+		ANrSL = self.duplicatedcodes.calculateANrSL(self.dupli)
+		self.assertEquals(ANrSL, 7)
+
+	def testAppendMetricInfo(self):
+		self.duplicatedcodes.parse(self.toParse)
+		metricDict = {}
+		metricDict['Translation'] = {}
+		self.duplicatedcodes.appendMetricInfo(metricDict)
+
+		self.assertTrue(self.DP in metricDict)
+		metrics = metricDict[self.DP]
+		self.assertEquals(1, len(metrics), \
+						"Should contain a single duplicated code metric dict")
+		self.assertTrue(self.DP + "0" in metrics)
+		metrics = metrics[self.DP + "0"]
+		val = self.duplicatedcodes.calculateANrSL(self.toParse)
+		self.assertEquals(val, metrics['ANrSL'])
+
 class ForTestersOnlysTest(RootTest):
 	def setUp(self):
 		self.fortestersonlys = ForTestersOnlys()
@@ -311,6 +386,7 @@ class ForTestersOnlysTest(RootTest):
 class IndentedTestsTest(RootTest):
 	def setUp(self):
 		self.indentedtests = IndentedTests()
+		self.IT = "IndentedTest"
 		self.key = "FileTest.testRemove()"
 		self.toParse = ["IndentedTest","TC",self.key,"1","FileTest.cc","78"]
 		self.location = ("FileTest.cc", 78)
@@ -336,17 +412,23 @@ class IndentedTestsTest(RootTest):
 	def testAppendLocationInfo(self):
 		self.verifyAppendLocationInfo(self.indentedtests, "IndentedTest0", self.toParse, self.location)
 
+	def testAppendMetricsInfo(self):
+		self.verifyAppendMetricsInfo(self.indentedtests, self.IT, self.toParse, [('NrCS', 1)])
+
 class IndirectTestsTest(RootTest):
 	def setUp(self):
 		self.indirecttests = IndirectTests()
+		self.toParse = ["IndirectTest","BtDependencyTest.testResolve()","4","5","BtDependencyTest.cc","57"]
 
 	def testParse(self):
-		toParse = ["IndirectTest","BtDependencyTest.testResolve()","4","5","BtDependencyTest.cc","57"]
 		key = "BtDependencyTest.testResolve()"
 		location = ("BtDependencyTest.cc", 57)
-		self.verifyParse(self.indirecttests, toParse, key, location)
+		self.verifyParse(self.indirecttests, self.toParse, key, location)
 		self.assertEquals(4, self.indirecttests.getTreshold(key))
 		self.assertEquals(5, self.indirecttests.getNPTU(key))
+
+	def testAppendMetricsInfo(self):
+		self.verifyAppendMetricsInfo(self.indirecttests, 'IndirectTest', self.toParse, [('NPTU', 5)])
 
 class EagerTestsTest(RootTest):
 	def setUp(self):
@@ -378,31 +460,53 @@ class EagerTestsTest(RootTest):
 	def testAppendLocationInfo(self):
 		self.verifyAppendLocationInfo(self.eagertests, "EagerTest0", self.toParse, self.location)
 
+	def testAppendMetricsInfo(self):
+		self.verifyAppendMetricsInfo(self.eagertests, 'EagerTest', self.toParse, [('PTMI', 6)])
+
 class SensitiveEqualitysTest(RootTest):
 	def setUp(self):
 		self.sensitiveequalitys = SensitiveEqualitys()
+		self.toParse = ["SensitiveEquality", "TC", "BtInterestedMessageTest.testToString()", "1", "BtInterestedMessageTest.cc", "27"]
 	
 	def testParse(self):
-		toParse = ["SensitiveEquality", "TC", "BtInterestedMessageTest.testToString()", "1", "BtInterestedMessageTest.cc", "27"]
 		key = "BtInterestedMessageTest.testToString()"
 		location = ("BtInterestedMessageTest.cc", 27)
-		self.verifyParse(self.sensitiveequalitys, toParse, key, location)
+		self.verifyParse(self.sensitiveequalitys, self.toParse, key, location)
 		self.assertEquals(1, self.sensitiveequalitys.getCount(key))
 		self.assertEquals("TC", self.sensitiveequalitys.getType(key))
+
+	def testAppendMetricInfo(self):
+		self.verifyAppendMetricsInfo(self.sensitiveequalitys, "SensitiveEquality", self.toParse, [('NrTS', 1)])
+
+	def testAppendMetricInfo2(self):
+		self.toParse[3] = "10"
+		self.verifyAppendMetricsInfo(self.sensitiveequalitys, "SensitiveEquality", self.toParse, [('NrTS', 10)])
+
 
 class GeneralFixturesTest(RootTest):
 	def setUp(self):
 		self.generalfixtures = GeneralFixtures()
-		
-	def testParse(self):
 		self.toParse = ["GeneralFixture","DefaultPackageTest",
 						"5","6","10","DefaultPackageTest.java","0"]
+		
+	def testParse(self):
 		self.key = "DefaultPackageTest"
 		self.location = ("DefaultPackageTest.java", 0)
 		self.verifyParse(self.generalfixtures, self.toParse, self.key, self.location)
 		self.assertEquals(5, self.generalfixtures.getNFOB(self.key))
 		self.assertEquals(6, self.generalfixtures.getNFPT(self.key))
 		self.assertEquals(10, self.generalfixtures.getNOBU(self.key))
+
+	def testAppendMetricInfo(self):
+		self.verifyAppendMetricsInfo(self.generalfixtures, "GeneralFixture", self.toParse, \
+									 [('NFOB', 5), ('NFPT', 6), ('NOBU', 10)])
+
+	def testAppendMetricInfo2(self):
+		self.toParse[2] = "8"
+		self.toParse[3] = "3"
+		self.toParse[4] = "20"
+		self.verifyAppendMetricsInfo(self.generalfixtures, "GeneralFixture", self.toParse, \
+									 [('NFOB', 8), ('NFPT', 3), ('NOBU', 20)])
 
 class MysteryGuestsTest(TestCase):
 	def setUp(self):
