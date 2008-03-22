@@ -16,7 +16,7 @@
 # with TSmells; if not, write to the Free Software Foundation, Inc., 
 # 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
 #
-# Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+# Copyright 2007-2008 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
 #
 
 def isSourceLine(toCheck):

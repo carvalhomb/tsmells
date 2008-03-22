@@ -1,28 +1,31 @@
-import os, com, java, javax.swing, java.lang, jarray, cPickle, time
+#!/usr/bin/python
+#
+# This file is part of TSmells
+#
+# TSmells is free software; you can redistribute it and/or modify it 
+# under the terms of the GNU General Public License as published by the 
+# Free Software Foundation; either version 2 of the License, or (at your 
+# option) any later version.
+#
+# TSmells is distributed in the hope that it will be useful, but WITHOUT 
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+# details.
+#
+# You should have received a copy of the GNU General Public License along 
+# with TSmells; if not, write to the Free Software Foundation, Inc., 
+# 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+#
+# Copyright 2007-2008 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+#
+
+import os, com, java, java.lang, jarray, cPickle, time
+
 import com.hp.hpl.guess.Guess
 import com.hp.hpl.guess.Graph
-import javax.swing.JTable
-from java.awt.geom import GeneralPath
-from java.awt import Polygon
 
-srcDict = {}
-
-def openeditor(file, line):
-    toExec = "kwrite " + file + " --line " + str(line)
-    print "executing " + toExec
-    Runtime.getRuntime().exec(toExec)
-
-def toSourceAction(targetNode):
-    root = srcDict['ProjectSourceRootDirectory']
-    print targetNode.name
-    for location in srcDict[targetNode.name[0]]:
-        print root
-        print location
-        openeditor(root + location[0], location[1])
-
-def createToSourceContextAction():
-    newMenuItem = NodeEditorPopup.addItem("toSource")
-    newMenuItem.menuEvent = toSourceAction
+import java.awt.geom.GeneralPath
+import java.awt.Polygon
 
 def createDiamondShape():
     xpoints = jarray.array((10,5,0,5),'i')
@@ -32,12 +35,8 @@ def createDiamondShape():
     shapeDB.addShape(104,diamond)
 
 def loadData():
-    global srcDict
-
     setDisplayBackground("black")
     makeFromGDF(os.environ['TSMELLS_GDF'])
-    pcklFile = open(os.environ['TSMELLS_SRCPICKLE'],'rb')
-    srcDict = cPickle.load(pcklFile)
     g.edges.color = 'lightgray'
     g.nodes.visible = 0
 
@@ -150,181 +149,19 @@ class ControlPanel(com.hp.hpl.guess.ui.DockableAdapter):
     def getTitle(self):
         return("control")
 
-class OtherStuff(com.hp.hpl.guess.ui.DockableAdapter):
-
-    def __init__(self):
-        Guess.getMainUIWindow().dock(self)
-
-    def getTitle(self):
-        return("stuff")
-
-    def getDirectionPreference(self):
-        #return MainUIWindow.VERTICAL_DOCK
-        return 2
-
 def plotSmellFrequency():
     other = remove((complement(entity == 'smell')))
     plotSizesPie(label, 1)
     add(other)
 
-import javax.swing.JTable
-import javax.swing.JScrollPane
-import java.awt.GridBagLayout
-import java.awt.GridBagConstraints
-import java.awt.Rectangle
-import javax.swing.JLabel
-import com.hp.hpl.guess.ui.Dockable
 
-class StuffModel(javax.swing.table.AbstractTableModel):
-
-    #def __init__(self):
-        #self.nRowCount = 0;
-        #self.nFields = java.util.Vector
-        #self.eRowCount = 0
-        #self.eFields = java.util.Vector
-        #self.lastSel = GraphElement()
-    def __init__(self):
-        self.testcases = (entity == 'testcase')
-
-    def getColumnCount(self):
-        return 1
-
-    def getRowCount(self):
-        return len(self.testcases)
-
-    def getValueAt(self,row, col):
-        return self.testcases[row]
-
-    def getColumnName(self, col):
-        return "qualified test cases"
-
-    def isCellEditable(self, row, col):
-        if (col == 0):
-            return false
-        else:
-            return true
-
-lastClicked = None
-testcases = None
-secondRun = false
-
-class StuffTable(javax.swing.JTable):
-
-    def valueChanged(self, event):
-#        javax.swing.JTable(self).valueChanged(event)
-        global lastClicked
-        global testcases
-        global secondRun
-
-        if secondRun:
-            secondRun = false
-            return
-
-        if lastClicked == event.getFirstIndex():
-            row = event.getLastIndex()
-        else:
-            row = event.getFirstIndex()
-
-        if lastClicked != None:
-            com.hp.hpl.guess.ui.GraphEvents.mouseLeave(testcases[lastClicked])
-        com.hp.hpl.guess.ui.GraphEvents.mouseEnter(testcases[row])
-        lastClicked = row
-        self.repaint()
-        secondRun = true
-
-class Stuff(JPanel,com.hp.hpl.guess.ui.Dockable,com.hp.hpl.guess.ui.GraphMouseListener):
-
-    def __init__(self):
-        global testcases
-
-        self.model = StuffModel()
-        #GuessTableModel gtm = null;
-        self.jl = JLabel("TestCaseList", JLabel.CENTER)
-        self.myParent = None
-
-        #com.hp.hpl.guess.ui.GraphEvents.getGraphEvents().addGraphMouseListener(self)
-        self.table = StuffTable(self.model)
-        self.scrollpane = JScrollPane(self.table)
-        self.setLayout(GridBagLayout())
-        self.constr = GridBagConstraints()
-        self.fnt = self.jl.getFont()
-        #self.fnt = fnt.deriveFont(Font.BOLD,15);
-        #jl.setFont(fnt);
-
-        self.constr.fill = GridBagConstraints.HORIZONTAL
-        self.constr.weighty = 0
-        self.constr.weightx = 1
-        self.constr.gridx = 0
-        self.constr.gridy = 0
-        self.add(self.jl,self.constr)
-
-        self.constr.fill = GridBagConstraints.BOTH
-        self.constr.weighty = 1
-        self.constr.gridy = 1
-        self.add(self.scrollpane,self.constr)
-        self.setBounds(self.getDefaultFrameBounds())
-
-        self.testcases = (entity == 'testcase')
-        testcases = self.testcases
-        it = 0
-        for case in self.testcases:
-            self.table.setValueAt(case.name, it, 0)
-            it += 1
-        ui.dock(self)
-
-    def getDefaultFrameBounds(self):
-        return Rectangle(50, 50, 300, 600)
-
-    #def mouseEnterNode(self, node):
-        #print node
-        #if node.entity == 'testcase':
-            ##print "ISATESTCASE"
-            #row = self.getIndex(node.name)
-            #print row
-            #self.table.clearSelection()
-            #self.table.changeSelection(row, 0, false, false)
-
-    def getIndex(self, name):
-        index = 0
-        while (index < len(self.testcases)) and\
-              (str(self.testcases[index]) != str(name)):
-            print "\t" + self.testcases[index] + "<>" + name
-            index+=1
-        return index
-
-    def mouseEnterEdge(self, edge):
-        pass
-
-    def mouseLeaveNode(self, node):
-        pass
-
-    def mouseLeaveEdge(self, edge):
-        pass
-
-    def getPreferredSize(self):
-        return Dimension(200,600)
-
-    def getDirectionPreference(self):
-        return 2 # vertical
-
-    def opening(self, state):
-        self.visible = state
-
-    def attaching(self, state):
-        pass
-
-    def getTitle(self):
-        return("testcases")
-
-    def getWindow(self):
-        return self.myParent
-
-    def setWindow(self,gjf):
-        self.myParent = gjf
+TSMELLS=os.environ['TSMELLS']
+TSMELLS_VIZ=TSMELLS + '/src/viz'
 
 loadData()
-Stuff()
 ControlPanel()
 plotSmellFrequency()
-createToSourceContextAction()
+
+execfile(TSMELLS_VIZ + '/gui/TestCaseList.py')
+execfile(TSMELLS_VIZ + '/gui/ToSourceContext.py')
 
