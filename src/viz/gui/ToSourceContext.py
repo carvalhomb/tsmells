@@ -26,6 +26,7 @@ def loadSrcDict():
     global srcDict
     pcklFile = open(os.environ['TSMELLS_SRCPICKLE'],'rb')
     srcDict = cPickle.load(pcklFile)
+    pcklFile.close()
 
 def openEditor(file, line):
     ''' spawn an external source code viewer and open the given file + jump

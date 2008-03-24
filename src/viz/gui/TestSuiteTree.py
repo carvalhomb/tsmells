@@ -23,8 +23,9 @@ from java.awt            import Rectangle, \
                                 GridBagConstraints
 from javax.swing         import JPanel, \
                                 JTable, \
-                                JLabel, \
+                                JTree, \
                                 JScrollPane
+from javax.swing.tree    import DefaultMutableTreeNode
 from javax.swing.table   import AbstractTableModel
 from com.hp.hpl.guess.ui import Dockable, \
                                 GraphMouseListener, \
@@ -81,21 +82,23 @@ class TestCaseTable(JTable):
         self.repaint()
 
 
-class TestCasePanel(JPanel, Dockable, GraphMouseListener):
+class TestSuitePanel(JPanel, Dockable, GraphMouseListener):
 
     def __init__(self):
         self.myParent = None
         self.testcases = (entity == 'testcase')
         #com.hp.hpl.guess.ui.GraphEvents.getGraphEvents().addGraphMouseListener(self)
-        self.__initTable()
+        self.__initTree()
         self.setBounds(self.getDefaultFrameBounds())
         ui.dock(self)
 
-    def __initTable(self):
-        ''' construct the test case table '''
+    def __initTree(self):
+        ''' construct the suite tree '''
         self.model = TestCaseModel(self.testcases)
-        self.table = TestCaseTable(self.model, self.testcases)
-        self.scrollpane = JScrollPane(self.table)
+        self.top = DefaultMutableTreeNode("RootSuite")
+        self.__createNodes(self.top)
+        self.tree = JTree(self.top)
+        self.scrollpane = JScrollPane(self.tree)
         self.setLayout(GridBagLayout())
         self.constr = GridBagConstraints()
         self.constr.weighty = 1
@@ -107,6 +110,15 @@ class TestCasePanel(JPanel, Dockable, GraphMouseListener):
 
     def getDefaultFrameBounds(self):
         return Rectangle(50, 50, 300, 600)
+
+    def __createNodes(self):
+        for pkg in (entity == 'package'):
+            pkgNode = DefaultMutableTreeNode(pkg.name):
+            self.top.add(pkgNode)
+            for edge in (pkgNode)-(g.nodes):
+                testcase = edge.getNode1()
+                tcNode = DefaultMutableTreeNode(testcase.label)
+                pkgNode.add(tcNode)
 
     #def mouseEnterNode(self, node):
         #print node
@@ -156,4 +168,4 @@ class TestCasePanel(JPanel, Dockable, GraphMouseListener):
         self.myParent = gjf
 
 # construct the panel
-TestCasePanel()
+TestSuitePanel()
