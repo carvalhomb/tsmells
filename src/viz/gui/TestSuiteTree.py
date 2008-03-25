@@ -25,68 +25,70 @@ from javax.swing         import JPanel, \
                                 JTable, \
                                 JTree, \
                                 JScrollPane
-from javax.swing.tree    import DefaultMutableTreeNode
+from javax.swing.tree    import DefaultMutableTreeNode,\
+                                DefaultTreeCellRenderer
 from javax.swing.table   import AbstractTableModel
 from com.hp.hpl.guess.ui import Dockable, \
                                 GraphMouseListener, \
                                 GraphEvents
 
-class TestCaseModel(AbstractTableModel):
+#class TestCaseModel(AbstractTableModel):
 
-    def __init__(self, testcases):
-        self.testcases = testcases
+    #def __init__(self, testcases):
+        #self.testcases = testcases
 
-    def getColumnCount(self):
-        return 1
+    #def getColumnCount(self):
+        #return 1
 
-    def getRowCount(self):
-        return len(self.testcases)
+    #def getRowCount(self):
+        #return len(self.testcases)
 
-    def getValueAt(self,row, col):
-        return self.testcases[row]
+    #def getValueAt(self,row, col):
+        #return self.testcases[row]
 
-    def getColumnName(self, col):
-        return "test case list"
+    #def getColumnName(self, col):
+        #return "test case list"
 
-    def isCellEditable(self, row, col):
-        if (col == 0):
-            return 0
-        else:
-            return 1
+    #def isCellEditable(self, row, col):
+        #if (col == 0):
+            #return 0
+        #else:
+            #return 1
 
-class TestCaseTable(JTable):
+#class TestCaseTable(JTable):
 
-    def __init__(self, model, testcases):
-        JTable.__init__(self, model)
-        self.model = model
-        self.testcases = testcases
-        self.lastClicked = None
-        self.secondRun = 0
+    #def __init__(self, model, testcases):
+        #JTable.__init__(self, model)
+        #self.model = model
+        #self.testcases = testcases
+        #self.lastClicked = None
+        #self.secondRun = 0
 
-    def valueChanged(self, event):
-        #javax.swing.JTable(self).valueChanged(event)
-        if self.secondRun:
-            self.secondRun = 0
-            return
+    #def valueChanged(self, event):
+        ##javax.swing.JTable(self).valueChanged(event)
+        #if self.secondRun:
+            #self.secondRun = 0
+            #return
 
-        if self.lastClicked == event.getFirstIndex():
-            row = event.getLastIndex()
-        else:
-            row = event.getFirstIndex()
+        #if self.lastClicked == event.getFirstIndex():
+            #row = event.getLastIndex()
+        #else:
+            #row = event.getFirstIndex()
 
-        if self.lastClicked != None:
-            GraphEvents.mouseLeave(self.testcases[self.lastClicked])
-        GraphEvents.mouseEnter(self.testcases[row])
-        self.lastClicked = row
-        self.secondRun = 1
-        self.repaint()
+        #if self.lastClicked != None:
+            #GraphEvents.mouseLeave(self.testcases[self.lastClicked])
+        #GraphEvents.mouseEnter(self.testcases[row])
+        #self.lastClicked = row
+        #self.secondRun = 1
+        #self.repaint()
 
+def cmpTc(x,y):
+    return x.name > y.name
 
 class TestSuitePanel(JPanel, Dockable, GraphMouseListener):
 
     def __init__(self):
         self.myParent = None
-        self.testcases = (entity == 'testcase')
         #com.hp.hpl.guess.ui.GraphEvents.getGraphEvents().addGraphMouseListener(self)
         self.__initTree()
         self.setBounds(self.getDefaultFrameBounds())
@@ -94,10 +96,14 @@ class TestSuitePanel(JPanel, Dockable, GraphMouseListener):
 
     def __initTree(self):
         ''' construct the suite tree '''
-        self.model = TestCaseModel(self.testcases)
-        self.top = DefaultMutableTreeNode("RootSuite")
-        self.__createNodes(self.top)
-        self.tree = JTree(self.top)
+        top = DefaultMutableTreeNode("RootSuite")
+        self.__createNodes(top)
+        self.tree = JTree(top)
+        renderer = DefaultTreeCellRenderer()
+        renderer.setOpenIcon(None)
+        renderer.setClosedIcon(None)
+        renderer.setLeafIcon(None)
+        self.tree.setCellRenderer(renderer);
         self.scrollpane = JScrollPane(self.tree)
         self.setLayout(GridBagLayout())
         self.constr = GridBagConstraints()
@@ -111,14 +117,45 @@ class TestSuitePanel(JPanel, Dockable, GraphMouseListener):
     def getDefaultFrameBounds(self):
         return Rectangle(50, 50, 300, 600)
 
-    def __createNodes(self):
+    def __createNodes(self, top):
+        ''' build the tree, by adding packages, testcases and commands '''
         for pkg in (entity == 'package'):
-            pkgNode = DefaultMutableTreeNode(pkg.name):
-            self.top.add(pkgNode)
-            for edge in (pkgNode)-(g.nodes):
-                testcase = edge.getNode1()
-                tcNode = DefaultMutableTreeNode(testcase.label)
-                pkgNode.add(tcNode)
+            pkgNode = DefaultMutableTreeNode(pkg.name)
+            top.add(pkgNode)
+            self.__appendCases(pkg, pkgNode)
+
+    def __appendCases(self, pkg, pkgNode):
+        ''' append the test cases of a single package to the tree '''
+        testcases = [edge.getNode2() for edge in (pkg->g.nodes)]
+        testcases.sort(cmpTc)
+        for tc in testcases:
+            tcNode = DefaultMutableTreeNode(tc.label.split('::')[-1])
+            pkgNode.add(tcNode)
+            self.__appendCommands(tc, tcNode)
+            self.__appendFixture(tc, tcNode)
+            self.__appendHelpers(tc, tcNode)
+
+    def __appendCaseMethodsHelper(self, case, caseNode, metaName, entityName):
+        ''' helper for appendCommands, appendFixture & appendHelpers '''
+        mtdMeta = DefaultMutableTreeNode(metaName)
+        caseNode.add(mtdMeta)
+        mtds = [edge.getNode2() for edge in case->(entity == entityName)]
+        mtds.sort(cmpTc)
+        for mtd in mtds:
+            mtdNode = DefaultMutableTreeNode(mtd.label)
+            mtdMeta.add(mtdNode)
+
+    def __appendCommands(self, case, caseNode):
+        ''' append the test commands of a single testcase to the tree '''
+        self.__appendCaseMethodsHelper(case, caseNode, "commands", "testcommand")
+
+    def __appendFixture(self, case, caseNode):
+        ''' append the test fixture methods of a single testcase to the tree'''
+        self.__appendCaseMethodsHelper(case, caseNode, "fixture", "testfixture")
+
+    def __appendHelpers(self, case, caseNode):
+        #''' append the test helper methods of a single testcase to the tree'''
+        self.__appendCaseMethodsHelper(case, caseNode, "helpers", "testhelper")
 
     #def mouseEnterNode(self, node):
         #print node

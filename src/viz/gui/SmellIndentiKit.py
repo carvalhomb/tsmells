@@ -88,7 +88,7 @@ class SmellIdentiKitModel(AbstractTableModel):
         self.labels.append("id")
         self.values.append(str(node.name))
 
-    def __fillSourceLoc(self, srcLocs):        
+    def __fillSourceLoc(self, srcLocs):
         ''' fill the table with source locations for a given node '''
         # fill the labels
         if (len(srcLocs)) > 0:
@@ -104,7 +104,9 @@ class SmellIdentiKitModel(AbstractTableModel):
 
     def __fillOwner(self, node):
         ''' fetch the owner(s) of this smell, if any '''
-        owners = [x.getNode2() for x in (node)-(g.nodes)]
+        owners = [x.getNode1() for x in (node)<-(g.nodes)]
+        print "owners ",
+        print owners
         cnt = 0
         for owner in owners:
             label = "owner"

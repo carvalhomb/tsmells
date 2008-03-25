@@ -54,7 +54,7 @@ class Smellz(SourceEntityz):
 		counter = 0
 		for mtd in self.dict:
 			mtd = filterComma(mtd)
-			edges.append(Edge(self.smellName + str(counter), mtd))
+			edges.append(Edge(mtd, self.smellName + str(counter)))
 			counter += 1
 		return edges
 
@@ -289,7 +289,7 @@ class MysteryGuests(object):
 		edges = []
 		counter = 0
 		for mystery in self.mysteries:
-			edges.append(Edge("MysteryGuest" + str(counter), mystery[1]))
+			edges.append(Edge(mystery[1], "MysteryGuest" + str(counter)))
 			counter += 1
 		return edges
 
@@ -372,7 +372,7 @@ class DuplicatedCodes(object):
 			for i in range(1, len(duplicate), 4):
 				currMtd = filterComma(duplicate[i])
 				if currMtd in processedMtds: continue
-				edges.append(Edge(self.smellName + str(counter), currMtd))
+				edges.append(Edge(currMtd, self.smellName + str(counter)))
 				processedMtds.add(currMtd)
 			counter += 1
 		return edges

@@ -43,8 +43,9 @@ TSMELLS_VIZ=TSMELLS + '/src/viz'
 
 loadData()
 
+execfile(TSMELLS_VIZ + '/gui/TMenu.py')
 execfile(TSMELLS_VIZ + '/gui/TestCaseList.py')
 execfile(TSMELLS_VIZ + '/gui/SmellIndentiKit.py')
 execfile(TSMELLS_VIZ + '/gui/ToSourceContext.py')
 execfile(TSMELLS_VIZ + '/gui/TestSuiteTree.py')
-execfile(TSMELLS_VIZ + '/gui/TMenu.py')
+execfile(TSMELLS_VIZ + '/gui/RescalePanel.py')

@@ -38,6 +38,9 @@ def transformToBIN():
     Guess.setSynchronous(false)
 
 def displaySmellView():
+    global subs
+
+    remove(subs)
     g.nodes.visible = 0
     pkgs = remove((entity=='package'))
     resetColors()
@@ -73,19 +76,16 @@ def displaySuiteView():
     add(smells)
     add(pkgs)
 
-counter = 0
-
 def displayRadialSuiteView():
-    global counter
+    global roots
+    global subs
 
+    remove(subs)
     g.nodes.visible = 0
     resetColors()
-
     smells = remove((entity=='smell'))
-    root = addNode('root' + str(counter))
-    counter += 1
-    for pkg in (entity == 'package'):
-        addDirectedEdge(root, pkg)
+    add(roots)
+    remove([rroot])
     Guess.setSynchronous(true)
     radialLayout(root)
     rescaleCenter(4)
@@ -93,6 +93,43 @@ def displayRadialSuiteView():
     remove([root])
     g.nodes.visible = 1
     add(smells)
+
+
+subs = []
+def displayTreeSuiteView():
+    global roots
+    global subs
+
+    g.nodes.visible = 0
+    add(roots)
+    other = ((entity=='smell')|(entity=='testcommand')|(entity=='testhelper')|(entity=='testfixture'))
+    other.visible = 0
+    other = remove(other)
+    if len(subs) == 0: subs = initSubs()
+    other.extend(remove((entity=='package')->g.nodes))
+    add(subs)
+    (entity=='package').color='white'
+    (entity=='package').labelvisible=1
+    Guess.setSynchronous(true)
+    sugiyamaLayout()
+    Guess.setSynchronous(false)
+    g.nodes.visible = 1
+    add(other)
+    other.visible = 0
+
+def initSubs():
+    subs = []
+    for pkg in (entity == 'package'):
+        sub = addNode(str(pkg) + "sub")
+        subs.append(sub)
+        addDirectedEdge(pkg, sub)
+        for edge in pkg->(g.nodes):
+            n2 = edge.getNode2()
+            print str(pkg) + " - " + str(n2) + " <> " + str(edge) 
+            if n2.name == sub.name: continue
+            addDirectedEdge(sub, n2)
+    resetColors()
+    return remove(subs)
 
 def rescaleCenter(factor):
     Guess.setSynchronous(true)
@@ -105,29 +142,51 @@ def plotSmellFrequency():
     plotSizesPie(label, 1)
     add(other)
 
-tmenu = JMenu("tsmells")
+def fixRoot():
+    ''' add two root nodes & remove them '''
 
-smellv = JMenuItem("smell view")
-smellv.actionPerformed = lambda event : displaySmellView()
-tmenu.add(smellv)
+    root = addNode('root')
+    rroot = addNode('rroot')
+    addDirectedEdge(rroot, root)
+    for pkg in (entity == 'package'):
+        addDirectedEdge(root, pkg)
+    resetColors()
+    return remove([root, rroot])
 
-radialv = JMenuItem("radial suite view")
-radialv.actionPerformed = lambda event : displayRadialSuiteView()
-tmenu.add(radialv)
+def initMenu():
+    tmenu = JMenu("tsmells")
 
-shrink = JMenuItem("grow")
-shrink.actionPerformed = lambda event : rescaleCenter(0.5)
-tmenu.add(shrink)
+    smellv = JMenuItem("smell view")
+    smellv.actionPerformed = lambda event : displaySmellView()
+    tmenu.add(smellv)
 
-grow = JMenuItem("shrink")
-grow.actionPerformed = lambda event : rescaleCenter(2)
-tmenu.add(grow)
+    radialv = JMenuItem("radial suite view")
+    radialv.actionPerformed = lambda event : displayRadialSuiteView()
+    tmenu.add(radialv)
 
-smellp = JMenuItem("smell pie")
-smellp.actionPerformed = lambda event : plotSmellFrequency()
-tmenu.add(smellp)
+    treesv = JMenuItem("tree suite view")
+    treesv.actionPerformed = lambda event : displayTreeSuiteView()
+    tmenu.add(treesv)
 
-gbar = Guess.getMainUIWindow().getGMenuBar()
-gbar.add(tmenu)
-gbar.revalidate()
-gbar.repaint()
+    smellp = JMenuItem("smell pie")
+    smellp.actionPerformed = lambda event : plotSmellFrequency()
+    tmenu.add(smellp)
+
+
+    shrink = JMenuItem("grow")
+    shrink.actionPerformed = lambda event : rescaleCenter(0.5)
+    tmenu.add(shrink)
+
+    grow = JMenuItem("shrink")
+    grow.actionPerformed = lambda event : rescaleCenter(2)
+    tmenu.add(grow)
+
+
+    gbar = Guess.getMainUIWindow().getGMenuBar()
+    gbar.add(tmenu)
+    gbar.revalidate()
+    gbar.repaint()
+
+
+roots = fixRoot()
+initMenu()

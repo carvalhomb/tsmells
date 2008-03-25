@@ -95,7 +95,7 @@ class TestCases(TestEntitiez):
 		edges = []
 		for pkg, cases in self.pkgDict.iteritems():
 			for case in cases:
-				edges.append(Edge(case, pkg))
+				edges.append(Edge(pkg,case))
 		return edges
 
 
@@ -128,7 +128,7 @@ class TestMethodz(TestEntitiez):
 	def generateEdges(self):
 		edges = []
 		for cmd in self.dict:
-			edges.append(Edge(cmd, self.getOwner(cmd)))
+			edges.append(Edge(self.getOwner(cmd), cmd))
 		return edges
 
 	def makeLabel(self, name):

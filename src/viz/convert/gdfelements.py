@@ -62,7 +62,7 @@ class Node():
 	writeHeader = staticmethod(writeHeader)
 
 class Edge():
-	def __init__(self, node1, node2, directed="false", visible="true", color="lightgray"):
+	def __init__(self, node1, node2, directed="true", visible="true", color="lightgray"):
 		self.node1 = node1
 		self.node2 = node2
 		self.directed = directed

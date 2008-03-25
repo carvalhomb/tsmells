@@ -24,8 +24,7 @@ import sys
 sys.path.append("../../src/viz")
 sys.path.append("../../src/contract")
 
-from unittest	import TestCase
-from unittest	import main
+from unittest	 import TestCase, main
 from tsmells2gdf import *
 from cStringIO   import StringIO as iostr
 
