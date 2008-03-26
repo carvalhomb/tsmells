@@ -96,10 +96,42 @@ class TestCasesTest(RootTest):
 		toParse = ["TestCase","pkg::FooTest","pkg/FooTest.java","2"]
 		key = "pkg::FooTest"
 		location = ("pkg/FooTest.java", 2)
-		self.verifyParse(self.cases, toParse, key, location)
+		self.cases.parse(toParse)
+		self.assertTrue(self.cases.pkgDict.has_key('pkg'))
+		self.assertEquals(['pkg::FooTest'], self.cases.pkgDict['pkg'])
+
+	def testParseDefaultPkg(self):
+		self.verifyParseModule('FooTest', 'FooTest.java', 'default')
+
+	def testParseModule(self):
+		self.verifyParseModule('FooTest', "module/FooTest.cpp", 'module')
+
+	def testParseModule2(self):
+		self.verifyParseModule('FooTest', "testmessenger/FooTest.java", 'testmessenger')
+
+	def testParseMultiLevelModule(self):
+		self.verifyParseModule('FooTest', 'module/test/stuff/FooTest.cpp', 'module::test::stuff')
+
+	def testParseModuleSkipSrc(self):
+		# remove trailing 'src' from a module
+		self.verifyParseModule('FooTest', 'module/test/src/FooTest.cpp', 'module::test')
+
+	def verifyParseModule(self, clazz, file, module):
+		self.toParse[2] = file
+		self.cases.parse(self.toParse)
+		self.assertTrue(self.cases.pkgDict.has_key(module), \
+						module + " not in " + str(self.cases.pkgDict))
+		self.assertEquals([clazz], self.cases.pkgDict[module])
+
+	def buildDefaultPkgNode(self):
+		return Node('default', 'black', 'package', 'default', 1)
 
 	def testGenerateNodes(self):
-		self.verifyGenerateNodes(self.cases, self.expNode)
+		self.cases.parse(self.toParse)
+		nodes = self.cases.generateNodes()
+		self.assertEquals(2, len(nodes))
+		self.assertTrue(self.expNode in nodes)
+		self.assertTrue(self.buildDefaultPkgNode() in nodes)
 		
 	def testGenerateNodesMulti(self):
 		self.cases.parse(self.toParse)
@@ -109,7 +141,7 @@ class TestCasesTest(RootTest):
 		self.cases.parse(toParse3)
 
 		nodes = self.cases.generateNodes()
-		self.assertEquals(3, len(nodes))
+		self.assertEquals(4, len(nodes), str([str(node) for node in nodes]))
 
 		self.assertTrue(self.expNode in nodes)
 		expNode2 = Node("BarTest", "black", \
@@ -118,6 +150,7 @@ class TestCasesTest(RootTest):
 						"testcase","BazTest", 1)
 		self.assertTrue(expNode2 in nodes)
 		self.assertTrue(expNode3 in nodes)
+		self.assertTrue(self.buildDefaultPkgNode() in nodes)
 
 	def testAppendLocationInfo(self):
 		self.verifyAppendLocationInfo(self.cases, self.key, self.toParse, self.location)
@@ -239,7 +272,7 @@ class AssertionRoulettesTest(RootTest):
 
 class DuplicatedCodesTest(TestCase):
 	def setUp(self):
-		# GeneralFixture here :))
+		# GeneralFixture :))
 		self.DP = "DuplicatedCode"
 		self.duplicatedcodes = DuplicatedCodes()
 		self.mtd1 = "BtPieceMessageTest.testChokingEvent_inAmAllowedIndexSet()"
@@ -249,8 +282,6 @@ class DuplicatedCodesTest(TestCase):
 		self.toParse = ["DuplicatedCode",\
 					self.mtd1, "BtPieceMessageTest.cc", "197", "206", 
 					self.mtd2, "BtPieceMessageTest.cc", "183", "193"]
-		self.edge1 = Edge("DuplicatedCode0", self.mtd1)
-		self.edge2 = Edge("DuplicatedCode0", self.mtd2)
 
 		self.mtd21 = "Faz.testFaz()"
 		self.mtd22 = "Boo.testBoo()"
@@ -318,7 +349,13 @@ class DuplicatedCodesTest(TestCase):
 		self.assertTrue(self.dupLoc21 in entry1)
 		self.assertTrue(self.dupLoc22 in entry1)
 
+	def setUpEdges(self):
+		self.edge1 = Edge(self.mtd1, "DuplicatedCode0")
+		self.edge2 = Edge(self.mtd2, "DuplicatedCode0")
+
 	def testGenerateEdgesSingleMtd(self):
+		self.setUpEdges()
+
 		self.toParse[5] = self.mtd1
 		self.duplicatedcodes.parse(self.toParse)
 		edges = self.duplicatedcodes.generateEdges()
@@ -327,11 +364,14 @@ class DuplicatedCodesTest(TestCase):
 		self.assertTrue(self.edge1 in edges)
 
 	def testGenerateEdgesMultiMtd(self):
+		self.setUpEdges()
+
 		self.duplicatedcodes.parse(self.toParse)
 		edges = self.duplicatedcodes.generateEdges()
  
 		self.assertEqual(2, len(edges))
-		self.assertTrue(self.edge1 in edges)
+		self.assertTrue(self.edge1 in edges,\
+						str(self.edge1) + "should be in" +str([str(edge) for edge in edges]))
 		self.assertTrue(self.edge2 in edges)
 
 	def testCalculateANrSLSingle(self):
@@ -403,10 +443,11 @@ class IndentedTestsTest(RootTest):
 	def testGenerateEdges(self):
 		self.indentedtests.parse(self.toParse)
 		edges = self.indentedtests.generateEdges()
-		self.expEdge = Edge(node1="IndentedTest0", node2=self.key)
+		self.expEdge = Edge(node1=self.key, node2="IndentedTest0")
 
 		self.assertEquals(1, len(edges))
-		self.assertTrue(self.expEdge in edges)
+		self.assertTrue(self.expEdge in edges,\
+			str(self.expEdge) + " should be in " + str([str(edge) for edge in edges]))
 
 	def testAppendLocationInfo(self):
 		self.verifyAppendLocationInfo(self.indentedtests, "IndentedTest0", self.toParse, self.location)

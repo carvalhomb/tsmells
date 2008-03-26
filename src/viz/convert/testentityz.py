@@ -76,20 +76,48 @@ class TestCases(TestEntitiez):
 			self.getLocation(toParse[1]) == (toParse[2], int(toParse[3]))
 		"""
 		self.dict[toParse[1]] = [(toParse[2], int(toParse[3]))]
-		self.__addPackage(toParse[1])
+		#self.__addPackage(toParse[1])
+		self.__addPackage(toParse[1], toParse[2])
 
-	def __addPackage(self, clazz):
-		if clazz.rfind('::') == -1: return
-		pkg = clazz[0:clazz.rfind("::")]
-		if not pkg: return
-		if not self.pkgDict.has_key(pkg):
-			self.pkgDict[pkg] = []
+	#def __addPackage(self, clazz):
+		#if clazz.rfind('::') == -1:
+			#if not self.pkgDict.has_key('default'):
+				#self.pkgDict['default'] = []
+			#self.pkgDict['default'].append(clazz)
+			#return
+
+		#pkg = clazz[0:clazz.rfind("::")]
+		#if not pkg: return
+		#if not self.pkgDict.has_key(pkg):
+			#self.pkgDict[pkg] = []
+		#self.pkgDict[pkg].append(clazz)
+
+		#splittedPkg = pkg.split('::')
+
+		#for i in range(1,len(splittedPkg)+1):
+			#self.pkgs.add("::".join(splittedPkg[0:i]))
+
+	def __addPackage(self, clazz, file):
+		sep = '/'
+		if file.rfind(sep) == -1:
+			self.__initPkg('default')
+			self.pkgDict['default'].append(clazz)
+			return
+
+		# not in the default package
+		pkg = file[0:file.rfind(sep)].replace(sep, '::')
+
+		# remove 'src' suffix
+		if pkg.rfind('::src', -6) != -1:
+			pkg = pkg[0:-5]
+
+		self.__initPkg(pkg)
 		self.pkgDict[pkg].append(clazz)
 
-		splittedPkg = pkg.split('::')
-
-		for i in range(1,len(splittedPkg)+1):
-			self.pkgs.add("::".join(splittedPkg[0:i]))
+	def __initPkg(self, pkg):
+		if not self.pkgDict.has_key(pkg):
+			self.pkgDict[pkg] = []
+		self.pkgs.add(pkg)
 
 	def generateEdges(self):
 		edges = []

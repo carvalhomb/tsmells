@@ -33,54 +33,6 @@
 IsTestCase(y) := 
         Class(y,"TestCase");
 
-InheritsFromTestCase(x,y) := 
-        IsTestCase(y) & 
-        InheritsFrom(_,_,x,y);
-
-// test cases directly inheriting from TestCase
-DTestCase(x) := 
-        InheritsFromTestCase(x,_);
-//PRINT DTestCase(x);
-InheritsFromTestCase(x,y) := 
-        DTestCase(y) &
-        InheritsFrom(_,_,x,y);
-Closure(x,y) := 
-        TC(InheritsFromTestCase(x,y));
-
-// test cases indirectly inheriting from TestCase
-ITestCase(x) := 
-        Closure(x,_);
-TestCaseId(x) := 
-        DTestCase(x) | ITestCase(x);
-
-TestMethodId(x) := 
-        EX(y, 
-            TestCaseId(y) & 
-            MethodBelongsToClass(x,y));
-TestCommandId(x) := 
-        EX(mn, 
-            TestMethodId(x) & 
-            Method(x,mn) & 
-            @"[.]test"(mn) & @"[()]"(mn));
-TestSetupId(x) := 
-        EX(mn, 
-            TestMethodId(x) & 
-            Method(x,mn) & 
-            @"[.]setUp"(mn) & @"[()]"(mn));
-TestTeardownId(x) := 
-        EX(mn, 
-            TestMethodId(x) & 
-            Method(x,mn) & 
-            @"[.]tearDown"(mn) & @"[()]"(mn));
-TestHelperId(x) := 
-            TestMethodId(x) & 
-            !TestCommandId(x) & 
-            !TestSetupId(x) & 
-            !TestTeardownId(x);
-
-No("0");
-Yes("1");
-
 /**
  * Assertions
  * @col : denotes if this assertion has a failure message
@@ -123,29 +75,5 @@ CheckerSignature("1","TestCase.assertSame(java.lang.String,java.lang.Object,java
 CheckerSignature("1","TestCase.fail(java.lang.String)");
 CheckerSignature("1","TestCase.assertTrue(java.lang.String,boolean)");
 
-TestChecker(x) := 
-    EX(y, 
-        Method(x, y) & 
-        CheckerSignature(_,y));
-ProductionMethodId(x) := 
-        Method(x,_) & 
-        !TestMethodId(x) & 
-        !TestChecker(x);
+include(DUMP_DIR`initJunitEntities.rml')
 
-// these are needed for backwards compatibility.
-// prolly they'll vanish for good, one day
-TestCase(x,y) := 
-        TestCaseId(x) & 
-        Class(x,y);
-TestCommand(x,y) := 
-        TestCommandId(x) & 
-        Method(x,y);
-TestSetup(x,y) := 
-        TestSetupId(x) & 
-        Method(x,y);
-TestTeardown(x,y) := 
-        TestTeardownId(x) & 
-        Method(x,y);
-TestHelper(x,y) := 
-        TestHelperId(x) & 
-        Method(x,y);

@@ -1,0 +1,129 @@
+/**
+ * This file is part of Fetch
+ *
+ * Fetch is free software; you can redistribute it and/or modify it under the 
+ * terms of the GNU General Public License as published by the Free Software 
+ * Foundation; either version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * Fetch is distributed in the hope that it will be useful, but WITHOUT ANY 
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with Fetch; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+ *
+ * Extensivly modified by:
+ *                Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ **/
+
+
+/**
+ * Initialize test entities for CppUnit suites
+ * 
+ * This is an abstract module, provide:
+ *  - root test case: 
+ *         IsTestCase(id)
+ *  - assertions: 
+ *         CheckerSignature(has_msg,signature)
+ **/
+
+
+Yes("1");
+No("0");
+
+IsFrameworkClass(x):=
+    EX(cln,
+        Class(x, cln) & 
+        @"^CppUnit::"(cln));
+
+TestCaseId(tcid) :=
+     EX(root,
+         IsTestCase(root) &
+         (InheritsFrom(_,_,tcid,root) |
+          TC(InheritsFrom(_,_,tcid,root))) &
+         !IsFrameworkClass(tcid));
+
+TestMethodId(x) := 
+    EX(y, 
+        TestCaseId(y) & 
+        MethodBelongsToClass(x,y));
+
+// this is temporary, to remove CPPUNIT_TEST and 
+// CPPUNIT_TEST_SUITE as methods
+CppUnitMacro(x) := 
+    EX(mn,
+        TestMethodId(x) &
+        Method(x, mn) & 
+        @"CPPUNIT_TEST"(mn));
+
+TestConstructor(x) :=
+   EX(mn,
+       TestMethodId(x) &
+       Method(x, mn) &
+       @"^.*(::)?(.*)\.\2[(].*[)]$"(mn));
+
+TestDestructor(x) :=
+   EX(mn,
+       TestMethodId(x) &
+       Method(x, mn) &
+       @"^.*(::)?(.*)\.~\2[(][)]$"(mn));
+
+TestSuiteMethod(x) := 
+    EX(mn,
+        TestMethodId(x) &
+        Method(x, mn) & 
+        @"\.suite[(][)]$"(mn));
+
+TestCommandId(x) := 
+    EX(mn, 
+        TestMethodId(x) & 
+        Method(x,mn) & 
+        @"[.]test.*[(][)]$"(mn));
+
+TestSetupId(x) := 
+    EX(mn, 
+        TestMethodId(x) & 
+        Method(x,mn) & 
+        @"[.]setUp[(][)]$"(mn));
+
+TestTeardownId(x) := 
+    EX(mn,
+        TestMethodId(x) & 
+        Method(x,mn) & 
+        @"[.]tearDown[(][)]$"(mn));
+
+TestHelperId(x) := 
+        TestMethodId(x) & 
+        !TestCommandId(x) & 
+        !TestSetupId(x) & 
+        !TestTeardownId(x) &
+        !CppUnitMacro(x) &
+        !TestConstructor(x) &
+        !TestDestructor(x) &
+        !TestSuiteMethod(x);
+
+TestChecker(x) := 
+    EX(y, 
+        Function(x, y) & 
+        CheckerSignature(_,y));
+
+ProductionMethodId(x) := 
+        Method(x,_) & 
+        !TestMethodId(x);
+
+ProductionFunctionId(x) := 
+        Function(x,_) & 
+        !TestChecker(x); // how to distinguish between 'test-helper-functions'?
+
+// Some backward relations
+include(DUMP_DIR`initBackwardTestRelations.rml')
+
+// fix to have a definition for declaration for all functions.
+DefintionForDeclaration(x,y) := DefinitionForDeclaration(x,y) |
+                                (Function(x,_) & !EX(z, DefinitionForDeclaration(z,x)) & x=y);
+

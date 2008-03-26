@@ -10,8 +10,8 @@
 #include <cppunit/extensions/TestSuiteBuilderContext.h>
 #include <memory>
 
-void CPPUNIT_ASSERT(boolean condition);
-void CPPUNIT_ASSERT_MESSAGE(std::string message, boolean condition);
+void CPPUNIT_ASSERT(bool condition);
+void CPPUNIT_ASSERT_MESSAGE(std::string message, bool condition);
 void CPPUNIT_FAIL(std::string message);
 void CPPUNIT_ASSERT_DOUBLES_EQUAL(double expected, double actual, double delta);
 template<class T> void CPPUNIT_ASSERT_EQUAL(const T& expected, const T& actual);

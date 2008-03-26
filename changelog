@@ -1,3 +1,10 @@
+v0.0.4 2008-03-25
+  + suite tree panel & view in guess
+  + refactored tsmellsviz.py into modules
+  + refactored smells2gdf into modules
+  + smell metric information in smell2gdf & guess gui
+  + general fixture smell added
+  + eager test fixture added
 
 v0.0.3 2008-03-12
   + rml script name convention introduced

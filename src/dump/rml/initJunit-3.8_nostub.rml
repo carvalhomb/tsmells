@@ -32,48 +32,6 @@
 IsTestCase(y) := 
         Class(y,"junit::framework::TestCase");
 
-// IsFrameworkClass(x):=
-//     EX(cln,
-//         Class(x, cln) & 
-//         (@"test::net::sourceforge::pmd::testframework::"(cln) |
-//          @"junit::framework::"(cln)));
-
-TestCaseId(tcid) :=
-     EX(root,
-         IsTestCase(root) &
-         (InheritsFrom(_,_,tcid,root) |
-          TC(InheritsFrom(_,_,tcid,root))) &
-         !IsFrameworkClass(tcid));
-
-TestMethodId(x) := 
-    EX(y, 
-        TestCaseId(y) & 
-        MethodBelongsToClass(x,y));
-TestCommandId(x) := 
-    EX(mn, 
-        TestMethodId(x) & 
-        Method(x,mn) & 
-        @"[.]test"(mn) & @"[(][)]"(mn));
-TestSetupId(x) := 
-    EX(mn, 
-        TestMethodId(x) & 
-        Method(x,mn) & 
-        @"[.]setUp"(mn) & @"[(][)]"(mn));
-TestTeardownId(x) := 
-    EX(mn, 
-        TestMethodId(x) & 
-        Method(x,mn) & 
-        @"[.]tearDown"(mn) & @"[(][)]"(mn));
-TestHelperId(x) := 
-        TestMethodId(x) & 
-        !TestCommandId(x) & 
-        !TestSetupId(x) & 
-        !TestTeardownId(x);
-
-
-No("0");
-Yes("1");
-
 /**
  * Assertions
  * @col : denotes if this assertion has a failure message
@@ -119,30 +77,4 @@ CheckerSignature("1","junit::framework::Assert.failNotEquals(String,Object,Objec
 CheckerSignature("1","junit::framework::Assert.failNotSame(String,Object,Object)");
 CheckerSignature("1","junit::framework::Assert.failSame(String)");
 
-TestChecker(x) := 
-    EX(y, 
-        Method(x, y) & 
-        CheckerSignature(_,y));
-ProductionMethodId(x) := 
-        Method(x,_) & 
-        !TestMethodId(x) & 
-        !TestChecker(x);
-
-// these are needed for backwards compatibility.
-// prolly they'll vanish for good, one day
-TestCase(x,y) := 
-        TestCaseId(x) & 
-        Class(x,y);
-TestCommand(x,y) := 
-        TestCommandId(x) & 
-        Method(x,y);
-TestSetup(x,y) := 
-        TestSetupId(x) & 
-        Method(x,y);
-TestTeardown(x,y) := 
-        TestTeardownId(x) & 
-        Method(x,y);
-TestHelper(x,y) := 
-        TestHelperId(x) & 
-        Method(x,y);
-
+include(DUMP_DIR`initJunitEntities.rml')

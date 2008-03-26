@@ -25,7 +25,7 @@ import sys, os, copy, tempfile
 XINIT_DEFAULTS = \
     {
         "junit-3.x"   :"src/dump/rml/initJavaTestEntities.rml",
-        "junit-3.x_ana"    :"src/dump/rml/initJavaTestEntitiesAnastacia.rml",
+        "junit-3.x_ana"    :"src/dump/rml/initJunit-3.x_Ana.rml",
         "junit-3.x_pmd-3.5" : "src/dump/rml/initJunit-3.x_Pmd-3.5.rml",
         "junit-3.8_nostub" : "src/dump/rml/initJunit-3.8_nostub.rml",
         "cppunit-1.12":"src/dump/rml/initCppUnitv1-12.rml",

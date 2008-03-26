@@ -1,5 +1,5 @@
 /**
- * This file is part of Fetch (the Fact Extraction Tool CHain).
+ * This file is part of Fetch
  *
  * Fetch is free software; you can redistribute it and/or modify it under the 
  * terms of the GNU General Public License as published by the Free Software 
@@ -16,33 +16,25 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
  *
  * Copyright 2007 Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+ *
  * Extensivly modified by:
  *                Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
  **/
 
-
-/**
- * Finds all test cases among the classes,
- * both directly as well as indirectly 
- * inheriting from TestCase
- * 
- **/
-IsTestCase(y) := 
-        Class(y,"CppUnit::TestCase");
-
-/**
- * Assertions
- * @col : denotes if this assertion has a failure message
- * @col : assertion signature
- **/
-
-CheckerSignature("0","assert(bool)");
-CheckerSignature("0","loop_1_assert(int,bool)");
-CheckerSignature("0","loop_2_assert(int,int,bool)");
-CheckerSignature("0","assertEqualDelta(A,B,C)");
-CheckerSignature("0","assertEqual(A,B)");
-CheckerSignature("0","assertNullPtr(A)");
-CheckerSignature("0","assertNotNullPtr(A)");
-CheckerSignature("1","failmsg(A)");
-
-include(DUMP_DIR`initCppUnitEntities.rml')
+// these are needed for backwards compatibility.
+// prolly they'll vanish for good, one day
+TestCase(x,y) := 
+        TestCaseId(x) & 
+        Class(x,y);
+TestCommand(x,y) := 
+        TestCommandId(x) & 
+        Method(x,y);
+TestSetup(x,y) := 
+        TestSetupId(x) & 
+        Method(x,y);
+TestTeardown(x,y) := 
+        TestTeardownId(x) & 
+        Method(x,y);
+TestHelper(x,y) := 
+        TestHelperId(x) & 
+        Method(x,y);
