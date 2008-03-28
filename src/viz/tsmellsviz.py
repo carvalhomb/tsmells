@@ -19,10 +19,12 @@
 # Copyright 2007-2008 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
 #
 
-import os, com, java, java.lang, jarray
+import os, jarray
 
-import java.awt.geom.GeneralPath
-import java.awt.Polygon
+from com.hp.hpl.guess.ui    import StatusBar
+from java.lang              import Thread, Runnable
+from java.awt.geom          import GeneralPath
+from java.awt               import Polygon
 
 def createDiamondShape():
     xpoints = jarray.array((10,5,0,5),'i')
@@ -31,21 +33,39 @@ def createDiamondShape():
     diamond = Polygon(xpoints,ypoints,4);
     shapeDB.addShape(104,diamond)
 
-def loadData():
-    setDisplayBackground("black")
-    makeFromGDF(os.environ['TSMELLS_GDF'])
-    g.edges.color = 'lightgray'
-    g.nodes.visible = 0
+def writeStats():
+    print "nodes\t\t" + str(len(g.nodes))
+    print "edges\t\t" + str(len(g.edges))
+    print "pkgs \t\t" + str(len(entity == 'package'))
+    print "cases\t\t" + str(len(entity == 'testcase'))
+    print "cmds \t\t" + str(len(entity == 'testcommand'))
+    print "hlprs\t\t" + str(len(entity == 'testhelper'))
+    print "fixt \t\t" + str(len(entity == 'testfixture'))
+    print "smells\t\t" + str(len(entity == 'smell'))
 
+class Loader(Runnable):
+    def run(self):
+        StatusBar.runProgressBar(true)
+        self.__loadGdf()
+        self.__execScripts()
+        StatusBar.runProgressBar(false)
+        StatusBar.setStatus("done.")
 
-TSMELLS=os.environ['TSMELLS']
-TSMELLS_VIZ=TSMELLS + '/src/viz'
+    def __loadGdf(self):
+        StatusBar.setStatus("loading GDF [can take a while]")
+        setDisplayBackground("black")
+        makeFromGDF(os.environ['TSMELLS_GDF'])
+        g.edges.color = 'lightgray'
+        g.nodes.visible = 0
 
-loadData()
+    def __execScripts(self):
+        StatusBar.setStatus("initializing scripts")
+        TSMELLS_VIZ= os.environ['TSMELLS'] + '/src/viz'
+        execfile(TSMELLS_VIZ + '/gui/TMenu.py')
+        execfile(TSMELLS_VIZ + '/gui/TestCaseList.py')
+        execfile(TSMELLS_VIZ + '/gui/SmellIndentiKit.py')
+        execfile(TSMELLS_VIZ + '/gui/ToSourceContext.py')
+        execfile(TSMELLS_VIZ + '/gui/TestSuiteTree.py')
+        execfile(TSMELLS_VIZ + '/gui/RescalePanel.py')
 
-execfile(TSMELLS_VIZ + '/gui/TMenu.py')
-execfile(TSMELLS_VIZ + '/gui/TestCaseList.py')
-execfile(TSMELLS_VIZ + '/gui/SmellIndentiKit.py')
-execfile(TSMELLS_VIZ + '/gui/ToSourceContext.py')
-execfile(TSMELLS_VIZ + '/gui/TestSuiteTree.py')
-execfile(TSMELLS_VIZ + '/gui/RescalePanel.py')
+Thread(Loader()).start()
