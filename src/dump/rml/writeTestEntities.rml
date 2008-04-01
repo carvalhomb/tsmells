@@ -27,6 +27,8 @@
 //         TestEntityInfo(x, nm, _, _));
 // PRINT ["Sutie"] SuiteMethod(x);
 
+EXEC "rm -f DUMP_TEST_ENTITIES";
+
 /**
  * Name, file & linenumber of testcases
  *
@@ -41,7 +43,7 @@ TestCaseInfo(name, file, line) :=
         ClassBelongsToFile(tcid, fid, line) &
         File(fid, file));
 
-PRINT ["TestCase"] TestCaseInfo(x,y,z);
+PRINT ["TestCase"] TestCaseInfo(x,y,z) TO "DUMP_TEST_ENTITIES";
 
 /**
  * Name, file, linenumber & owner testcase of testcommands
@@ -56,7 +58,7 @@ TestCommandInfo(name, file, line, case) :=
         TestEntityInfoWithOwner(comid, name, file, line, _, case)
       );
 
-PRINT ["TestCommand"] TestCommandInfo(u,v,w,x);
+PRINT ["TestCommand"] TestCommandInfo(u,v,w,x) TO "DUMP_TEST_ENTITIES";
 
 /**
  * Name, file, linenumber & owner testcase of testhelpers
@@ -71,7 +73,7 @@ TestHelperInfo(name, file, line, case) :=
         TestEntityInfoWithOwner(helid, name, file, line, _, case)
       );
 
-PRINT ["TestHelper"] TestHelperInfo(u,v,w,x);
+PRINT ["TestHelper"] TestHelperInfo(u,v,w,x) TO "DUMP_TEST_ENTITIES";
 
 
 /**
@@ -87,7 +89,7 @@ TestSetupInfo(name, file, line, case) :=
         TestEntityInfoWithOwner(fixid, name, file, line, _, case)
       );
 
-PRINT ["TestSetup"] TestSetupInfo(u,v,w,x);
+PRINT ["TestSetup"] TestSetupInfo(u,v,w,x) TO "DUMP_TEST_ENTITIES";
 
 /**
  * Name, file, linenumber & owner testcase of testteardown
@@ -102,4 +104,4 @@ TestTeardownInfo(name, file, line, case) :=
         TestEntityInfoWithOwner(fixid, name, file, line, _, case)
       );
 
-PRINT ["TestTeardown"] TestTeardownInfo(u,v,w,x);
+PRINT ["TestTeardown"] TestTeardownInfo(u,v,w,x) TO "DUMP_TEST_ENTITIES";

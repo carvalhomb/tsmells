@@ -124,7 +124,7 @@ class RsfReader():
 
     def parse(self, rsf):
         ''' Build the testmethods. rsf should be a filehandle. 
-            Returns a list of testmethods '''
+            Returns a dictionary of testmethods, with mtdID's as key '''
         mtds = {}
         for line in rsf:
             self.__parseLine(line, mtds)
@@ -236,8 +236,12 @@ class CloneFinder():
         ''' Find the duplicate code parts in mtds. 
             mtds should be a list of methods with their 
             invocations sorted. As returned by RsfReader. '''
-        processed = self.__initProcessedDict(mtds)
-        parted    = self.__partitionMtds(mtds)
+        processed  = self.__initProcessedDict(mtds)
+        parted     = self.__partitionMtds(mtds)
+        duplicates = self.__findDuplicates(mtds, processed, parted)
+        return duplicates
+
+    def __findDuplicates(self, mtds, processed, parted):
         duplicates = {} # { (mtd1, mtd2) x [(seq1, seq2)] }
                         # This will contain couples of methods with their
                         # respective clone-sequences
@@ -383,16 +387,29 @@ class CloneFinder():
         return False
 
     def squashCombinations(self, clones):
+        ''' concatenate x-way clones '''
         squashed = {} # {refStr x [(mtd, start, end)] }
         for (mtd1,mtd2),couples in clones.iteritems():
             for (seq1, seq2) in couples:
                 if not squashed.has_key(seq1.refStr):
                     squashed[seq1.refStr] = []
                 # seq1.refStr equals seq2.refStr, or it wouldnt be clones
-                squashed[seq1.refStr].append((mtd1, seq1.start, seq1.end))
-                squashed[seq1.refStr].append((mtd2, seq2.start, seq2.end))
+                if not self.__containsAllready(squashed, mtd1, seq1):
+                    squashed[seq1.refStr].append((mtd1, seq1.start, seq1.end))
+                if not self.__containsAllready(squashed, mtd2, seq2):
+                    squashed[seq1.refStr].append((mtd2, seq2.start, seq2.end))
         return squashed
 
+    def __containsAllready(self, squashed, mtd, seq):
+        duplis = squashed[seq.refStr]
+        contains = False
+        for dupli in duplis:
+            if (dupli[0] == mtd) and\
+               (dupli[1] == seq.start) and\
+               (dupli[2] == seq.end):
+                contains = True
+                break
+        return contains
 
 class DuplicatePrinter():
 

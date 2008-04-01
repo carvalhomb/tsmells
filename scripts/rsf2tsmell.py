@@ -99,7 +99,7 @@ def usage():
     print "TSMELLS variable should point to your tsmells installation root"
     sys.exit(1)
 
-def buildM4Input(xinit, smells, params, tsmellsRoot):
+def buildM4Input(xinit, smells, params, tsmellsRoot, proj):
     ''' construct the input passed to m4
 
         xinit: xUnit initialization RML
@@ -107,7 +107,7 @@ def buildM4Input(xinit, smells, params, tsmellsRoot):
         params: aditional m4 input'''
 
     m4Input = " -DTSMELLS=" + tsmellsRoot + " -DXUNIT_INIT=" + xinit \
-              + " -DDUMP_TEST_ENTITIES"
+              + " -DDUMP_TEST_ENTITIES=tsmells/" + proj + ".testsuite"
     for smell in smells:
         m4Input += " -D" + smell
     for k,v in params.iteritems():
@@ -126,14 +126,10 @@ def fillDefault(xinit):
     smells = copy.copy(SMELLS)
     params = copy.copy(PARAMS_DEFAULTS)
 
-    xinitFile =         \
-        os.path.join(tsmellsRoot, XINIT_DEFAULTS[xinit])
-    params[MG_BLACK] =  \
-        os.path.join(tsmellsRoot,params[MG_BLACK][xinit])
-    params[DC_SCRIPT] = \
-        os.path.join(tsmellsRoot, params[DC_SCRIPT])
-    m4Def =             \
-        os.path.join(tsmellsRoot, "scripts/tsmells.m4")
+    xinitFile = os.path.join(tsmellsRoot, XINIT_DEFAULTS[xinit])
+    params[MG_BLACK] = os.path.join(tsmellsRoot,params[MG_BLACK][xinit])
+    params[DC_SCRIPT] = os.path.join(tsmellsRoot, params[DC_SCRIPT])
+    m4Def = os.path.join(tsmellsRoot, "scripts/tsmells.m4")
 
     return tsmellsRoot, xinitFile, smells, params, m4Def
 
@@ -143,6 +139,16 @@ def checkFilesExist(toCheck):
             print file[1] + " does not exist [" + file[0] + "]"
             print ""
             usage()
+
+def removeHeaders(rmlFile):
+    rml = open(rmlFile, 'r')
+    new = open(rmlFile + "_new", 'w')
+    for line in rml:
+       if not (line.startswith(' *') or line.startswith('/*')):
+           new.write(line)
+    rml.close()
+    new.close()
+    os.system("mv " + rmlFile + "_new " + rmlFile)
 
 if __name__ == '__main__':
     tsmellsRoot = ""
@@ -168,15 +174,15 @@ if __name__ == '__main__':
                      (params[DC_SCRIPT], "duplicated code python source "),
                      (params[MG_BLACK], "mystery guest blacklist")])
 
-    m4Input = buildM4Input(xinit, smells, params, tsmellsRoot)
-    tmpFile = tempfile.mkstemp()[1]
-
+    m4Input = buildM4Input(xinit, smells, params, tsmellsRoot, proj)
+    rmlFile = "tsmells/" + proj + ".rml"
+    try: os.mkdir("tsmells")
+    except: pass
     # construct the RML with m4
-    os.system("m4 " + m4Input + " " + m4Def + " > " + tmpFile)
+    os.system("m4 " + m4Input + " " + m4Def + " > " + rmlFile)
+    # removeHeaders(rmlFile)
 
     sh     = os.path.join(tsmellsRoot,"scripts","rsf2tsmell.sh")
-    params = " " + rsf + " " + tmpFile + " " + " " + proj + " " + mem
+    params = " " + rsf + " " + rmlFile + " " + " " + proj + " " + mem
     # call rsf2tsmell.sh, which will call crocopat
     os.system( sh + params)
-
-    os.remove(tmpFile)

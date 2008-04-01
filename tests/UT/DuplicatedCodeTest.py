@@ -19,12 +19,14 @@
 # Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
 #
 
-import unittest, sys
-from StringIO import StringIO as iostr
-sys.path.append("../../src")
+import sys
+sys.path.append("../../src/dump")
 from DuplicatedCode import *
+from StringIO       import StringIO as iostr
+from unittest       import TestCase, main
 
-class ReferenceTest(unittest.TestCase):
+
+class ReferenceTest(TestCase):
     def setUp(self):
         self.inv1 = Reference(10, 15, 20, 'Class.method()')
         self.inv2 = Reference("9", "30", "20", 'Class.method()')
@@ -61,7 +63,7 @@ class ReferenceTest(unittest.TestCase):
 #    elif num==3:
 #        return Invocation(3, 40, 20, 'Cl.meth()')
 
-class TestMethodTest(unittest.TestCase):
+class TestMethodTest(TestCase):
     def setUp(self):
         self.tm = TestMethod(1, "MyTest.testOne()", "MyTest.java")
         self.inv1 = Reference(1, 15, 22, 'Class.method()')
@@ -112,6 +114,8 @@ class RsfInvoFixtureBuilder():
         self.line15 = 'ComInvoke\t11\t225\t186\t11\tMyTest.testOne()\tUut.e()\tMyTest.java\n'
         self.inv16  = Reference(227, 12, 188, "Uut.f()")
         self.line16 = 'ComInvoke\t11\t227\t188\t12\tMyTest.testOne()\tUut.f()\tMyTest.java\n'
+        self.inv1   = [self.inv11,  self.inv12,  self.inv13,  self.inv14,  self.inv15,  self.inv16]
+        self.lines1 = [self.line11, self.line12, self.line13, self.line14, self.line15, self.line16]
 
         self.mtd2   = TestMethod(13, "MyTest.testTwo()", "MyTest.java")
         self.inv21  = Reference(218, 16, 178, "Uut.a()")
@@ -126,7 +130,145 @@ class RsfInvoFixtureBuilder():
         self.line25 = 'ComInvoke\t13\t226\t186\t20\tMyTest.testTwo()\tUut.e()\tMyTest.java\n'
         self.inv26  = Reference(228,21,188,"Uut.f()")
         self.line26 = 'ComInvoke\t13\t228\t188\t21\tMyTest.testTwo()\tUut.f()\tMyTest.java\n'
+        self.inv2   = [self.inv21,  self.inv22,  self.inv23,  self.inv24,  self.inv25,  self.inv26]
+        self.lines2 = [self.line21, self.line22, self.line23, self.line24, self.line25, self.line26]
 
+        self.reader = RsfReader()
+
+def failMsgNotIn(mtd, mtds):
+    msg = str(mtd) + " not in ["
+    for m in mtds: msg += str(m) + ","
+    return msg[:-1] + ']'
+
+
+class RsfReaderTest(TestCase, RsfInvoFixtureBuilder):
+    def setUp(self):
+        self.refresh() # RsfInvoFixture
+
+    def testParse(self):
+        rsf = iostr(self.line11 + self.line21)
+        self.mtd1.addReference(self.inv11)
+        self.mtd2.addReference(self.inv21)
+        self.executeParseTest(rsf)
+
+    def testParseMultiple(self):
+        self.mtd1.addReference(self.inv11)
+        self.mtd1.addReference(self.inv12)
+        self.mtd2.addReference(self.inv21)
+        self.mtd2.addReference(self.inv22)
+
+        rsf = iostr(self.line11 + self.line12 + self.line21 + self.line22)
+        self.executeParseTest(rsf)
+
+        # order of input shouldn't matter
+        rsf = iostr(self.line12 + self.line11 + self.line22 + self.line21)
+        self.executeParseTest(rsf)
+
+        # idem
+        rsf = iostr(self.line21 + self.line22 + self.line11 + self.line12)
+        self.executeParseTest(rsf)
+
+    def executeParseTest(self, rsf):
+        ''' helper for testParseX '''
+        mtds = self.reader.parse(rsf)
+        self.assertEquals(2, len(mtds))
+        self.verifyContains(mtds, self.mtd1)
+        self.verifyContains(mtds, self.mtd2)
+
+    def verifyContains(self, mtds, mtd):
+        ''' assert that mtds contains mtd '''
+        self.assertTrue(mtd.getId() in mtds, failMsgNotIn(mtd, mtds))
+        self.assertEquals(mtd.getReferences(), mtds[mtd.getId()].getReferences(), failMsgNotIn(mtd, mtds))
+
+
+class CloneFinderTest(TestCase, RsfInvoFixtureBuilder):
+
+    #---
+    # Fixture
+    #---
+    def setUp(self):
+        self.refresh() # RsfInvoFixture
+
+    def initDupli(self, start1, end1, start2, end2):
+        self.dup1 = Sequence(self.inv1[start1:end1])
+        self.dup2 = Sequence(self.inv2[start2:end2])
+
+    #---
+    # Helpers
+    #---
+    def initMthds(self, start1, end1, start2, end2):
+        self.mtd1.addReferences(Sequence(self.inv1[start1:end1]))
+        self.mtd2.addReferences(Sequence(self.inv2[start2:end2]))
+
+        self.rsf = iostr("".join(self.lines1[start1:end1]) + \
+                         "".join(self.lines2[start2:end2]))
+
+    def executeCloneTest(self, dup1inv, dup2inv,treshold=3):
+        mtds = self.reader.parse(self.rsf)
+        cf = CloneFinder(treshold)
+        dupli = cf.investigate(mtds)
+
+        #dump_dupli(dupli) 
+
+        self.assertEquals(1, len(dupli), \
+            "Should find duplicates in a single clone, but found " + str(len(dupli)))
+        self.assertTrue( ((self.mtd1,self.mtd2) in dupli) or\
+                         ((self.mtd2,self.mtd1) in dupli))
+        self.assertEquals(1, len(dupli [self.mtd1, self.mtd2]),\
+            "Should find a single duplicate for (mtd1, mtd2)")
+        self.assertTrue( (dup1inv, dup2inv) == dupli[self.mtd1, self.mtd2][0] or\
+                         (dup2inv, dup1inv) == dupli[self.mtd1, self.mtd2][0])
+    #---
+    # Commands
+    #---
+    def testSequenceRepeated(self):
+        ''' a sequence of 6 invocations copied in another method '''
+        self.initDupli(0,6,0,6)
+        self.initMthds(0,6,0,6)
+        self.executeCloneTest(self.dup1, self.dup2)
+
+    def testSubSequenceRepeated(self):
+        ''' 3 invocations copied from a length 6 sequence '''
+        # method1 length 6; method2 length 3
+        self.initDupli(0,3,0,3)
+        self.initMthds(0,3,0,6)
+        self.executeCloneTest(self.dup1, self.dup2)
+
+    def testSubSequenceRepeated2(self):
+        ''' 3 invocations copied from a length 6 sequence '''
+        # method1 length 6; method2 length 3
+        # order shouldnt matter
+        self.initDupli(0,3,0,3)
+        self.initMthds(0,6,0,3)
+        self.executeCloneTest(self.dup1, self.dup2)
+
+    def testCloneInSelf(self):
+        ''' A method where the first half is identical to the second'''
+        self.lines1[3] = 'ComInvoke\t11\t223\t178\t10\tMyTest.testOne()\tUut.a()\tMyTest.java\n'
+        self.lines1[4] = 'ComInvoke\t11\t225\t180\t11\tMyTest.testOne()\tUut.b()\tMyTest.java\n'
+        self.lines1[5] = 'ComInvoke\t11\t227\t182\t13\tMyTest.testOne()\tUut.c()\tMyTest.java\n'
+        self.inv1[3] = Reference(223, 10, 178, "Uut.a()")
+        self.inv1[4] = Reference(225, 11, 180, "Uut.b()")
+        self.inv1[5] = Reference(227, 13, 182, "Uut.c()")
+
+        self.mtd1.addReferences(Sequence(self.inv1[0:6]))
+        self.mtd2 = self.mtd1
+        self.rsf = iostr("".join(self.lines1[0:6]))
+
+        self.executeCloneTest(Sequence(self.inv1[0:3]), Sequence(self.inv1[3:6]))
+
+class CloneSquashingTest(TestCase, RsfInvoFixtureBuilder):
+
+    #---
+    # Fixture
+    #---
+    def setUp(self):
+        self.refresh() # RsfInvoFixture
+
+    #---
+    # Helper
+    #---
+    def setUpThirdMethod(self):
         self.mtd3   = TestMethod(15, "MyTest.testThree()", "MyTest.java")
         self.inv31  = Reference(230,30,178, "Uut.a()")
         self.line31 = 'ComInvoke\t15\t230\t178\t30\tMyTest.testThree()\tUut.a()\tMyTest.java\n'
@@ -140,169 +282,39 @@ class RsfInvoFixtureBuilder():
         self.line35 = 'ComInvoke\t15\t234\t186\t34\tMyTest.testThree()\tUut.e()\tMyTest.java\n'
         self.inv36  = Reference(235,35,188,"Uut.f()")
         self.line36 = 'ComInvoke\t15\t235\t188\t35\tMyTest.testThree()\tUut.f()\tMyTest.java\n'
+        self.inv3   = [self.inv31,  self.inv32,  self.inv33,  self.inv34,  self.inv35,  self.inv36]
+        self.lines3 = [self.line31, self.line32, self.line33, self.line34, self.line35, self.line36]
 
-        self.reader = RsfReader()
+        self.inv1 = Sequence(self.inv1[0:6])
+        self.inv2 = Sequence(self.inv2[0:6])
+        self.inv3 = Sequence(self.inv3[0:6])
 
-def failMsgNotIn(mtd, mtds):
-    msg = str(mtd) + " not in ["
-    for m in mtds: msg += str(m) + ","
-    return msg[:-1] + ']'
+        self.mtd1.addReferences(self.inv1)
+        self.mtd2.addReferences(self.inv2)
+        self.mtd3.addReferences(self.inv3)
 
-
-class RsfReaderTest(unittest.TestCase, RsfInvoFixtureBuilder):
-    def setUp(self):
-        self.refresh() # RsfInvoFixture
-
-    def testParse(self):
-        rsf = iostr(self.line11 + self.line21)
-
-        mtds = self.reader.parse(rsf)
-        self.mtd1.addReference(self.inv11)
-        self.mtd2.addReference(self.inv21)
-        self.assertEquals(2, len(mtds), "Wrong number of methods parsed")
-        self.assertTrue(self.mtd1 in mtds.values(), "Failed to parse first method")
-        self.assertTrue(self.mtd2 in mtds.values(), "Failed to parse second method")
-
-    def multiInvokesChecker(self, rsf):
-        ''' helper for testParseMultiInvokes '''
-        mtds = self.reader.parse(rsf)
-        self.assertEquals(2, len(mtds))
-        self.assertTrue(self.mtd1 in mtds.values(), failMsgNotIn(self.mtd1, mtds))
-        self.assertTrue(self.mtd2 in mtds.values(), failMsgNotIn(self.mtd2, mtds))
-
-    def testParseMultInvokes(self):
-        self.mtd1.addReference(self.inv11)
-        self.mtd1.addReference(self.inv12)
-        self.mtd2.addReference(self.inv21)
-        self.mtd2.addReference(self.inv22)
-
-        rsf = iostr(self.line11 + self.line12 + self.line21 + self.line22)
-        self.multiInvokesChecker(rsf)
-
-        rsf = iostr(self.line12 + self.line11 + self.line22 + self.line21)
-        self.multiInvokesChecker(rsf)
-
-        rsf = iostr(self.line21 + self.line22 + self.line11 + self.line12)
-        self.multiInvokesChecker(rsf)
-
-class CloneFinderTest(unittest.TestCase, RsfInvoFixtureBuilder):
-    def setUp(self):
-        self.refresh() # RsfInvoFixture
-
-    def testFindCloneSixIdentiqInvo(self):
-        rsf = iostr(self.line11 + self.line12 + self.line13 +\
-                    self.line14 + self.line15 + self.line16 +\
-                    self.line21 + self.line22 + self.line23 +\
-                    self.line24 + self.line25 + self.line26)
-
-        inv1 = Sequence([self.inv11, self.inv12, self.inv13,\
-                self.inv14, self.inv15, self.inv16])
-        inv2 = Sequence([self.inv21, self.inv22, self.inv23,\
-                self.inv24, self.inv25, self.inv26])
-
-        self.findSingleCloneHelper(4, rsf, inv1, inv2, inv1, inv2)
-
-    def testFindCloneFourInSixInvq(self):
-        rsf = iostr(self.line11 + self.line12 + self.line13 +\
-                    self.line21 + self.line22 + self.line23 +\
-                    self.line24 + self.line25 + self.line26)
-
-        inv1a = [self.inv11, self.inv12, self.inv13]
-        inv1b = [self.inv14, self.inv15, self.inv16]
-        inv2a = [self.inv21, self.inv22, self.inv23]
-        inv2b = [self.inv24, self.inv25, self.inv26]
-
-        self.findSingleCloneHelper(3, rsf, Sequence(inv1a),\
-                    Sequence(inv2a + inv2b), Sequence(inv1a),\
-                    Sequence(inv2a))
-
-        self.refresh()
-        rsf = iostr(self.line11 + self.line12 + self.line13 +\
-                    self.line14 + self.line15 + self.line16 +\
-                    self.line21 + self.line22 + self.line23)
-
-        self.findSingleCloneHelper(3, rsf, Sequence(inv1a+inv1b),\
-                    Sequence(inv2a), Sequence(inv1a), Sequence(inv2a))
-
-    def findSingleCloneHelper(self, tresh, rsf, m1inv, m2inv, dup1inv, dup2inv):
-        mtds = self.reader.parse(rsf)
-        cf = CloneFinder(tresh)
-        dupli = cf.investigate(mtds)
-
-        self.mtd1.addReferences(m1inv)
-        self.mtd2.addReferences(m2inv)
-
-        #dump_dupli(dupli) 
-
-        self.assertEquals(1, len(dupli), \
-            "Should find duplicates in a single method, but found " + str(len(dupli)))
-        self.assertTrue( ((self.mtd1,self.mtd2) in dupli) or\
-                         ((self.mtd2,self.mtd1) in dupli))
-        self.assertEquals(1, len(dupli [self.mtd1, self.mtd2]),\
-            "Should find a single duplicate for (mtd1, mtd2)")
-        self.assertTrue( (dup1inv, dup2inv) == dupli[self.mtd1, self.mtd2][0] or\
-                         (dup2inv, dup1inv) == dupli[self.mtd1, self.mtd2][0])
-
-    def testDuplicationInSelf(self):
-        inv17  = Reference(223,10,178,"Uut.a()")
-        line17 = 'ComInvoke\t11\t223\t178\t10\tMyTest.testOne()\tUut.a()\tMyTest.java\n'
-        inv18  = Reference(225,11,180,"Uut.b()")
-        line18 = 'ComInvoke\t11\t225\t180\t11\tMyTest.testOne()\tUut.b()\tMyTest.java\n'
-        inv19  = Reference(227, 13, 182, "Uut.c()")
-        line19 = 'ComInvoke\t11\t227\t182\t13\tMyTest.testOne()\tUut.c()\tMyTest.java\n'
-
-        rsf = iostr(self.line11 + self.line12 + self.line13 +\
-                    line17 + line18 + line19)
-        mtds = self.reader.parse(rsf)
-        cf = CloneFinder(3)
-        dupli = cf.investigate(mtds)
-
-        #dump_dupli(dupli)
-
-        inv1 = [self.inv11, self.inv12, self.inv13]
-        inv2 = [inv17, inv18, inv19]
-        self.mtd1.addReferences(Sequence(inv1 + inv2))
-        inv1 = Sequence(inv1)
-        inv2 = Sequence(inv2)
-
-        self.assertEquals(1, len(dupli))
-        self.assertTrue((self.mtd1, self.mtd1) in dupli)
-        self.assertEquals(1, len(dupli[(self.mtd1, self.mtd1)]))
-        self.assertTrue(((inv1, inv2) == dupli[(self.mtd1, self.mtd1)][0]) or \
-                        ((inv2, inv1) == dupli[(self.mtd1, self.mtd1)][0]))
-
+    #---
+    # Commands
+    #---
     def testTripleDuplication(self):
-        rsf = iostr(self.line11 + self.line12 + self.line13 +\
-                    self.line14 + self.line15 + self.line16 +\
-                    self.line21 + self.line22 + self.line23 +\
-                    self.line24 + self.line25 + self.line26 +\
-                    self.line31 + self.line32 + self.line33 +\
-                    self.line34 + self.line35 + self.line36)
-        mtds = self.reader.parse(rsf)
+        self.setUpThirdMethod()
+
+        self.rsf = iostr("".join(self.lines1[0:6]) +\
+                         "".join(self.lines2[0:6]) +\
+                         "".join(self.lines3[0:6]))
+
+        mtds = self.reader.parse(self.rsf)
         cf = CloneFinder(4)
         dupli = cf.investigate(mtds)
         dupli = cf.squashCombinations(dupli)
-        #dump_dupli(dupli)
 
-        inv1 = Sequence([self.inv11, self.inv12, self.inv13, \
-                self.inv14, self.inv15, self.inv16])
-        inv2 = Sequence([self.inv21, self.inv22, self.inv23, \
-                self.inv24, self.inv25, self.inv26])
-        inv3 = Sequence([self.inv31, self.inv32, self.inv33, \
-                self.inv34, self.inv35, self.inv36])
-
-        self.mtd1.addReferences(inv1)
-        self.mtd2.addReferences(inv2)
-        self.mtd3.addReferences(inv3)
-
+        self.assertTrue(self.inv1.refStr == self.inv2.refStr == self.inv3.refStr)
+        refStr = self.inv1.refStr
         self.assertEquals(1, len(dupli))
-        self.assertTrue(inv1.refStr in dupli)
-        self.assertTrue(inv2.refStr in dupli)
-        self.assertTrue(inv3.refStr in dupli)
-        refStr = inv1.refStr
-        self.assertTrue((self.mtd1, inv1.start, inv1.end) in dupli[refStr])
-        self.assertTrue((self.mtd2, inv2.start, inv2.end) in dupli[refStr])
-        self.assertTrue((self.mtd3, inv3.start, inv3.end) in dupli[refStr])
+        self.assertTrue(refStr in dupli)
+        self.assertTrue((self.mtd1, self.inv1.start, self.inv1.end) in dupli[refStr])
+        self.assertTrue((self.mtd2, self.inv2.start, self.inv2.end) in dupli[refStr])
+        self.assertTrue((self.mtd3, self.inv3.start, self.inv3.end) in dupli[refStr])
 
 
 def dump_dupli(toDump):
@@ -330,7 +342,7 @@ class MtdStub():
     def getNrofReferences(self):
         return self.length
 
-#class PartitionTest(unittest.TestCase):
+#class PartitionTest(TestCase):
 #    def testSunny(self):
 #        stub = MtdStub(range(0,2), 2)
 #        parted = partition(stub, 1)
@@ -351,7 +363,7 @@ class RefStub():
         self.targetId = targetId
         self.line = line
 
-class SequenceTest(unittest.TestCase):
+class SequenceTest(TestCase):
     def setUp(self):
         self.seq1 = Sequence([RefStub(1,1), RefStub(2,2), RefStub(3,3), RefStub(4,4)])
         self.seq2 = Sequence([RefStub(2,2), RefStub(3,3)])
@@ -361,10 +373,12 @@ class SequenceTest(unittest.TestCase):
 
     def testContains(self):
         self.assertTrue(self.seq1.contains(self.seq2))
-        self.assertFalse(self.seq2.contains(self.seq1))
         self.assertTrue(self.seq1.contains(self.seq3))
-        self.assertFalse(self.seq3.contains(self.seq1))
         self.assertTrue(self.seq1.contains(self.seq4))
+
+    def testDoesNotContain(self):
+        self.assertFalse(self.seq2.contains(self.seq1))
+        self.assertFalse(self.seq3.contains(self.seq1))
         self.assertFalse(self.seq4.contains(self.seq1))
         self.assertFalse(self.seq5.contains(self.seq1))
         self.assertFalse(self.seq1.contains(self.seq5))
@@ -373,7 +387,10 @@ class SequenceTest(unittest.TestCase):
         self.assertTrue(self.seq1.overlaps(self.seq2))
         self.assertTrue(self.seq2.overlaps(self.seq1))
         self.assertTrue(self.seq2.overlaps(self.seq4))
+
+    def testDoesNotOverlap(self):
         self.assertFalse(self.seq1.overlaps(self.seq5))
         self.assertFalse(self.seq5.overlaps(self.seq1))
 
-unittest.main()
+if __name__ == '__main__':
+    main() # fetch and run all tests

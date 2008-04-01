@@ -19,6 +19,7 @@
 #
 
 import os
+from time import sleep
 
 def loadSrcDict():
     ''' Load the pickle file which contains the entity-source
@@ -31,7 +32,8 @@ def loadSrcDict():
 def openEditor(file, line):
     ''' spawn an external source code viewer and open the given file + jump
         to line '''
-    toExec = "kwrite " + file + " --line " + str(line)
+    #toExec = "kwrite " + file + " --line " + str(line)
+    toExec = "kate -u " + file + " --line " + str(line)
     print "executing " + toExec
     Runtime.getRuntime().exec(toExec)
 
@@ -40,7 +42,12 @@ def toSourceAction(targetNode):
     global srcDict
     root = srcDict['ProjectSourceRootDirectory']
     # open an editor for all the source locations related to targetNode
+    cnt = 0
     for location in srcDict[targetNode.name[0]]:
+        if cnt == 10:
+            sleep(1)
+            cnt = 0
+        cnt += 1
         openEditor(root + location[0], location[1])
 
 def createContextAction():

@@ -137,6 +137,7 @@ def evalTest(name):
     try:
         res.cmd = readFile(name + '.cmd')
         res.got, res.err, ret = execute(res.cmd)
+        res.err = text2html(res.err)
 
         #linesAdded = ""
         #cntr = 1;

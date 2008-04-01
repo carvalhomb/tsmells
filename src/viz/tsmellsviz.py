@@ -43,10 +43,13 @@ def writeStats():
     print "fixt \t\t" + str(len(entity == 'testfixture'))
     print "smells\t\t" + str(len(entity == 'smell'))
 
+import sys
+
 class Loader(Runnable):
     def run(self):
         StatusBar.runProgressBar(true)
-        self.__loadGdf()
+        try: self.__loadGdf()
+        except: print sys.exc_info()
         self.__execScripts()
         StatusBar.runProgressBar(false)
         StatusBar.setStatus("done.")
@@ -69,3 +72,4 @@ class Loader(Runnable):
         execfile(TSMELLS_VIZ + '/gui/RescalePanel.py')
 
 Thread(Loader()).start()
+

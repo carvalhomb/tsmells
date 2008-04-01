@@ -1,0 +1,117 @@
+/**
+ * This file is part of Fetch (the Fact Extraction Tool CHain).
+ *
+ * Fetch is free software; you can redistribute it and/or modify it under the 
+ * terms of the GNU General Public License as published by the Free Software 
+ * Foundation; either version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * Fetch is distributed in the hope that it will be useful, but WITHOUT ANY 
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with Fetch; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+ * Extensivly modified by:
+ *                Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ **/
+
+
+/**
+ * Initialize test entities for JUnit suites
+ * 
+ * This is an abstract module, provide:
+ *  - root test case: 
+ *         IsTestCase(id)
+ *  - assertions: 
+ *         CheckerSignature(has_msg,signature)
+ **/
+
+Yes("1");
+No("0");
+
+TestCaseId(tcid) :=
+     EX(fid, qtestid, qtest,
+            Class(tcid,_) &
+            ClassBelongsToFile(tcid, fid, _) &
+            Include(_,fid, qtestid) &
+            File(qtestid, qtest) &
+            @"QtTest"(qtest));
+
+PRINT TestCaseId(x);
+
+TestMethodId(x) := 
+    EX(y,
+        TestCaseId(y) & 
+        MethodBelongsToClass(x,y));
+
+TestConstructor(x) :=
+   EX(mn,
+       TestMethodId(x) &
+       Method(x, mn) &
+       @"^.*(::)?(.*)\.\2[(].*[)]$"(mn));
+
+TestDestructor(x) :=
+   EX(mn,
+       TestMethodId(x) &
+       Method(x, mn) &
+       @"^.*(::)?(.*)\.~\2[(][)]$"(mn));
+
+TestSuiteMethod(x) := 
+    EX(mn,
+        TestMethodId(x) &
+        Method(x, mn) & 
+        @"\.suite[(][)]$"(mn));
+
+TestMain(x) :=
+   EX(mn,
+       TestMethodId(x) &
+       Method(x, mn) &
+       @"main[(]String\[\][)]$"(mn));
+
+TestCommandId(x) := 
+    EX(mn, 
+        TestMethodId(x) & 
+        Method(x,mn) & 
+        @"[.]test.*[(][)]$"(mn));
+
+TestSetupId(x) := 
+    EX(mn, 
+        TestMethodId(x) & 
+        Method(x,mn) & 
+        @"[.]setUp[(][)]$"(mn));
+
+TestTeardownId(x) := 
+    EX(mn,
+        TestMethodId(x) & 
+        Method(x,mn) & 
+        @"[.]tearDown[(][)]$"(mn));
+
+TestHelperId(x) := 
+        TestMethodId(x) & 
+        !TestCommandId(x) & 
+        !TestSetupId(x) & 
+        !TestTeardownId(x) &
+        !TestConstructor(x) &
+        !TestDestructor(x) &
+        !TestSuiteMethod(x) &
+        !TestMain(x);
+
+TestChecker(x) := 
+    EX(y, 
+        Method(x, y) & 
+        CheckerSignature(_,y));
+
+ProductionMethodId(x) := 
+        Method(x,_) & 
+        !TestMethodId(x) & 
+        !TestChecker(x);
+
+// Some backward relations
+
+include(DUMP_DIR`initBackwardTestRelations.rml')
+

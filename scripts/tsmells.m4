@@ -32,7 +32,7 @@ PRINT "(02) extracting xUnit entities ... ", ENDL TO STDERR;
 include(XUNIT_INIT)
 include(DUMP_DIR`provideCount.rml')
 include(DUMP_DIR`initAuxiliary.rml')
-include(DUMP_DIR`writeTestEntities.rml')
+ifdef(`DUMP_TEST_ENTITIES', `include(DUMP_DIR`writeTestEntities.rml')' , `')
 
 PRINT "(03) AssertionLess ... ", ENDL TO STDERR;
 ifdef(`ASSERTIONLESS', `include(DUMP_DIR`computeAssertionLess.rml')', `')
