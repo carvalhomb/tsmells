@@ -18,11 +18,20 @@
 # Copyright 2007-2008 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
 #
 
+import cPickle
+
 from com.hp.hpl.guess        import Guess
 from com.hp.hpl.guess.layout import GEM, BinPack
 from javax.swing             import JMenu, JMenuItem
 from javax.swing.event       import ChangeListener
 from java.awt.event          import ActionListener
+
+def resetLook():
+    g.nodes.color = 'black'
+    g.edges.color = 'lightgray'
+    (entity == 'smell').color = 'red'
+    g.nodes.width = 10
+    g.nodes.height = 10
 
 class globalz:
     def __init__(self):
@@ -30,7 +39,21 @@ class globalz:
         self.roots = self.__initRoots()
         # an extra node between testcases and their package
         self.tcsubs = self.__initTcSubs()
+        # metric dictionary
+        self.metricDict = self.__loadMetricDict()
+        self.__initAuxiliaryNodes()
+        resetLook()
         g.nodes.visible = 0
+
+    def __initAuxiliaryNodes(self):
+        self.sub = addNode("sub_node")
+        remove([self.sub])
+        self.command = addNode("commands")
+        remove([self.command])
+        self.helper = addNode("helpers")
+        remove([self.helper])
+        self.fixture = addNode("fixture")
+        remove([self.fixture])
 
     def __initRoots(self):
         ''' add two root nodes'''
@@ -39,7 +62,6 @@ class globalz:
         addDirectedEdge(rroot, root)
         for pkg in (entity == 'package'):
             addDirectedEdge(root, pkg)
-        reset()
         return remove([root, rroot])
 
     def __initTcSubs(self):
@@ -54,8 +76,21 @@ class globalz:
                 #print str(pkg) + " - " + str(n2) + " <> " + str(edge) 
                 if n2.name == sub.name: continue
                 addDirectedEdge(sub, n2)
-        reset()
         return remove(subs)
+
+    def __loadMetricDict(self):
+        ''' Load the pickle file which contains the metric
+            information dictionary '''
+        pcklFile = open(os.environ['TSMELLS_METRICPICKLE'], 'rb')
+        metricDict = cPickle.load(pcklFile)
+        pcklFile.close()
+        return metricDict
+
+    def resetGraph(self):
+        remove(self.sub)
+        remove(self.command)
+        remove(self.helper)
+        remove(self.fixture)
 
 def transformToGEM():
     Guess.setSynchronous(true)
@@ -69,23 +104,6 @@ def transformToBIN():
     graph.layout(BinPack(graph, true))
     center()
     Guess.setSynchronous(false)
-
-def reset():
-    g.nodes.color = 'black'
-    g.edges.color = 'lightgray'
-    (entity == 'smell').color = 'red'
-    g.nodes.width = 10
-    g.nodes.height = 10
-
-def initPkgSubs(gl):
-    other = ((entity=='smell')|(entity=='testcommand')|(entity=='testhelper')|(entity=='testfixture'))
-    other = remove(other)
-    other.extend(remove((entity=='package')->complement(gl.tcsubs)))
-    add(gl.tcsubs)
-    (entity=='package').color='white'
-    (entity=='package').labelvisible=1
-    return other
-
 
 from com.hp.hpl.guess.ui import StatusBar
 from java.lang           import Thread, Runnable, Double
@@ -105,9 +123,11 @@ class GraphView(Runnable):
 
     def run(self):
         start = time()
+        g.nodes.visible = 0
 
         self.pre() # abstract, bring the graph in the correct state. remove/add nodes
         self.transform() # abstract, execute the layout algorithm
+        resetLook()
         self.post() # abstract, restore the graph
 
         el = str(time() - start)
@@ -121,11 +141,8 @@ class SmellView(GraphView):
     def pre(self):
         remove(self.globalz.tcsubs)
         remove(self.globalz.roots)
-        g.nodes.visible = 0
         self.pkgs = remove((entity=='package'))
-        reset()
-        (entity == 'smell').color = 'red'
-
+ 
     def transform(self):
         StatusBar.setStatus("Computing GEM smell view [can take a while]")
         transformToGEM()
@@ -134,14 +151,13 @@ class SmellView(GraphView):
 
     def post(self):
         g.nodes.visible = 1
+        (entity == 'smell').color = 'red'
         add(self.pkgs)
 
 class RadialSuiteView(GraphView):
     ''' thread which performs the smell view layout '''
 
     def pre(self):
-        g.nodes.visible = 0
-        reset()
         add(self.globalz.roots)
         add(self.globalz.tcsubs)
         other = (entity=='package')->complement(self.globalz.tcsubs)
@@ -163,24 +179,46 @@ class RadialSuiteView(GraphView):
         self.other.visible = 0
 
 class TreeSuiteView(GraphView):
-    ''' Build a test suite tree '''
+    ''' Show a polymetric view of the testsuite '''
 
     def pre(self):
-        g.nodes.visible = 0
         add(self.globalz.roots)
-        self.other = initPkgSubs(self.globalz)
+        self.other = self.__initPkgSubs(self.globalz)
 
     def transform(self):
         Guess.setSynchronous(true)
         sugiyamaLayout()
         Guess.setSynchronous(false)
 
-    def __numCommandsMetric(self):
-        ''' adapt the testcase node's height based on its number of testcommands'''
+    def post(self):
+        g.nodes.visible = 1
+        g.edges.visible = 1
+        (entity=='package').color='white'
+        (entity=='package').labelvisible=1
+        add(self.other)
+        self.__resizeOnMetrics()
+        self.__colorOnCaseType()
+        self.other.visible = 0
+
+    def __initPkgSubs(self, gl):
+        other = ((entity=='smell')|(entity=='testcommand')|(entity=='testhelper')|(entity=='testfixture'))
+        other = remove(other)
+        other.extend(remove((entity=='package')->complement(gl.tcsubs)))
+        add(gl.tcsubs)
+        return other
+
+    def __resizeOnMetrics(self):
+        ''' adapt the testcase node's height based on its number of testcommands
+            adapt the testcase node's width based on a relative SLOC metric 
+                RTCLOC= SLOC / #COMMANDS'''
         for tc in (entity == 'testcase'):
             numCmd = len(tc->(entity=='testcommand'))
+            # heigth
             tc.height = numCmd * 10
             tc.color = 'white'
+            # width
+            sloc = self.globalz.metricDict['testcase'][tc.name]['SLOC']
+            tc.width = max(3, sloc/numCmd)
 
     def __colorOnCaseType(self):
         ''' give a different color based on the presence of fixture and helpers '''
@@ -196,13 +234,87 @@ class TreeSuiteView(GraphView):
             elif hasHelper: tc.color = 'green'
             else: tc.color = 'white'
 
+#def makeIndirection(node, other, sub):
+def makeIndirection(from_, to, new):
+    ''' Remove (and return) the edges between node 'from_' and the nodes 'to'. 
+        Add edges between from_->new and new->to '''
+    children = [ x.getNode2() for x in from_->to]
+    remove([new])
+    add([new])
+    addDirectedEdge(from_,new)
+    for child in children:
+        addDirectedEdge(new, child)
+    #original = remove(node->children)
+    return remove(from_->children)
+
+cnt = 0
+
+class TreeCaseView(GraphView):
+    ''' Show a polymetric view of a single test case '''
+
+    def __init__(self, gl, testcase):
+        GraphView.__init__(self, gl)
+        self.testcase = testcase
+
+    def pre(self):
+        self.other = self.__removeOther()
+        self.ori  = makeIndirection(self.testcase, g.nodes, self.globalz.sub)
+        makeIndirection(self.globalz.sub, (entity == 'testcommand'), self.globalz.command)
+        makeIndirection(self.globalz.sub, (entity == 'testhelper'), self.globalz.helper)
+        makeIndirection(self.globalz.sub, (entity == 'testfixture'), self.globalz.fixture)
+        self.fakes = self.__addFakeSmells()
+
+    def transform(self):
+        Guess.setSynchronous(true)
+        sugiyamaLayout()
+        Guess.setSynchronous(false)
+
     def post(self):
         g.nodes.visible = 1
         g.edges.visible = 1
+        self.__whiteLabel(self.globalz.command)
+        self.__whiteLabel(self.globalz.helper)
+        self.__whiteLabel(self.globalz.fixture)
+        self.testcase.color = 'white'
+        self.testcase.labelvisible = 1
         add(self.other)
-        self.__numCommandsMetric()
-        self.__colorOnCaseType()
         self.other.visible = 0
+        add(self.ori)
+        self.ori.visible = 0
+        remove(self.fakes)
+
+    def __whiteLabel(self, node):
+        node.style = 4
+        node.color = 'white'
+
+    def __removeOther(self):
+        lvl1 = [x.getNode2() for x in self.testcase->g.nodes]
+        lvl2 = [x.getNode2() for x in lvl1->g.nodes]
+        lvl3 = [x.getNode2() for x in lvl2->g.nodes]
+        all = [self.testcase, self.globalz.sub] + lvl1 + lvl2 + lvl3
+        print all
+        return remove(complement(all))
+
+    def __testmethods(self):
+        return ((entity == 'testcommand') | (entity == 'testfixture') | (entity == 'testhelper'))
+
+    def __addFakeSmells(self):
+        global cnt
+        fakes = []
+        for mtd in self.__testmethods():
+            if len(mtd->g.nodes) == 0:
+                fake = addNode('place_holder_node' + str(cnt))
+                addDirectedEdge(mtd, fake)
+                fakes.append(fake)
+                cnt += 1
+        return fakes
+
+def viewCase(tcName):
+    tc = (name == tcName)[0]
+    TreeCaseView(glzz, tc).go()
+
+def vc():
+    viewCase('testmessenger::UtilsTest')
 
 def rescaleCenter(factor):
     Guess.setSynchronous(true)

@@ -40,8 +40,10 @@ TestCaseInfo(name, file, line) :=
     EX(tcid, fid,
         TestCaseId(tcid) &
         Class(tcid, name) &
-        ClassBelongsToFile(tcid, fid, line) &
-        File(fid, file));
+        //ClassBelongsToFile(tcid, fid, line) &
+        TestCaseDefinitionFile(tcid, fid) &
+        File(fid, file) &
+        count("0", line));
 
 PRINT ["TestCase"] TestCaseInfo(x,y,z) TO "DUMP_TEST_ENTITIES";
 
@@ -52,13 +54,13 @@ PRINT ["TestCase"] TestCaseInfo(x,y,z) TO "DUMP_TEST_ENTITIES";
  * @col file: filename this command is defined in
  * @col case: qualified testcase name which owns the command
  **/
-TestCommandInfo(name, file, line, case) :=
+TestCommandInfo(name, file, line, case, loc) :=
     EX(comid,
         TestCommandId(comid) &
-        TestEntityInfoWithOwner(comid, name, file, line, _, case)
+        TestEntityInfoWithOwner(comid, name, file, line, _, case, loc)
       );
 
-PRINT ["TestCommand"] TestCommandInfo(u,v,w,x) TO "DUMP_TEST_ENTITIES";
+PRINT ["TestCommand"] TestCommandInfo(u,v,w,x,y) TO "DUMP_TEST_ENTITIES";
 
 /**
  * Name, file, linenumber & owner testcase of testhelpers
@@ -67,13 +69,13 @@ PRINT ["TestCommand"] TestCommandInfo(u,v,w,x) TO "DUMP_TEST_ENTITIES";
  * @col file: filename this helper is defined in
  * @col case: qualified testcase name which owns the helper
  **/
-TestHelperInfo(name, file, line, case) :=
+TestHelperInfo(name, file, line, case, loc) :=
     EX(helid, 
         TestHelperId(helid) &
-        TestEntityInfoWithOwner(helid, name, file, line, _, case)
+        TestEntityInfoWithOwner(helid, name, file, line, _, case, loc)
       );
 
-PRINT ["TestHelper"] TestHelperInfo(u,v,w,x) TO "DUMP_TEST_ENTITIES";
+PRINT ["TestHelper"] TestHelperInfo(u,v,w,x,y) TO "DUMP_TEST_ENTITIES";
 
 
 /**
@@ -83,13 +85,13 @@ PRINT ["TestHelper"] TestHelperInfo(u,v,w,x) TO "DUMP_TEST_ENTITIES";
  * @col file: filename this setup is defined in
  * @col case: qualified testcase owner name
  **/
-TestSetupInfo(name, file, line, case) :=
+TestSetupInfo(name, file, line, case, loc) :=
     EX(fixid, 
         TestSetupId(fixid) &
-        TestEntityInfoWithOwner(fixid, name, file, line, _, case)
+        TestEntityInfoWithOwner(fixid, name, file, line, _, case, loc)
       );
 
-PRINT ["TestSetup"] TestSetupInfo(u,v,w,x) TO "DUMP_TEST_ENTITIES";
+PRINT ["TestSetup"] TestSetupInfo(u,v,w,x,y) TO "DUMP_TEST_ENTITIES";
 
 /**
  * Name, file, linenumber & owner testcase of testteardown
@@ -98,10 +100,10 @@ PRINT ["TestSetup"] TestSetupInfo(u,v,w,x) TO "DUMP_TEST_ENTITIES";
  * @col file: filename this teardown is defined in
  * @col case: qualified testcase owner name
  **/
-TestTeardownInfo(name, file, line, case) :=
+TestTeardownInfo(name, file, line, case, loc) :=
     EX(fixid, 
         TestTeardownId(fixid) &
-        TestEntityInfoWithOwner(fixid, name, file, line, _, case)
+        TestEntityInfoWithOwner(fixid, name, file, line, _, case, loc)
       );
 
-PRINT ["TestTeardown"] TestTeardownInfo(u,v,w,x) TO "DUMP_TEST_ENTITIES";
+PRINT ["TestTeardown"] TestTeardownInfo(u,v,w,x,y) TO "DUMP_TEST_ENTITIES";

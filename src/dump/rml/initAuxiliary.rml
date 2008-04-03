@@ -105,11 +105,29 @@ TestEntityInfo(tid, name, file, line) :=
  * @col line: starting linenumber of the method definition
  * @col tcid: owner testcase id
  * @col case: owner testcase fully qualified name
+ * @col loc : lines of code
  **/
-TestEntityInfoWithOwner(tid, name, file, line, tcid, case) :=
+// since PMCCabe tends to forget a few methods, a default LOC is used ....
+// default = 10 LOC
+TestEntityInfoWithOwner(tid, name, file, line, tcid, case, loc) :=
     TestEntityInfo(tid, name, file, line) &
     MethodBelongsToClass(tid, tcid) &
-    Class(tcid, case);
+    Class(tcid, case) &
+    ( Measurement(_, tid, "LOC", loc) | 
+      ( !Measurement(_,tid,"LOC", _) & 
+        count("10", loc)));
+
+TestCaseDefinitionFile("",""); // without this -> crocopat: relYacc.y:232: int yyparse(): Assertion `gVariables.find(*yyvsp[-6].rel_String) == gVariables.end()' failed.
+
+TestCaseDefinitionFile(tcid_gf, fid) :=
+    EX(mtdid, def,
+        TestCaseId(tcid_gf) &
+        MethodBelongsToClass(mtdid, tcid_gf) &
+        DefinitionForDeclaration(def, mtdid) &
+        InvokableEntityBelongsToFile(def, fid, _));
+
+EXEC "rm -f tempo";
+PRINT TestCaseDefinitionFile(x,y) TO "tempo";
 
 /**
  * All helpers thid invoked directly from command tcid

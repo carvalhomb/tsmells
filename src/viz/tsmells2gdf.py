@@ -131,8 +131,6 @@ if __name__=='__main__':
     os.system("cat " + testSuite + " " + smellDump + " > " + temp)
     converter = EntityConverter()
     converter.readDump(temp)
-    #prefix = smellDump[0:smellDump.rfind('.')]
-    print "root: " + str(root)
 
     gdfFile = "tsmells/" +  prefix + ".gdf"
     converter.writeGdf(gdfFile)

@@ -203,14 +203,6 @@ FOR tcid_x IN HasSetup(x) {
 }
 
 //PRINT ["GeneralFixtureData"] GeneralFixtureData(x,y,z,a);
-
-TestCaseDefinitionFile(tcid_gf, fid) :=
-	EX(mtdid, def,
-		TestCaseId(tcid_gf) &
-		MethodBelongsToClass(mtdid, tcid_gf) &
-		DefinitionForDeclaration(def, mtdid) &
-		InvokableEntityBelongsToFile(def, fid, _));
-
 //PRINT ["TestCaseDefinitionFile"] TestCaseDefinitionFile(x,y);
 
 GeneralFixture(tc_nm, nfob2, nfpt2, nobu2, file, line) :=
