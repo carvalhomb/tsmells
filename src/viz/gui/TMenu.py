@@ -32,6 +32,7 @@ def resetLook():
     (entity == 'smell').color = 'red'
     g.nodes.width = 10
     g.nodes.height = 10
+    g.nodes.labelvisible = 0
 
 class globalz:
     def __init__(self):
@@ -87,10 +88,7 @@ class globalz:
         return metricDict
 
     def resetGraph(self):
-        remove(self.sub)
-        remove(self.command)
-        remove(self.helper)
-        remove(self.fixture)
+        remove([self.sub, self.command, self.helper, self.fixture])
 
 def transformToGEM():
     Guess.setSynchronous(true)
@@ -124,6 +122,7 @@ class GraphView(Runnable):
     def run(self):
         start = time()
         g.nodes.visible = 0
+        self.globalz.resetGraph()
 
         self.pre() # abstract, bring the graph in the correct state. remove/add nodes
         self.transform() # abstract, execute the layout algorithm
@@ -155,7 +154,7 @@ class SmellView(GraphView):
         add(self.pkgs)
 
 class RadialSuiteView(GraphView):
-    ''' thread which performs the smell view layout '''
+    ''' A testsuite radial layout view '''
 
     def pre(self):
         add(self.globalz.roots)
@@ -198,6 +197,7 @@ class TreeSuiteView(GraphView):
         add(self.other)
         self.__resizeOnMetrics()
         self.__colorOnCaseType()
+        self.__movePackages()
         self.other.visible = 0
 
     def __initPkgSubs(self, gl):
@@ -218,7 +218,20 @@ class TreeSuiteView(GraphView):
             tc.color = 'white'
             # width
             sloc = self.globalz.metricDict['testcase'][tc.name]['SLOC']
+            if numCmd == 0: numCmd = 1
             tc.width = max(3, sloc/numCmd)
+
+    def __movePackages(self):
+        ''' move the packages a bit so that the labels dont overlap '''
+        pkgs = (entity == 'package')
+        pkgs.x # needed to initialize, otherwise the sort is messed up
+        pkgs.sort(lambda o,p: int(p.x - o.x))
+        cntr = 0
+        for pkg in pkgs:
+            lvl = cntr % 3
+            if lvl == 0:   pkg.y += 50
+            elif lvl == 2: pkg.y -= 50
+            cntr += 1
 
     def __colorOnCaseType(self):
         ''' give a different color based on the presence of fixture and helpers '''
@@ -234,17 +247,17 @@ class TreeSuiteView(GraphView):
             elif hasHelper: tc.color = 'green'
             else: tc.color = 'white'
 
-#def makeIndirection(node, other, sub):
-def makeIndirection(from_, to, new):
-    ''' Remove (and return) the edges between node 'from_' and the nodes 'to'. 
+def constructIndirection(from_, to, new):
+    ''' Construct an intermediate node layer between 'from_' and 'to'
+        Remove (and return) the edges between node 'from_' and the nodes 'to'. 
         Add edges between from_->new and new->to '''
     children = [ x.getNode2() for x in from_->to]
+    if len(children) == 0: return
     remove([new])
     add([new])
     addDirectedEdge(from_,new)
     for child in children:
         addDirectedEdge(new, child)
-    #original = remove(node->children)
     return remove(from_->children)
 
 cnt = 0
@@ -258,10 +271,7 @@ class TreeCaseView(GraphView):
 
     def pre(self):
         self.other = self.__removeOther()
-        self.ori  = makeIndirection(self.testcase, g.nodes, self.globalz.sub)
-        makeIndirection(self.globalz.sub, (entity == 'testcommand'), self.globalz.command)
-        makeIndirection(self.globalz.sub, (entity == 'testhelper'), self.globalz.helper)
-        makeIndirection(self.globalz.sub, (entity == 'testfixture'), self.globalz.fixture)
+        self.__constructExtraLevel()
         self.fakes = self.__addFakeSmells()
 
     def transform(self):
@@ -270,6 +280,10 @@ class TreeCaseView(GraphView):
         Guess.setSynchronous(false)
 
     def post(self):
+        self.__fixLook()
+        self.__restoreNodes()
+
+    def __fixLook(self):
         g.nodes.visible = 1
         g.edges.visible = 1
         self.__whiteLabel(self.globalz.command)
@@ -277,6 +291,10 @@ class TreeCaseView(GraphView):
         self.__whiteLabel(self.globalz.fixture)
         self.testcase.color = 'white'
         self.testcase.labelvisible = 1
+        self.testcase.x = (x.max - x.min) / 2
+        self.globalz.sub.x = self.testcase.x
+
+    def __restoreNodes(self):
         add(self.other)
         self.other.visible = 0
         add(self.ori)
@@ -284,15 +302,22 @@ class TreeCaseView(GraphView):
         remove(self.fakes)
 
     def __whiteLabel(self, node):
-        node.style = 4
+        node.style = 1
+        node.labelvisible = 1
         node.color = 'white'
+
+    def __constructExtraLevel(self):
+        sub = self.globalz.sub
+        self.ori  = constructIndirection(self.testcase, g.nodes, sub)
+        constructIndirection(sub, (entity == 'testcommand'), self.globalz.command)
+        constructIndirection(sub, (entity == 'testhelper'),  self.globalz.helper)
+        constructIndirection(sub, (entity == 'testfixture'), self.globalz.fixture)
 
     def __removeOther(self):
         lvl1 = [x.getNode2() for x in self.testcase->g.nodes]
         lvl2 = [x.getNode2() for x in lvl1->g.nodes]
         lvl3 = [x.getNode2() for x in lvl2->g.nodes]
         all = [self.testcase, self.globalz.sub] + lvl1 + lvl2 + lvl3
-        print all
         return remove(complement(all))
 
     def __testmethods(self):
