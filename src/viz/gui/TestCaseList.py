@@ -156,4 +156,4 @@ class TestCasePanel(JPanel, Dockable, GraphMouseListener):
         self.myParent = gjf
 
 # construct the panel
-TestCasePanel()
+#TestCasePanel() deprecated using the TestCase Tree

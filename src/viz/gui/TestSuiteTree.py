@@ -51,7 +51,7 @@ def extractNode(path):
     #if len(path) >= 3:
         #nodeName += "::" + str(path[2]) # test case
     if len(path) >= 5:
-        nodeName += "." + str(path[3]) # test method
+        nodeName += "." + str(path[4]) # test method
     node = (name == nodeName)
     if len(node) == 1: return node[0]
     else: return None
@@ -75,22 +75,53 @@ class NodeHighlighter(TreeSelectionListener):
         if node != None:
             GraphEvents.mouseEnter(node)
             self.lastClicked = node
+            Guess.getMainUIWindow().getCanvas().repaint()
+
 
 class TreePopup(JPopupMenu):
     def __init__(self, path):
         JPopupMenu.__init__(self, "options")
-        self.case = extractTestCase(path)
-        self.case = (name == self.case)
-        if len(self.case): 
+        self.path = path
+        self.__addViewCaseAction()
+        self.__addToSourceAction()
+        self.__addWriteMetricsAction()
+
+    def __addViewCaseAction(self):
+        self.case = extractTestCase(self.path)
+        self.case = (name == self.case) # returns list of nodes
+        if len(self.case): # did we find one?
             self.case = self.case[0]
             casev = JMenuItem("viewCase")
             casev.actionPerformed = self.__showCase
             self.add(casev)
 
+    def __addToSourceAction(self):
+        self.node = extractNode(self.path)
+        if self.node:
+            srca = JMenuItem("toSource")
+            srca.actionPerformed = self.__loadSource
+            self.add(srca)
+
+    def __addWriteMetricsAction(self):
+        self.node = extractNode(self.path)
+        if self.node:
+            mtra = JMenuItem("writeMetrics")
+            mtra.actionPerformed = self.__writeMetrics
+            self.add(mtra)
+
+    def __writeMetrics(self, dummy):
+        TestCaseMetrics(self.node).print_()
+
     def __showCase(self, dummy):
         global glzz # from TMenu.py
         if isinstance(self.case, com.hp.hpl.guess.Node):
             TreeCaseView(glzz, self.case).go() # from TMenu.py
+
+    def __loadSource(self, dummy):
+        global srcDict # from sourceContext.py
+        root = srcDict['ProjectSourceRootDirectory']
+        loc = srcDict[self.node.name]
+        openEditor(root + loc[0][0], loc[0][1])  # from ToSourceContext.py
 
 class TreeMouseListener(MouseAdapter):
     def mouseClicked(self, event):
@@ -186,31 +217,6 @@ class TestSuitePanel(JPanel, Dockable, GraphMouseListener):
         #''' append the test helper methods of a single testcase to the tree'''
         self.__appendCaseMethodsHelper(case, caseNode, "helpers", "testhelper")
 
-    #def mouseEnterNode(self, node):
-        #print node
-        #if node.entity == 'testcase':
-            #row = self.getIndex(node.name)
-            #print row
-            #self.table.clearSelection()
-            #self.table.changeSelection(row, 0, false, false)
-
-    #def getIndex(self, name):
-        #index = 0
-        #while (index < len(self.testcases)) and\
-              #(str(self.testcases[index]) != str(name)):
-            #print "\t" + self.testcases[index] + "<>" + name
-            #index+=1
-        #return index
-
-    #def mouseEnterEdge(self, edge):
-        #pass
-
-    #def mouseLeaveNode(self, node):
-        #pass
-
-    #def mouseLeaveEdge(self, edge):
-        #pass
-
     def getPreferredSize(self):
         return Dimension(200,600)
 
@@ -232,5 +238,3 @@ class TestSuitePanel(JPanel, Dockable, GraphMouseListener):
     def setWindow(self,gjf):
         self.myParent = gjf
 
-# construct the panel
-TestSuitePanel()

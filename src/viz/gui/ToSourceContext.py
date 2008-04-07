@@ -21,40 +21,60 @@
 import os
 from time import sleep
 
-def loadSrcDict():
-    ''' Load the pickle file which contains the entity-source
-        mapping dictionary '''
-    global srcDict
-    pcklFile = open(os.environ['TSMELLS_SRCPICKLE'],'rb')
-    srcDict = cPickle.load(pcklFile)
-    pcklFile.close()
+#def loadSrcDict():
+    #''' Load the pickle file which contains the entity-source
+        #mapping dictionary '''
+    #global srcDict
+    #pcklFile = open(os.environ['TSMELLS_SRCPICKLE'],'rb')
+    #srcDict = cPickle.load(pcklFile)
+    #pcklFile.close()
 
 def openEditor(file, line):
     ''' spawn an external source code viewer and open the given file + jump
         to line '''
-    #toExec = "kwrite " + file + " --line " + str(line)
-    toExec = "kate -u " + file + " --line " + str(line)
+    toExec = "kwrite " + file + " --line " + str(line)
+    #toExec = "kate -u " + file + " --line " + str(line)
     print "executing " + toExec
     Runtime.getRuntime().exec(toExec)
 
+def getLocations(target):
+    global srcDict
+    locations = []
+    if not srcDict.has_key(target.name): 
+        print "No sourcelocation for " + target
+    else: locations = srcDict[target.name]
+    return locations
+
 def toSourceAction(targetNode):
     ''' callback for the context menu '''
-    global srcDict
-    root = srcDict['ProjectSourceRootDirectory']
+    global rootDir
     # open an editor for all the source locations related to targetNode
     cnt = 0
-    for location in srcDict[targetNode.name[0]]:
+    for location in getLocations(targetNode[0]):
         if cnt == 10:
-            sleep(1)
+            # dont open too much editors at once, stuff might crash
+            sleep(0.5)
             cnt = 0
         cnt += 1
-        openEditor(root + location[0], location[1])
+        openEditor(rootDir + location[0], location[1])
 
-def createContextAction():
+def dumpDupli(targetNode):
+    global rootDir
+    for location in getLocations(targetNode[0]):
+        print "---------------------------------------------------------------->>"
+        print location[0] + ":[" + str(location[1]) + "-" + str(location[2]) + "]"
+        print "---------------------------------------------------------------->>"
+        f = open(rootDir + location[0], 'r')
+        lines = f.readlines()
+        for line in lines[location[1]:location[2]]:
+            print line,
+        f.close()
+
+def addToSourceAction():
     ''' add the toSource context action to the guess graph'''
-    newMenuItem = NodeEditorPopup.addItem("toSource")
-    newMenuItem.menuEvent = toSourceAction
+    toSrcA = NodeEditorPopup.addItem("toSource")
+    toSrcA.menuEvent = toSourceAction
 
-srcDict = {}
-loadSrcDict()
-createContextAction()
+def addDumpDupliAction():
+    dumpDupliA = NodeEditorPopup.addItem("dumpDupli")
+    dumpDupliA.menuEvent = dumpDupli

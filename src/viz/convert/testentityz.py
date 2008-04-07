@@ -32,7 +32,7 @@ class TestEntitiez(SourceEntityz):
             entity = filterComma(entity)
             nodes.append(Node(name=entity, color=self.nodeColor, \
                             label=self.makeLabel(entity), entity=self.entityType, \
-                            style=self.style ))
+                            style=self.style, isSrcEnt=1 ))
         return nodes
 
     def appendLocationInfo(self, srcDict):

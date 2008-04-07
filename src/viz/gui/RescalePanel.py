@@ -69,4 +69,3 @@ class RescalePanel(DockableAdapter):
         return("Rescale Graph")
 
 
-RescalePanel()

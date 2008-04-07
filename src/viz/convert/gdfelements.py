@@ -22,7 +22,7 @@
 colors = ['black', 'lightgray', 'red']
 
 class Node():
-	def __init__(self, name, color, entity, label, style):
+	def __init__(self, name, color, entity, label, style, isSrcEnt = 0):
 		"""
 		pre:
 			isinstance(name, str)
@@ -36,6 +36,7 @@ class Node():
 		self.entity = entity
 		self.label = label
 		self.style = str(style)
+		self.isSrcEnt = str(isSrcEnt)
 
 	def __eq__(self, other):
 		if self is other: return True
@@ -45,7 +46,8 @@ class Node():
 			self.color == other.color and\
 			self.entity == other.entity and\
 			self.label == other.label and\
-			self.style == other.style:
+			self.style == other.style and\
+			self.isSrcEnt == other.isSrcEnt:
 			return True
 		return False
 
@@ -55,10 +57,10 @@ class Node():
 
 	def write(self, output):
 		output.write(self.name + "," + self.color + "," + self.entity + "," +\
-					 self.label + "," + self.style + "\n")
+					 self.label + "," + self.style + "," + self.isSrcEnt + "\n")
 
 	def writeHeader(output):
-		output.write('nodedef>name,color,entity VARCHAR(32),label,style\n')
+		output.write('nodedef>name,color,entity VARCHAR(32),label,style,srcentity BOOLEAN\n')
 	writeHeader = staticmethod(writeHeader)
 
 class Edge():

@@ -285,7 +285,3 @@ class SmellIdentiKitPanel(JPanel, Dockable, GraphMouseListener):
     def setWindow(self,gjf):
         self.myParent = gjf
 
-# construct the panel
-srcDict = loadSrcDict()
-metricDict = loadMetricDict()
-SmellIdentiKitPanel(srcDict, metricDict)

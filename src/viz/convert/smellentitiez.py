@@ -393,7 +393,7 @@ class DuplicatedCodes(object):
             srcDict[self.smellName + str(counter)] = []
             entry = srcDict[self.smellName + str(counter)]
             for i in range(2, len(duplicate), 4):
-                entry.append((duplicate[i], int(duplicate[i+1])))
+                entry.append((duplicate[i], int(duplicate[i+1]), int(duplicate[i+2])))
             counter += 1
 
     def parse(self, toParse):

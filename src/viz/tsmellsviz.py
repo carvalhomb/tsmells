@@ -19,12 +19,59 @@
 # Copyright 2007-2008 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
 #
 
-import os, jarray
+import os, jarray, cPickle
 
 from com.hp.hpl.guess.ui    import StatusBar
 from java.lang              import Thread, Runnable
 from java.awt.geom          import GeneralPath
 from java.awt               import Polygon
+
+#TODO get rid of this
+class Globalz:
+
+    def __init__(self):
+        global metricDict
+
+        self.metricDict = metricDict
+        self.roots = self.__initRoots() # 2 root nodes
+        self.tcsubs = self.__initTcSubs() # an extra node between testcases and package
+        self.__initMetaNodes()
+        #resetLook()
+        g.nodes.visible = 0
+
+    def __initMetaNodes(self):
+        self.sub = addNode("sub_node")
+        self.command = addNode("commands")
+        self.helper = addNode("helpers")
+        self.fixture = addNode("fixture")
+        remove([self.sub, self.command, self.helper, self.fixture])
+
+    def __initRoots(self):
+        ''' add two root nodes'''
+        root  = addNode('root')
+        rroot = addNode('rroot')
+        addDirectedEdge(rroot, root)
+        for pkg in (entity == 'package'):
+            addDirectedEdge(root, pkg)
+        return remove([root, rroot])
+
+    def __initTcSubs(self):
+        ''' add a sub node between testcases and their package '''
+        # TODO remove this; use 'ConstructExtraLevel'
+        subs = []
+        for pkg in (entity == 'package'):
+            sub = addNode(str(pkg) + "sub")
+            subs.append(sub)
+            addDirectedEdge(pkg, sub)
+            for edge in pkg->(g.nodes):
+                n2 = edge.getNode2()
+                #print str(pkg) + " - " + str(n2) + " <> " + str(edge) 
+                if n2.name == sub.name: continue
+                addDirectedEdge(sub, n2)
+        return remove(subs)
+
+    def resetGraph(self):
+        remove([self.sub, self.command, self.helper, self.fixture])
 
 def createDiamondShape():
     xpoints = jarray.array((10,5,0,5),'i')
@@ -33,39 +80,42 @@ def createDiamondShape():
     diamond = Polygon(xpoints,ypoints,4);
     shapeDB.addShape(104,diamond)
 
-def writeStats():
-    toPrint =  "#------------------------------------>\n"
-    toPrint += "nodes \t\t" + str(len(g.nodes)) + "\n"
-    toPrint += "edges\t\t" + str(len(g.edges)) + "\n"
-    toPrint += "#------------------------------------>\n"
-    toPrint += "pkgs \t\t" + str(len(entity == 'package')) + "\n"
-    toPrint += "cases\t\t" + str(len(entity == 'testcase')) + "\n"
-    toPrint += "cmds \t\t" + str(len(entity == 'testcommand')) + "\n"
-    toPrint += "hlprs\t\t" + str(len(entity == 'testhelper')) + "\n"
-    toPrint += "fixt \t\t" + str(len(entity == 'testfixture')) + "\n"
-    toPrint += "#------------------------------------>\n"
-    toPrint += "smells\t\t"+ str(len(entity == 'smell')) + "\n"
-    toPrint += "aless\t\t" + str(len(label == 'AssertionLess')) + "\n"
-    toPrint += "aroul\t\t" + str(len(label == 'AssertionRoulette')) + "\n"
-    toPrint += "dupli\t\t" + str(len(label == 'DuplicatedCode')) + "\n"
-    toPrint += "eager\t\t" + str(len(label == 'EagerTest')) + "\n"
-    toPrint += "forte\t\t" + str(len(label == 'ForTestersOnly')) + "\n"
-    toPrint += "gefix\t\t" + str(len(label == 'GeneralFixture')) + "\n"
-    toPrint += "inden\t\t" + str(len(label == 'IndentedTest')) + "\n"
-    toPrint += "indir\t\t" + str(len(label == 'IndirectTest')) + "\n"
-    toPrint += "mysty\t\t" + str(len(label == 'MysteryGuest')) + "\n"
-    toPrint += "sensi\t\t" + str(len(label == 'SensitiveEquality')) + "\n"
-    toPrint += "#------------------------------------>\n"
-    print toPrint
+def constructTMenu():
+    global glzz
 
-import sys
+    initMyColors()
+    initMenu()
+
+def constructPanels():
+    global srcDict
+    global metricDict
+
+    RescalePanel()
+    TestSuitePanel()
+    SmellIdentiKitPanel(srcDict, metricDict)
+
+def constructContextActions():
+    global srcDict
+    global rootDir
+    rootDir = srcDict['ProjectSourceRootDirectory']
+
+    addToSourceAction()
+    addDumpDupliAction()
+    addWriteMetricsAction()
+    addViewCaseAction()
 
 class Loader(Runnable):
+
     def run(self):
+        global glzz
+
         StatusBar.runProgressBar(true)
-        try: self.__loadGdf()
-        except: print sys.exc_info()
+        self.__loadGdf()
         self.__execScripts()
+        self.__loadPickleFiles()
+        glzz = Globalz()
+        self.__initGui()
+
         StatusBar.runProgressBar(false)
         StatusBar.setStatus("done.")
 
@@ -80,11 +130,30 @@ class Loader(Runnable):
         StatusBar.setStatus("initializing scripts")
         TSMELLS_VIZ= os.environ['TSMELLS'] + '/src/viz'
         execfile(TSMELLS_VIZ + '/gui/TMenu.py')
-        execfile(TSMELLS_VIZ + '/gui/TestCaseList.py')
+        execfile(TSMELLS_VIZ + "/gui/Metrics.py")
+        execfile(TSMELLS_VIZ + "/gui/GraphViews.py")
+        #execfile(TSMELLS_VIZ + '/gui/TestCaseList.py')
         execfile(TSMELLS_VIZ + '/gui/SmellIndentiKit.py')
         execfile(TSMELLS_VIZ + '/gui/ToSourceContext.py')
         execfile(TSMELLS_VIZ + '/gui/TestSuiteTree.py')
         execfile(TSMELLS_VIZ + '/gui/RescalePanel.py')
 
-Thread(Loader()).start()
+    def __loadPickleFiles(self):
+        global srcDict
+        global metricDict
 
+        srcDict = loadSrcDict()
+        metricDict = loadMetricDict()
+
+    def __initGui(self):
+        constructTMenu()
+        constructContextActions()
+        constructPanels()
+
+# Some global variables
+srcDict = {}
+metricDict = {}
+glzz = None
+
+# Go
+Thread(Loader()).start()
