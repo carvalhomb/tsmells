@@ -24,6 +24,12 @@
  * move to fixture.
  **/
 
+TestMethodNoGarb(id) :=
+        TestCommandId(id) |
+        TestHelperId(id) |
+        TestSetupId(id) |
+        TestTeardownId(id);
+
 /**
  * The invocations of a testmethod with
  * filename and linenumber.
@@ -40,7 +46,8 @@
 // result in (loads of) false positives
 ComInvoke(tcid, iid, invid, line, tcx, inv, file) := 
    EX(x, fid, def,
-              TestMethodId(tcid) & 
+             // TestMethodId(tcid) &
+              TestMethodNoGarb(tcid) &
               PureInvokes(iid, tcid, invid) & 
               //InvocationLocation(iid, _, line) &
               LineNo(iid, _, line) &
@@ -69,7 +76,8 @@ PRINT ["ComInvoke"] ComInvoke(a_dc,b_dc,c_dc,d_dc,e_dc,f_dc,g_dc) TO "tmp_duplic
  **/
 ComAccess(tcid_ca, aid, attid, line2, tc2, att, file2) := 
    EX(x, fid, attrid, def,
-              TestMethodId(tcid_ca) & 
+              //TestMethodId(tcid_ca) & 
+              TestMethodNoGarb(tcid_ca) &
               PureAccesses(aid, tcid_ca, attrid) & 
               //AccessLocation(aid, _, line2) &
               LineNo(aid, _, line2) &

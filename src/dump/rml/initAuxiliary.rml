@@ -62,8 +62,17 @@ CheckerInvoke(z,y,x) :=
         TestChecker(x) & 
         (TestCommandId(y)|TestHelperId(y)) & 
         PureInvokes(z,y,x);
-// PRINT "#CheckerInvoke ", #(CheckerInvoke(o,p,q)), ENDL;
-// PRINT ["CheckerInvoke"] CheckerInvoke(o,p,q);
+
+// TestCheck(x,nm) := TestChecker(x) & Method(x, nm);
+// PRINT ["TestChecker"] TestCheck(x,y) TO "checkers";
+// PRINT "#CheckerInvoke ", #(CheckerInvoke(o,p,q)), ENDL TO "checkers";
+// CheckerInvo(o,p) := 
+//         EX(invId, cId, //declId,
+//             CheckerInvoke(_, invId, cId) &
+//            // DefinitionForDeclaration(invId, declId) &
+//             Method(invId, o) &
+//             Method(cId, p));
+// PRINT ["CheckerInvoke"] CheckerInvo(o,p) TO "checkers";
 
 /**
  * contains a cleaned accesses relation. gets rid of the DefinitionForDeclaration step
@@ -125,9 +134,6 @@ TestCaseDefinitionFile(tcid_gf, fid) :=
         MethodBelongsToClass(mtdid, tcid_gf) &
         DefinitionForDeclaration(def, mtdid) &
         InvokableEntityBelongsToFile(def, fid, _));
-
-EXEC "rm -f tempo";
-PRINT TestCaseDefinitionFile(x,y) TO "tempo";
 
 /**
  * All helpers thid invoked directly from command tcid

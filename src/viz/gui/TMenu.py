@@ -26,10 +26,41 @@ from javax.swing             import JMenu, JMenuItem
 from javax.swing.event       import ChangeListener
 from java.awt.event          import ActionListener
 
+smellColors = \
+    { \
+        "AssertionRoulette" : "darkgray", \
+        "AssertionLess" :     "gray", \
+        "DuplicatedCode" :    "lightgray", \
+        "EagerTest" :         "white", \
+        "ForTestersOnly" :    "blue", \
+        "GeneralFixture" :    "CadetBlue", \
+        "IndentedTest" :      "NavyBlue", \
+        "IndirectTest" :      "Indigo", \
+        "MysteryGuest" :      "SkyBlue", \
+        "SensitiveEquality" : "ProcessBlue", \
+        # some dummy values
+        "A" : "Bittersweet", \
+        "B" : "RedOrange", \
+        "C" : "Mahogany", \
+        "D" : "Maroon", \
+        "E" : "BrickRed", \
+        "F" : "Red", \
+        "G" : "OrangeRed", \
+        "H" : "RubineRed", \
+        "I" : "WildStrawberry", \
+    }
+
 def resetLook():
+    global smellColors
     g.nodes.color = 'black'
     g.edges.color = 'lightgray'
-    (entity == 'smell').color = 'red'
+    smellsz = groupBy((entity == 'smell'), label)
+    for smells in smellsz:
+        try:
+            smells.color = smellColors[smells[0].label]
+        except KeyError, e:
+            print "Smell color not registered\n" + str(e)
+            smells.color = 'green'
     g.nodes.width = 10
     g.nodes.height = 10
     g.nodes.labelvisible = 0
@@ -103,9 +134,13 @@ def transformToBIN():
     center()
     Guess.setSynchronous(false)
 
+def centerNodeHorizontal(node):
+    node.x = (x.max - x.min) / 2
+
+
 from com.hp.hpl.guess.ui import StatusBar
 from java.lang           import Thread, Runnable, Double
-from time import time
+from time                import time
 
 class GraphView(Runnable):
     ''' abstract class. performs a layout '''
@@ -144,13 +179,14 @@ class SmellView(GraphView):
  
     def transform(self):
         StatusBar.setStatus("Computing GEM smell view [can take a while]")
+        fto = remove(label == 'ForTestersOnly') # huge performace boost
         transformToGEM()
         StatusBar.setStatus("Transforming to binPack ...")
+        add(fto)
         transformToBIN()
 
     def post(self):
         g.nodes.visible = 1
-        (entity == 'smell').color = 'red'
         add(self.pkgs)
 
 class RadialSuiteView(GraphView):
@@ -187,6 +223,7 @@ class TreeSuiteView(GraphView):
     def transform(self):
         Guess.setSynchronous(true)
         sugiyamaLayout()
+        rescaleLayout(0.25, 1)
         Guess.setSynchronous(false)
 
     def post(self):
@@ -198,6 +235,8 @@ class TreeSuiteView(GraphView):
         self.__resizeOnMetrics()
         self.__colorOnCaseType()
         self.__movePackages()
+        centerNodeHorizontal(root)
+        rroot.x = root.x
         self.other.visible = 0
 
     def __initPkgSubs(self, gl):
@@ -214,10 +253,13 @@ class TreeSuiteView(GraphView):
         for tc in (entity == 'testcase'):
             numCmd = len(tc->(entity=='testcommand'))
             # heigth
-            tc.height = numCmd * 10
+            tc.height = max(numCmd,1) * 10
             tc.color = 'white'
             # width
-            sloc = self.globalz.metricDict['testcase'][tc.name]['SLOC']
+            try:
+                sloc = self.globalz.metricDict['testcase'][tc.name]['SLOC']
+            except KeyError:
+                sloc = 1
             if numCmd == 0: numCmd = 1
             tc.width = max(3, sloc/numCmd)
 
@@ -277,6 +319,7 @@ class TreeCaseView(GraphView):
     def transform(self):
         Guess.setSynchronous(true)
         sugiyamaLayout()
+        rescaleLayout(0.25,0.5)
         Guess.setSynchronous(false)
 
     def post(self):
@@ -291,9 +334,21 @@ class TreeCaseView(GraphView):
         self.__whiteLabel(self.globalz.fixture)
         self.testcase.color = 'white'
         self.testcase.labelvisible = 1
-        self.testcase.x = (x.max - x.min) / 2
+        #self.testcase.x = (x.max - x.min) / 2
+        centerNodeHorizontal(self.testcase)
         self.globalz.sub.x = self.testcase.x
+        self.__centerSingleLeave(self.globalz.command)
+        self.__centerSingleLeave(self.globalz.helper)
+        self.__centerSingleLeave(self.globalz.fixture)
 
+    def __centerSingleLeave(self, super):
+        numChildren = len(super->g.nodes)
+        if numChildren == 1:
+            child = (super->g.nodes)[0].getNode2()
+            super.x = child.x
+        elif numChildren == 0:
+            remove([super])
+ 
     def __restoreNodes(self):
         add(self.other)
         self.other.visible = 0
@@ -351,6 +406,46 @@ def plotSmellFrequency():
     plotSizesPie(label, 1)
     add(other)
 
+def tcMenu():
+    caseSubMenu = JMenu("case view")
+    for pkg in (entity == 'package'):
+        pkgSubMenu = JMenu(pkg.name)
+        cases = [ x.getNode2() for x in (pkg->(entity == 'testcase'))]
+        for case in cases:
+            caseItem = JMenuItem(case.name)
+            caseItem.actionPerformed = lambda event : viewCase(event.getActionCommand())
+            pkgSubMenu.add(caseItem)
+        caseSubMenu.add(pkgSubMenu)
+    return caseSubMenu
+
+def getParent(node):
+    # returns None if no or multiple parents
+    parent = None
+    if len(targetNode<-g.nodes) == 1:
+        parent = (node<-g.nodes)[0].getNode2()
+    return parent
+
+def openCaseView(targetNode):
+    global glzz
+    case = None
+    ent = targetNode.entity[0]
+    if ent == 'testcase':
+        # we'r good
+        case = targetNode[0]
+    elif ent in ['testcommand', 'testhelper', 'testfixture']:
+        # get owner
+        case = getParent(targetNode[0])
+    elif ent == 'smell':
+        owner = getParent(targetNode[0])
+        if owner != None: case = getParent(owner)
+    if case != None: TreeCaseView(glzz, case).go()
+    else: print "failed to find owner testcase"
+
+def createCaseViewContextAction():
+    ''' add the view case context action to the guess graph'''
+    casev = NodeEditorPopup.addItem("viewCase")
+    casev.menuEvent = openCaseView
+
 def initMenu():
     global glzz
     tmenu = JMenu("tsmells")
@@ -368,6 +463,8 @@ def initMenu():
     treesv.actionPerformed = lambda event : TreeSuiteView(glzz).go()
     tmenu.add(treesv)
 
+    tmenu.add(tcMenu())
+
     smellp = JMenuItem("smell pie")
     smellp.actionPerformed = lambda event : plotSmellFrequency()
     tmenu.add(smellp)
@@ -380,3 +477,4 @@ def initMenu():
 # construct it
 glzz = globalz()
 initMenu()
+createCaseViewContextAction()

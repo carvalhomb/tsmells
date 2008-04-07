@@ -18,69 +18,89 @@
 # Copyright 2007-2008 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
 #
 
+import com
 from java.awt            import Rectangle, \
                                 GridBagLayout, \
                                 GridBagConstraints
+from java.awt.event      import MouseAdapter, \
+                                MouseEvent
 from javax.swing         import JPanel, \
-                                JTable, \
                                 JTree, \
-                                JScrollPane
+                                JScrollPane, \
+                                JPopupMenu, \
+                                JMenuItem
 from javax.swing.tree    import DefaultMutableTreeNode,\
                                 DefaultTreeCellRenderer
-from javax.swing.table   import AbstractTableModel
+from javax.swing.event   import TreeSelectionListener
 from com.hp.hpl.guess.ui import Dockable, \
                                 GraphMouseListener, \
                                 GraphEvents
 
-#class TestCaseModel(AbstractTableModel):
+def extractTestCase(path):
+    nodeName = ""
+    if len(path) >= 2:
+        nodeName += str(path[1]) # the package
+    if len(path) >= 3:
+        nodeName += "::" + str(path[2]) # test case
+    return nodeName
 
-    #def __init__(self, testcases):
-        #self.testcases = testcases
+def extractNode(path):
+    nodeName = extractTestCase(path)
+    #if len(path) >= 2:
+        #nodeName += str(path[1]) # the package
+    #if len(path) >= 3:
+        #nodeName += "::" + str(path[2]) # test case
+    if len(path) >= 5:
+        nodeName += "." + str(path[3]) # test method
+    node = (name == nodeName)
+    if len(node) == 1: return node[0]
+    else: return None
 
-    #def getColumnCount(self):
-        #return 1
+class NodeHighlighter(TreeSelectionListener):
+    def __init__(self):
+        self.lastClicked = None
 
-    #def getRowCount(self):
-        #return len(self.testcases)
+    def valueChanged(self, event):
+        self.__deselect()
+        path = event.getPath().getPath()
+        node = extractNode(path)
+        self.__select(node)
 
-    #def getValueAt(self,row, col):
-        #return self.testcases[row]
+    def __deselect(self):
+        if self.lastClicked != None:
+            GraphEvents.mouseLeave(self.lastClicked)
+            self.lastClicked = None
 
-    #def getColumnName(self, col):
-        #return "test case list"
+    def __select(self, node):
+        if node != None:
+            GraphEvents.mouseEnter(node)
+            self.lastClicked = node
 
-    #def isCellEditable(self, row, col):
-        #if (col == 0):
-            #return 0
-        #else:
-            #return 1
+class TreePopup(JPopupMenu):
+    def __init__(self, path):
+        JPopupMenu.__init__(self, "options")
+        self.case = extractTestCase(path)
+        self.case = (name == self.case)
+        if len(self.case): 
+            self.case = self.case[0]
+            casev = JMenuItem("viewCase")
+            casev.actionPerformed = self.__showCase
+            self.add(casev)
 
-#class TestCaseTable(JTable):
+    def __showCase(self, dummy):
+        global glzz # from TMenu.py
+        if isinstance(self.case, com.hp.hpl.guess.Node):
+            TreeCaseView(glzz, self.case).go() # from TMenu.py
 
-    #def __init__(self, model, testcases):
-        #JTable.__init__(self, model)
-        #self.model = model
-        #self.testcases = testcases
-        #self.lastClicked = None
-        #self.secondRun = 0
-
-    #def valueChanged(self, event):
-        ##javax.swing.JTable(self).valueChanged(event)
-        #if self.secondRun:
-            #self.secondRun = 0
-            #return
-
-        #if self.lastClicked == event.getFirstIndex():
-            #row = event.getLastIndex()
-        #else:
-            #row = event.getFirstIndex()
-
-        #if self.lastClicked != None:
-            #GraphEvents.mouseLeave(self.testcases[self.lastClicked])
-        #GraphEvents.mouseEnter(self.testcases[row])
-        #self.lastClicked = row
-        #self.secondRun = 1
-        #self.repaint()
+class TreeMouseListener(MouseAdapter):
+    def mouseClicked(self, event):
+        tree = event.getSource()
+        row = tree.getRowForLocation(event.getX(), event.getY())
+        path = tree.getPathForLocation(event.getX(), event.getY())
+        if row == -1: return
+        if event.getClickCount() != 1: return
+        if event.getButton() != MouseEvent.BUTTON3: return
+        TreePopup(path.getPath()).show(tree, event.getX(), event.getY())
 
 def cmpTc(x,y):
     return x.name > y.name
@@ -99,20 +119,29 @@ class TestSuitePanel(JPanel, Dockable, GraphMouseListener):
         top = DefaultMutableTreeNode("RootSuite")
         self.__createNodes(top)
         self.tree = JTree(top)
+        self.__setupRenderer()
+        self.scrollpane = JScrollPane(self.tree)
+        self.add(self.scrollpane,self.__setupLayout())
+        self.tree.addTreeSelectionListener(NodeHighlighter())
+        self.tree.addMouseListener(TreeMouseListener())
+
+    def __setupRenderer(self):
         renderer = DefaultTreeCellRenderer()
         renderer.setOpenIcon(None)
         renderer.setClosedIcon(None)
         renderer.setLeafIcon(None)
         self.tree.setCellRenderer(renderer);
-        self.scrollpane = JScrollPane(self.tree)
+
+    def __setupLayout(self):
         self.setLayout(GridBagLayout())
-        self.constr = GridBagConstraints()
-        self.constr.weighty = 1
-        self.constr.weightx = 1
-        self.constr.gridx = 0
-        self.constr.gridy = 1
-        self.constr.fill = GridBagConstraints.BOTH
-        self.add(self.scrollpane,self.constr)
+        constr = GridBagConstraints()
+        constr.weighty = 1
+        constr.weightx = 1
+        constr.gridx = 0
+        constr.gridy = 1
+        constr.fill = GridBagConstraints.BOTH
+        return constr
+
 
     def getDefaultFrameBounds(self):
         return Rectangle(50, 50, 300, 600)
@@ -160,7 +189,6 @@ class TestSuitePanel(JPanel, Dockable, GraphMouseListener):
     #def mouseEnterNode(self, node):
         #print node
         #if node.entity == 'testcase':
-            ##print "ISATESTCASE"
             #row = self.getIndex(node.name)
             #print row
             #self.table.clearSelection()

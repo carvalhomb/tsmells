@@ -34,14 +34,29 @@ def createDiamondShape():
     shapeDB.addShape(104,diamond)
 
 def writeStats():
-    print "nodes\t\t" + str(len(g.nodes))
-    print "edges\t\t" + str(len(g.edges))
-    print "pkgs \t\t" + str(len(entity == 'package'))
-    print "cases\t\t" + str(len(entity == 'testcase'))
-    print "cmds \t\t" + str(len(entity == 'testcommand'))
-    print "hlprs\t\t" + str(len(entity == 'testhelper'))
-    print "fixt \t\t" + str(len(entity == 'testfixture'))
-    print "smells\t\t" + str(len(entity == 'smell'))
+    toPrint =  "#------------------------------------>\n"
+    toPrint += "nodes \t\t" + str(len(g.nodes)) + "\n"
+    toPrint += "edges\t\t" + str(len(g.edges)) + "\n"
+    toPrint += "#------------------------------------>\n"
+    toPrint += "pkgs \t\t" + str(len(entity == 'package')) + "\n"
+    toPrint += "cases\t\t" + str(len(entity == 'testcase')) + "\n"
+    toPrint += "cmds \t\t" + str(len(entity == 'testcommand')) + "\n"
+    toPrint += "hlprs\t\t" + str(len(entity == 'testhelper')) + "\n"
+    toPrint += "fixt \t\t" + str(len(entity == 'testfixture')) + "\n"
+    toPrint += "#------------------------------------>\n"
+    toPrint += "smells\t\t"+ str(len(entity == 'smell')) + "\n"
+    toPrint += "aless\t\t" + str(len(label == 'AssertionLess')) + "\n"
+    toPrint += "aroul\t\t" + str(len(label == 'AssertionRoulette')) + "\n"
+    toPrint += "dupli\t\t" + str(len(label == 'DuplicatedCode')) + "\n"
+    toPrint += "eager\t\t" + str(len(label == 'EagerTest')) + "\n"
+    toPrint += "forte\t\t" + str(len(label == 'ForTestersOnly')) + "\n"
+    toPrint += "gefix\t\t" + str(len(label == 'GeneralFixture')) + "\n"
+    toPrint += "inden\t\t" + str(len(label == 'IndentedTest')) + "\n"
+    toPrint += "indir\t\t" + str(len(label == 'IndirectTest')) + "\n"
+    toPrint += "mysty\t\t" + str(len(label == 'MysteryGuest')) + "\n"
+    toPrint += "sensi\t\t" + str(len(label == 'SensitiveEquality')) + "\n"
+    toPrint += "#------------------------------------>\n"
+    print toPrint
 
 import sys
 
