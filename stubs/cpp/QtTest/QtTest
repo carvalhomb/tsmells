@@ -1,0 +1,10 @@
+void QTEST_ASSERT(bool);
+void QVERIFY(bool);
+template< typename A> void QFAIL(A);
+template< typename A, typename B > void QVERIFY2(A,B);
+template< typename A, typename B > void QCOMPARE(A,B);
+template< typename A, typename B, typename C > void QEXPECT_FAIL(A,B,C);
+template< typename A, typename B > void QFETCH(A,B);
+template< typename A, typename B > void QFETCH_GLOBAL(A,B);
+template< typename A, typename B > void QTEST(A,B);
+template< typename A > void QWARN(A);

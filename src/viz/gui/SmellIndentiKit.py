@@ -105,8 +105,6 @@ class SmellIdentiKitModel(AbstractTableModel):
     def __fillOwner(self, node):
         ''' fetch the owner(s) of this smell, if any '''
         owners = [x.getNode1() for x in (node)<-(g.nodes)]
-        print "owners ",
-        print owners
         cnt = 0
         for owner in owners:
             label = "owner"

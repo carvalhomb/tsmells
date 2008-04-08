@@ -36,6 +36,10 @@ from com.hp.hpl.guess.ui import Dockable, \
                                 GraphMouseListener, \
                                 GraphEvents
 
+#-----------------------------------------------------------------------
+#--  auxiliary functions
+#-----------------------------------------------------------------------
+
 def extractTestCase(path):
     nodeName = ""
     if len(path) >= 2:
@@ -54,9 +58,20 @@ def extractNode(path):
         nodeName += "." + str(path[4]) # test method
     node = (name == nodeName)
     if len(node) == 1: return node[0]
-    else: return None
+    else: # try without pkg name
+        node = (name == nodeName.split('::')[-1])
+        if len(node)==1: return node[0]
+
+def cmpTc(x,y):
+    return x.name > y.name
+
+#-----------------------------------------------------------------------
+#--  classes
+#-----------------------------------------------------------------------
 
 class NodeHighlighter(TreeSelectionListener):
+    ''' Highlights nodes in the graph when clicked in the tree case panel '''
+
     def __init__(self):
         self.lastClicked = None
 
@@ -77,8 +92,9 @@ class NodeHighlighter(TreeSelectionListener):
             self.lastClicked = node
             Guess.getMainUIWindow().getCanvas().repaint()
 
-
 class TreePopup(JPopupMenu):
+    ''' Context menu for the tree case panel '''
+
     def __init__(self, path):
         JPopupMenu.__init__(self, "options")
         self.path = path
@@ -87,8 +103,11 @@ class TreePopup(JPopupMenu):
         self.__addWriteMetricsAction()
 
     def __addViewCaseAction(self):
-        self.case = extractTestCase(self.path)
-        self.case = (name == self.case) # returns list of nodes
+        caseName = extractTestCase(self.path)
+        self.case = (name == caseName) # returns list of nodes
+        if len(self.case) == 0: # try without pkg names
+            self.case = (name == caseName.split('::')[-1])
+
         if len(self.case): # did we find one?
             self.case = self.case[0]
             casev = JMenuItem("viewCase")
@@ -110,7 +129,7 @@ class TreePopup(JPopupMenu):
             self.add(mtra)
 
     def __writeMetrics(self, dummy):
-        TestCaseMetrics(self.node).print_()
+        CaseMetrics(self.node).print_()
 
     def __showCase(self, dummy):
         global glzz # from TMenu.py
@@ -124,6 +143,8 @@ class TreePopup(JPopupMenu):
         openEditor(root + loc[0][0], loc[0][1])  # from ToSourceContext.py
 
 class TreeMouseListener(MouseAdapter):
+    ''' listen for clicks on the testsuite panel '''
+
     def mouseClicked(self, event):
         tree = event.getSource()
         row = tree.getRowForLocation(event.getX(), event.getY())
@@ -133,10 +154,8 @@ class TreeMouseListener(MouseAdapter):
         if event.getButton() != MouseEvent.BUTTON3: return
         TreePopup(path.getPath()).show(tree, event.getX(), event.getY())
 
-def cmpTc(x,y):
-    return x.name > y.name
-
 class TestSuitePanel(JPanel, Dockable, GraphMouseListener):
+    ''' Show an expandable list of the test entites {suites,cases,methods} '''
 
     def __init__(self):
         self.myParent = None
@@ -172,10 +191,6 @@ class TestSuitePanel(JPanel, Dockable, GraphMouseListener):
         constr.gridy = 1
         constr.fill = GridBagConstraints.BOTH
         return constr
-
-
-    def getDefaultFrameBounds(self):
-        return Rectangle(50, 50, 300, 600)
 
     def __createNodes(self, top):
         ''' build the tree, by adding packages, testcases and commands '''
@@ -217,6 +232,13 @@ class TestSuitePanel(JPanel, Dockable, GraphMouseListener):
         #''' append the test helper methods of a single testcase to the tree'''
         self.__appendCaseMethodsHelper(case, caseNode, "helpers", "testhelper")
 
+    ####
+    # Implementation of the Dockable interface
+    ####
+
+    def getDefaultFrameBounds(self):
+        return Rectangle(50, 50, 300, 600)
+
     def getPreferredSize(self):
         return Dimension(200,600)
 
@@ -237,4 +259,3 @@ class TestSuitePanel(JPanel, Dockable, GraphMouseListener):
 
     def setWindow(self,gjf):
         self.myParent = gjf
-

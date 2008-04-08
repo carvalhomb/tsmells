@@ -21,7 +21,23 @@
 
 LINE_SEPARATOR="------------------------------------------------------->>"
 
-class TestCaseMetrics:
+def printLineSeparator():
+    print LINE_SEPARATOR
+
+def printLine(label, value):
+    if len(label) > 23:  numTabs = 1
+    elif len(label) > 12: numTabs = 2
+    else: numTabs = 3
+    tabs = "\t" * numTabs
+    print label + ":" + tabs + str(value)
+
+def printHeader(what):
+    print ""
+    printLineSeparator()
+    print "--- metrics for " + str(what)
+    printLineSeparator()
+
+class CaseMetrics:
     def __init__(self, testcase):
         global glzz # from TMenu.py
         self.tc = testcase # testcase graph node
@@ -30,54 +46,39 @@ class TestCaseMetrics:
 
     def print_(self):
         if not self.tc.entity == 'testcase': return
-        self.__printHeader()
+        printHeader(self.tc.name.split('::')[-1])
         self.__printCodeMetrics()
-        self.__printLineSeparator()
+        printLineSeparator()
         self.__printSmellMetrics()
-        self.__printLineSeparator()
-
-    def __printLineSeparator(self):
-        print LINE_SEPARATOR
-
-    def __printLine(self, label, value):
-        if len(label) > 22:  numTabs = 1
-        elif len(label) > 11: numTabs = 2
-        else: numTabs = 3
-        tabs = "\t" * numTabs
-        print label + ":" + tabs + str(value)
-
-    def __printHeader(self):
-        print ""
-        self.__printLineSeparator()
-        print "--- metrics for " + self.tc.name.split('::')[-1]
-        self.__printLineSeparator()
+        printLineSeparator()
 
     def __printCodeMetrics(self):
         sloc = self.computeSLOC()
         nrofCmds = self.computeNrofCommands()
         nrofMtds = self.computeNrofMethods()
 
-        self.__printLine("SLOC", sloc)
-        self.__printLine("#commands", nrofCmds)
-        self.__printLine("#helpers", self.computeNrofHelpers())
+        printLine("SLOC", sloc)
+        printLine("#commands", nrofCmds)
+        printLine("#helpers", self.computeNrofHelpers())
         if nrofMtds > 0: 
-            self.__printLine("SLOC/mtds", float(sloc)/nrofMtds)
-            self.__printLine("min(SLOC)", self.computeMinMtdSLOC())
-            self.__printLine("max(SLOC)", self.computeMaxMtdSLOC())
+            printLine("SLOC/mtds", float(sloc)/nrofMtds)
+            printLine("min(SLOC)", self.computeMinMtdSLOC())
+            printLine("max(SLOC)", self.computeMaxMtdSLOC())
         if nrofCmds > 0:
-            self.__printLine("SLOC/cmd", float(sloc)/nrofCmds)
+            printLine("SLOC/cmd", float(sloc)/nrofCmds)
 
     def __printSmellMetrics(self):
         nrofSmells = self.computeNrofSmells()
         nrofMtds = self.computeNrofMethods()
 
-        self.__printLine("#smells", nrofSmells)
+        printLine("#smells", nrofSmells)
         if nrofSmells == 0: return
         if nrofMtds != 0: 
-            self.__printLine("#smells/mtd", float(nrofSmells)/nrofMtds)
+            printLine("#smells/mtd", float(nrofSmells)/nrofMtds)
+
         smellsGrouped = groupBy(self.smellz, label)
         for group in smellsGrouped:
-            self.__printLine("#" + str(group[0].label), len(group))
+            printLine("#" + str(group[0].label), len(group))
 
     def computeSLOC(self):
         sloc = 0
@@ -101,9 +102,15 @@ class TestCaseMetrics:
         smellz = (entity == 'smell')
         caseSmells = [e.getNode2() for e in self.tc->smellz]
         mtdSmells = ([e.getNode2() for e in (self.tc->g.nodes)] -> smellz)
-        mtdSmells = [e.getNode2() for e in mtdSmells]
+        mtdSmells =  [e.getNode2() for e in mtdSmells]
         self.smellz = caseSmells + mtdSmells
         return len(self.smellz)
+
+    def computeMinMtdSLOC(self):
+        return self.__mtdSLOCHelper(min, 10**5)
+
+    def computeMaxMtdSLOC(self):
+        return self.__mtdSLOCHelper(max, 0.1**5)
 
     def __mtdSLOCHelper(self, gen, initial):
         compSLOC = initial
@@ -115,38 +122,94 @@ class TestCaseMetrics:
         if compSLOC == initial: compSLOC = "not initialized"
         return compSLOC
 
-    def computeMinMtdSLOC(self):
-        return self.__mtdSLOCHelper(min, 10**5)
+class SuiteMetrics:
+    def __init__(self):
+        global glzz # from TMenu.py
+        self.metrics = glzz.metricDict
+        self.__initMetrics()
 
-    def computeMaxMtdSLOC(self):
-        return self.__mtdSLOCHelper(max, 0.1**5)
+    def __initMetrics(self):
+        self.__computeNrofTestEntities()
+        self.__computeSLOCMetrics()
+        self.__computeAvgNrofTestEntities()
 
+    def __computeNrofTestEntities(self):
+        self.nrofPackages = len(entity == 'package')
+        self.nrofCases    = len(entity == 'testcase')
+        self.nrofCommands = len(entity == 'testcommand')
+        self.nrofHelpers  = len(entity == 'testhelper')
+        self.nrofFixtures = len(entity == 'testfixture')
 
-def writeStats():
-    toPrint =  "#------------------------------------>\n"
-    toPrint += "nodes \t\t" + str(len(g.nodes)) + "\n"
-    toPrint += "edges\t\t" + str(len(g.edges)) + "\n"
-    toPrint += "#------------------------------------>\n"
-    toPrint += "pkgs \t\t" + str(len(entity == 'package')) + "\n"
-    toPrint += "cases\t\t" + str(len(entity == 'testcase')) + "\n"
-    toPrint += "cmds \t\t" + str(len(entity == 'testcommand')) + "\n"
-    toPrint += "hlprs\t\t" + str(len(entity == 'testhelper')) + "\n"
-    toPrint += "fixt \t\t" + str(len(entity == 'testfixture')) + "\n"
-    toPrint += "#------------------------------------>\n"
-    toPrint += "smells\t\t"+ str(len(entity == 'smell')) + "\n"
-    toPrint += "aless\t\t" + str(len(label == 'AssertionLess')) + "\n"
-    toPrint += "aroul\t\t" + str(len(label == 'AssertionRoulette')) + "\n"
-    toPrint += "dupli\t\t" + str(len(label == 'DuplicatedCode')) + "\n"
-    toPrint += "eager\t\t" + str(len(label == 'EagerTest')) + "\n"
-    toPrint += "forte\t\t" + str(len(label == 'ForTestersOnly')) + "\n"
-    toPrint += "gefix\t\t" + str(len(label == 'GeneralFixture')) + "\n"
-    toPrint += "inden\t\t" + str(len(label == 'IndentedTest')) + "\n"
-    toPrint += "indir\t\t" + str(len(label == 'IndirectTest')) + "\n"
-    toPrint += "mysty\t\t" + str(len(label == 'MysteryGuest')) + "\n"
-    toPrint += "sensi\t\t" + str(len(label == 'SensitiveEquality')) + "\n"
-    toPrint += "#------------------------------------>\n"
-    print toPrint
+    def __computeAvgNrofTestEntities(self):
+        self.avgNrofCommands = " no cases"
+        self.avgNrofHelpers  = " no cases"
+        self.avgNrofFixtures = " no cases"
+        if self.nrofCases > 0:
+            self.avgNrofCommands = float(self.nrofCommands)/self.nrofCases
+            self.avgNrofHelpers = float(self.nrofHelpers)/self.nrofCases
+            self.avgNrofFixtures = float(self.nrofFixtures)/self.nrofCases
+
+    def __computeSLOCMetrics(self):
+        sloc = 0
+        cntr = 0 # record the number of SLOC's
+        for ent in ['testcommand','testhelper','testfixture']:
+            for mtd in self.metrics[ent].values():
+                try:
+                    sloc += mtd['SLOC']
+                    cntr += 1
+                except: pass
+        self.totalSLOC = sloc
+        totalMtds = self.nrofCommands + self.nrofHelpers + self.nrofFixtures
+        missed = totalMtds - cntr
+        self.totalSLOCStr = str(sloc) + " [missed " + str(missed) + " methods]"
+        self.avgSLOCperCase = " no cases"
+        if self.nrofCases > 0 :
+            self.avgSLOCperCase = sloc / self.nrofCases
+        self.avgSLOCperCmd = " no commands"
+        if self.nrofCommands - missed> 0:
+            self.avgSLOCperCmd  = sloc / (self.nrofCommands - missed)
+
+    def print_(self):
+        printHeader(" complete suite")
+        self.__printTestEntities()
+        printLineSeparator()
+        self.__printSmellMetrics()
+        printLineSeparator()
+
+    def __printTestEntities(self):
+        printLine("SLOC",      self.totalSLOCStr)
+        printLine("SLOC/case", self.avgSLOCperCase)
+        printLine("SLOC/cmd",  self.avgSLOCperCmd)
+        printLineSeparator()
+        printLine("#packages", self.nrofPackages)
+        printLine("#cases",    self.nrofCases)
+        printLine("#commands", self.nrofCommands)
+        printLine("#helpers",  self.nrofHelpers)
+        printLine("#fixture",  self.nrofFixtures)
+        printLineSeparator()
+        printLine("cmds/case", self.avgNrofCommands)
+        printLine("hlps/case", self.avgNrofHelpers)
+        printLine("fix/case",  self.avgNrofFixtures)
+
+    def __printSmellMetrics(self):
+        printLine("#smells", len(entity == 'smell'))
+        printLine("#assertionless", len(label == 'AssertionLess'))
+        printLine("#assertionroulette", len(label == 'AssertionRoulette'))
+        printLine("#duplicatedcode", len(label == 'DuplicatedCode'))
+        printLine("#eagertests", len(label == 'EagerTest'))
+        printLine("#fortestersonly", len(label == 'ForTestersOnly'))
+        printLine("#generfixture", len(label == 'GeneralFixture'))
+        printLine("#indentedtest", len(label == 'IndentedTest'))
+        printLine("#indirecttests", len(label == 'IndirectTest'))
+        printLine("#mysteryguest", len(label == 'MysteryGuest'))
+        printLine("#sensitiveequality", len(label == 'SensitiveEquality'))
 
 def addWriteMetricsAction():
     item = NodeEditorPopup.addItem("writeMetrics")
-    item.menuEvent = lambda nodes : TestCaseMetrics(nodes[0]).print_()
+    item.menuEvent = lambda nodes : CaseMetrics(nodes[0]).print_()
+
+def writeSuiteMetrics():
+    SuiteMetrics().print_()
+
+def writeCaseMetrics(case):
+    CaseMetrics(case).print_()

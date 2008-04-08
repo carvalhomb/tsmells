@@ -83,13 +83,13 @@ TestSetupId(x) :=
     EX(mn, 
         TestMethodId(x) & 
         Method(x,mn) & 
-        @"[.]setUp[(][)]$"(mn));
+        @"[.]initTestCase[(][)]$"(mn));
 
 TestTeardownId(x) := 
     EX(mn,
         TestMethodId(x) & 
         Method(x,mn) & 
-        @"[.]tearDown[(][)]$"(mn));
+        @"[.]cleanupTestCase[(][)]$"(mn));
 
 TestHelperId(x) := 
         TestMethodId(x) & 
@@ -101,9 +101,20 @@ TestHelperId(x) :=
         !TestSuiteMethod(x) &
         !TestMain(x);
 
+CheckerSignature("0", "QTEST_ASSERT(bool)");
+CheckerSignature("1", "QVERIFY2(A,B)");
+CheckerSignature("1", "QFAIL(A)");
+CheckerSignature("0", "QVERIFY(bool)");
+CheckerSignature("1", "QEXPECT_FAIL(A,B,C)");
+CheckerSignature("0", "QCOMPARE(A,B)");
+CheckerSignature("0", "QTEST(A,B)");
+//CheckerSignature("0", "QFETCH_GLOBAL(A,B)");
+// "QFETCH(A,B)"
+//"QWARN(A)"
+
 TestChecker(x) := 
     EX(y, 
-        Method(x, y) & 
+        Function(x, y) & 
         CheckerSignature(_,y));
 
 ProductionMethodId(x) := 
@@ -114,4 +125,3 @@ ProductionMethodId(x) :=
 // Some backward relations
 
 include(DUMP_DIR`initBackwardTestRelations.rml')
-

@@ -26,40 +26,94 @@
  **/
 
 define(`DUMP_DIR',TSMELLS`/src/dump/rml/')
+define(`TSMELLS_LOG', tsmells.log)
+define(`TSMELLS_TMP', _now_tmp)
+define(`TIMER', ` [$(TSMELLS`/scripts/timer.sh' TSMELLS_TMP) s] >> TSMELLS_LOG')
+define(`ECHO', echo '->' )
+define(`START_TIMER2', `date +%s > TSMELLS_TMP2')
+define(`TIMER2', ` [$(TSMELLS`/scripts/timer.sh' TSMELLS_TMP2) s] >> TSMELLS_LOG')
+define(`ECHO2', echo '    ->')
 
-PRINT "(01) RSF model loaded in memory", ENDL TO STDERR;
+PRINT "(01) RSF model in memory ... ", ENDL TO STDERR;
+EXEC "ECHO RSF loaded TIMER";
+
 PRINT "(02) extracting xUnit entities ... ", ENDL TO STDERR;
 include(XUNIT_INIT)
 include(DUMP_DIR`provideCount.rml')
 include(DUMP_DIR`initAuxiliary.rml')
-ifdef(`DUMP_TEST_ENTITIES', `include(DUMP_DIR`writeTestEntities.rml')' , `')
+ifdef(`DUMP_TEST_ENTITIES', 
+    `include(DUMP_DIR`writeTestEntities.rml')' , `')
+EXEC "ECHO xUnit initializated TIMER";
 
-PRINT "(03) AssertionLess ... ", ENDL TO STDERR;
-ifdef(`ASSERTIONLESS', `include(DUMP_DIR`computeAssertionLess.rml')', `')
+ifdef(`ASSERTIONLESS',
+    `PRINT "(03) AssertionLess ... ", ENDL TO STDERR;'
+    `include(DUMP_DIR`computeAssertionLess.rml')'
+    EXEC "ECHO AssertionLess TIMER";
+,
+    `')
 
-PRINT "(04) AssertionRoulette ... ", ENDL TO STDERR;
-ifdef(`ASSERTION_ROULETTE', `include(DUMP_DIR`computeAssertionRoulette.rml')', `')
+ifdef(`ASSERTION_ROULETTE',
+    `PRINT "(04) AssertionRoulette ... ", ENDL TO STDERR;'
+    `include(DUMP_DIR`computeAssertionRoulette.rml')'
+    EXEC "ECHO AssertionRoulette TIMER";
+,
+    `')
 
-PRINT "(05) DuplicatedCode ... ", ENDL TO STDERR;
-ifdef(`DUPLICATED_CODE', `include(DUMP_DIR`computeDuplicatedCode.rml')', `')
+ifdef(`DUPLICATED_CODE',
+    `PRINT "(05) DuplicatedCode ... ", ENDL TO STDERR;'
+    `include(DUMP_DIR`computeDuplicatedCode.rml')'
+    EXEC "ECHO DuplicatedCode TIMER";
+,
+    `')
 
-PRINT "(06) EagerTest ...", ENDL TO STDERR;
-ifdef(`EAGER_TEST', `include(DUMP_DIR`computeEagerTest.rml')', `')
+ifdef(`EAGER_TEST',
+    `PRINT "(06) EagerTest ... ", ENDL TO STDERR;'
+    `include(DUMP_DIR`computeEagerTest.rml')'
+    EXEC "ECHO EagerTest TIMER";
+,
+    `')
 
-PRINT "(06) ForTestersOnly ... ", ENDL TO STDERR;
-ifdef(`FOR_TESTERS_ONLY', `include(DUMP_DIR`computeForTestersOnly.rml')', `')
+ifdef(`FOR_TESTERS_ONLY',
+    `PRINT "(06) ForTestersOnly ... ", ENDL TO STDERR;'
+    `include(DUMP_DIR`computeForTestersOnly.rml')'
+    EXEC "ECHO ForTestersOnly TIMER";
+,
+    `')
 
-PRINT "(07) GeneralFixture ... ", ENDL TO STDERR;
-ifdef(`GENERAL_FIXTURE', `include(DUMP_DIR`computeGeneralFixture.rml')', `')
+ifdef(`GENERAL_FIXTURE',
+    `PRINT "(07) GeneralFixture ... ", ENDL TO STDERR;'
+    `include(DUMP_DIR`computeGeneralFixture.rml')'
+    EXEC "ECHO GeneralFixture TIMER";
+,
+    `')
 
-PRINT "(08) IndentedTest ...", ENDL TO STDERR;
-ifdef(`INDENTED_TEST', `include(DUMP_DIR`computeIndentedTest.rml')', `')
+ifdef(`INDENTED_TEST',
+    `PRINT "(08) IndentedTest ...", ENDL TO STDERR;'
+    `include(DUMP_DIR`computeIndentedTest.rml')'
+    EXEC "ECHO IndentedTest TIMER";
+,
+    `')
 
-PRINT "(09) IndirectTest ... ", ENDL TO STDERR;
-ifdef(`INDIRECT_TEST', `include(DUMP_DIR`computeIndirectTest.rml')', `')
+ifdef(`INDIRECT_TEST',
+    `PRINT "(09) IndirectTest ... ", ENDL TO STDERR;'
+    `include(DUMP_DIR`computeIndirectTest.rml')'
+    EXEC "ECHO IndirectTest TIMER";
+,
+    `')
 
-PRINT "(10) MysteryGuest ... ", ENDL TO STDERR;
-ifdef(`MYSTERY_GUEST', `include(DUMP_DIR`computeMysteryGuest.rml')', `')
+ifdef(`MYSTERY_GUEST', 
+    `PRINT "(10) MysteryGuest ... ", ENDL TO STDERR;'
+    `include(DUMP_DIR`computeMysteryGuest.rml')'
+    EXEC "ECHO MysteryGuest TIMER";
+,
+    `')
 
-PRINT "(11) SensitiveEquality ... ", ENDL TO STDERR;
-ifdef(`SENSITIVE_EQUALITY', `include(DUMP_DIR`computeSensitiveEquality.rml')', `')
+
+ifdef(`SENSITIVE_EQUALITY',
+    `PRINT "(11) SensitiveEquality ... ", ENDL TO STDERR;'
+    `include(DUMP_DIR`computeSensitiveEquality.rml')'
+    EXEC "ECHO SensitiveEquality TIMER";
+,
+    `')
+
+EXEC "rm -f TSMELLS_TMP";

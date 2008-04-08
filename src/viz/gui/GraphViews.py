@@ -137,6 +137,7 @@ class SmellView(GraphView):
         fto = remove(label == 'ForTestersOnly') # huge performace boost
         Guess.setSynchronous(true)
         graph = Guess.getGraph()
+        graph.layout(GEM(graph))
         StatusBar.setStatus("Transforming to binPack ...")
         add(fto)
         graph.layout(BinPack(graph, true))

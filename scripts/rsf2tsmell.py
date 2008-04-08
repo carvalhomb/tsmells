@@ -30,7 +30,8 @@ XINIT_DEFAULTS = \
         "junit-3.8_nostub" : "src/dump/rml/initJunit-3.8_nostub.rml",
         "cppunit-1.12":"src/dump/rml/initCppUnitv1-12.rml",
         "cppunit-0.06":"src/dump/rml/initCppUnitv0-06.rml",
-        "cppunit_poco":"src/dump/rml/initCppUnitPoco.rml"
+        "cppunit_poco":"src/dump/rml/initCppUnitPoco.rml",
+        "qttest":"src/dump/rml/initQtUnitEntities.rml"
     }
 
 AS    = "ASSERTIONLESS"
@@ -76,7 +77,8 @@ PARAMS_DEFAULTS = \
             "junit-3.8_nostub" : MG_JAVA_BLACKLIST,
             "cppunit-1.12": MG_CPP_BLACKLIST,
             "cppunit-0.06": MG_CPP_BLACKLIST,
-            "cppunit_poco": MG_CPP_BLACKLIST
+            "cppunit_poco": MG_CPP_BLACKLIST,
+            "qttest" : MG_CPP_BLACKLIST
         },
         GF_NFOB : "5",
         GF_NFPT : "5",
@@ -182,6 +184,7 @@ if __name__ == '__main__':
     os.system("m4 " + m4Input + " " + m4Def + " > " + rmlFile)
     # removeHeaders(rmlFile)
 
+    os.system("date +%s > _now_tmp")
     sh     = os.path.join(tsmellsRoot,"scripts","rsf2tsmell.sh")
     params = " " + rsf + " " + rmlFile + " " + " " + proj + " " + mem
     # call rsf2tsmell.sh, which will call crocopat
