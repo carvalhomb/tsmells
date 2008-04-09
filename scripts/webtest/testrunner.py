@@ -1,4 +1,21 @@
-#!/usr/bin/python
+# This file is part of TSmells
+#
+# TSmells is free software; you can redistribute it and/or modify it 
+# under the terms of the GNU General Public License as published by the 
+# Free Software Foundation; either version 2 of the License, or (at your 
+# option) any later version.
+#
+# TSmells is distributed in the hope that it will be useful, but WITHOUT 
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+# details.
+#
+# You should have received a copy of the GNU General Public License along 
+# with TSmells; if not, write to the Free Software Foundation, Inc., 
+# 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+#
+# Copyright 2007-2008 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+#
 
 import sys, os, popen2, hashlib, signal, difflib, time
 
@@ -208,21 +225,17 @@ def runTests(root, smells):
     #smells -> tests to run
 
     current = os.getcwd()
-
     chdir(root)
     results = [] # contains triples. smell name, cpp-results, java-results
     for smell in smells:
-
         java = []
         cpp  = []
-
         chdir(smell + "/cpp")
         for test in subdirs('.'):
             if test == '.svn': continue
             chdir(test)
             cpp.append(evalTest(test))
             chdir('..')
-
         chdir("../java")
         for test in subdirs('.'):
             if test == '.svn': continue
@@ -230,19 +243,7 @@ def runTests(root, smells):
             java.append(evalTest(test))
             chdir("..")
         chdir("../..")
-
         results.append([smell, cpp, java])
-
     chdir(current)
     return results, testStats(results)
 
-if __name__ == '__main__':
-    res = runTests("/home/nix/JaarProj/Smells/tests/", ["MysteryGuest", "AssertionRoulette", "AssertionLess"])
-    for smell in res:
-        print smell[0]
-        print ">> cpp"
-        for res in smell[1]:
-            print "  >> " + res.name + "\t-> " + str(res.status)
-        print "java"
-        for res in smell[2]:
-            print "  >> " + res.name + "\t-> " + str(res.status)
