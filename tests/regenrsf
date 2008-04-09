@@ -1,7 +1,0 @@
-BACKUP
-for i in AssertionLess AssertionRoulette DuplicatedCode ForTestersOnly IndentedTest IndirectTest LazyTest MysteryGuest SensitiveEquality TestEntities; do CURR=`pwd`; cd $i/java; for j in `ls | grep -v "generic.cmd" | grep -v "blacklist.rml"`; do CURR2=`pwd`; cd $j; cp $j.rsf $j.rsf.`date +%m%d`.backup ; cd $CURR2 ;done; cd $CURR; done
-
-REGEN
-
-[nix@driana tests]$ for i in AssertionLess AssertionRoulette DuplicatedCode ForTestersOnly IndentedTest IndirectTest LazyTest MysteryGuest SensitiveEquality TestEntities; do CURR=`pwd`; cd $i/java; for j in `ls | grep -v "generic.cmd" | grep -v "blacklist.rml"`; do CURR2=`pwd`; cd $j; java2rsf.sh src/; mv src.rsf $j.rsf ; cd $CURR2 ;done; cd $CURR; done
-
