@@ -30,7 +30,7 @@ class Root():
         if not go:
             return str(page)
 
-        root = environ["TSMELLS"] + "/tests"
+        root = environ["TSMELLS"] + "/tests/Pieces"
         if suite == 'All':
             toRun = self.smellSuites
         else:
