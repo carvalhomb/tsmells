@@ -19,6 +19,8 @@
 # Copyright 2007-2008 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
 #
 
+import contract
+
 from entityz import *
 from gdfelements import Node, Edge
 
@@ -241,7 +243,7 @@ class SingleMetricSmellz(Smellz):
             self.hasKey(toParse[1])
             self.getLocation(toParse[1]) == (toParse[4], int(toParse[5]))
             self.getTreshold(toParse[1]) == int(toParse[2])
-            self.getNPTU(toParse[1]) == int(toParse[3])
+            self.getMetric(toParse[1]) == int(toParse[3])
         """
         self.dict[toParse[1]] = [(toParse[4], int(toParse[5])), int(toParse[2]), int(toParse[3])]
 
@@ -428,3 +430,5 @@ class DuplicatedCodes(object):
             smellMtr[key] = {}
             smellMtr[key]['ANrSL'] = self.calculateANrSL(duplicate)
             cnt += 1
+
+contract.checkmod(__name__)

@@ -67,5 +67,3 @@ class RescalePanel(DockableAdapter):
 
     def getTitle(self):
         return("Rescale Graph")
-
-

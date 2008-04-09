@@ -34,24 +34,9 @@ from com.hp.hpl.guess.ui import Dockable, \
                                 GraphMouseListener, \
                                 GraphEvents
 
-def loadSrcDict():
-    ''' Load the pickle file which contains the entity-source
-        mapping dictionary '''
-    pcklFile = open(os.environ['TSMELLS_SRCPICKLE'],'rb')
-    srcDict =  cPickle.load(pcklFile)
-    pcklFile.close()
-    return srcDict
-
-def loadMetricDict():
-    ''' Load the pickle file which contains the metric
-        information dictionary '''
-    pcklFile = open(os.environ['TSMELLS_METRICPICKLE'], 'rb')
-    metricDict = cPickle.load(pcklFile)
-    pcklFile.close()
-    return metricDict
-
 class SmellIdentiKitModel(AbstractTableModel):
     ''' A simple table model for the smell information table'''
+
     def __init__(self):
         self.labels = [] # first column
         self.values = [] # second column

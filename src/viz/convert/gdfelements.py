@@ -19,6 +19,8 @@
 # Copyright 2007-2008 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
 #
 
+import contract
+
 colors = ['black', 'lightgray', 'red']
 
 class Node():
@@ -96,3 +98,5 @@ class Edge():
 	def writeHeader(output):
 		output.write('edgedef>node1,node2,directed,visible,color\n')
 	writeHeader = staticmethod(writeHeader)
+
+contract.checkmod(__name__)

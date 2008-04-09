@@ -72,8 +72,16 @@ def cmpTc(x,y):
 class NodeHighlighter(TreeSelectionListener):
     ''' Highlights nodes in the graph when clicked in the tree case panel '''
 
+    #
+    # Constructor
+    #
+
     def __init__(self):
         self.lastClicked = None
+
+    #
+    # Callback
+    #
 
     def valueChanged(self, event):
         self.__deselect()
@@ -95,12 +103,20 @@ class NodeHighlighter(TreeSelectionListener):
 class TreePopup(JPopupMenu):
     ''' Context menu for the tree case panel '''
 
+    #
+    # Constructor
+    #
+
     def __init__(self, path):
         JPopupMenu.__init__(self, "options")
         self.path = path
         self.__addViewCaseAction()
         self.__addToSourceAction()
         self.__addWriteMetricsAction()
+
+    #
+    # Menu item constructors
+    #
 
     def __addViewCaseAction(self):
         caseName = extractTestCase(self.path)
@@ -128,22 +144,30 @@ class TreePopup(JPopupMenu):
             mtra.actionPerformed = self.__writeMetrics
             self.add(mtra)
 
+    #
+    # Action callbacks
+    #
+
     def __writeMetrics(self, dummy):
-        CaseMetrics(self.node).print_()
+        CaseMetrics(self.node, glzz.metricDict).print_()
 
     def __showCase(self, dummy):
-        global glzz # from TMenu.py
+        global glzz # from tsmellsviz.py
         if isinstance(self.case, com.hp.hpl.guess.Node):
             TreeCaseView(glzz, self.case).go() # from TMenu.py
 
     def __loadSource(self, dummy):
-        global srcDict # from sourceContext.py
+        global glzz # from tsmellsviz.py
         root = srcDict['ProjectSourceRootDirectory']
         loc = srcDict[self.node.name]
         openEditor(root + loc[0][0], loc[0][1])  # from ToSourceContext.py
 
 class TreeMouseListener(MouseAdapter):
     ''' listen for clicks on the testsuite panel '''
+
+    #
+    # Callback
+    #
 
     def mouseClicked(self, event):
         tree = event.getSource()
@@ -157,12 +181,20 @@ class TreeMouseListener(MouseAdapter):
 class TestSuitePanel(JPanel, Dockable, GraphMouseListener):
     ''' Show an expandable list of the test entites {suites,cases,methods} '''
 
+    #
+    # Constructor
+    #
+
     def __init__(self):
         self.myParent = None
         #com.hp.hpl.guess.ui.GraphEvents.getGraphEvents().addGraphMouseListener(self)
         self.__initTree()
         self.setBounds(self.getDefaultFrameBounds())
         ui.dock(self)
+
+    #
+    # JTree Setup
+    #
 
     def __initTree(self):
         ''' construct the suite tree '''
@@ -199,6 +231,10 @@ class TestSuitePanel(JPanel, Dockable, GraphMouseListener):
             top.add(pkgNode)
             self.__appendCases(pkg, pkgNode)
 
+    #
+    # Node builders
+    #
+
     def __appendCases(self, pkg, pkgNode):
         ''' append the test cases of a single package to the tree '''
         testcases = [edge.getNode2() for edge in (pkg->g.nodes)]
@@ -232,9 +268,9 @@ class TestSuitePanel(JPanel, Dockable, GraphMouseListener):
         #''' append the test helper methods of a single testcase to the tree'''
         self.__appendCaseMethodsHelper(case, caseNode, "helpers", "testhelper")
 
-    ####
-    # Implementation of the Dockable interface
-    ####
+    #
+    # Implementation of Dockable interface
+    #
 
     def getDefaultFrameBounds(self):
         return Rectangle(50, 50, 300, 600)

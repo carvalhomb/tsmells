@@ -19,43 +19,46 @@
 # Copyright 2007-2008 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
 #
 
-def isSourceLine(toCheck):
-	""" verify if toCheck is a legal source line number
-		line numbers should be integers and strict positive """
-	try:
-		int(toCheck)
-		return int(toCheck) > 0
+import contract
 
-	except:
-		return False
+def isSourceLine(toCheck):
+    """ verify if toCheck is a legal source line number
+        line numbers should be integers and strict positive """
+    try:
+        int(toCheck)
+        return int(toCheck) > 0
+    except:
+        return False
 
 def isCount(toCheck):
-	""" verify if toCheck is a legal count
-		counts should be integers and positive """
-	try:
-		int(toCheck)
-		return int(toCheck) >= 0
+    """ verify if toCheck is a legal count
+        counts should be integers and positive """
+    try:
+        int(toCheck)
+        return int(toCheck) >= 0
 
-	except:
-		return False
+    except:
+        return False
 
 def filterComma(toFilter):
-	return toFilter.replace(',', ';')
+    return toFilter.replace(',', ';')
 
 class SourceEntityz(object):
-	''' Abstract root entity for smells & test entities '''
-	def __init__(self):
-		self.dict = dict() # { qualName x [(file, line), ... ] }
+    ''' Abstract root entity for smells & test entities '''
+    def __init__(self):
+        self.dict = dict() # { qualName x [(file, line), ... ] }
 
-	def hasKey(self, qualifiedName):
-		return self.dict.has_key(qualifiedName)
+    def hasKey(self, qualifiedName):
+        return self.dict.has_key(qualifiedName)
 
-	def getLocation(self, qualifiedName):
-		"""
-		pre:
-			self.hasKey(qualifiedName)
-		"""
-		return self.dict[qualifiedName][0]
+    def getLocation(self, qualifiedName):
+        """
+        pre:
+            self.hasKey(qualifiedName)
+        """
+        return self.dict[qualifiedName][0]
 
-	def appendMetricInfo(self, metricDict):
-		pass
+    def appendMetricInfo(self, metricDict):
+        pass
+
+contract.checkmod(__name__)

@@ -19,14 +19,17 @@
 # Copyright 2007-2008 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
 #
 
-import os, jarray, cPickle
+import os, cPickle
 
 from com.hp.hpl.guess.ui    import StatusBar
 from java.lang              import Thread, Runnable
-from java.awt.geom          import GeneralPath
-from java.awt               import Polygon
+
+#-----------------------------------------------------------------------
+#--  globals
+#-----------------------------------------------------------------------
 
 #TODO get rid of this
+
 class Globalz:
 
     def __init__(self):
@@ -73,6 +76,19 @@ class Globalz:
     def resetGraph(self):
         remove([self.sub, self.command, self.helper, self.fixture])
 
+#-----------------------------------------------------------------------
+#--  auxiliary functions
+#-----------------------------------------------------------------------
+
+def loadPickleFile(filePath):
+    pcklFile = open(filePath, 'rb')
+    metricDict = cPickle.load(pcklFile)
+    pcklFile.close()
+    return metricDict
+
+import jarray
+from java.awt import Polygon
+
 def createDiamondShape():
     xpoints = jarray.array((10,5,0,5),'i')
     ypoints = jarray.array((5,10,5,0),'i')
@@ -80,44 +96,34 @@ def createDiamondShape():
     diamond = Polygon(xpoints,ypoints,4);
     shapeDB.addShape(104,diamond)
 
-def constructTMenu():
-    global glzz
-
-    initMyColors()
-    initMenu()
-
-def constructPanels():
-    global srcDict
-    global metricDict
-
-    RescalePanel()
-    TestSuitePanel()
-    SmellIdentiKitPanel(srcDict, metricDict)
-
-def constructContextActions():
-    global srcDict
-    global rootDir
-    rootDir = srcDict['ProjectSourceRootDirectory']
-
-    addToSourceAction()
-    addDumpDupliAction()
-    addWriteMetricsAction()
-    addViewCaseAction()
+#-----------------------------------------------------------------------
+#--  classes
+#-----------------------------------------------------------------------
 
 class Loader(Runnable):
 
+    #
+    # Thread main
+    #
+
     def run(self):
         global glzz
-
         StatusBar.runProgressBar(true)
+
         self.__loadGdf()
-        self.__execScripts()
         self.__loadPickleFiles()
+        self.__execScripts()
         glzz = Globalz()
-        self.__initGui()
+        self.__constructTMenu()
+        self.__constructContextActions()
+        self.__constructPanels()
 
         StatusBar.runProgressBar(false)
         StatusBar.setStatus("done.")
+
+    #
+    # Load external files
+    #
 
     def __loadGdf(self):
         StatusBar.setStatus("loading GDF [can take a while]")
@@ -125,6 +131,12 @@ class Loader(Runnable):
         makeFromGDF(os.environ['TSMELLS_GDF'])
         g.edges.color = 'lightgray'
         g.nodes.visible = 0
+
+    def __loadPickleFiles(self):
+        global srcDict
+        global metricDict
+        srcDict    = loadPickleFile(os.environ['TSMELLS_SRCPICKLE'])
+        metricDict = loadPickleFile(os.environ['TSMELLS_METRICPICKLE'])
 
     def __execScripts(self):
         StatusBar.setStatus("initializing scripts")
@@ -138,17 +150,35 @@ class Loader(Runnable):
         execfile(TSMELLS_VIZ + '/gui/TestSuiteTree.py')
         execfile(TSMELLS_VIZ + '/gui/RescalePanel.py')
 
-    def __loadPickleFiles(self):
+    #
+    # Initialize the GUI
+    #
+
+    def __constructTMenu(self):
+        initMyColors()
+        initMenu()
+
+    def __constructPanels(self):
         global srcDict
         global metricDict
 
-        srcDict = loadSrcDict()
-        metricDict = loadMetricDict()
+        RescalePanel()
+        TestSuitePanel()
+        SmellIdentiKitPanel(srcDict, metricDict)
 
-    def __initGui(self):
-        constructTMenu()
-        constructContextActions()
-        constructPanels()
+    def __constructContextActions(self):
+        global srcDict
+        global rootDir
+        rootDir = srcDict['ProjectSourceRootDirectory']
+
+        addToSourceAction()
+        addDumpDupliAction()
+        addWriteMetricsAction()
+        addViewCaseAction()
+
+#-----------------------------------------------------------------------
+#--  entry point
+#-----------------------------------------------------------------------
 
 # Some global variables
 srcDict = {}

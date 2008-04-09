@@ -19,6 +19,8 @@
 # Copyright 2007-2008 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
 #
 
+import contract
+
 from entityz import *
 from gdfelements import Node, Edge
 
@@ -69,7 +71,7 @@ class TestCases(TestEntitiez):
         pre:
             toParse[0] == "TestCase"
             len(toParse) == 4
-            isSourceLine(toParse[3])
+            isSourceLine(toParse[3]) or int(toParse[3]) == 0
 
         post:
             self.hasKey(toParse[1])
@@ -143,7 +145,7 @@ class TestMethodz(TestEntitiez):
                                                                                LOC
         pre:
             toParse[0] == self.typeName
-            len(toParse) == 5
+            len(toParse) == 6
             isSourceLine(toParse[3])
 
         post:
@@ -221,3 +223,5 @@ class TestTeardowns(TestMethodz):
     def __init__(self):
         TestMethodz.__init__(self, "TestTeardown")
         self.entityType = "testfixture"
+
+contract.checkmod(__name__)

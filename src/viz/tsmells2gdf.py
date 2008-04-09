@@ -19,11 +19,15 @@
 # Copyright 2007-2008 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
 #
 
+import os, sys
+sys.path.append(os.environ['TSMELLS']+ "/lib/Contract/")
+import inspect, cPickle, time, contract
+
 from convert.gdfelements import Node, Edge
 from convert.testentityz import *
 from convert.smellentitiez import *
 
-import inspect, cPickle, time
+
 
 def isDumpEntityCollection(object):
     """ introspection predicate to filter only those classes
@@ -93,12 +97,7 @@ class EntityConverter():
         cPickle.dump(metricDict, output)
         output.close()
 
-#import os, sys
-#sys.path.append(os.environ['TSMELLS']+ "/src/contract")
-#import contract
-#contract.checkmod(__name__)
-
-import sys, os
+contract.checkmod(__name__)
 
 def usage():
     print "usage " + sys.argv[0] + " <tsmell-dump> <testsuite> [<src-root>]"
