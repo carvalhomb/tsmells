@@ -75,6 +75,28 @@ def addViewCaseAction():
     casev = NodeEditorPopup.addItem("viewCase")
     casev.menuEvent = openCaseView
 
+def openCaseView2(targetNode):
+    global glzz
+    case = None
+    ent = targetNode.entity[0]
+    if ent == 'testcase':
+        # we'r good
+        case = targetNode[0]
+    elif ent in ['testcommand', 'testhelper', 'testfixture']:
+        # get owner
+        case = getParent(targetNode[0])
+    elif ent == 'smell':
+        owner = getParent(targetNode[0])
+        if owner != None: case = getParent(owner)
+    if case != None: TreeCaseView2(glzz, case).go()
+    else: print "failed to find owner testcase"
+
+def addViewCase2Action():
+    ''' add the view case context action to the guess graph'''
+    casev = NodeEditorPopup.addItem("viewCase2")
+    casev.menuEvent = openCaseView2
+
+
 def initMenu():
     global glzz
     tmenu = JMenu("tsmells")

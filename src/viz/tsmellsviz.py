@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #
 # This file is part of TSmells
 #
@@ -175,6 +174,7 @@ class Loader(Runnable):
         addDumpDupliAction()
         addWriteMetricsAction()
         addViewCaseAction()
+        addViewCase2Action()
 
 #-----------------------------------------------------------------------
 #--  entry point

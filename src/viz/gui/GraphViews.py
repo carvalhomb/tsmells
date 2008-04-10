@@ -78,13 +78,14 @@ def resetLook():
     g.nodes.labelvisible = 0
 
 def centerNodeHorizontal(node):
-    node.x = (x.max - x.min) / 2
+    vis = (visible == 1)
+    node.x = (max(vis.x) - min(vis.x)) / 2
 
 def constructIndirection(from_, to, new):
     ''' Construct an intermediate node layer between 'from_' and 'to'
         Remove (and return) the edges between node 'from_' and the nodes 'to'. 
         Add edges between from_->new and new->to '''
-    children = [ x.getNode2() for x in from_->to]
+    children = (from_->to).destination
     if len(children) == 0: return
     remove([new])
     add([new])
@@ -103,7 +104,7 @@ class GraphView(Runnable):
     def __init__(self, gl):
         self.graph  = Guess.getGraph()
         self.interp = Guess.getInterpreter()
-        self.globalz = gl
+        self.gl = gl
 
     def go(self):
         thread = Thread(self)
@@ -112,41 +113,66 @@ class GraphView(Runnable):
     def run(self):
         start = time()
         g.nodes.visible = 0
-        self.globalz.resetGraph()
+        self.gl.resetGraph()
 
-        self.pre() # abstract, bring the graph in the correct state. remove/add nodes
-        self.transform() # abstract, execute the layout algorithm
+        unwanted = self.pre()       # abstract, bring the graph in the correct state.
+        unwanted = remove(unwanted) # return unwanted nodes, those that should be hidden
+        g.nodes.visible = 0
+
+        Guess.setSynchronous(true)
+        self.transform()            # abstract, execute the layout algorithm(s)
+        Guess.setSynchronous(false)
         resetLook()
-        self.post() # abstract, restore the graph
+
+        g.nodes.visible = 1
+        g.edges.visible = 1
+        self.__restore(unwanted)
+        self.post()                 # abstract, fix colors, position etc
 
         el = str(time() - start)
         el = el.split('.')[0] +  '.' + el.split('.')[1][0:3]
         StatusBar.setStatus("Done. [" + el + "sec]")
+        self.__moveOutOfTheWay()
+
+    def __restore(self, unwanted):
+        add(unwanted)
+        unwanted.visible = 0
+
+
+    def __moveOutOfTheWay(self):
+        ''' move all unwanted node so they dont get in the way for selection '''
+        mid = x.max - x.min
+        for elem in (visible == 0):
+            try:
+                elem.x = mid
+                elem.y = 5000
+            except: pass
+
 
 class SmellView(GraphView):
     ''' All testcases as seperate graphs with methods and smell nodes
         Layout uses GEM followed by binpack'''
 
+    #
+    # GraphView interface implemenation
+    #
+
     def pre(self):
-        remove(self.globalz.tcsubs)
-        remove(self.globalz.roots)
-        self.pkgs = remove((entity=='package'))
+        remove(self.gl.tcsubs)
+        remove(self.gl.roots)
+        return (entity == 'package')
 
     def transform(self):
         StatusBar.setStatus("Computing GEM smell view [can take a while]")
         fto = remove(label == 'ForTestersOnly') # huge performace boost
-        Guess.setSynchronous(true)
-        graph = Guess.getGraph()
-        graph.layout(GEM(graph))
+        gemLayout()
         StatusBar.setStatus("Transforming to binPack ...")
         add(fto)
-        graph.layout(BinPack(graph, true))
+        binPackLayout()
         center()
-        Guess.setSynchronous(false)
 
     def post(self):
-        g.nodes.visible = 1
-        add(self.pkgs)
+        pass
 
 class RadialSuiteView(GraphView):
     ''' Complete testsuite shown as concentric circles:
@@ -154,76 +180,61 @@ class RadialSuiteView(GraphView):
             - testcases
             - testmethods '''
 
+    #
+    # GraphView interface implemenation
+    #
+
     def pre(self):
-        add(self.globalz.roots)
-        add(self.globalz.tcsubs)
-        other = (entity=='package')->complement(self.globalz.tcsubs)
+        add(self.gl.roots)
+        add(self.gl.tcsubs)
+        other = (entity=='package')->complement(self.gl.tcsubs)
         other += (entity == 'smell')
-        self.other = remove(other)
         remove([rroot])
+        return other
 
     def transform(self):
         StatusBar.setStatus("computing radial suite view")
-        Guess.setSynchronous(true)
         radialLayout(root)
-        Guess.setSynchronous(false)
+        #try: rescaleLayout(0.5, 0.5)
+        #except: pass
 
     def post(self):
-        g.nodes.visible = 1
-        g.edges.visible = 1
-        add(self.other)
-        self.other.visible = 0
+        pass
 
 class TreeSuiteView(GraphView):
     ''' Show a polymetric view of the testsuite '''
 
+    #
+    # GraphView interface implemenation
+    #
+
     def pre(self):
-        add(self.globalz.roots)
-        self.other = self.__initPkgSubs(self.globalz)
+        add(self.gl.roots)
+        unwanted = ((entity=='smell') |\
+                    (entity=='testcommand') |\
+                    (entity=='testhelper') | \
+                    (entity=='testfixture'))
+        unwanted.extend((entity=='package')->complement(self.gl.tcsubs))
+        add(self.gl.tcsubs)
+        return unwanted
 
     def transform(self):
-        Guess.setSynchronous(true)
         sugiyamaLayout()
-        try: rescaleLayout(0.25, 1)
+        try: rescaleLayout(0.10, 1)
         except: pass
-        Guess.setSynchronous(false)
 
     def post(self):
-        g.nodes.visible = 1
-        g.edges.visible = 1
         (entity=='package').color='white'
         (entity=='package').labelvisible=1
-        add(self.other)
         self.__resizeOnMetrics()
         self.__colorOnCaseType()
         self.__movePackages()
         centerNodeHorizontal(root)
         rroot.x = root.x
-        self.other.visible = 0
 
-    def __initPkgSubs(self, gl):
-        other = ((entity=='smell')|(entity=='testcommand')|(entity=='testhelper')|(entity=='testfixture'))
-        other = remove(other)
-        other.extend(remove((entity=='package')->complement(gl.tcsubs)))
-        add(gl.tcsubs)
-        return other
-
-    def __resizeOnMetrics(self):
-        ''' adapt the testcase node's height based on its number of testcommands
-            adapt the testcase node's width based on a relative SLOC metric 
-                RTCLOC= SLOC / #COMMANDS'''
-        for tc in (entity == 'testcase'):
-            numCmd = len(tc->(entity=='testcommand'))
-            # heigth
-            tc.height = max(numCmd,1) * 10
-            tc.color = 'white'
-            # width
-            try:
-                sloc = self.globalz.metricDict['testcase'][tc.name]['SLOC']
-            except KeyError:
-                sloc = 1
-            if numCmd == 0: numCmd = 1
-            tc.width = max(3, sloc/numCmd)
+    #
+    # PostProcessing helpers
+    #
 
     def __movePackages(self):
         ''' move the packages a bit so that the labels dont overlap '''
@@ -236,6 +247,23 @@ class TreeSuiteView(GraphView):
             if lvl == 0:   pkg.y += 50
             elif lvl == 2: pkg.y -= 50
             cntr += 1
+
+    def __resizeOnMetrics(self):
+        ''' adapt the testcase node's height based on its number of testcommands
+            adapt the testcase node's width based on a relative SLOC metric 
+                RTCLOC= SLOC / #COMMANDS'''
+        for tc in (entity == 'testcase'):
+            numCmd = len(tc->(entity=='testcommand'))
+            # heigth
+            tc.height = max(numCmd,1) * 10
+            tc.color = 'white'
+            # width
+            try:
+                sloc = self.gl.metricDict['testcase'][tc.name]['SLOC']
+            except KeyError:
+                sloc = 1
+            if numCmd == 0: numCmd = 1
+            tc.width = max(3, sloc/numCmd)
 
     def __colorOnCaseType(self):
         ''' give a different color based on the presence of fixture and helpers '''
@@ -251,94 +279,63 @@ class TreeSuiteView(GraphView):
             elif hasHelper: tc.color = 'green'
             else: tc.color = 'white'
 
-
 cnt = 0
 class TreeCaseView(GraphView):
-    ''' Show a polymetric view of a single test case '''
+    ''' Show the polymetric view of a single test case '''
+
+    #
+    # Constructor
+    #
 
     def __init__(self, gl, testcase):
         GraphView.__init__(self, gl)
         self.testcase = testcase
 
+    #
+    # GraphView interface implemenation
+    #
+
     def pre(self):
-        self.other = self.__removeOther()
-        self.__constructExtraLevel()
+        self.ori   = self.__constructExtraLevel()
         self.fakes = self.__addFakeSmells()
+        return self.__computeUnwanted()
 
     def transform(self):
-        Guess.setSynchronous(true)
         sugiyamaLayout()
         try: rescaleLayout(0.25,0.5)
         except: pass
-        Guess.setSynchronous(false)
 
     def post(self):
         self.__fixLook()
         self.__fixPosition()
+        self.__hideUnwantedMeta()
         self.__restoreNodes()
 
-    def __fixLook(self):
-        g.nodes.visible = 1
-        g.edges.visible = 1
-        self.__whiteLabel(self.globalz.command)
-        self.__whiteLabel(self.globalz.helper)
-        self.__whiteLabel(self.globalz.fixture)
-        self.testcase.color = 'white'
-        self.testcase.labelvisible = 1
-
-    def __fixPosition(self):
-        centerNodeHorizontal(self.testcase)
-        self.globalz.sub.x = self.testcase.x
-        self.__centerSingleLeave(self.globalz.command)
-        self.__centerSingleLeave(self.globalz.helper)
-        self.__centerSingleLeave(self.globalz.fixture)
-        self.__hideUnwantedMeta()
-
-    def __centerSingleLeave(self, super):
-        numChildren = len(super->g.nodes)
-        if numChildren == 1:
-            child = (super->g.nodes)[0].getNode2()
-            super.x = child.x
-
-    def __hideUnwantedMeta(self):
-        # work-around for guess glitch
-        for meta in [self.globalz.command, self.globalz.helper, self.globalz.fixture]:
-            numChildren = len(meta->g.nodes)
-            if numChildren == 0: meta.visible = 0
-
-    def __restoreNodes(self):
-        add(self.other)
-        self.other.visible = 0
-        add(self.ori)
-        self.ori.visible = 0
-        remove(self.fakes)
-
-    def __whiteLabel(self, node):
-        node.style = 1
-        node.labelvisible = 1
-        node.color = 'white'
+    #
+    # Preprocessing helpers
+    #
 
     def __constructExtraLevel(self):
-        sub = self.globalz.sub
-        self.ori  = constructIndirection(self.testcase, g.nodes, sub)
-        constructIndirection(sub, (entity == 'testcommand'), self.globalz.command)
-        constructIndirection(sub, (entity == 'testhelper'),  self.globalz.helper)
-        constructIndirection(sub, (entity == 'testfixture'), self.globalz.fixture)
+        sub = self.gl.sub
+        original  = constructIndirection(self.testcase, g.nodes, sub)
+        constructIndirection(sub, self.__myCommands(), self.gl.command)
+        constructIndirection(sub, self.__myHelpers(),  self.gl.helper)
+        constructIndirection(sub, self.__myFixture(),  self.gl.fixture)
+        return original
 
-    def __removeOther(self):
-        lvl1 = [x.getNode2() for x in self.testcase->g.nodes]
-        lvl2 = [x.getNode2() for x in lvl1->g.nodes]
-        lvl3 = [x.getNode2() for x in lvl2->g.nodes]
-        all = [self.testcase, self.globalz.sub] + lvl1 + lvl2 + lvl3
-        return remove(complement(all))
-
-    def __testmethods(self):
-        return ((entity == 'testcommand') | (entity == 'testfixture') | (entity == 'testhelper'))
+    def __computeUnwanted(self):
+        lvl1 = self.testcase.successors
+        lvl2 = lvl1.successors
+        lvl3 = lvl2.successors
+        lvl4 = lvl3.successors
+        all = [self.testcase, self.gl.sub] + lvl1 + lvl2 + lvl3 + lvl4
+        return complement(all)
 
     def __addFakeSmells(self):
+        ''' add fake smells to balance the tree, since sugiyama-layout gets ugly otherwise '''
         global cnt
         fakes = []
-        for mtd in self.__testmethods():
+        for mtd in self.__myMethods():
             if len(mtd->g.nodes) == 0:
                 fake = addNode('place_holder_node' + str(cnt))
                 addDirectedEdge(mtd, fake)
@@ -347,3 +344,207 @@ class TreeCaseView(GraphView):
         fakes.visible = 0
         return fakes
 
+    #
+    # Postprocessing helpers
+    #
+
+    def __fixLook(self):
+        self.__whiteLabel(self.gl.command)
+        self.__whiteLabel(self.gl.helper)
+        self.__whiteLabel(self.gl.fixture)
+        self.testcase.color = 'white'
+        self.testcase.labelvisible = 1
+
+    def __fixPosition(self):
+        centerNodeHorizontal(self.testcase)
+        self.gl.sub.x = self.testcase.x
+        self.__centerSingleLeave(self.gl.command)
+        self.__centerSingleLeave(self.gl.helper)
+        self.__centerSingleLeave(self.gl.fixture)
+
+    def __hideUnwantedMeta(self):
+        # work-around for guess glitch
+        for meta in [self.gl.command, self.gl.helper, self.gl.fixture]:
+            numChildren = len(meta->g.nodes)
+            if numChildren == 0: meta.visible = 0
+
+    def __restoreNodes(self):
+        add(self.ori)
+        self.ori.visible = 0
+        remove(self.fakes)
+
+    #
+    # Misc helpers
+    #
+
+    def __centerSingleLeave(self, super):
+        numChildren = len(super->g.nodes)
+        if numChildren == 1:
+            child = (super->g.nodes)[0].getNode2()
+            super.x = child.x
+
+    def __whiteLabel(self, node):
+        node.style = 1
+        node.labelvisible = 1
+        node.color = 'white'
+
+    def __myCommands(self):
+        return self.__myMethodsTyped('testcommand')
+
+    def __myHelpers(self):
+        return self.__myMethodsTyped('testhelper')
+
+    def __myFixture(self):
+        return self.__myMethodsTyped('testfixture')
+
+    def __myMethods(self):
+        return self.__myCommands() +\
+               self.__myHelpers()  +\
+               self.__myFixture()
+
+    def __myMethodsTyped(self, type_):
+        supers = [self.testcase, self.gl.sub, \
+                  self.gl.command, self.gl.helper, self.gl.fixture]
+        return ((supers)->(entity == type_)).destination
+
+cnt = 0
+class TreeCaseView2(GraphView):
+    ''' Show the polymetric view of a single test case '''
+
+    #
+    # Constructor
+    #
+
+    def __init__(self, gl, testcase):
+        GraphView.__init__(self, gl)
+        self.testcase = testcase
+        self.initSmellMeta()
+
+    def __initSmellMeta(self):
+        smells = ["assertionroulette", "assertionless", "duplicatedcode",\
+                  "eagertest", "fortestersonly", "generalfixture", \
+                  "indentedtest", "indirecttest", "mysteryguest", \
+                  "sensitiveequality"]
+        for smell in smells:
+            self.__initMeta(smell + "_meta")
+
+    def __initMeta(self, name_):
+        if len(name  == name_) == 0:
+            nd = addNode(name_)
+            nd.entity = 'meta'
+
+    #
+    # GraphView interface implemenation
+    #
+
+    def pre(self):
+        self.ori   = self.__constructExtraLevel()
+        self.fakes = self.__addFakeSmells()
+        return self.__computeUnwanted()
+
+    def transform(self):
+        sugiyamaLayout()
+        try: rescaleLayout(0.25,0.5)
+        except: pass
+
+    def post(self):
+        self.__fixLook()
+        self.__fixPosition()
+        self.__hideUnwantedMeta()
+        self.__restoreNodes()
+
+    #
+    # Preprocessing helpers
+    #
+
+    def __constructExtraLevel(self):
+        sub = self.gl.sub
+        original  = constructIndirection(self.testcase, g.nodes, sub)
+        constructIndirection(sub, self.__myCommands(), self.gl.command)
+        constructIndirection(sub, self.__myHelpers(),  self.gl.helper)
+        constructIndirection(sub, self.__myFixture(),  self.gl.fixture)
+        return original
+
+    def __computeUnwanted(self):
+        lvl1 = self.testcase.successors
+        lvl2 = lvl1.successors
+        lvl3 = lvl2.successors
+        lvl4 = lvl3.successors
+        all = [self.testcase, self.gl.sub] + lvl1 + lvl2 + lvl3 + lvl4
+        return complement(all)
+
+    def __addFakeSmells(self):
+        ''' add fake smells to balance the tree, since sugiyama-layout gets ugly otherwise '''
+        global cnt
+        fakes = []
+        for mtd in self.__myMethods():
+            if len(mtd->g.nodes) == 0:
+                fake = addNode('place_holder_node' + str(cnt))
+                addDirectedEdge(mtd, fake)
+                fakes.append(fake)
+                cnt += 1
+        fakes.visible = 0
+        return fakes
+
+    #
+    # Postprocessing helpers
+    #
+
+    def __fixLook(self):
+        self.__whiteLabel(self.gl.command)
+        self.__whiteLabel(self.gl.helper)
+        self.__whiteLabel(self.gl.fixture)
+        self.testcase.color = 'white'
+        self.testcase.labelvisible = 1
+
+    def __fixPosition(self):
+        centerNodeHorizontal(self.testcase)
+        self.gl.sub.x = self.testcase.x
+        self.__centerSingleLeave(self.gl.command)
+        self.__centerSingleLeave(self.gl.helper)
+        self.__centerSingleLeave(self.gl.fixture)
+
+    def __hideUnwantedMeta(self):
+        # work-around for guess glitch
+        for meta in [self.gl.command, self.gl.helper, self.gl.fixture]:
+            numChildren = len(meta->g.nodes)
+            if numChildren == 0: meta.visible = 0
+
+    def __restoreNodes(self):
+        add(self.ori)
+        self.ori.visible = 0
+        remove(self.fakes)
+
+    #
+    # Misc helpers
+    #
+
+    def __centerSingleLeave(self, super):
+        numChildren = len(super->g.nodes)
+        if numChildren == 1:
+            child = (super->g.nodes)[0].getNode2()
+            super.x = child.x
+
+    def __whiteLabel(self, node):
+        node.style = 1
+        node.labelvisible = 1
+        node.color = 'white'
+
+    def __myCommands(self):
+        return self.__myMethodsTyped('testcommand')
+
+    def __myHelpers(self):
+        return self.__myMethodsTyped('testhelper')
+
+    def __myFixture(self):
+        return self.__myMethodsTyped('testfixture')
+
+    def __myMethods(self):
+        return self.__myCommands() +\
+               self.__myHelpers()  +\
+               self.__myFixture()
+
+    def __myMethodsTyped(self, type_):
+        supers = [self.testcase, self.gl.sub, \
+                  self.gl.command, self.gl.helper, self.gl.fixture]
+        return ((supers)->(entity == type_)).destination
