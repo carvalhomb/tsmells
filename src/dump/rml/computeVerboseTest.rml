@@ -30,9 +30,9 @@
  * @col tcid: testcommand ID
  * @col loc: source lines of code of tcid
  **/
-VerboseTest(tcid, loc) :=
-    TestCommandId(tcid) &
-    Measurement(_, tcid, "LOC", loc); //&
+VerboseTest(tcid__, loc) :=
+    TestCommandId(tcid__) &
+    Measurement(_, tcid__, "LOC", loc); //&
    // loc >= "VERBOSE_TEST_LOC_TRESHOLD";
    // >=(NUMBER(loc), NUMBER(VERBOSE_TEST_LOC_TRESHOLD)); //<- RML doesnt seem to allow this:
    // Program parser error at line 538: 'loc'. syntax error'
@@ -48,10 +48,10 @@ FOR tcid IN TestCommandId(x) {
     }
 }
 
-VerboseTestInfo(tcName, loc_2, file, line) :=
+VerboseTestInfo(tcName, loc_2, file__, line__) :=
     EX(tcid_,
         VerboseTestTresh(tcid_, loc_2) &
-        TestEntityInfo(tcid_, tcName, file, line)
+        TestEntityInfo(tcid_, tcName, file__, line__)
     );
 
 PRINT ["VerboseTest"] VerboseTestInfo(a,b,c,d);

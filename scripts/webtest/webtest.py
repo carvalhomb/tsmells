@@ -38,7 +38,7 @@ class Root():
         self.smellSuites = ["MysteryGuest", "AssertionRoulette", "AssertionLess", \
                             "SensitiveEquality", "IndentedTest", "ForTestersOnly",\
                             "IndirectTest", "DuplicatedCode", "GeneralFixture", \
-                            "EagerTest", "VerboseTest" ]
+                            "EagerTest", "VerboseTest", "EmptyTest" ]
         self.smellSuites.sort()
         self.otherSuites = ["TestEntities", "AddObject", "RmComments", "GenCtrlStructInfo"]
         self.suites  = self.all + self.smellSuites + self.otherSuites

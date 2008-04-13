@@ -1,0 +1,32 @@
+/**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+EmptyTest(tcid__) :=
+    TestCommandId(tcid__) &
+    !EX(x, PureInvokes(_,tcid__,x)) &
+    !EX(x, PureAccesses(_,tcid__,x));
+
+EmptyTestInfo(tcnm, file, line) :=
+    EX(tcid__,
+        EmptyTest(tcid__) &
+        TestEntityInfo(tcid__, tcnm, file, line)
+        );
+
+PRINT ["EmptyTest"] EmptyTestInfo(aa,bb,cc);

@@ -44,9 +44,11 @@ INDEN = "INDENTED_TEST"
 MG    = "MYSTERY_GUEST"
 SE    = "SENSITIVE_EQUALITY"
 ET    = "EAGER_TEST"
+VT    = "VERBOSE_TEST"
+EMP   = "EMPTY_TEST"
 
 # all m4-smell keys
-SMELLS = [ AS,AR,DC,FTO,INDIR,INDEN,MG,SE,GF,ET ]
+SMELLS = [ AS,AR,DC,FTO,INDIR,INDEN,MG,SE,GF,ET,VT,EMP ]
 
 TRESH = "_TRESHOLD"
 AR_TRESH = AR + TRESH
@@ -58,6 +60,7 @@ GF_NFOB = GF + "_NFOB" + TRESH
 GF_NFPT = GF + "_NFPT" + TRESH
 GF_NOBU = GF + "_NOBU" + TRESH
 ET_PTMI = ET + "_PTMI" + TRESH
+VT_LOC  = VT + "_LOC"  + TRESH
 
 MG_JAVA_BLACKLIST = "src/dump/rml/provideMysteryBlacklistJava.rml"
 MG_CPP_BLACKLIST = "src/dump/rml/provideMysteryBlacklistCppFile.rml"
@@ -83,7 +86,8 @@ PARAMS_DEFAULTS = \
         GF_NFOB : "5",
         GF_NFPT : "5",
         GF_NOBU : "5",
-        ET_PTMI : "5"
+        ET_PTMI : "5",
+        VT_LOC  : "15"
     }
 
 def usage():

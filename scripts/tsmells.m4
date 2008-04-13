@@ -73,46 +73,59 @@ ifdef(`EAGER_TEST',
 ,
     `')
 
+ifdef(`EMPTY_TEST',
+    `PRINT "(07) EmptyTest ... ", ENDL TO STDERR;'
+    `include(DUMP_DIR`computeEmptyTest.rml')'
+    EXEC "ECHO EmptyTest TIMER";
+,
+    `')
+
 ifdef(`FOR_TESTERS_ONLY',
-    `PRINT "(06) ForTestersOnly ... ", ENDL TO STDERR;'
+    `PRINT "(08) ForTestersOnly ... ", ENDL TO STDERR;'
     `include(DUMP_DIR`computeForTestersOnly.rml')'
     EXEC "ECHO ForTestersOnly TIMER";
 ,
     `')
 
 ifdef(`GENERAL_FIXTURE',
-    `PRINT "(07) GeneralFixture ... ", ENDL TO STDERR;'
+    `PRINT "(09) GeneralFixture ... ", ENDL TO STDERR;'
     `include(DUMP_DIR`computeGeneralFixture.rml')'
     EXEC "ECHO GeneralFixture TIMER";
 ,
     `')
 
 ifdef(`INDENTED_TEST',
-    `PRINT "(08) IndentedTest ...", ENDL TO STDERR;'
+    `PRINT "(10) IndentedTest ...", ENDL TO STDERR;'
     `include(DUMP_DIR`computeIndentedTest.rml')'
     EXEC "ECHO IndentedTest TIMER";
 ,
     `')
 
 ifdef(`INDIRECT_TEST',
-    `PRINT "(09) IndirectTest ... ", ENDL TO STDERR;'
+    `PRINT "(12) IndirectTest ... ", ENDL TO STDERR;'
     `include(DUMP_DIR`computeIndirectTest.rml')'
     EXEC "ECHO IndirectTest TIMER";
 ,
     `')
 
 ifdef(`MYSTERY_GUEST', 
-    `PRINT "(10) MysteryGuest ... ", ENDL TO STDERR;'
+    `PRINT "(13) MysteryGuest ... ", ENDL TO STDERR;'
     `include(DUMP_DIR`computeMysteryGuest.rml')'
     EXEC "ECHO MysteryGuest TIMER";
 ,
     `')
 
-
 ifdef(`SENSITIVE_EQUALITY',
-    `PRINT "(11) SensitiveEquality ... ", ENDL TO STDERR;'
+    `PRINT "(14) SensitiveEquality ... ", ENDL TO STDERR;'
     `include(DUMP_DIR`computeSensitiveEquality.rml')'
     EXEC "ECHO SensitiveEquality TIMER";
+,
+    `')
+
+ifdef(`VERBOSE_TEST',
+    `PRINT "(15) VerboseTest ... ", ENDL TO STDERR;'
+    `include(DUMP_DIR`computeVerboseTest.rml')'
+    EXEC "ECHO VerboseTest TIMER";
 ,
     `')
 

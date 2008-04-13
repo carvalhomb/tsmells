@@ -97,6 +97,10 @@ class AssertionLesss(BasicSmellz):
     def __init__(self):
         BasicSmellz.__init__(self, "AssertionLess")
 
+class EmptyTests(BasicSmellz):
+    def __init__(self):
+        BasicSmellz.__init__(self, "EmptyTest")
+
 class ForTestersOnlys(BasicSmellz):
     def __init__(self):
         BasicSmellz.__init__(self, "ForTestersOnly")
@@ -222,6 +226,41 @@ class SensitiveEqualitys(TypedSmell):
     def appendMetricInfo(self, metricDict):
         metricDict['Translation']['NrTS'] = "Number of toString invocations"
         self.appendMetricInfoHelper(metricDict, [('NrTS', self.getCount)]) # Number of toStrings
+
+class VerboseTests(Smellz):
+    def __init__(self):
+        Smellz.__init__(self, "VerboseTest")
+
+    def parse(self, toParse):
+        """
+        input is a splitted indirectests dump line, eg
+        ["VerboseTest","FooTest.testFoo()","20","FooTest.java","57"]
+
+        pre:
+            toParse[0] == "VerboseTest"
+            len(toParse) == 5
+            isSourceLine(toParse[4])
+            isCount(toParse[2])
+
+        post:
+            self.hasKey(toParse[1])
+            self.getLocation(toParse[1]) == (toParse[3], int(toParse[4]))
+            self.getMetric(toParse[1]) == int(toParse[2])
+        """
+        self.dict[toParse[1]] = [(toParse[3], int(toParse[4])), int(toParse[2])]
+
+    def getMetric(self, testMethod):
+        """
+        pre:
+            self.hasKey(testMethod)
+        """
+        return self.dict[testMethod][1]
+
+    def appendMetricInfo(self, metricDict):
+        metricDict['Translation']['LOC'] = "Lines of code"
+        self.appendMetricInfoHelper(metricDict, [('LOC', self.getMetric)])
+
+
 
 class SingleMetricSmellz(Smellz):
     def __init__(self, smellName):
