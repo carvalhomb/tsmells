@@ -19,7 +19,7 @@
 #
 
 from com.hp.hpl.guess.ui import StatusBar
-from java.lang           import Thread, Runnable, Double
+from java.lang           import Thread, Runnable
 from time                import time
 
 #-----------------------------------------------------------------------
@@ -94,6 +94,27 @@ def constructIndirection(from_, to, new):
         addDirectedEdge(new, child)
     return remove(from_->children)
 
+def shuffleNodesYAxis(toShuffle):
+    ''' move one layer of nodes in a tree a bit such that their labels dont overlap'''
+    toShuffle.x # needed to initialize, otherwise the sort is messed up
+    toShuffle.sort(lambda o,p: int(p.x - o.x))
+    cntr = 0
+    for node in toShuffle:
+        lvl = cntr % 3
+        if lvl == 0:   node.y += 25
+        elif lvl == 2: node.y -= 25
+        cntr += 1
+
+
+metaCnt = 0
+def createMetaNode(name_):
+    global metaCnt
+    node = addNode(name_ + "_meta" + str(metaCnt))
+    node.entity = 'meta'
+    node.label = name_
+    metaCnt += 1
+    return node
+
 #-----------------------------------------------------------------------
 #--  classes
 #-----------------------------------------------------------------------
@@ -140,7 +161,8 @@ class GraphView(Runnable):
 
 
     def __moveOutOfTheWay(self):
-        ''' move all unwanted node so they dont get in the way for selection '''
+        ''' move all unwanted node; otherwise they might block selection of 
+            visible nodes '''
         mid = x.max - x.min
         for elem in (visible == 0):
             try:
@@ -418,20 +440,6 @@ class TreeCaseView2(GraphView):
     def __init__(self, gl, testcase):
         GraphView.__init__(self, gl)
         self.testcase = testcase
-        self.initSmellMeta()
-
-    def __initSmellMeta(self):
-        smells = ["assertionroulette", "assertionless", "duplicatedcode",\
-                  "eagertest", "fortestersonly", "generalfixture", \
-                  "indentedtest", "indirecttest", "mysteryguest", \
-                  "sensitiveequality"]
-        for smell in smells:
-            self.__initMeta(smell + "_meta")
-
-    def __initMeta(self, name_):
-        if len(name  == name_) == 0:
-            nd = addNode(name_)
-            nd.entity = 'meta'
 
     #
     # GraphView interface implemenation
@@ -458,12 +466,190 @@ class TreeCaseView2(GraphView):
     #
 
     def __constructExtraLevel(self):
+        global cnt
         sub = self.gl.sub
         original  = constructIndirection(self.testcase, g.nodes, sub)
         constructIndirection(sub, self.__myCommands(), self.gl.command)
         constructIndirection(sub, self.__myHelpers(),  self.gl.helper)
         constructIndirection(sub, self.__myFixture(),  self.gl.fixture)
+        for mtd in self.__myMethods():
+            smells = mtd.successors
+            if len(smells) == 0: continue
+            #tmp = self.__createTempNode()
+            #original += constructIndirection(mtd, smells, tmp)
+            smells = groupBy(smells, label)
+            for group in smells:
+                smellMeta = createMetaNode(str(group[0].label))
+                constructIndirection(mtd, group, smellMeta)
         return original
+
+    def __computeUnwanted(self):
+        all = [self.testcase]
+        for i in range(0,6):
+            all += all.successors
+        all += [self.gl.sub]
+        return complement(all)
+
+    def __addFakeSmells(self):
+        ''' add fake smells to balance the tree, since sugiyama-layout gets ugly otherwise '''
+        fakes = []
+        for mtd in self.__myMethods():
+            if len(mtd->g.nodes) == 0:
+                fake1 = self.__createFake(mtd)
+                fake2 = self.__createFake(fake1)
+                fakes.extend([fake1, fake2])
+        fakes.visible = 0
+        return fakes
+
+    def __createFake(self, super):
+        global cnt
+        fake = addNode('fake_node_' + str(cnt))
+        fake.entity = 'fake'
+        fake.visible = 0
+        addDirectedEdge(super, fake)
+        cnt += 1
+        return fake
+
+    #
+    # Postprocessing helpers
+    #
+
+    def __fixLook(self):
+        self.__whiteLabel(self.gl.command)
+        self.__whiteLabel(self.gl.helper)
+        self.__whiteLabel(self.gl.fixture)
+        self.testcase.color = 'white'
+        self.testcase.labelvisible = 1
+        meta = (entity == 'meta')
+        meta.style = 1
+        meta.color = 'white'
+        meta.labelvisible = 1
+        shuffleNodesYAxis(meta)
+
+    def __fixPosition(self):
+        centerNodeHorizontal(self.testcase)
+        self.gl.sub.x = self.testcase.x
+        self.__centerSingleLeave(self.gl.command)
+        self.__centerSingleLeave(self.gl.helper)
+        self.__centerSingleLeave(self.gl.fixture)
+
+    def __hideUnwantedMeta(self):
+        # work-around for guess glitch
+        for meta in [self.gl.command, self.gl.helper, self.gl.fixture]:
+            numChildren = len(meta->g.nodes)
+            if numChildren == 0: meta.visible = 0
+
+    def __restoreNodes(self):
+        add(self.ori)
+        self.ori.visible = 0
+        remove(self.fakes)
+
+    #
+    # Misc helpers
+    #
+
+    def __createTempNode(self):
+        global cnt
+        tmp = addNode("tmp_" + str(cnt))
+        tmp.entity = 'temp'
+        cnt += 1
+        return tmp
+
+    def __centerSingleLeave(self, super):
+        numChildren = len(super->g.nodes)
+        if numChildren == 1:
+            child = (super->g.nodes)[0].getNode2()
+            super.x = child.x
+
+    def __whiteLabel(self, node):
+        node.style = 1
+        node.labelvisible = 1
+        node.color = 'white'
+
+    def __myCommands(self):
+        return self.__myMethodsTyped('testcommand')
+
+    def __myHelpers(self):
+        return self.__myMethodsTyped('testhelper')
+
+    def __myFixture(self):
+        return self.__myMethodsTyped('testfixture')
+
+    def __myMethods(self):
+        return self.__myCommands() +\
+               self.__myHelpers()  +\
+               self.__myFixture()
+
+    def __myMethodsTyped(self, type_):
+        supers = [self.testcase, self.gl.sub, \
+                  self.gl.command, self.gl.helper, self.gl.fixture]
+        return ((supers)->(entity == type_)).destination
+
+cnt = 0
+class TreeCaseView3(GraphView):
+    ''' Show the polymetric view of a single test case '''
+
+    #
+    # Constructor
+    #
+
+    def __init__(self, gl, testcase):
+        GraphView.__init__(self, gl)
+        self.testcase = testcase
+
+    #
+    # GraphView interface implemenation
+    #
+
+    def pre(self):
+        self.ori   = self.__constructExtraLevel()
+        unwanted =  self.__computeUnwanted()
+        self.__removeSmellEdges()
+        self.__addMetaSmells()
+        self.fakes = self.__addFakeSmells()
+        return unwanted
+
+    def transform(self):
+        sugiyamaLayout()
+        try: rescaleLayout(0.25,0.5)
+        except: pass
+
+    def post(self):
+        add(self.smellEdges)
+        self.smellEdges.visible = 1
+        self.__fixLook()
+        self.__fixPosition()
+        self.__hideUnwantedMeta()
+        self.__restoreNodes()
+
+
+    #
+    # Preprocessing helpers
+    #
+
+    def __constructExtraLevel(self):
+        sub = self.gl.sub
+        original  = constructIndirection(self.testcase, g.nodes, sub)
+        self.smellMeta = createMetaNode('smells')
+        addDirectedEdge(sub, self.smellMeta)
+        constructIndirection(sub, self.__myCommands(), self.gl.command)
+        constructIndirection(sub, self.__myHelpers(),  self.gl.helper)
+        constructIndirection(sub, self.__myFixture(),  self.gl.fixture)
+        return original
+
+    def __removeSmellEdges(self):
+        smellEdges = (self.__myMethods()->(entity == 'smell'))
+        smellEdges += ((self.testcase)->(entity == 'smell'))
+        self.smells = smellEdges.destination
+        self.smellEdges = remove(smellEdges)
+
+    def __addMetaSmells(self):
+        grouped = groupBy(self.smells, label)
+        for smellz in grouped:
+            meta = createMetaNode(smellz[0].label)
+            addDirectedEdge(self.smellMeta, meta)
+            for smell in smellz:
+                addDirectedEdge(meta, smell)
 
     def __computeUnwanted(self):
         lvl1 = self.testcase.successors
@@ -496,6 +682,10 @@ class TreeCaseView2(GraphView):
         self.__whiteLabel(self.gl.fixture)
         self.testcase.color = 'white'
         self.testcase.labelvisible = 1
+        meta = (entity == 'meta')
+        meta.color = 'white'
+        meta.style = 1
+        meta.labelvisible = 1
 
     def __fixPosition(self):
         centerNodeHorizontal(self.testcase)

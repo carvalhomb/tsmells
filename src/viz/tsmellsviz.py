@@ -74,6 +74,8 @@ class Globalz:
 
     def resetGraph(self):
         remove([self.sub, self.command, self.helper, self.fixture])
+        removeComplete(entity == 'temp')
+        removeComplete(entity == 'meta')
 
 #-----------------------------------------------------------------------
 #--  auxiliary functions
@@ -175,6 +177,8 @@ class Loader(Runnable):
         addWriteMetricsAction()
         addViewCaseAction()
         addViewCase2Action()
+        addViewCase3Action()
+        addViewCase4Action()
 
 #-----------------------------------------------------------------------
 #--  entry point
