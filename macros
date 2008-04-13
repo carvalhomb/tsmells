@@ -94,3 +94,10 @@ SENSITIVE_EQUALITY
 
 TSMELLS
     Root of your tsmells installation
+
+VERBOSE_TEST
+    Switch for executing the verbose test script
+
+VERBOSE_TEST_LOC_TRESHOLD
+    Positive integer which defines the minimum LOC before a test command
+    gets flagged as verbose

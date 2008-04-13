@@ -29,7 +29,8 @@ do
     MACRO="$MACRO ${PARAMS[i]}"
 done
 
-RML=$(mktemp) && \
+#python $TSMELLS/tests/Pieces/VerboseTest/java/appendZeroes.py $RSF &&\
+RML=$(mktemp) &&\
 m4  $MACRO $M4SCRIPT > $RML &&\
 #cat $RML > tmp.rml &&\
 #cat $RSF | crocopat $RML 2> /dev/null && \

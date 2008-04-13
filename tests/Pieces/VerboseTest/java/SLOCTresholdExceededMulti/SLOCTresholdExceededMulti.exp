@@ -1,0 +1,2 @@
+VerboseTest	"FooTest.testBar()"	26	"FooTest.java"	32
+VerboseTest	"FooTest.testFoo()"	21	"FooTest.java"	6

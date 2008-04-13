@@ -1,0 +1,57 @@
+/**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ **/
+
+// fake it
+//PRINT "VerboseTest    FooTest.testFoo()    21    TestFoo.java    6", ENDL;
+//                    testcommand        SLOC     file         linenr
+
+/**
+ * Test should be compact, long test are hard 
+ * to read. Has a bad influence on the documentational
+ * value of the test.
+ *
+ * @col tcid: testcommand ID
+ * @col loc: source lines of code of tcid
+ **/
+VerboseTest(tcid, loc) :=
+    TestCommandId(tcid) &
+    Measurement(_, tcid, "LOC", loc); //&
+   // loc >= "VERBOSE_TEST_LOC_TRESHOLD";
+   // >=(NUMBER(loc), NUMBER(VERBOSE_TEST_LOC_TRESHOLD)); //<- RML doesnt seem to allow this:
+   // Program parser error at line 538: 'loc'. syntax error'
+
+VerboseTestTresh("", ""); // without this crocopat asserts
+//crocopat: relYacc.y:232: int yyparse(): Assertion `gVariables.find(*yyvsp[-6].rel_String) == gVariables.end()' failed.
+FOR tcid IN TestCommandId(x) {
+    loc := SUM(VerboseTest(tcid, x)); // summing over a single element ...
+    IF (loc >= VERBOSE_TEST_LOC_TRESHOLD) {
+        VerboseTestTresh(x,y) :=
+            VerboseTestTresh(x,y) |
+            x = tcid & y = STRING(loc);
+    }
+}
+
+VerboseTestInfo(tcName, loc_2, file, line) :=
+    EX(tcid_,
+        VerboseTestTresh(tcid_, loc_2) &
+        TestEntityInfo(tcid_, tcName, file, line)
+    );
+
+PRINT ["VerboseTest"] VerboseTestInfo(a,b,c,d);

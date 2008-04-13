@@ -1,0 +1,225 @@
+Module	1	"/"
+Module	2	"/cppunit"
+ModuleBelongsToModule	2	1
+File	1	"FooTest.cpp"
+File	2	"UUT.h"
+File	3	"cppunit/TestCase.h"
+FileBelongsToModule	1	1
+FileBelongsToModule	2	1
+FileBelongsToModule	3	2
+Include	5	1	3
+Include	6	1	2
+ConditionalCompilation	7	"!CPPUNIT_TESTCASE_H"
+Class	10	"FooTest"
+Class	11	"CppUnit::TestCase"
+Class	12	"UUT"
+ClassBelongsToFile	10	1	6
+ClassBelongsToFile	11	3	18
+ClassBelongsToFile	12	2	1
+InheritsFrom	13	"FooTest->CppUnit::TestCase"	10	11
+Method	14	"FooTest.testFoo()"
+Method	16	"CppUnit::TestCase.tearDown()"
+Method	18	"CppUnit::TestCase.~TestCase()"
+Method	20	"UUT.git()"
+Method	21	"CppUnit::TestCase.getName()"
+Method	23	"CppUnit::TestCase.TestCase(std::string)"
+Method	24	"CppUnit::TestCase.TestCase()"
+Method	25	"CppUnit::TestCase.toString()"
+Method	27	"UUT.foo()"
+Method	28	"CppUnit::TestCase.run(TestResult*)"
+Method	29	"CppUnit::TestCase.run()"
+Method	30	"CppUnit::TestCase.setUp()"
+Method	32	"UUT.fal()"
+Method	34	"UUT.bar()"
+Method	35	"UUT.baz()"
+Method	36	"CppUnit::TestCase.runTest()"
+Method	37	"CppUnit::TestCase.defaultResult()"
+Method	38	"CppUnit::TestCase.countTestCases()"
+MethodBelongsToClass	14	10
+MethodBelongsToClass	16	11
+MethodBelongsToClass	18	11
+MethodBelongsToClass	20	12
+MethodBelongsToClass	21	11
+MethodBelongsToClass	23	11
+MethodBelongsToClass	24	11
+MethodBelongsToClass	25	11
+MethodBelongsToClass	27	12
+MethodBelongsToClass	28	11
+MethodBelongsToClass	29	11
+MethodBelongsToClass	30	11
+MethodBelongsToClass	32	12
+MethodBelongsToClass	34	12
+MethodBelongsToClass	35	12
+MethodBelongsToClass	36	11
+MethodBelongsToClass	37	11
+MethodBelongsToClass	38	11
+Visibility	14	"public"
+Visibility	16	"public"
+Visibility	18	"public"
+Visibility	20	"public"
+Visibility	21	"public"
+Visibility	23	"public"
+Visibility	24	"public"
+Visibility	25	"public"
+Visibility	27	"public"
+Visibility	28	"public"
+Visibility	29	"public"
+Visibility	30	"public"
+Visibility	32	"public"
+Visibility	34	"public"
+Visibility	35	"public"
+Visibility	36	"protected"
+Visibility	37	"protected"
+Visibility	38	"public"
+Signature	14	"testFoo()"
+Signature	16	"tearDown()"
+Signature	18	"~TestCase()"
+Signature	20	"git()"
+Signature	21	"getName()"
+Signature	23	"TestCase(std::string)"
+Signature	24	"TestCase()"
+Signature	25	"toString()"
+Signature	27	"foo()"
+Signature	28	"run(TestResult*)"
+Signature	29	"run()"
+Signature	30	"setUp()"
+Signature	32	"fal()"
+Signature	34	"bar()"
+Signature	35	"baz()"
+Signature	36	"runTest()"
+Signature	37	"defaultResult()"
+Signature	38	"countTestCases()"
+Attribute	39	"FooTest.uut"
+AttributeBelongsToClass	39	10
+HasType	39	12
+Function	17	"CPPUNIT_ASSERT_MESSAGE(std::string,boolean)"
+Function	19	"CPPUNIT_ASSERT_EQUAL_MESSAGE(string,T,T)"
+Function	22	"CPPUNIT_FAIL(std::string)"
+Function	26	"CPPUNIT_ASSERT_EQUAL(T,T)"
+Function	31	"CPPUNIT_ASSERT(boolean)"
+Function	33	"CPPUNIT_ASSERT_DOUBLES_EQUAL(double,double,double)"
+InvokableEntityBelongsToFile	14	1	8
+InvokableEntityBelongsToFile	16	3	32
+InvokableEntityBelongsToFile	18	3	24
+InvokableEntityBelongsToFile	20	2	7
+InvokableEntityBelongsToFile	21	3	28
+InvokableEntityBelongsToFile	23	3	22
+InvokableEntityBelongsToFile	24	3	23
+InvokableEntityBelongsToFile	25	3	29
+InvokableEntityBelongsToFile	27	2	3
+InvokableEntityBelongsToFile	28	3	26
+InvokableEntityBelongsToFile	29	3	30
+InvokableEntityBelongsToFile	30	3	31
+InvokableEntityBelongsToFile	32	2	4
+InvokableEntityBelongsToFile	34	2	5
+InvokableEntityBelongsToFile	35	2	6
+InvokableEntityBelongsToFile	36	3	36
+InvokableEntityBelongsToFile	37	3	37
+InvokableEntityBelongsToFile	38	3	27
+InvokableEntityBelongsToFile	15	1	13
+InvokableEntityBelongsToFile	17	3	8
+InvokableEntityBelongsToFile	19	3	12
+InvokableEntityBelongsToFile	22	3	9
+InvokableEntityBelongsToFile	26	3	11
+InvokableEntityBelongsToFile	31	3	7
+InvokableEntityBelongsToFile	33	3	10
+DefinitionForDeclaration	15	14
+Invokes	60	15	34
+Invokes	61	15	34
+Invokes	62	15	34
+Invokes	63	15	34
+Invokes	64	15	35
+Invokes	65	15	35
+Invokes	66	15	35
+Invokes	67	15	35
+Invokes	68	15	32
+Invokes	69	15	32
+Invokes	70	15	32
+Invokes	71	15	32
+Invokes	72	15	27
+Invokes	73	15	27
+Invokes	74	15	27
+Invokes	75	15	27
+Invokes	76	15	20
+Invokes	77	15	20
+Invokes	78	15	20
+Invokes	79	15	20
+LineNo	60	1	16
+LineNo	61	1	22
+LineNo	62	1	28
+LineNo	63	1	34
+LineNo	64	1	17
+LineNo	65	1	23
+LineNo	66	1	29
+LineNo	67	1	35
+LineNo	68	1	15
+LineNo	69	1	21
+LineNo	70	1	27
+LineNo	71	1	33
+LineNo	72	1	14
+LineNo	73	1	20
+LineNo	74	1	26
+LineNo	75	1	32
+LineNo	76	1	18
+LineNo	77	1	24
+LineNo	78	1	30
+LineNo	79	1	36
+Accesses	40	15	39
+Accesses	41	15	39
+Accesses	42	15	39
+Accesses	43	15	39
+Accesses	44	15	39
+Accesses	45	15	39
+Accesses	46	15	39
+Accesses	47	15	39
+Accesses	48	15	39
+Accesses	49	15	39
+Accesses	50	15	39
+Accesses	51	15	39
+Accesses	52	15	39
+Accesses	53	15	39
+Accesses	54	15	39
+Accesses	55	15	39
+Accesses	56	15	39
+Accesses	57	15	39
+Accesses	58	15	39
+Accesses	59	15	39
+LineNo	40	1	14
+LineNo	41	1	15
+LineNo	42	1	16
+LineNo	43	1	17
+LineNo	44	1	18
+LineNo	45	1	20
+LineNo	46	1	21
+LineNo	47	1	22
+LineNo	48	1	23
+LineNo	49	1	24
+LineNo	50	1	26
+LineNo	51	1	27
+LineNo	52	1	28
+LineNo	53	1	29
+LineNo	54	1	30
+LineNo	55	1	32
+LineNo	56	1	33
+LineNo	57	1	34
+LineNo	58	1	35
+LineNo	59	1	36
+entityBelongsToBlock	11	7
+entityBelongsToBlock	16	7
+entityBelongsToBlock	18	7
+entityBelongsToBlock	19	7
+entityBelongsToBlock	21	7
+entityBelongsToBlock	23	7
+entityBelongsToBlock	24	7
+entityBelongsToBlock	25	7
+entityBelongsToBlock	26	7
+entityBelongsToBlock	28	7
+entityBelongsToBlock	29	7
+entityBelongsToBlock	30	7
+entityBelongsToBlock	33	7
+entityBelongsToBlock	36	7
+entityBelongsToBlock	37	7
+entityBelongsToBlock	38	7
+Measurement	80	14	"CC"	1
+Measurement	81	14	"NOS"	20
+Measurement	82	14	"LOC"	25
