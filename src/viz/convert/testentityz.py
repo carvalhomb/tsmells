@@ -224,4 +224,4 @@ class TestTeardowns(TestMethodz):
         TestMethodz.__init__(self, "TestTeardown")
         self.entityType = "testfixture"
 
-contract.checkmod(__name__)
+#contract.checkmod(__name__)

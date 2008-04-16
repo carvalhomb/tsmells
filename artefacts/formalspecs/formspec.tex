@@ -67,16 +67,14 @@ In the following a couple of symbols are, unless overriden, inheritly bound:
  \item $tm$ is a test command, ie $tm\ \epsilon\ TM$
  \item $th$ is a test helper,  ie $tm\ \epsilon\ TH$
  \item $te$ is a test command or helper, ie $te\ \epsilon\ TM \cup TH$
- \item $TTH(tm)$ is the set of all test helpers invoked by command tm, directly or nested in other helpers
-\[TTH(tm)=\bigcup_{i=0}^{\infty}TH_{i}(tm)\]
- \item $TIM_{c}(tm)$ is the set of all framework checker method invocations in commmand tm. either directly or indirectly through test helpers.
-\[TIM_{c}(tm)= IM_{c}(tm)\ \bigcup\ \bigcup_{t\ \epsilon\ TTH(tm)}IM_{c}(t)\ \]
 
 \end{itemize}
 
 \section{Assertionless}
-A test command is assertionless if it does not invoke framework checker methods, either direct or indirect. These commands are useless and potentially misleading, thus should be avoided, tagged or at least enumerated. 
+A test command is assertionless if it does not invoke framework checker methods, either direct or indirect. These commands are useless and potentially misleading, thus should be avoided, tagged or at least enumerated.  $TTH(tm)$ is the set of all test helpers invoked by command tm, directly or nested in other helpers. $TIM_{c}(tm)$ is the set of all framework checker method invocations in commmand tm. either directly or indirectly through test helpers.
 
+\[TTH(tm)=\bigcup_{i=0}^{\infty}TH_{i}(tm)\]
+\[TIM_{c}(tm)= IM_{c}(tm)\ \bigcup\ \bigcup_{t\ \epsilon\ TTH(tm)}IM_{c}(t)\ \]
 \[ALESS=\{\ tm\ |\ TIM_{c}(tm)\  =\ \phi \}\]
 
 \section{Assertion Roulette}

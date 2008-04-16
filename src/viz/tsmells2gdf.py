@@ -52,6 +52,7 @@ class EntityConverter():
             splitted = [filterComma(elem.strip('"')) for elem in line.split('\t')]
             if splitted[-1] == '\n': splitted = splitted[:-1]
             #dispatch
+            #print splitted
             try: self.entities[splitted[0] + "s"].parse(splitted)
             except KeyError, e:
                 continue
@@ -97,7 +98,7 @@ class EntityConverter():
         cPickle.dump(metricDict, output)
         output.close()
 
-contract.checkmod(__name__)
+#contract.checkmod(__name__)
 
 def usage():
     print "usage " + sys.argv[0] + " <tsmell-dump> <testsuite> [<src-root>]"

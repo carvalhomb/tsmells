@@ -34,8 +34,8 @@ def isCount(toCheck):
     """ verify if toCheck is a legal count
         counts should be integers and positive """
     try:
-        int(toCheck)
-        return int(toCheck) >= 0
+        val = int(toCheck)
+        return (val >= 0) or (val == -1)
 
     except:
         return False
@@ -61,4 +61,4 @@ class SourceEntityz(object):
     def appendMetricInfo(self, metricDict):
         pass
 
-contract.checkmod(__name__)
+#contract.checkmod(__name__)

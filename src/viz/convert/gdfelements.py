@@ -99,4 +99,4 @@ class Edge():
 		output.write('edgedef>node1,node2,directed,visible,color\n')
 	writeHeader = staticmethod(writeHeader)
 
-contract.checkmod(__name__)
+#contract.checkmod(__name__)

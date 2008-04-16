@@ -470,4 +470,4 @@ class DuplicatedCodes(object):
             smellMtr[key]['ANrSL'] = self.calculateANrSL(duplicate)
             cnt += 1
 
-contract.checkmod(__name__)
+#contract.checkmod(__name__)

@@ -68,10 +68,10 @@ MG_CPP_BLACKLIST = "src/dump/rml/provideMysteryBlacklistCppFile.rml"
 # additional smell parameters passed to m4
 PARAMS_DEFAULTS = \
     {
-        AR_TRESH    :"5",
+        AR_TRESH    :"6",
         DC_SCRIPT   :"src/dump/DuplicatedCode.py",
         DC_TRESH    :"6",
-        INDIR_TRESH :"4",
+        INDIR_TRESH :"7",
         MG_BLACK    : 
         {
             "junit-3.x": MG_JAVA_BLACKLIST,
@@ -86,7 +86,7 @@ PARAMS_DEFAULTS = \
         GF_NFOB : "5",
         GF_NFPT : "5",
         GF_NOBU : "5",
-        ET_PTMI : "5",
+        ET_PTMI : "7",
         VT_LOC  : "15"
     }
 

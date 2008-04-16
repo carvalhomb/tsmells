@@ -142,6 +142,7 @@ class Loader(Runnable):
     def __execScripts(self):
         StatusBar.setStatus("initializing scripts")
         TSMELLS_VIZ= os.environ['TSMELLS'] + '/src/viz'
+        execfile(TSMELLS_VIZ + '/gui/TDockable.py')
         execfile(TSMELLS_VIZ + '/gui/TMenu.py')
         execfile(TSMELLS_VIZ + "/gui/Metrics.py")
         execfile(TSMELLS_VIZ + "/gui/GraphViews.py")
@@ -150,6 +151,7 @@ class Loader(Runnable):
         execfile(TSMELLS_VIZ + '/gui/ToSourceContext.py')
         execfile(TSMELLS_VIZ + '/gui/TestSuiteTree.py')
         execfile(TSMELLS_VIZ + '/gui/RescalePanel.py')
+        execfile(TSMELLS_VIZ + '/gui/SmellHitLists.py')
 
     #
     # Initialize the GUI
@@ -166,6 +168,7 @@ class Loader(Runnable):
         RescalePanel()
         TestSuitePanel()
         SmellIdentiKitPanel(srcDict, metricDict)
+        SmellHitLists()
 
     def __constructContextActions(self):
         global srcDict
@@ -177,8 +180,6 @@ class Loader(Runnable):
         addWriteMetricsAction()
         addViewCaseAction()
         addViewCase2Action()
-        addViewCase3Action()
-        addViewCase4Action()
 
 #-----------------------------------------------------------------------
 #--  entry point

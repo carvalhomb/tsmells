@@ -371,10 +371,9 @@ class CloneFinder():
                     # whoops -> found
                     if self.__duplicateHasSuperDuplicate(seq1, seq2, dups):
                         continue
-                    if (int(seq1.end) - int(seq1.start)) + 1 < (self.treshold/2):
-                        print int(seq1.end) - int(seq1.start)
-                        continue
-                    dups.append((seq1, seq2))
+                    if (int(seq1.end) - int(seq1.start)) + 1 > (self.treshold/2):
+                        #print int(seq1.end) - int(seq1.start)
+                        dups.append((seq1, seq2))
             currentLength -= 1
 
         return dups
