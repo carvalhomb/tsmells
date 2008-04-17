@@ -24,9 +24,12 @@ from java.awt            import Rectangle, \
                                 BorderLayout, \
                                 Point,\
                                 GridBagLayout, \
-                                GridBagConstraints
+                                GridBagConstraints, \
+                                Dimension
 from java.awt.event      import MouseEvent, \
-                                ActionListener
+                                ActionListener, \
+                                MouseAdapter, \
+                                ComponentAdapter
 from javax.swing         import JPanel, \
                                 JTable, \
                                 JScrollPane, \
@@ -39,6 +42,10 @@ from javax.swing.table   import AbstractTableModel
 from com.hp.hpl.guess.ui import Dockable, \
                                 GraphMouseListener, \
                                 GraphEvents
+
+#-----------------------------------------------------------------------
+#--  auxiliary functions
+#-----------------------------------------------------------------------
 
 def compAroulRelMetric(x):
     return (x[1]['NrDA']*2 + x[1]['NrA'])
@@ -77,7 +84,23 @@ SmellSorter = \
     }
 
 
+def resizeColumns(table):
+    ''' shrink the smell columns + max out the owner column '''
+    # TODO move this to a JTable subclass?
+    numCols = table.getColumnCount()
+    mtrX = 40 #metric column width
+    for col in range(1, numCols):
+        # resize evrything but the first 'owner' column
+        table.getColumnModel().getColumn(col).setPreferredWidth(mtrX)
+    # resize the first column with the space left
+    table.getColumnModel().getColumn(0).setPreferredWidth(table.getWidth() - mtrX*(numCols -1))
+
+#-----------------------------------------------------------------------
+#--  classes
+#-----------------------------------------------------------------------
+
 class HitListModel(AbstractTableModel):
+    ''' Model for the hitlist table '''
 
     #
     # Constructor
@@ -122,23 +145,13 @@ class HitListModel(AbstractTableModel):
     #
 
     def fill(self, smell):
-        global SmellSorters
-        ''' fill the model with new data '''
+        ''' fill the model with the hitlist for another smell '''
+        global SmellSorters # sort callbacks
         self.__reset()
         if SmellSorter.has_key(smell):
-            # this is a smell with associated numerical metrics,
-            # go ahead and sort on that
-            smells = metricDict[smell].items() # eg [(AssertionRoulette3, {'NrA': 6, 'NrDA': 6}), (AssertionRoulette2]
-            smells.sort(SmellSorter[smell])
+            smells = self.__sortOnMetrics(smell)
         else:
-            # no sorter defined, use the nrof occurence in testcases
-            smells = []
-            for case in (entity == 'testcase'):
-                 nrofSmells = len((case->g.nodes).destination->(label == smell))
-                 if nrofSmells != 0:
-                    smells.append((case.name, {'NrOf' : nrofSmells}))
-            smells.sort(caseNrofSort)
-
+            smells = self.__sortOnOccurenceInTestcase(smell)
         self.__initMetrics(smells)
         for i in range(0, 30):
             if i < len(smells):
@@ -149,6 +162,23 @@ class HitListModel(AbstractTableModel):
     #
     # Helpers for fill
     #
+
+    def __sortOnMetrics(self, smellType):
+        # this is a smell with associated numerical metrics,
+        # go ahead and sort on that
+        smells = metricDict[smellType].items() # eg [(AssertionRoulette3, {'NrA': 6, 'NrDA': 6}), (AssertionRoulette2]
+        smells.sort(SmellSorter[smellType])
+        return smells
+
+    def __sortOnOccurenceInTestcase(self, smellType):
+        # no sorter defined, use the nrof occurence in testcases
+        smells = []
+        for case in (entity == 'testcase'):
+            nrofSmells = len((case->g.nodes).destination->(label == smellType))
+            if nrofSmells != 0:
+                smells.append((case.name, {'NrOf' : nrofSmells}))
+        smells.sort(caseNrofSort)
+        return smells
 
     def __fillEmptyRow(self):
         self.smellId.append("")
@@ -164,7 +194,7 @@ class HitListModel(AbstractTableModel):
         self.smellId.append(si[0])
         if not SmellSorter.has_key(smellType) or smellType == "DuplicatedCode":
             self.owner.append(si[0])
-        else: 
+        else:
             self.owner.append(((name == si[0])<-(g.nodes))[0].source.name)
 
     def __initMetrics(self, smells):
@@ -175,12 +205,20 @@ class HitListModel(AbstractTableModel):
 
 class TestCaseTable(JTable):
 
+    #
+    # Constructor
+    #
+
     def __init__(self, model, testcases):
         JTable.__init__(self, model)
         self.model = model
         self.testcases = testcases
         self.lastClicked = None
         self.secondRun = 0
+
+    #
+    # Event callback
+    #
 
     def valueChanged(self, event):
         #javax.swing.JTable(self).valueChanged(event)
@@ -200,31 +238,96 @@ class TestCaseTable(JTable):
         self.secondRun = 1
         self.repaint()
 
+class HitListMouseListener(MouseAdapter):
+    ''' listen for clicks on the smell hit list '''
+
+    #
+    # Event callback
+    #
+
+    def mouseClicked(self, event):
+        table = event.getSource()
+        p = Point(event.getX(), event.getY())
+        row = table.rowAtPoint(p)
+        owner = table.getValueAt(row, 0)
+        if -1 == row : return
+        if event.getClickCount() != 1: return
+        if event.getButton() != MouseEvent.BUTTON3: return
+        tc = self.__extractTestcase(owner)
+        n = self.__extractNode(owner)
+        TreePopup(tc, n).show(table, event.getX(), event.getY())
+
+    def __extractTestcase(self, owner):
+        tc = owner
+        if owner.endswith(')'):
+            tc = owner.split('.')[0]
+        tc = ((name == tc) & (entity == 'testcase'))
+        if len(tc): return tc[0]
+        else : return None
+
+    def __extractNode(self, owner):
+        n = (name == owner)
+        if len(n): return n[0]
+        else : return None
+
+class PanelSizeChangeListener(ComponentAdapter):
+
+    #
+    # Constructor
+    #
+
+    def __init__(self, table):
+        self.table = table
+
+    #
+    # Event callback
+    #
+
+    def componentResized(self, event):
+        print event
+        comp = event.getComponent()
+        self.table.setSize(Dimension(comp.getWidth()-18, self.table.getHeight()))
+        resizeColumns(self.table)
+        self.table.revalidate()
+        self.table.repaint()
+
 class DropDownListener(ActionListener):
+    ''' Smell selector dropdown listener, initiates a recalculation of the hitlist '''
+
+    #
+    # Constructor
+    #
+
     def __init__(self, table):
         self.tableModel = table.getModel()
         self.table = table
 
+    #
+    # Event callback
+    #
+
     def actionPerformed(self, event):
         item = event.getSource().getSelectedItem()
-        print item
-        self.tableModel.fill(item)
-        self.tableModel.fireTableStructureChanged()
-        self.tableModel.fireTableDataChanged()
-        self.__resizeColumns()
 
-    def __resizeColumns(self):
-       numCols = self.table.getColumnCount()
-       mtrX = 40 #metric column width
-       for col in range(1, numCols):
-           # resize evrything but the first 'owner' column
-           self.table.getColumnModel().getColumn(col).setPreferredWidth(mtrX)
-       # resize the first column with the space left
-       self.table.getColumnModel().getColumn(0).setPreferredWidth(self.table.getWidth() - mtrX*(numCols -1))
+        self.tableModel.fill(item)
+        self.table.setSize(Dimension(self.table.getParent().getParent().getParent().getWidth()-18, self.table.getHeight()))
+        resizeColumns(self.table)
+        self.table.revalidate()
+        self.table.repaint()
 
 class RadioListener(ActionListener):
+    # not used at the moment.
+
+    #
+    # Constructor
+    #
+
     def __init__(self, model):
         self.tableModel = model
+
+    #
+    # Event callback
+    #
 
     def actionPerformed(self, event):
         actionCmd = event.getActionCommand()
@@ -232,6 +335,10 @@ class RadioListener(ActionListener):
             self.tableModel.setMode(actionCmd)
 
 class SmellHitLists(TDockable, GraphMouseListener):
+
+    #
+    # Constructor
+    #
 
     def __init__(self):
         GraphEvents.getGraphEvents().addGraphMouseListener(self)
@@ -243,8 +350,10 @@ class SmellHitLists(TDockable, GraphMouseListener):
         #self.__initRadioCaseCmd()
         ui.dock(self)
 
-    def getTitle(self):
-        return "smell top"
+
+    #
+    # Construction of smell-selector dropdown menu
+    #
 
     def __initDropDownBox(self, table):
         smells = [ x[0].label for x in groupBy((entity == 'smell'), label)]
@@ -252,6 +361,48 @@ class SmellHitLists(TDockable, GraphMouseListener):
         dropdown = JComboBox(jarray.array(smells, String))
         dropdown.addActionListener(DropDownListener(table))
         self.add(dropdown, self.__createDropDownConstraints())
+
+    #
+    # Construction of radio buttons
+    #
+
+    def __initRadioCaseCmd(self):
+        # dead
+        listener = RadioListener(self)
+        cases = self.__addRadioButton("cases", listener)
+        cmds  = self.__addRadioButton("commands", listener)
+
+        group = ButtonGroup()
+        group.add(cases)
+        group.add(cmds)
+        cases.setSelected(1)
+
+    #
+    # Construction of the hit-list table
+    #
+
+    def __initTable(self):
+        table = JTable(HitListModel())
+        scrollpane = JScrollPane(table)
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF)
+        table.addMouseListener(HitListMouseListener())
+        self.add(scrollpane, self.__createTableConstraints())
+        scrollpane.addComponentListener(PanelSizeChangeListener(table))
+        return table
+
+    #
+    # All kinds of helpers
+    #
+
+    def __createTableConstraints(self):
+        constr = GridBagConstraints()
+        constr.fill = GridBagConstraints.BOTH
+        constr.weighty = 1000
+        constr.weightx = 2
+        constr.gridwidth = 4
+        constr.gridx = 0
+        constr.gridy = 2
+        return constr
 
     def __createDropDownConstraints(self):
         constr = GridBagConstraints()
@@ -279,53 +430,9 @@ class SmellHitLists(TDockable, GraphMouseListener):
         self.add(button, self.__createRadioConstraints(label))
         return button
 
-    def __initRadioCaseCmd(self):
-        listener = RadioListener(self)
-        cases = self.__addRadioButton("cases", listener)
-        cmds  = self.__addRadioButton("commands", listener)
+    #
+    # Panel title
+    #
 
-        group = ButtonGroup()
-        group.add(cases)
-        group.add(cmds)
-        cases.setSelected(1)
-
-    def __initTable(self):
-        table = JTable(HitListModel())
-        scrollpane = JScrollPane(table)
-        constr = GridBagConstraints()
-        constr.fill = GridBagConstraints.BOTH
-        constr.weighty = 1000
-        constr.weightx = 2
-        constr.gridwidth = 4
-        constr.gridx = 0
-        constr.gridy = 2
-        self.add(scrollpane, constr)
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        return table
-
-    def getDefaultFrameBounds(self):
-        return Rectangle(50, 50, 300, 600)
-
-    def mouseEnterNode(self, node):
-        ''' callback fired when the mouse cursor enters a node '''
-        global isSelectEnter
-        pass
-        #if node.entity != 'smell': return # only interested in smells
-        #if isSelectEnter: return # a programmatic enter caused by the selection listener
-
-        #srcLocs = []
-        #if self.srcDict.has_key(node.name):
-            #srcLocs = self.srcDict[node.name]
-
-        #metrics = {}
-        #if self.metricDict.has_key(node.label):
-            ## this smell-type has metrics
-            #mtr = self.metricDict[node.label]
-            #if mtr.has_key(node.name):
-                ## this smell has metrics
-                #metrics = mtr[node.name]
-
-        #self.model.fill(node, srcLocs, metrics)
-        #self.updateView()
-
-
+    def getTitle(self):
+        return "smell top"

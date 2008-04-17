@@ -107,42 +107,38 @@ class TreePopup(JPopupMenu):
     # Constructor
     #
 
-    def __init__(self, path):
+    def __init__(self, case, node):
         JPopupMenu.__init__(self, "options")
-        self.path = path
-        self.__addViewCaseAction()
-        self.__addToSourceAction()
-        self.__addWriteMetricsAction()
-
+        #self.path = path
+        self.node = node
+        self.case = case
+        if case:
+            self.__addViewCaseAction()
+        else:
+            print "Debug: case not found"
+        if node:
+            self.__addToSourceAction()
+            self.__addWriteMetricsAction()
+        else:
+            print "Debug: node not found"
     #
     # Menu item constructors
     #
 
     def __addViewCaseAction(self):
-        caseName = extractTestCase(self.path)
-        self.case = (name == caseName) # returns list of nodes
-        if len(self.case) == 0: # try without pkg names
-            self.case = (name == caseName.split('::')[-1])
-
-        if len(self.case): # did we find one?
-            self.case = self.case[0]
-            casev = JMenuItem("viewCase")
-            casev.actionPerformed = self.__showCase
-            self.add(casev)
+        casev = JMenuItem("viewCase")
+        casev.actionPerformed = self.__showCase
+        self.add(casev)
 
     def __addToSourceAction(self):
-        self.node = extractNode(self.path)
-        if self.node:
-            srca = JMenuItem("toSource")
-            srca.actionPerformed = self.__loadSource
-            self.add(srca)
+        srca = JMenuItem("toSource")
+        srca.actionPerformed = self.__loadSource
+        self.add(srca)
 
     def __addWriteMetricsAction(self):
-        self.node = extractNode(self.path)
-        if self.node:
-            mtra = JMenuItem("writeMetrics")
-            mtra.actionPerformed = self.__writeMetrics
-            self.add(mtra)
+        mtra = JMenuItem("writeMetrics")
+        mtra.actionPerformed = self.__writeMetrics
+        self.add(mtra)
 
     #
     # Action callbacks
@@ -173,10 +169,23 @@ class TreeMouseListener(MouseAdapter):
         tree = event.getSource()
         row = tree.getRowForLocation(event.getX(), event.getY())
         path = tree.getPathForLocation(event.getX(), event.getY())
+        if not path: return
+        path = path.getPath()
         if row == -1: return
         if event.getClickCount() != 1: return
         if event.getButton() != MouseEvent.BUTTON3: return
-        TreePopup(path.getPath()).show(tree, event.getX(), event.getY())
+        case = self.__getTestcaseFromPath(path)
+        node = extractNode(path)
+        TreePopup(case, node).show(tree, event.getX(), event.getY())
+
+    def __getTestcaseFromPath(self, path):
+        caseName = extractTestCase(path)
+        case = (name == caseName) # returns list of nodes
+        if len(case) == 0: # try without pkg names
+            case = (name == caseName.split('::')[-1])
+        # node found?
+        if len(case): return case[0]
+        else: return None
 
 class TestSuitePanel(JPanel, Dockable, GraphMouseListener):
     ''' Show an expandable list of the test entites {suites,cases,methods} '''

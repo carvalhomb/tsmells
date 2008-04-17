@@ -38,6 +38,9 @@ class TDockable(JPanel, Dockable):
     def getPreferredSize(self):
         return Dimension(200,600)
 
+    def getDefaultFrameBounds(self):
+        return Rectangle(50, 50, 300, 600)
+
     def getDirectionPreference(self):
         ''' prefer vertical orientation '''
         return 2 # vertical, see com.hp.hpl.guess.ui.MainUIWindow.java
