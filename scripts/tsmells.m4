@@ -28,6 +28,7 @@
 define(`DUMP_DIR',TSMELLS`/src/dump/rml/')
 define(`TSMELLS_LOG', tsmells.log)
 define(`TSMELLS_TMP', _now_tmp)
+define(`TSMELLS_TMP2', _now_tmp_2)
 define(`TIMER', ` [$(TSMELLS`/scripts/timer.sh' TSMELLS_TMP) s] >> TSMELLS_LOG')
 define(`ECHO', echo '->' )
 define(`START_TIMER2', `date +%s > TSMELLS_TMP2')
@@ -39,11 +40,20 @@ EXEC "ECHO RSF loaded TIMER";
 
 PRINT "(02) extracting xUnit entities ... ", ENDL TO STDERR;
 include(XUNIT_INIT)
+EXEC "ECHO xUnit initialized TIMER";
 include(DUMP_DIR`provideCount.rml')
 include(DUMP_DIR`initAuxiliary.rml')
+EXEC "ECHO auxiliary relations TIMER";
 ifdef(`DUMP_TEST_ENTITIES', 
     `include(DUMP_DIR`writeTestEntities.rml')' , `')
-EXEC "ECHO xUnit initializated TIMER";
+EXEC "ECHO xUnit dumped to file TIMER";
+
+ifdef(`DUPLICATED_CODE',
+    `PRINT "(05) DuplicatedCode ... ", ENDL TO STDERR;'
+    `include(DUMP_DIR`computeDuplicatedCode.rml')'
+    EXEC "ECHO DuplicatedCode TIMER";
+,
+    `')
 
 ifdef(`ASSERTIONLESS',
     `PRINT "(03) AssertionLess ... ", ENDL TO STDERR;'
@@ -56,13 +66,6 @@ ifdef(`ASSERTION_ROULETTE',
     `PRINT "(04) AssertionRoulette ... ", ENDL TO STDERR;'
     `include(DUMP_DIR`computeAssertionRoulette.rml')'
     EXEC "ECHO AssertionRoulette TIMER";
-,
-    `')
-
-ifdef(`DUPLICATED_CODE',
-    `PRINT "(05) DuplicatedCode ... ", ENDL TO STDERR;'
-    `include(DUMP_DIR`computeDuplicatedCode.rml')'
-    EXEC "ECHO DuplicatedCode TIMER";
 ,
     `')
 
@@ -129,4 +132,4 @@ ifdef(`VERBOSE_TEST',
 ,
     `')
 
-EXEC "rm -f TSMELLS_TMP";
+EXEC "rm -f TSMELLS_TMP TSMELLS_TMP2";

@@ -42,7 +42,7 @@ TestCaseId(tcid) :=
             File(qtestid, qtest) &
             @"QtTest"(qtest));
 
-PRINT TestCaseId(x);
+//PRINT TestCaseId(x);
 
 TestMethodId(x) := 
     EX(y,

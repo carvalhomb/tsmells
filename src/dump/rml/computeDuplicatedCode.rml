@@ -18,17 +18,19 @@
  * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
  */
 
+EXEC "START_TIMER2";
 
 /**
  * Duplication in tests is nefast, introduce helpers or 
  * move to fixture.
  **/
 
-TestMethodNoGarb(id) :=
-        TestCommandId(id) |
-        TestHelperId(id) |
-        TestSetupId(id) |
-        TestTeardownId(id);
+TestMethodNoGarb(id_) :=
+        TestCommandId(id_) |
+        TestHelperId(id_) |
+        TestSetupId(id_) |
+        TestTeardownId(id_);
+EXEC "ECHO2 TestMethodNoGarb computed TIMER2";
 
 /**
  * The invocations of a testmethod with
@@ -42,25 +44,19 @@ TestMethodNoGarb(id) :=
  * @col inv:    qualified invokee name
  * @col file:   filename
  **/
-// NOTE assertion's are removed since sequences of them
-// result in (loads of) false positives
-ComInvoke(tcid, iid, invid, line, tcx, inv, file) := 
-   EX(x, fid, def,
-             // TestMethodId(tcid) &
-              TestMethodNoGarb(tcid) &
-              PureInvokes(iid, tcid, invid) & 
-              //InvocationLocation(iid, _, line) &
-              LineNo(iid, _, line) &
-              DefinitionForDeclaration(def, tcid) &
-              InvokableEntityBelongsToFile(def,fid, x) &
-              Method(tcid,tcx) &
-              (Method(invid, inv) | Function(invid, inv)) &
-              File(fid, file) &
-              !TestChecker(invid)
-     );
+ComInvoke(iid, tcid_, invid, line_, inv, tcx, file_) :=
+    PureInvokes(iid, tcid_, invid) & 
+    TestMethodNoGarb(tcid_) &
+    LineNo(iid, _, line_) &
+    (Method(invid, inv) | Function(invid, inv)) &
+    TestEntityInfo(tcid_, tcx, file_, _) &
+    !TestChecker(invid);
 
+
+EXEC "ECHO2 ComInvoke computed TIMER2";
 EXEC "rm -rf tmp_duplic_code__";
 PRINT ["ComInvoke"] ComInvoke(a_dc,b_dc,c_dc,d_dc,e_dc,f_dc,g_dc) TO "tmp_duplic_code__";
+EXEC "ECHO2 ComInvoke printed TIMER2";
 
 /**
  * The accesses of a testmethod, with
@@ -74,23 +70,22 @@ PRINT ["ComInvoke"] ComInvoke(a_dc,b_dc,c_dc,d_dc,e_dc,f_dc,g_dc) TO "tmp_duplic
  * @col att:   qualified attribute name
  * @col file:  filename
  **/
-ComAccess(tcid_ca, aid, attid, line2, tc2, att, file2) := 
-   EX(x, fid, attrid, def,
-              //TestMethodId(tcid_ca) & 
-              TestMethodNoGarb(tcid_ca) &
-              PureAccesses(aid, tcid_ca, attrid) & 
-              //AccessLocation(aid, _, line2) &
-              LineNo(aid, _, line2) &
-              DefinitionForDeclaration(def, tcid_ca) &
-              InvokableEntityBelongsToFile(def,fid, x) &
-              Method(tcid_ca,tc2) &
-              Attribute(attrid, att) &
-              HasType(attrid, attid) &
-              File(fid, file2)
-     );
 
+ComAccess(aid, tcid_ca, attid, line2, att, tc2, file2) := 
+   EX(attrid,
+        PureAccesses(aid, tcid_ca, attrid) &
+        TestMethodNoGarb(tcid_ca) &
+        LineNo(aid, _, line2) &
+        Attribute(attrid, att) &
+        HasType(attrid, attid) &
+        TestEntityInfo(tcid_ca, tc2, file2, _)
+   );
+
+EXEC "ECHO2 ComAccess computed TIMER2";
 PRINT ["ComAccess"] ComAccess(a_dc,b_dc,c_dc,d_dc,e_dc,f_dc,g_dc) TO "tmp_duplic_code__";
+EXEC "ECHO2 ComAccess printed TIMER2";
 
 // now execute a python script which computes the clones
-EXEC "python DUPLICATED_CODE_PYGEN tmp_duplic_code__ DUPLICATED_CODE_TRESHOLD";
+EXEC "python DUPLICATED_CODE_PYGEN tmp_duplic_code__ DUPLICATED_CODE_TRESHOLD &";
 //EXEC "rm -rf tmp_duplic_code__";
+EXEC "ECHO2 DuplicatedCode.py executed TIMER2";

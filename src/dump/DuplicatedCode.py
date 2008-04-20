@@ -140,9 +140,14 @@ class RsfReader():
         ''' add the information from a single line '''
         #ComInvoke;11;217;178;7;MyTest.testOne();Uut.a();MyTest.java
         #         invokerid, iid  invokeeid, line, tc, invo,  file
+
         splitted = line[:-1].split('\t')
-        mtdName  = splitted[5].strip('"')
-        mtdId    = int(splitted[1])
+        #mtdName  = splitted[5].strip('"')
+        #mtdId    = int(splitted[1])
+        #fileName = splitted[7].strip('"')
+
+        mtdName  = splitted[6].strip('"')
+        mtdId    = int(splitted[2])
         fileName = splitted[7].strip('"')
 
         if not mtds.has_key(mtdId):
@@ -151,7 +156,11 @@ class RsfReader():
         mtd = mtds[mtdId]
 
         # add the reference
-        ref = Reference(splitted[2], splitted[4], splitted[3], splitted[6])
+        refId    = splitted[1]
+        lineNr   = splitted[4]
+        targetId = splitted[3]
+        targetNm = splitted[5]
+        ref = Reference(refId, lineNr, targetId, targetNm)
         mtd.addReference(ref)
 
 class Sequence():
@@ -424,12 +433,14 @@ class DuplicatePrinter():
 
     def briefCsvSquashed(self, clones):
         delim = "\t"
+        f = open("DUPLI_TMP", "w")
         for clone in clones.itervalues():
             line = "DuplicatedCode"
             for sloc in clone:
                 line += delim + sloc[0].getName() + delim + sloc[0].getSrcFile() +\
                         delim + str(sloc[1]) + delim + str(sloc[2])
-            print line
+            f.write(line + "\n")
+        f.close()
 
 def partition(mtd, minLength=1):
     ''' Compute all sublists which form a sequence
@@ -480,11 +491,13 @@ def dump_dupli(toDump):
 
 if __name__=='__main__':
     import sys
+    import os
     rsf = open(sys.argv[1])
     tresh = 5
     if len(sys.argv) > 2:
         tresh = int(sys.argv[2])
 
+    os.system("rm -f DUPLI_DONE")
     reader = RsfReader()
     mtds = reader.parse(rsf)
     cf = CloneFinder(tresh)
@@ -493,3 +506,4 @@ if __name__=='__main__':
     #dp.briefCsv(dupli)
     dupli = cf.squashCombinations(dupli)
     dp.briefCsvSquashed(dupli)
+    os.system("touch DUPLI_DONE")

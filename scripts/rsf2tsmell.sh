@@ -22,6 +22,14 @@ cat $1 | \
 crocopat -m $MEM $RML 2>&1 > "$RES" |\
 grep -Ev \(FALSE\|^Warning\|^used\)
 
+# wait for python duplicated code script to finish
+while [ ! -f "DUPLI_DONE" ]
+do
+    echo "."
+    sleep 1
+done
+cat "DUPLI_TMP" >> "$RES"
+
 echo "" >> $LOG
 echo  -n "[ AL:`grep -c ^AssertionLess $RES`"      | tee -a $LOG
 echo  -n " AR:`grep -c ^AssertionRoulette $RES`"   | tee -a $LOG

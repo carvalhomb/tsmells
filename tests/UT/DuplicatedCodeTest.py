@@ -103,33 +103,33 @@ class RsfInvoFixtureBuilder():
         #test command id; reference id;  target id / type id; line number; testcommand name; target name; filename
 
         self.inv11  = Reference(217, 7,  178, "Uut.a()")
-        self.line11 = 'ComInvoke\t11\t217\t178\t7\tMyTest.testOne()\tUut.a()\tMyTest.java\n'
+        self.line11 = 'ComInvoke\t217\t11\t178\t7\tUut.a()\tMyTest.testOne()\tMyTest.java\n'
         self.inv12  = Reference(219, 8, 180, "Uut.b()")
-        self.line12 = 'ComInvoke\t11\t219\t180\t8\tMyTest.testOne()\tUut.b()\tMyTest.java\n'
+        self.line12 = 'ComInvoke\t219\t11\t180\t8\tUut.b()\tMyTest.testOne()\tMyTest.java\n'
         self.inv13  = Reference(221,9,182,"Uut.c()")
-        self.line13 = 'ComInvoke\t11\t221\t182\t9\tMyTest.testOne()\tUut.c()\tMyTest.java\n'
+        self.line13 = 'ComInvoke\t221\t11\t182\t9\tUut.c()\tMyTest.testOne()\tMyTest.java\n'
         self.inv14  = Reference(223,10,184,"Uut.d()")
-        self.line14 = 'ComInvoke\t11\t223\t184\t10\tMyTest.testOne()\tUut.d()\tMyTest.java\n'
+        self.line14 = 'ComInvoke\t223\t11\t184\t10\tUut.d()\tMyTest.testOne()\tMyTest.java\n'
         self.inv15  = Reference(225,11,186,"Uut.e()")
-        self.line15 = 'ComInvoke\t11\t225\t186\t11\tMyTest.testOne()\tUut.e()\tMyTest.java\n'
+        self.line15 = 'ComInvoke\t225\t11\t186\t11\tUut.e()\tMyTest.testOne()\tMyTest.java\n'
         self.inv16  = Reference(227, 12, 188, "Uut.f()")
-        self.line16 = 'ComInvoke\t11\t227\t188\t12\tMyTest.testOne()\tUut.f()\tMyTest.java\n'
+        self.line16 = 'ComInvoke\t227\t11\t188\t12\tUut.f()\tMyTest.testOne()\tMyTest.java\n'
         self.inv1   = [self.inv11,  self.inv12,  self.inv13,  self.inv14,  self.inv15,  self.inv16]
         self.lines1 = [self.line11, self.line12, self.line13, self.line14, self.line15, self.line16]
 
         self.mtd2   = TestMethod(13, "MyTest.testTwo()", "MyTest.java")
         self.inv21  = Reference(218, 16, 178, "Uut.a()")
-        self.line21 = 'ComInvoke\t13\t218\t178\t16\tMyTest.testTwo()\tUut.a()\tMyTest.java\n'
+        self.line21 = 'ComInvoke\t218\t13\t178\t16\tUut.a()\tMyTest.testTwo()\tMyTest.java\n'
         self.inv22  = Reference(220, 17, 180, "Uut.b()")
-        self.line22 = 'ComInvoke\t13\t220\t180\t17\tMyTest.testTwo()\tUut.b()\tMyTest.java\n'
+        self.line22 = 'ComInvoke\t220\t13\t180\t17\tUut.b()\tMyTest.testTwo()\tMyTest.java\n'
         self.inv23  = Reference(222,18,182,"Uut.c()")
-        self.line23 = 'ComInvoke\t13\t222\t182\t18\tMyTest.testTwo()\tUut.c()\tMyTest.java\n'
+        self.line23 = 'ComInvoke\t222\t13\t182\t18\tUut.c()\tMyTest.testTwo()\tMyTest.java\n'
         self.inv24  = Reference(224,19,184,"Uut.d()")
-        self.line24 = 'ComInvoke\t13\t224\t184\t19\tMyTest.testTwo()\tUut.d()\tMyTest.java\n'
+        self.line24 = 'ComInvoke\t224\t13\t184\t19\tUut.d()\tMyTest.testTwo()\tMyTest.java\n'
         self.inv25  = Reference(226,20,186,"Uut.e()")
-        self.line25 = 'ComInvoke\t13\t226\t186\t20\tMyTest.testTwo()\tUut.e()\tMyTest.java\n'
+        self.line25 = 'ComInvoke\t226\t13\t186\t20\tUut.e()\tMyTest.testTwo()\tMyTest.java\n'
         self.inv26  = Reference(228,21,188,"Uut.f()")
-        self.line26 = 'ComInvoke\t13\t228\t188\t21\tMyTest.testTwo()\tUut.f()\tMyTest.java\n'
+        self.line26 = 'ComInvoke\t228\t13\t188\t21\tUut.f()\tMyTest.testTwo()\tMyTest.java\n'
         self.inv2   = [self.inv21,  self.inv22,  self.inv23,  self.inv24,  self.inv25,  self.inv26]
         self.lines2 = [self.line21, self.line22, self.line23, self.line24, self.line25, self.line26]
 
@@ -244,9 +244,9 @@ class CloneFinderTest(TestCase, RsfInvoFixtureBuilder):
 
     def testCloneInSelf(self):
         ''' A method where the first half is identical to the second'''
-        self.lines1[3] = 'ComInvoke\t11\t223\t178\t10\tMyTest.testOne()\tUut.a()\tMyTest.java\n'
-        self.lines1[4] = 'ComInvoke\t11\t225\t180\t11\tMyTest.testOne()\tUut.b()\tMyTest.java\n'
-        self.lines1[5] = 'ComInvoke\t11\t227\t182\t13\tMyTest.testOne()\tUut.c()\tMyTest.java\n'
+        self.lines1[3] = 'ComInvoke\t223\t11\t178\t10\tUut.a()\tMyTest.testOne()\tMyTest.java\n'
+        self.lines1[4] = 'ComInvoke\t225\t11\t180\t11\tUut.b()\tMyTest.testOne()\tMyTest.java\n'
+        self.lines1[5] = 'ComInvoke\t227\t11\t182\t13\tUut.c()\tMyTest.testOne()\tMyTest.java\n'
         self.inv1[3] = Reference(223, 10, 178, "Uut.a()")
         self.inv1[4] = Reference(225, 11, 180, "Uut.b()")
         self.inv1[5] = Reference(227, 13, 182, "Uut.c()")
@@ -271,17 +271,17 @@ class CloneSquashingTest(TestCase, RsfInvoFixtureBuilder):
     def setUpThirdMethod(self):
         self.mtd3   = TestMethod(15, "MyTest.testThree()", "MyTest.java")
         self.inv31  = Reference(230,30,178, "Uut.a()")
-        self.line31 = 'ComInvoke\t15\t230\t178\t30\tMyTest.testThree()\tUut.a()\tMyTest.java\n'
+        self.line31 = 'ComInvoke\t230\t15\t178\t30\tUut.a()\tMyTest.testThree()\tMyTest.java\n'
         self.inv32  = Reference(231,31,180, "Uut.b()")
-        self.line32 = 'ComInvoke\t15\t231\t180\t31\tMyTest.testThree()\tUut.b()\tMyTest.java\n'
+        self.line32 = 'ComInvoke\t231\t15\t180\t31\tUut.b()\tMyTest.testThree()\tMyTest.java\n'
         self.inv33  = Reference(232,32,182,"Uut.c()")
-        self.line33 = 'ComInvoke\t15\t232\t182\t32\tMyTest.testThree()\tUut.c()\tMyTest.java\n'
+        self.line33 = 'ComInvoke\t232\t15\t182\t32\tUut.c()\tMyTest.testThree()\tMyTest.java\n'
         self.inv34  = Reference(233,33,184,"Uut.d()")
-        self.line34 = 'ComInvoke\t15\t233\t184\t33\tMyTest.testThree()\tUut.d()\tMyTest.java\n'
+        self.line34 = 'ComInvoke\t233\t15\t184\t33\tUut.d()\tMyTest.testThree()\tMyTest.java\n'
         self.inv35  = Reference(234,34,186,"Uut.e()")
-        self.line35 = 'ComInvoke\t15\t234\t186\t34\tMyTest.testThree()\tUut.e()\tMyTest.java\n'
+        self.line35 = 'ComInvoke\t234\t15\t186\t34\tUut.e()\tMyTest.testThree()\tMyTest.java\n'
         self.inv36  = Reference(235,35,188,"Uut.f()")
-        self.line36 = 'ComInvoke\t15\t235\t188\t35\tMyTest.testThree()\tUut.f()\tMyTest.java\n'
+        self.line36 = 'ComInvoke\t235\t15\t188\t35\tUut.f()\tMyTest.testThree()\tMyTest.java\n'
         self.inv3   = [self.inv31,  self.inv32,  self.inv33,  self.inv34,  self.inv35,  self.inv36]
         self.lines3 = [self.line31, self.line32, self.line33, self.line34, self.line35, self.line36]
 

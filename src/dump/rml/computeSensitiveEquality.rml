@@ -22,37 +22,49 @@
  * Detection of 'toString' in test commands and helpers
  **/
 
-// TODO paremeterize this with a blacklist
+// TODO parameterize this with a blacklist
 ToStringId(x):=EX(y,Method(x,y) & @"[.]toString()"(y));
 
-// TODO rewrite this into a single instant dump instead of 
-// looping. way faster and cleaner
-FOR tcid IN TestCommandId(x) {
-    ToStringInvokes(y) := EX(x,PureInvokes(y,tcid,x) & ToStringId(x));
-    ntstr := #(ToStringInvokes(y));
-    IF ( ntstr > 0) {
-        TCName(tcnmx) := Method(tcid,tcnmx);
-        FileName(x) := EX(y, InvokableEntityBelongsToFile(tcid,y,_) & File(y,x));
-        LineNr(x) := InvokableEntityBelongsToFile(tcid, _, x);
-        FOR file IN FileName(x)  { // singleton
-        FOR line IN LineNr(x)    { // singleton
-        FOR tcom IN TCName(x)    { // singleton
-            PRINT "SensitiveEquality	TC	", tcom, "	", ntstr, "	", file, "	", line, ENDL;
-        }}}
-    }
+/**
+ * To string invocations of a testmethod {command,helper}
+ *
+ * @invId: invocation ID
+ * @tmId:  testmethod ID
+ **/
+ToStringInv(invId, tmId) := 
+    EX(toStr,
+        PureInvokes(invId,tmId,toStr) & 
+        (TestCommandId(tmId) | TestHelperId(tmId)) &
+        ToStringId(toStr)
+      );
+
+/**
+ * Number of toString invocations in a test command or helper
+ *
+ * @col x: test method ID
+ * @col y: nrof toStrings
+ **/
+NrofToStringInv("","");
+
+FOR tmId IN (TestCommandId(x)|TestHelperId(x)) {
+    nrof := #(ToStringInv(x,tmId));
+    NrofToStringInv(id_, nr) :=
+        NrofToStringInv(id_, nr) |
+        ( id_ = tmId & count(nr, STRING(nrof)));
 }
 
-FOR thid IN TestHelperId(x) {
-    ToStringInvokes(y) := EX(x,PureInvokes(y,thid,x) & ToStringId(x));
-    ntstr := #(ToStringInvokes(y));
-    IF ( ntstr > 0) {
-        THName(thnmx) := Method(thid,thnmx); 
-        FileName(x) := EX(y, InvokableEntityBelongsToFile(thid,y,_) & File(y,x));
-        LineNr(x) := InvokableEntityBelongsToFile(thid, _, x);
-        FOR file IN FileName(x)  { // singleton
-        FOR line IN LineNr(x)    { // singleton
-        FOR thel IN THName(x)    { // singleton
-            PRINT "SensitiveEquality	TH	", thel, "	", ntstr, "	", file, "	", line, ENDL;
-        }}}
-    }
-}
+//PRINT NrofToStringInv(a,b);
+Empty("TC");
+
+SensitiveEquality(e, tm, nrof_, file_, line_) :=
+    EX(tmId_,
+        Empty(e) &
+        TestEntityInfo(tmId_, tm, file_, line_) &
+        NrofToStringInv(tmId_, nrof_) &
+        !count(nrof_, "0")
+    );
+
+PRINT ["SensitiveEquality"] SensitiveEquality(aa,bb,cc,dd,ee);
+PRINT "## NrofToStrings ##",ENDL,"method name;# tostring invocations",ENDL TO "DUMP_TEST_METRICS";
+PRINT EX(x, Method(x, n) & NrofToStringInv(x, nrof_)) TO "DUMP_TEST_METRICS";
+
