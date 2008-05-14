@@ -127,3 +127,4 @@ include(DUMP_DIR`initBackwardTestRelations.rml')
 DefintionForDeclaration(x,y) := DefinitionForDeclaration(x,y) |
                                 (Function(x,_) & !EX(z, DefinitionForDeclaration(z,x)) & x=y);
 
+PRINT ["TestCaseId"] TestCaseId(x) TO STDERR;

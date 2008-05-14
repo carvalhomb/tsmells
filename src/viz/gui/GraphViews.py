@@ -34,6 +34,7 @@ myColors = \
         "seablue_" : GuessColor(0, 102, 203), \
         "magenta1" : GuessColor(107, 35, 148), \
         "magenta2" : GuessColor(102, 0, 102), \
+        "magenta3" : GuessColor(128, 0, 128), \
         "gray20" :   GuessColor(179, 179, 179), \
         "gray40" :   GuessColor(153, 153, 154), \
         "gray60" :   GuessColor(102, 102, 102), \
@@ -51,7 +52,9 @@ smellColors = \
         "IndentedTest" :      "gray20", \
         "IndirectTest" :      "gray40", \
         "MysteryGuest" :      "gray60", \
-        "SensitiveEquality" : "gray80"\
+        "SensitiveEquality" : "gray80", \
+        "VerboseTest":        "lightgray", \
+        "EmptyTest":          "gray", \
     }
 
 #-----------------------------------------------------------------------

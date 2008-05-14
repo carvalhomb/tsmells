@@ -284,7 +284,6 @@ class PanelSizeChangeListener(ComponentAdapter):
     #
 
     def componentResized(self, event):
-        print event
         comp = event.getComponent()
         self.table.setSize(Dimension(comp.getWidth()-18, self.table.getHeight()))
         resizeColumns(self.table)
@@ -311,6 +310,7 @@ class DropDownListener(ActionListener):
 
         self.tableModel.fill(item)
         self.table.setSize(Dimension(self.table.getParent().getParent().getParent().getWidth()-18, self.table.getHeight()))
+        self.tableModel.fireTableStructureChanged()
         resizeColumns(self.table)
         self.table.revalidate()
         self.table.repaint()
@@ -334,14 +334,13 @@ class RadioListener(ActionListener):
         if actionCmd in ['cases', 'commands']:
             self.tableModel.setMode(actionCmd)
 
-class SmellHitLists(TDockable, GraphMouseListener):
+class SmellHitLists(TDockable):
 
     #
     # Constructor
     #
 
     def __init__(self):
-        GraphEvents.getGraphEvents().addGraphMouseListener(self)
         self.myParent = None
         self.setBounds(self.getDefaultFrameBounds())
         self.setLayout(GridBagLayout())
@@ -358,6 +357,7 @@ class SmellHitLists(TDockable, GraphMouseListener):
     def __initDropDownBox(self, table):
         smells = [ x[0].label for x in groupBy((entity == 'smell'), label)]
         smells.sort()
+        smells.remove('ForTestersOnly')
         dropdown = JComboBox(jarray.array(smells, String))
         dropdown.addActionListener(DropDownListener(table))
         self.add(dropdown, self.__createDropDownConstraints())

@@ -30,76 +30,6 @@
 IsTestCase(y) := 
         Class(y,"CppUnit::TestFixture");
 
-IsFrameworkClass(x):=
-    EX(cln,
-        Class(x, cln) & 
-        @"^CppUnit::"(cln));
-
-TestCaseId(tcid) :=
-     EX(root,
-         IsTestCase(root) &
-         (InheritsFrom(_,_,tcid,root) |
-          TC(InheritsFrom(_,_,tcid,root))) &
-         !IsFrameworkClass(tcid));
-
-TestMethodId(x) := 
-    EX(y, 
-        TestCaseId(y) & 
-        MethodBelongsToClass(x,y));
-
-// this is temporary, to remove CPPUNIT_TEST and 
-// CPPUNIT_TEST_SUITE as methods
-CppUnitMacro(x) := 
-    EX(mn,
-        TestMethodId(x) &
-        Method(x, mn) & 
-        @"CPPUNIT_TEST"(mn));
-
-TestConstructor(x) :=
-   EX(mn,
-       TestMethodId(x) &
-       Method(x, mn) &
-       @"^.*(::)?(.*)\.\2[(].*[)]$"(mn));
-
-TestDestructor(x) :=
-   EX(mn,
-       TestMethodId(x) &
-       Method(x, mn) &
-       @"^.*(::)?(.*)\.~\2[(][)]$"(mn));
-
-CppUnitSuiteMethod(x) := 
-    EX(mn,
-        TestMethodId(x) &
-        Method(x, mn) & 
-        @"\.suite[(][)]$"(mn));
-
-TestCommandId(x) := 
-    EX(mn, 
-        TestMethodId(x) & 
-        Method(x,mn) & 
-        @"[.]test.*[(][)]$"(mn));
-TestSetupId(x) := 
-    EX(mn, 
-        TestMethodId(x) & 
-        Method(x,mn) & 
-        @"[.]setUp[(][)]$"(mn));
-TestTeardownId(x) := 
-    EX(mn, 
-        TestMethodId(x) & 
-        Method(x,mn) & 
-        @"[.]tearDown[(][)]$"(mn));
-TestHelperId(x) := 
-        TestMethodId(x) & 
-        !TestCommandId(x) & 
-        !TestSetupId(x) & 
-        !TestTeardownId(x) & 
-        !CppUnitMacro(x) &
-        !TestConstructor(x) &
-        !TestDestructor(x) &
-        !CppUnitSuiteMethod(x);
-
-Yes("1"); No("0");
-
 /**
  * Assertions
  * @col : denotes if this assertion has a failure message
@@ -112,40 +42,4 @@ CheckerSignature("1","CPPUNIT_ASSERT_EQUAL_MESSAGE(string,T,T)");
 CheckerSignature("1","CPPUNIT_FAIL(std::string)");
 CheckerSignature("0","CPPUNIT_ASSERT(bool)");
 
-TestChecker(x) := 
-    EX(y, 
-        Function(x, y) & 
-        CheckerSignature(_,y));
-ProductionMethodId(x) := 
-        Method(x,_) & 
-        !TestMethodId(x);
-ProductionFunctionId(x) := 
-        Function(x,_)  & 
-        !TestChecker(x); 
-
-// these are needed for backwards compatibility.
-// prolly they'll vanish for good, one day
-TestCase(x,y) := 
-        TestCaseId(x) & 
-        Class(x,y);
-TestCommand(x,y) := 
-        TestCommandId(x) & 
-        Method(x,y);
-TestSetup(x,y) := 
-        TestSetupId(x) & 
-        Method(x,y);
-TestTeardown(x,y) := 
-        TestTeardownId(x) & 
-        Method(x,y);
-TestHelper(x,y) := 
-        TestHelperId(x) & 
-        Method(x,y);
-
-// fix to have a definition for declaration for all functions.
-DefintionForDeclaration(x,y) := 
-    DefinitionForDeclaration(x,y) |
-    (Function(x,_) & 
-    !EX(z,
-        DefinitionForDeclaration(z,x)) & 
-        x=y);
-
+include(DUMP_DIR`initCppUnitEntities.rml')
