@@ -1,0 +1,28 @@
+
+TestMethod(x,y) := TestCommand(x,y) | TestHelper(x,y) | TestSetup(x,y) | TestTeardown(x,y);
+
+PRINT "	";
+TestMethodName(tcn) := EX(m,TestMethod(m,tcn));
+FOR tcn IN TestMethodName(x) {	
+	PRINT tcn,"	";
+}
+PRINT ENDL;
+
+FOR m IN Method(x,_) {
+	MethodName(mn) := Method(m,mn);
+	FOR mn IN MethodName(x) {
+		PRINT mn,"	";
+	}
+
+	FOR tc IN TestMethod(x,_) {
+		i := 0;
+		
+		FOR as IN Stimulates(x,tc,m) {
+			i := i + 1;
+		}
+		PRINT i,"	";
+		
+	}
+	PRINT ENDL;
+}
+

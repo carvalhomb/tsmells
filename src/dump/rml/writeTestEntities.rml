@@ -45,10 +45,6 @@ TestCaseInfo(name, file, line) :=
         File(fid, file) &
         count("0", line));
 
-PRINT "ALLO" TO STDERR;
-PRINT TestCaseDefinitionFile(x,y) TO STDERR;
-PRINT "ALLO2" TO STDERR;
-
 PRINT ["TestCase"] TestCaseInfo(x,y,z) TO "DUMP_TEST_ENTITIES";
 
 /**

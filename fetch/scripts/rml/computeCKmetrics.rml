@@ -1,0 +1,119 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Du Bois <bart.dubois@ua.ac.be>
+*/
+
+/**
+ * Enlists Chidamber and Kemererer metrics.
+ **/
+
+SubClass(child,parent) := InheritsFrom(_,_,child,parent);
+
+Descendant(child,ancestor) := TC(SubClass(child,ancestor));
+SimilarSignatures(method1,method2) := EX(sig1, Signature(method1,sig1) & Signature(method2,sig1));
+
+overrides(method1,method2) := SimilarSignatures(method1,method2)
+& EX(cls1, MethodBelongsToClass(method1,cls1)
+	& EX(cls2, MethodBelongsToClass(method2,cls2) & Descendant(cls1,cls2))
+	);
+
+
+PIM(m1,m3) := ( Invokes(_,m1,m3)
+			 	| EX(m2, Invokes(_,m1,m2) & overrides(m3,m2))
+			 	);
+
+uses(m1,c) := EX(mc, MethodBelongsToClass(mc,c) & PIM(m1,mc) )
+			  |
+			  EX(ac, AttributeBelongsToClass(ac,c) & Accesses(_,m1,ac) );
+
+uses(c,d) := EX(m1, MethodBelongsToClass(m1,c) & uses(m1,d));
+
+CBO(c,d) := uses(c,d) | uses(d,c);
+
+LCOM(c,m1,m2) := MethodBelongsToClass(m1,c) & MethodBelongsToClass(m2,c) & (m1 != m2)
+				&  !EX(a, Accesses(_,m1,a) & Accesses(_,m2,a) & AttributeBelongsToClass(a,c))
+				& (m1 != m2);
+
+RFC(c,m) := MethodBelongsToClass(m,c) // R1
+			| EX(mc, MethodBelongsToClass(mc,c) & PIM(mc,m));
+
+ParentOnPathToRoot(child,parent) := FALSE(child,parent);
+
+/**
+* Calculate Level 1 classes:
+* 	+None of their parents has a parent/
+**/
+ParentOnPathToRoot(child,parent) := SubClass(child,parent) & !EX(aParent, SubClass(child,aParent) & SubClass(aParent,_)); // first level class
+
+// determin next level children
+ClassLeftToProcess(child) := !ParentOnPathToRoot(child,_)
+							 & EX(parent, SubClass(child,parent) & ParentOnPathToRoot(parent,_))
+							 & !EX(parent, SubClass(child,parent) & SubClass(parent,_) & !ParentOnPathToRoot(parent,_));
+
+ClassAtLevelAbove(c) := ParentOnPathToRoot(c,_) ;
+
+i := 2;
+WHILE ( ClassLeftToProcess(_) ) {
+	// process all children on the current level
+	ClassAtAllLevelsAbove(c) := ParentOnPathToRoot(c,_) | !SubClass(c,_);
+	ParentOnPathToRoot(aChild,parent) := 	ParentOnPathToRoot(aChild,parent)
+										| (
+											SubClass(aChild, parent) & ParentOnPathToRoot(parent,_) & ClassAtLevelAbove(parent)
+											& ClassLeftToProcess(aChild)
+										    & !EX(otherParent, (otherParent != parent)
+										    	 & SubClass(aChild,otherParent)
+										    	 & ParentOnPathToRoot(aChild,otherParent) // choose only 1 parent
+								   			));
+
+	ClassAtLevelAbove(c) := ParentOnPathToRoot(c,_) & !ClassAtAllLevelsAbove(c);
+
+	// determin next level children
+	ClassLeftToProcess(child) := !ParentOnPathToRoot(child,_)
+							 & EX(parent, SubClass(child,parent) & ParentOnPathToRoot(parent,_));
+	ClassLeftToProcess(child) := ClassLeftToProcess(child)
+							& !EX(parent, SubClass(child, parent) & ClassLeftToProcess(parent));
+	i := i + 1;
+}
+
+TCParentOnPathToRoot(x,y) := TC(ParentOnPathToRoot(x,y));
+
+PRINT "ID	name	cbo	lcom	noc	rfc	dit",ENDL;
+
+AClass(c) := Class(c,_);
+FOR c IN AClass(x) {
+	// CBO(c) := #(CBO(c,x));
+	cbo := #(CBO(c,x));
+
+	// LCOM(c) := #(LCOM(c,x,y));
+	lcom  := #(LCOM(c,x,y));
+
+	// NOC(c) = #(SubClass(x,c));
+	noc := #(SubClass(x,c));
+
+	// RFC(c) := #(RFC(c,x));
+	rfc :=  #(RFC(c,x));
+
+	// DIT(c) := #(TCParentOnPathToRoot(c,x));
+	dit :=  #(TCParentOnPathToRoot(c,x));
+
+	ClassName(cn) := Class(c,cn);
+	FOR cn IN ClassName(x) {
+		PRINT c,"	'",cn,"'	",cbo,"	",lcom,"	",noc,"	",rfc,"	",dit,ENDL;
+	}
+}

@@ -1,0 +1,33 @@
+pmccabe (2.4) unstable; urgency=low
+
+  * add support for C++ namespaces
+
+ -- Paul Bame <bame@riverrock.org>  Mon, 13 Aug 2007 21:14:22 -0600
+
+pmccabe (2.3-1) unstable; urgency=low
+
+  * you can use "class" as an identifier in C code now.  Thanks to
+    xianjie zhang for an excellent bug report.
+
+ -- Paul Bame <bame@debian.org>  Wed, 26 Nov 2003 12:06:55 -0700
+
+pmccabe (2.2-3) unstable; urgency=low
+
+  * tweek for running under buildd and whenever pmccabe not installed
+    and . not in $PATH
+
+ -- Paul Bame <bame@debian.org>  Wed, 12 Mar 2003 14:05:33 -0700
+
+pmccabe (2.2-2) unstable; urgency=low
+
+  * Tweek debian/copyright to follow policy
+
+ -- Paul Bame <bame@debian.org>  Sun, 23 Feb 2003 13:03:18 -0700
+
+pmccabe (2.2-1) unstable; urgency=low
+
+  * Initial public release.
+  * Closes: #177749
+
+ -- Paul Bame <bame@debian.org>  Tue, 17 Dec 2002 10:07:41 -0700
+

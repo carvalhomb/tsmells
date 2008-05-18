@@ -1,0 +1,67 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007  University of Antwerp
+* Author(s): Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+*/
+
+/**
+ * Generate Dot (graphviz) input file that displays the control flow
+ * between invokable entities given a module $1
+ *
+ **/
+
+ModuleId(x) := Module(x,$1);
+IF( #(ModuleId(x)) = 0 ) {
+	PRINT "No invokable entity named ",$1, " in the model", ENDL;
+}
+ELSE {
+	ModuleInvokes(x,y) := Invokes(_,x,y) &
+										((EX(f,m, (Method(x,_) | Function(x,_)) & InvokableEntityBelongsToFile(x,f,_) & FileBelongsToModule(f,m) & ModuleId(m))
+										|
+										EX(f,m, (Method(x,_) | Function(x,_)) & InvokableEntityBelongsToFile(x,f,_) & FileBelongsToModule(f,m) & ModuleId(m))
+										)
+									|
+										(EX(f,m, (Method(y,_) | Function(y,_)) & InvokableEntityBelongsToFile(y,f,_) & FileBelongsToModule(f,m) & ModuleId(m))
+										|
+										EX(f,m, (Method(y,_) | Function(y,_)) & InvokableEntityBelongsToFile(y,f,_) & FileBelongsToModule(f,m) & ModuleId(m))
+										));
+
+	// write nodes
+	PRINT "digraph submoduleInteractionGraph {",ENDL;
+	PRINT "	size='6,6';",ENDL;
+	PRINT "	node [color=lightblue2, style=filled];",ENDL;
+
+	// write edges
+	Invoker(x) := ModuleInvokes(x,_);
+	FOR srcId IN Invoker(x) {
+		Invokee(x) := ModuleInvokes(srcId,x);
+		FOR dstId IN Invokee(x) {
+			//PRINT srcId, " ", dstId,ENDL;
+			SrcMethodName(x) := EX(defId, (Method(srcId,x) | Function(srcId,x)) | ((Method(defId,x) | Function(defId,x)) & DefinitionForDeclaration(srcId,defId)));
+			//PRINT SrcMethodName(x);
+			DstMethodName(x) := EX(defId, (Method(dstId,x) | Function(dstId,x)) | ((Method(defId,x) | Function(defId,x)) & DefinitionForDeclaration(dstId,defId)));
+			//PRINT DstMethodName(x);
+			FOR srcName IN SrcMethodName(x) {
+				FOR dstName IN DstMethodName(x) {
+					PRINT "	'",srcName,"' -> '",dstName,"';",ENDL;
+				}
+			}
+		}
+	}
+	PRINT "}",ENDL;
+}

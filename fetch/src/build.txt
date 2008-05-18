@@ -1,0 +1,16 @@
+Source Navigator
+----------------
+./configure --prefix=...
+make
+make install
+
+cccc
+----
+sh build_posixgcc.sh
+
+crocopat
+--------
+# gcc 3.x (and 4.x work fine)
+# need bison 1.x series (1.28 or 1.35)
+# need flex 2.5.4 (not 33)
+make

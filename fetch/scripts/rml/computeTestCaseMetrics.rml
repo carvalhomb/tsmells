@@ -1,0 +1,98 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s): Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+*
+*/
+
+/**
+ * Compute PTMI (number of production method invocations,
+ * directly and (indirectly - not yet) invoked from test command) for
+ * all test commands in the system.
+ *
+ **/
+
+TestMethod(x) := 	TestCommand(x,_) | TestSetup(x,_) |
+					TestTeardown(x,_) | TestHelper(x,_);
+ProductionClass(x) := Class(x,_) & !TestCase(x,_);
+ProductionMethod(x) := Method(x,_) & !TestMethod(x,_);
+PRINT ";Size;;General Fixture;",ENDL;
+PRINT "Name;Setup;NOTC;NFOB;NOBU",ENDL;
+
+FOR tc IN TestCase(x,_) {
+	ChildTestCommand(tm) := TestCommand(tm,_) & TestCase(tc,_) & MethodBelongsToClass(tm,tc);
+
+	/* compute the transitive set of super classes of test case tc */
+	// test cases directly inhered by tc
+	DTestCase(x,y) := InheritsFrom(_,_,x,y) & x=tc;
+	// test cases indirectly inherited by tc
+	ITestCase(x,z) := EX(y, InheritsFrom(_,_,x,y) & x=tc & TC(InheritsFrom(_,_,y,z)));
+	InheritedTestCase(y) := EX(x, DTestCase(x,y) | ITestCase(x,y));
+
+	/* compute the transitive set of test helpers of test setup ts */
+	InheritedTestHelpers(x) := EX(y, TestHelper(x,_) & InheritedTestCase(y) & MethodBelongsToClass(x,y));
+
+	/* compute sets that will make up the metrics */
+	DirectFixtureObject(x) := Attribute(x,_) & AttributeBelongsToClass(x,tc);
+	IndirectFixtureObject(x) := EX(y, Attribute(x,_) & InheritedTestCase(y) & AttributeBelongsToClass(x,y));
+	FixtureObject(x) := DirectFixtureObject(x) | IndirectFixtureObject(x);
+
+	DirectFixturePType(x) := EX(y, Attribute(y,_) & ProductionClass(x) & HasType(y,x) & AttributeBelongsToClass(y,tc));
+	IndirectFixturePType(x) := EX(y,z, Attribute(y,_) & ProductionClass(x) & HasType(y,x)  & InheritedTestCase(z) & AttributeBelongsToClass(y,z));
+	FixturePType(x) := DirectFixturePType(x) | IndirectFixturePType(x);
+
+	HasSetup(x) := TestSetup(x,_) & MethodBelongsToClass(x,tc);
+	TrTestSetup(x) := TestSetup(x,_) & ( MethodBelongsToClass(x,tc) | EX(y, InheritedTestCase(y) & MethodBelongsToClass(x,y)));
+
+	// doesn't seem to work ...
+	InvocationOnObjectInSetup(x) :=
+				EX(y,z,yd,zd, TrTestSetup(y)
+						& (MethodBelongsToClass(y,tc) |
+							EX(q, InheritedTestCase(q) & MethodBelongsToClass(y,q)))
+						& ProductionMethod(z)
+						& DefinitionForDeclaration(yd,y)
+						& DefinitionForDeclaration(zd,z)
+						& Invokes(x,yd,zd)
+				);
+
+	AccessOnObjectInSetup(x) :=
+				EX(y,z,q, 	TrTestSetup(y)
+							& MethodBelongsToClass(y,tc)
+							& Attribute(z,_)
+							& ProductionClass(q)
+							& AttributeBelongsToClass(_,z,q)
+							& Accesses(x,y,z)
+				);
+	ObjectUsesInSetup(x) := InvocationOnObjectInSetup(x) |
+							AccessOnObjectInSetup(x);
+
+	notc := #(ChildTestCommand(tm));
+	setup := #(HasSetup(x));
+	nfob := #(FixtureObject(x));
+	nfpt := #(FixturePType(x)); // correlation was to weak to report about
+	nobu := #(ObjectUsesInSetup(x));
+	// need to know attribute type for that...
+	//nfpt :=
+
+	TestCaseName(mn) := TestCase(tc,mn);
+
+	FOR n IN TestCaseName(mn) {
+		PRINT n,";",setup,";",notc,";",nfob,";",nobu,ENDL;
+	}
+}
+

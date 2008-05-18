@@ -1,0 +1,3 @@
+Run the following command to get an overview of namespace declarations (as input lines for NamespaceEntity) and namespace usage references (as input for NamespaceUsageEntity) for a given directory /My/Src/Dir
+
+perl getNamespaces.pl -s /My/Src/Dir cpp h hh hpp 2> /dev/null

@@ -1,0 +1,68 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Du Bois <bart.dubois@ua.ac.be>
+*/
+
+/**
+ * Count the interactions between modules by method interactions only.
+ * Generate data to be used as input for Excel.
+ **/
+
+// We mention all the intermediate files,classes and methods
+// to enable counting of the number of target methods, target classes
+// etc.
+IsAnInvocation(cmo,cf,cc,cm,i,sm,sc,sf,smo) := Invokes(i,cm,sm) &
+	MethodBelongsToClass(cm,cc) & MethodBelongsToClass(sm,sc) &
+	ClassBelongsToFile(cc,cf) & ClassBelongsToFile(sc,sf) &
+	FileBelongsToModule(cf,cmo) & FileBelongsToModule(sf,smo);
+
+FOR m IN Module(x,_) {
+	ModuleName(name) := Module(m,name);
+	FOR name IN ModuleName(x) {
+		PRINT "	",name;
+	}
+}
+PRINT "	Total",ENDL;
+
+// print the number of outgoing invocations from each module to each other module
+FOR clientModule IN Module(x,_) {
+	ModuleName(n) := Module(clientModule,n);
+	FOR name IN ModuleName(x) {
+		PRINT name;
+	}
+
+	FOR servingModule IN Module(x,_) {
+		nrOfInvocations := #(IsAnInvocation(clientModule,cf,cc,cm,i,sm,sc,sf,servingModule));
+
+		PRINT "	",nrOfInvocations;
+	}
+
+	outgoingInvocations := #(IsAnInvocation(clientModule,cf,cc,cm,i,sm,sc,sf,smo));
+	PRINT "	",outgoingInvocations;
+
+	PRINT ENDL;
+}
+
+// print the number of incoming invocations from each module to each other module
+PRINT "Total";
+FOR servingModule IN Module(x,_) {
+	incomingInvocations := #(IsAnInvocation(cmo,cf,cc,cm,i,sm,sc,sf,servingModule));
+	PRINT "	",incomingInvocations;
+}
+PRINT ENDL;

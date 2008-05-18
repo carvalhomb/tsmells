@@ -1,0 +1,70 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+*/
+
+/**
+ * Enlists several metrics for the functions and methods
+ * in the model.
+ **/
+
+// print header
+PRINT "entityId	File	Name	LOC	NOS	CC",ENDL;
+
+InvokeableEntity(anEntity) := Method(anEntity,_) | Function(anEntity,_);
+
+FOR x IN InvokeableEntity(anEntity) {
+	LOC(aValue) := Measurement(_,x,"LOC",aValue);
+	loc := SUM(LOC(aValue));
+
+	NOS(aValue) := Measurement(_,x,"NOS",aValue);
+	nos := SUM(NOS(aValue));
+
+	CC(aValue) := Measurement(_,x,"CC",aValue);
+	cc := SUM(CC(aValue));
+
+
+
+	// retrieve the name of m1 as a method
+	// will lead to an empty relation if m1
+	// is not a method
+	MethodName(mn) := Method(x,mn);
+	FOR n IN MethodName(y) {
+		FileName(fn) := EX(c,f, File(f,fn) & ClassBelongsToFile(c,f) & Class(c,_) & MethodBelongsToClass(x,c) & Method(x,_));
+		FOR fn IN FileName(z) {
+			// otherwise, we are dealing with invokable entities we don't have measurements about
+			IF loc > 0 {
+				PRINT x, "	'",fn,":", n,"'	",loc,"	",nos,"	",cc,ENDL;
+			}
+		}
+	}
+
+	// retrieve the name of m1 as a function
+	// will lead to an empty relation if m1
+	// is not a function
+	FunctionName(xn) := Function(x,xn);
+	FOR n IN FunctionName(y) {
+		FileName(fN) := EX(f, File(f,fN) & FunctionBelongsToFile(x,f) & Function(x,_));
+		FOR fN IN FileName(z) {
+			IF loc > 0 {
+				PRINT x, "	'",fN,":",n,"	",loc,"	",nos,"	",cc,ENDL;
+			}
+		}
+	}
+}

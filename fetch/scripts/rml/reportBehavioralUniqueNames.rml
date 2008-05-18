@@ -1,0 +1,117 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+*/
+
+/**
+ * Enlists entities by their unique name
+ * Intent:
+ *  - list what changed between two versions of a system for the purpose of understanding
+ *  - identify testing need after changes
+ *  - identify move operations
+ *  - understand evolution of the system at a model level
+ **/
+
+
+ModuleNameBelongsToModuleName(m1n,m2n) := EX(x,y, Module(x,m1n) & Module(y,m2n) & ModuleBelongsToModule(x,y));
+FOR n1 IN ModuleNameBelongsToModuleName(x,_) {
+	ModuleName2(x) := ModuleNameBelongsToModuleName(n1,x);
+	FOR n2 IN ModuleName2(x) {
+		PRINT "ModuleBelongsToModule ",n1, " ", n2, ENDL;
+	}
+}
+
+FileNameBelongsToModuleName(f,m) := EX(x,y, File(x,f) & Module(y,m) & FileBelongsToModule(x,y));
+FOR n1 IN FileNameBelongsToModuleName(x,_) {
+	ModuleName(x) := FileNameBelongsToModuleName(n1,x);
+	FOR mn IN ModuleName(x) {
+		PRINT "FileBelongsToModule ",n1, " ", mn, ENDL;
+	}
+}
+
+FileNameIncludesFileName(f1n,f2n) := EX(x,y, File(x,f1n) & File(y,f2n) & Include(_,x,y));
+FOR n1 IN FileNameIncludesFileName(x,_) {
+	FileName(x) := FileNameIncludesFileName(n1,x);
+	FOR n2 IN FileName(x) {
+		PRINT "Includes ",n1, " ", n2, ENDL;
+	}
+}
+
+ClassNameBelongsToFileName(c1n,f2n) := EX(x,y, Class(x,c1n) & File(y,f2n) & ClassBelongsToFile(x,y));
+FOR cn IN ClassNameBelongsToFileName(x,_) {
+	FileName(x) := ClassNameBelongsToFileName(cn,x);
+	FOR fn IN FileName(x) {
+		PRINT "Class ",fn,":",cn,ENDL;
+		PRINT "ClassBelongsToFile ", cn, " ", fn, ENDL;
+	}
+}
+
+FOR inhn IN InheritsFrom(_,x,_,_) {
+	PRINT "InheritsFrom ",inhn,ENDL;
+}
+
+MethodNameBelongsToFileName(m1n,f2n) := EX(x,y,z, Method(x,m1n) & File(y, f2n) & MethodBelongsToClass(x,z) & ClassBelongsToFile(z,y));
+FOR mn IN MethodNameBelongsToFileName(x,_) {
+	FileName(x) := MethodNameBelongsToFileName(mn,x);
+	FOR fn IN FileName(x) {
+		PRINT "MethodBelongsToFile ", mn, " ", fn, ENDL;
+	}
+}
+
+FunctionNameBelongsToFileName(f1n,f2n) := EX(x,y, Function(x,f1n) & File(y, f2n) & FunctionBelongsToFile(x,y));
+FOR f1n IN FunctionNameBelongsToFileName(x,_) {
+	FileName(x) := FunctionNameBelongsToFileName(f1n,x);
+	FOR f2n IN FileName(x) {
+		PRINT "FunctionBelongsToFile ", f1n, " ", f2n, ENDL;
+	}
+}
+
+FunctionNameInvokesFunctionName(f1,f2) := EX(x,y,z, Function(x,f1) & Function(y,f2) & Invokes(z,x,y));
+FOR f1n IN FunctionNameInvokesFunctionName(x,_) {
+	FunctionName(x) := FunctionNameInvokesFunctionName(x,_);
+	FOR f2n IN FunctionName(x) {
+		PRINT "Invokes ", f1n, "->", f2n, ENDL;
+	}
+}
+
+FunctionNameInvokesMethodName(f1,m2) := EX(x,y,z, Function(x,f1) & Method(y,m2) & Invokes(z,x,y));
+FOR f1n IN FunctionNameInvokesMethodName(x,_) {
+	MethodName(x) := FunctionNameInvokesMethodName(x,_);
+	FOR m2 IN MethodName(x) {
+		PRINT "Invokes ", f1n, "->", m2, ENDL;
+	}
+}
+
+MethodNameInvokesFunctionName(m1,f2) := EX(x,y,z, Method(x,m1) & Function(y,f2) & Invokes(z,x,y));
+FOR f1n IN MethodNameInvokesFunctionName(x,_) {
+	FunctionName(x) := MethodNameInvokesFunctionName(x,_);
+	FOR m2 IN FunctionName(x) {
+		PRINT "Invokes ", f1n, "->", m2, ENDL;
+	}
+}
+
+MethodNameInvokesMethodName(m1,f2) := EX(x,y,z, Method(x,m1) & Method(y,f2) & Invokes(z,x,y));
+FOR f1n IN MethodNameInvokesMethodName(x,_) {
+	MethodName(x) := MethodNameInvokesMethodName(x,_);
+	FOR m2 IN MethodName(x) {
+		PRINT "Invokes ", f1n, "->", m2, ENDL;
+	}
+}
+
+

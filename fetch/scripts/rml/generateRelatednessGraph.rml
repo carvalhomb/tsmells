@@ -1,0 +1,73 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Du Bois <bart.dubois@ua.ac.be>
+*/
+
+/**
+ * Generates a inheritance hierarchy
+ * with classes as white labeled rectangles
+ * with the subclassOf relation indicated by a black arrow.
+ * Typedefs are indicated as yellow ellipses, with the
+ * isAliasOf relation indicated by a yellow arrow.
+ **/
+
+PRINT "nodedef> name,label,style,labelvisible,color",ENDL;
+
+InheritanceRelatedClass(aClass) := InheritsFrom(_,_,aClass,_) | InheritsFrom(_,_,_,aClass) | TypeDef(_,_,_,aClass);
+
+FOR theEntity IN InheritanceRelatedClass(x) {
+	EntityName(aName) := Class(theEntity,aName) |  TypeDef(_,_,aName,theEntity);
+	FOR theName IN EntityName(x) {
+		PRINT "n",theEntity,",",theName,",4,true,white",ENDL;
+	}
+}
+
+TypeDefRelatedEntity(anEntity) := TypeDef(anEntity,_,_,_);
+
+FOR theEntity IN TypeDefRelatedEntity(x) {
+	EntityName(aName) := TypeDef(theEntity,aName,_,_);
+	FOR theName IN EntityName(x) {
+		PRINT "n",theEntity,",",theName,",5,true,yellow",ENDL;
+	}
+}
+
+PRINT "edgedef> node1,node2,directed,color",ENDL;
+
+IsASubClass(aClass) := InheritsFrom(_,_,aClass,_);
+IsATypeDefAlias(anAlias) := TypeDef(anAlias,_,_,_);
+
+SourceEntity(anEntity) := IsASubClass(anEntity);
+
+FOR theSourceEntity IN SourceEntity(x) {
+	TargetEntity(anEntity) := InheritsFrom(_,_,theSourceEntity,anEntity) | TypeDef(theSourceEntity,_,_,anEntity);
+
+	FOR theTargetEntity IN TargetEntity(x) {
+		PRINT "n",theSourceEntity,",","n",theTargetEntity,",","true",",","black",ENDL;
+	}
+}
+
+SourceEntity(anEntity) := IsATypeDefAlias(anEntity);
+
+FOR theSourceEntity IN SourceEntity(x) {
+	TargetEntity(anEntity) := InheritsFrom(_,_,theSourceEntity,anEntity) | TypeDef(theSourceEntity,_,_,anEntity);
+
+	FOR theTargetEntity IN TargetEntity(x) {
+		PRINT "n",theSourceEntity,",","n",theTargetEntity,",","true",",","yellow",ENDL;
+	}
+}

@@ -1,0 +1,77 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+*/
+
+/**
+ * Generate Dot (graphviz) input file that displays a given method $1's
+ * place in the control flow. All transitive method calls that
+ * eventually end up in $1, and all transitive method calls that
+ * emerge from $1 are displayed.
+ **/
+
+InvEntId(x) := Method(x,$1) | Function(x,$1) | EX(y, Method(y,$1) & DefinitionForDeclaration(x,y)) | EX(y, Function(y,$1) & DefinitionForDeclaration(x,y));
+IF( #(InvEntId(x)) = 0 ) {
+	PRINT "No invokable entity named ",$1, " in the model", ENDL;
+}
+ELSE {
+	// compose transitive closure of relevant invocations
+	DirectFromInvocations(x,y) := InvEntId(x) & Invokes(_,x,y);
+	IndirectFromInvocations(x,z) := EX(y, InvEntId(x) & Invokes(_,x,y) & TC(Invokes(_,y,z)));
+	DirectToInvocations(y,x) := InvEntId(x) & Invokes(_,y,x);
+	IndirectToInvocations(z,x) := EX(y, InvEntId(x) & Invokes(_,y,x) & TC(Invokes(_,z,y)));
+
+	RelevantFromInvocations(x,y) := DirectFromInvocations(x,y) | IndirectFromInvocations(x,y);
+	RelevantToInvocations(x,y) := DirectToInvocations(x,y) | IndirectToInvocations(x,y);
+	RelevantInvocations(x,y) := RelevantFromInvocations(x,y) | RelevantToInvocations(x,y);
+
+	// write nodes
+	PRINT "digraph submoduleInteractionGraph {",ENDL;
+	PRINT "	size='6,6';",ENDL;
+	PRINT "	node [color=lightblue2, style=filled];",ENDL;
+
+	// write edges
+	RelevantSrcInvocations(x) := RelevantInvocations(x,_);
+	FOR srcId IN RelevantSrcInvocations(x) {
+		DstMethods(x) := RelevantInvocations(srcId,x);
+		FOR dstId IN DstMethods(x) {
+			//PRINT srcId, " ", dstId,ENDL;
+			SrcMethodName(x) := EX(defId,	(Method(srcId,x) |
+															Function(srcId,x)) |
+															(	(Method(defId,x) | Function(defId,x)) &
+																DefinitionForDeclaration(srcId,defId)
+																)
+															);
+
+			DstMethodName(x) := EX(defId, 	(Method(dstId,x) |
+															Function(dstId,x)) |
+															(	(Method(defId,x) | Function(defId,x)) &
+																DefinitionForDeclaration(dstId,defId)
+																)
+															);
+
+			FOR srcName IN SrcMethodName(x) {
+				FOR dstName IN DstMethodName(x) {
+					PRINT "	'",srcName,"' -> '",dstName,"';",ENDL;
+				}
+			}
+		}
+	}
+	PRINT "}",ENDL;
+}

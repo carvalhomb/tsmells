@@ -1,0 +1,1 @@
+setDisplayBackground(white)

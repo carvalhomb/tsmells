@@ -1,0 +1,13 @@
+MAINTAINERS
+
+Bart Du Bois <bart.dubois@ua.ac.be> - core, c++ architecture & resolvers
+Bart Van Rompaey <bart.vanrompaey2@ua.ac.be> - core, c++, java
+
+CONTRIBUTIONS
+
+Matthias Rieger <matthias.rieger@gmail.com> - parser extensions
+Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be> - various patches to parsing scripts
+
+EXTERNAL
+
+for the external tools integrated in Fetch we refer to the author lists of the source packages in fetch/src.

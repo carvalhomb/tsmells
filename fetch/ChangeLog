@@ -1,0 +1,10 @@
+
+0.7
+
+	* Changed SN dbdump separator to ";". Should ease handling of templates and other 'spaced' types (Robin & BartVR)
+	* Speedup improvement in snavtofamix: 6x faster for teamspirit (Manuel)
+	* Xvfb made an option -- fixes xterm crash on Solaris (BartVR)
+	* Support for Global Variables (BartDB)
+	* added SourceFile entity in CDIF (BartDB)
+	* added support for Java 5.0 annotations (BartVR)
+	* speed-up in metrics calculations scripts (BartVR)

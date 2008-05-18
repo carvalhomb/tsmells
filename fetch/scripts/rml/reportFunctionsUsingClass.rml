@@ -1,0 +1,112 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+*/
+
+/*
+ * Reports about uses of type MyType (given as first parameter)
+ * ../../bin/crocopat-linux-ppc reportOnClassUsage.rml MyType < path/to/model.rsf
+ */
+
+PRINT "Looking up use of ", $1, ENDL;
+TypeId(x) := Class(x,$1);
+IF( #(TypeId(x)) = 0 ) {
+	PRINT "No such type in the model", ENDL;
+}
+ELSE {
+	//PRINT #(TypeId(x)), " types with that name in the model.",ENDL;
+	//PRINT ENDL;
+	ReferencingEntities(x) := FALSE(x);
+
+	stubbingtotal := 0;
+	setuptotal := 0;
+	testingtotal := 0;
+
+	// compute four resulting sets
+	FOR tId IN TypeId(x) {
+		FileName(xname) := EX(x, File(x,xname) & ClassBelongsToFile(tId,x));
+		FOR name IN FileName(xname) {
+			PRINT "For ",$1," in file ", name, ENDL;
+		}
+		FunctionAccessingTypeData(x,y) := Function(x,_) & Accesses(_,x,y) & AttributeBelongsToClass(y,tId);
+		MethodAccessingTypeData(x, y) := Method(x,_) & Accesses(_,x,y) & AttributeBelongsToClass(y,tId);
+		FunctionInvokingTypeMember(x,y) := Function(x,_) & Invokes(_,x,y) & MethodBelongsToClass(y,tId);
+		MethodInvokingTypeMember(x,y) := Method(x,_) & Invokes(_,x,y) & MethodBelongsToClass(y,tId);
+
+		References(x,y) := FunctionAccessingTypeData(x,y) | MethodAccessingTypeData(x, y) | FunctionInvokingTypeMember(x,y) | MethodInvokingTypeMember(x,y);
+
+		ReferencingEntities(x) := References(x,_);
+
+		LOC(anEntity,aValue) := FALSE(anEntity,aValue);
+		MVG(anEntity,aValue) := FALSE(anEntity,aValue);
+		COM(anEntity,aValue) := FALSE(anEntity,aValue);
+
+		EntityWithMeasures(anEntity) := ReferencingEntities(anEntity) & Measurement(_,anEntity,_,_);
+		PRINT "id	name	LOC	MVG	COM	FanInt	FanOut	MPC	Stubbing	Setup	Test",ENDL;
+		FOR theEntityWithMeasures IN EntityWithMeasures(x) {
+			LOC(anEntity,aValue) := (anEntity = theEntityWithMeasures) & Measurement(_,anEntity,"LOC",aValue);
+			loc := SUM(LOC(theEntityWithMeasures,x));
+
+			MVG(anEntity,aValue) := (anEntity = theEntityWithMeasures) & Measurement(_,anEntity,"MVG",aValue);
+			mvg := SUM(MVG(theEntityWithMeasures,x));
+
+			COM(anEntity,aValue) := (anEntity = theEntityWithMeasures) & Measurement(_,anEntity,"COM",aValue);
+			com := SUM(COM(theEntityWithMeasures,x));
+
+			fanIn := #(Invokes(_,anOtherEntity,theEntityWithMeasures));
+			fanOut := #(Invokes(_,theEntityWithMeasures,anOtherEntity));
+			mpc := #(Invokes(anInvocation,theEntityWithMeasures,anOtherEntity));
+
+			//		NOP	LOC	MVG	FanOut
+			//Stubbing	-	-	-	10
+			//Setup		2	-	-	1
+			//Testing		-	-	0.5*15	-
+			stubbing := 10*fanOut;
+			setup := 1*fanOut;
+			testing := 0.5*15*mvg;
+
+			stubbingtotal := stubbingtotal + stubbing;
+			setuptotal := setuptotal + setup;
+			testingtotal := testingtotal + testing;
+
+			// retrieve the name of m1 as a method
+			// will lead to an empty relation if m1
+			// is not a method
+			MethodName(mn) := Method(theEntityWithMeasures,mn);
+			FOR n IN MethodName(y) {
+				PRINT theEntityWithMeasures, "	", n,"	",loc,"	",mvg,"	",com,"	",fanIn,"	",fanOut,"	",mpc,"	",stubbing,"	",setup,"	",testing,ENDL;
+			}
+
+			// retrieve the name of m1 as a function
+			// will lead to an empty relation if m1
+			// is not a function
+			FunctionName(fn) := Function(theEntityWithMeasures,fn);
+			FOR n IN FunctionName(y) {
+				PRINT theEntityWithMeasures, "	",n,"	",loc,"	",mvg,"	",com,"	",fanIn,"	",fanOut,"	",mpc,"	",stubbing,"	",setup,"	",testing,ENDL;
+			}
+		}
+	}
+}
+
+PRINT "Total stubbing effort: ", stubbingtotal, ENDL;
+PRINT "Total setup effort: ", setuptotal, ENDL;
+PRINT "Total testing effort: ", testingtotal, ENDL;
+
+
+

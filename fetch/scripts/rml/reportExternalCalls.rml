@@ -1,0 +1,40 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+*/
+
+/*
+ * Reports about calls external to this parsed unit. This script requires
+ * - external headers to be passed on during fact extraction (implementation not required) in order to have snavtofamix resolve the correct destination of such calls.
+ * - the module (= root directory) containing the external headers. We assume that all extern
+ * ../../bin/crocopat-linux-ppc reportExternalCalls.rml EXTERNAL_HEADERS_ROOT < path/to/model.rsf
+ */
+TCIndirectExtInfModule(x) := EX(extId, y, Module(extId, $1) & ModuleBelongsToModule(y,extId) & TC(ModuleBelongsToModule(x,y)));
+TCDirectExtInfModule(x) := EX(extId, Module(extId, $1) & ModuleBelongsToModule(x,extId));
+
+TCExtInfModule(x) := TCIndirectExtInfModule(x) | TCDirectExtInfModule(x);
+
+PRINT "Looking up calls to external interfaces stored in ", $1, ":",ENDL;
+ExternalFunctionInvocation(Fn,fn) := EX(fid,Fid,Mid, Invokes(_,_,fid) & Function(fid,fn) & FunctionBelongsToFile(fid,Fid) & File(Fid,Fn) & FileBelongsToModule(Fid,Mid) & TCExtInfModule(Mid));
+ExternalMethodInvocation(Fn,Cn,mn) := EX(cid,mid,Fid,Mid, Invokes(_,_,mid) & Method(mid,mn) & MethodBelongsToClass(mid,cid) & ClassBelongsToFile(cid,Fid) & Class(cid,Cn) & FileBelongsToModule(Fid,Mid) & File(Fid,Fn) & TCExtInfModule(Mid));
+PRINT ExternalFunctionInvocation(fn,Fn);
+PRINT ExternalMethodInvocation(Fn,Cn,mn);
+
+PRINT #(ExternalFunctionInvocation(Fn,fn)), " called functions.",ENDL;
+PRINT #(ExternalMethodInvocation(Fn,Cn,mn)), " called methods.",ENDL;

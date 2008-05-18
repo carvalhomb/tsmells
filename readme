@@ -3,6 +3,4 @@ Tsmells is a tool for automated xUnit code smell detection.
 There's 3 steps involved:
 + Extract facts into an RSF model, eg with Fetch. Be sure to add xUnit framework stubs.
 + Detect test code smells with crocopat
-+ Transform into GDF and visualize with Guess [TODO]
-
-
++ Transform into GDF and visualize with Guess

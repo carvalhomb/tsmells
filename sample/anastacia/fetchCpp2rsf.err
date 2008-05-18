@@ -1,0 +1,268 @@
+(1/9) Running Source Navigator
+
+
+/home/nix/JaarProject/CaseStud/java/anastacia/anastacia
+/home/nix/JaarProject/CaseStud/java/anastacia/anastacia/testmessenger/ICQ
+/home/nix/JaarProject/CaseStud/java/anastacia/anastacia/dbdump
+/home/nix/JaarProject/CaseStud/java/anastacia/anastacia/messenger/ICQ/ICQExceptions
+/home/nix/JaarProject/CaseStud/java/anastacia/anastacia/messenger/MSN
+
+Scanning Project...
+**
+java
+gui/AddBuddy.java gui/ContactTableModel.java gui/CustomCellRenderer.java gui/DumpListener.java gui/EditorPane.java gui/EmoticonsAndSounds.java gui/EmoticonSelector.java gui/ImageIconRenderer.java gui/MessageBox.java gui/MessGui.java gui/Preferences.java gui/SimpleAudioPlayer.java gui/TableMap.java gui/TableSorter.java gui/View.java messenger/ABytePacket.java messenger/AContact.java messenger/AProtocol.java messenger/ATextPacket.java messenger/BadArgumentException.java messenger/Buffer.java messenger/CorruptPacketException.java messenger/DataBuffer.java messenger/ICQ/ICQCLI_ACKRATESPacket.java messenger/ICQ/ICQCLI_ADDBUDDYPacket.java messenger/ICQ/ICQCLI_ADDCONTACTPacket.java messenger/ICQ/ICQCLI_ADDENDPacket.java messenger/ICQ/ICQCLI_ADDSTARTPacket.java messenger/ICQ/ICQCLI_COOKIEPacket.java messenger/ICQ/ICQCLI_FAMILIESPacket.java messenger/ICQ/ICQCLI_GOODBYEPacket.java messenger/ICQ/ICQCLI_IDENTPacket.java messenger/ICQ/ICQCLI_KEEPALIVEPacket.java messenger/ICQ/ICQCLI_RATESREQUESTPacket.java messenger/ICQ/ICQCLI_READYPacket.java messenger/ICQ/ICQCLI_REQBOSPacket.java messenger/ICQ/ICQCLI_REQBUDDYPacket.java messenger/ICQ/ICQCLI_REQICBMPacket.java messenger/ICQ/ICQCLI_REQINFOPacket.java messenger/ICQ/ICQCLI_REQLISTSPacket.java messenger/ICQ/ICQCLI_REQLOCATIONPacket.java messenger/ICQ/ICQCLI_REQROSTERPacket.java messenger/ICQ/ICQCLI_SENDMSGPacket.java messenger/ICQ/ICQCLI_SENDMSGV1Packet.java messenger/ICQ/ICQCLI_SETICBMPacket.java messenger/ICQ/ICQCLI_SETSTATUSPacket.java messenger/ICQ/ICQCLI_SETUSERINFOPacket.java messenger/ICQ/ICQCLI_TOICQSERVERPacket.java messenger/ICQ/ICQContact.java messenger/ICQ/ICQExceptions/ICQBadArgumentException.java messenger/ICQ/ICQExceptions/ICQException.java messenger/ICQ/ICQExceptions/ICQIOException.java messenger/ICQ/ICQExceptions/ICQStringIndexOutOfBoundsException.java messenger/ICQ/ICQExceptions/ICQTimeOutException.java messenger/ICQ/ICQExceptions/ICQUnknownPacketException.java messenger/ICQ/ICQOutgoingPacket.java messenger/ICQ/ICQPacket.java messenger/ICQ/ICQPacketFactory.java messenger/ICQ/ICQProtocol.java messenger/ICQ/ICQSRV_ACKMSGPacket.java messenger/ICQ/ICQSRV_CONTACTERRPacket.java messenger/ICQ/ICQSRV_COOKIEPacket.java messenger/ICQ/ICQSRV_FAMILIES2Packet.java messenger/ICQ/ICQSRV_FAMILIESPacket.java messenger/ICQ/ICQSRV_HELLOPacket.java messenger/ICQ/ICQSRV_ICBMERRPacket.java messenger/ICQ/ICQSRV_RATESPacket.java messenger/ICQ/ICQSRV_RECVMSGV1Packet.java messenger/ICQ/ICQSRV_RECVMSGV2Packet.java messenger/ICQ/ICQSRV_REFUSEDPacket.java messenger/ICQ/ICQSRV_REPLYBOSPacket.java messenger/ICQ/ICQSRV_REPLYBUDDYPacket.java messenger/ICQ/ICQSRV_REPLYICBMPacket.java messenger/ICQ/ICQSRV_REPLYINFOPacket.java messenger/ICQ/ICQSRV_REPLYLISTSPacket.java messenger/ICQ/ICQSRV_REPLYLOCATIONPacket.java messenger/ICQ/ICQSRV_REPLYROSTERPacket.java messenger/ICQ/ICQSRV_SRVACKMSGPacket.java messenger/ICQ/ICQSRV_TOICQSRVPacket.java messenger/ICQ/ICQSRV_UPDATEACKPacket.java messenger/ICQ/ICQSRV_USEROFFLINEPacket.java messenger/ICQ/ICQSRV_USERONLINEPacket.java messenger/IllegalConversionException.java messenger/IncomingNullPacketException.java messenger/IPacket.java messenger/IPacketFactory.java messenger/Mess.java messenger/MSN/MSNContact.java messenger/MSN/MSNException.java messenger/MSN/MSNIncomingADDPacket.java messenger/MSN/MSNIncomingBPRPacket.java messenger/MSN/MSNIncomingCALPacket.java messenger/MSN/MSNIncomingCHGPacket.java messenger/MSN/MSNIncomingCHLPacket.java messenger/MSN/MSNIncomingFLNPacket.java messenger/MSN/MSNIncomingILNPacket.java messenger/MSN/MSNIncomingINFPacket.java messenger/MSN/MSNIncomingLSTPacket.java messenger/MSN/MSNIncomingMSGPacket.java messenger/MSN/MSNIncomingNLNPacket.java messenger/MSN/MSNIncomingPacket.java messenger/MSN/MSNIncomingQRYPacket.java messenger/MSN/MSNIncomingRNGPacket.java messenger/MSN/MSNIncomingUSRPacket.java messenger/MSN/MSNIncomingVERPacket.java messenger/MSN/MSNIncomingXFRPacket.java messenger/MSN/MSNOutgoingADDPacket.java messenger/MSN/MSNOutgoingANSPacket.java messenger/MSN/MSNOutgoingBYEPacket.java messenger/MSN/MSNOutgoingCALPacket.java messenger/MSN/MSNOutgoingCHGPacket.java messenger/MSN/MSNOutgoingINFPacket.java messenger/MSN/MSNOutgoingLSTPacket.java messenger/MSN/MSNOutgoingMSGPacket.java messenger/MSN/MSNOutgoingOUTPacket.java messenger/MSN/MSNOutgoingPacket.java messenger/MSN/MSNOutgoingQRYPacket.java messenger/MSN/MSNOutgoingUSRIPacket.java messenger/MSN/MSNOutgoingUSRPacket.java messenger/MSN/MSNOutgoingUSRSPacket.java messenger/MSN/MSNOutgoingVERPacket.java messenger/MSN/MSNOutgoingXFRPacket.java messenger/MSN/MSNPacket.java messenger/MSN/MSNPacketFactory.java messenger/MSN/MSNProtocol.java messenger/MSN/MSNSession.java messenger/MSN/MSNSessionListener.java messenger/PacketFactory.java messenger/ProtocolException.java messenger/Protocols.java messenger/TimeOutException.java messenger/TimeOutSocket.java messenger/Timer.java messenger/UnknownAccountException.java messenger/UnknownContactException.java messenger/UnknownPacketException.java messenger/UnknownProtocolException.java messenger/Utils.java messenger/Yahoo/YahooCLI_0015Packet.java messenger/Yahoo/YahooCLI_AUTH_RESPPacket.java messenger/Yahoo/YahooCLI_AUTHPacket.java messenger/Yahoo/YahooCLI_HELLOPacket.java messenger/Yahoo/YahooCLI_ISAWAYPacket.java messenger/Yahoo/YahooCLI_ISBACKPacket.java messenger/Yahoo/YahooCLI_MESSAGEPacket.java messenger/Yahoo/YahooCLI_PASSTHROUGH2Packet.java messenger/Yahoo/YahooContact.java messenger/Yahoo/YahooEncrypt.java messenger/Yahoo/YahooExceptions/YahooException.java messenger/Yahoo/YahooPacket.java messenger/Yahoo/YahooPacketFactory.java messenger/Yahoo/YahooProtocol.java messenger/Yahoo/YahooSRV_AUTH_RESPPacket.java messenger/Yahoo/YahooSRV_AUTHPacket.java messenger/Yahoo/YahooSRV_HELLOPacket.java messenger/Yahoo/YahooSRV_ISBACKACKPacket.java messenger/Yahoo/YahooSRV_LISTPacket.java messenger/Yahoo/YahooSRV_LOGOFFPacket.java messenger/Yahoo/YahooSRV_LOGONPacket.java messenger/Yahoo/YahooSRV_MESSAGEPacket.java messenger/Yahoo/YahooSRV_NOTIFYPacket.java TestCase.java testmessenger/ICQ/ICQCLI_ACKRATESPacketTest.java testmessenger/ICQ/ICQCLI_ADDBUDDYPacketTest.java testmessenger/ICQ/ICQCLI_ADDCONTACTPacketTest.java testmessenger/ICQ/ICQCLI_CONTACTTest.java testmessenger/ICQ/ICQCLI_COOKIEPacketTest.java testmessenger/ICQ/ICQCLI_FAMILIESPacketTest.java testmessenger/ICQ/ICQCLI_GOODBYEPacketTest.java testmessenger/ICQ/ICQCLI_IDENTPacketTest.java testmessenger/ICQ/ICQCLI_RATESREQUESTPacketTest.java testmessenger/ICQ/ICQCLI_READYPacketTest.java testmessenger/ICQ/ICQCLI_REQBOSPacketTest.java testmessenger/ICQ/ICQCLI_REQBUDDYPacketTest.java testmessenger/ICQ/ICQCLI_REQICBMPacketTest.java testmessenger/ICQ/ICQCLI_REQINFOPacketTest.java testmessenger/ICQ/ICQCLI_REQLISTSPacketTest.java testmessenger/ICQ/ICQCLI_REQLOCATIONPacketTest.java testmessenger/ICQ/ICQCLI_REQROSTERPacketTest.java testmessenger/ICQ/ICQCLI_SENDMSGPacketTest.java testmessenger/ICQ/ICQCLI_SENDMSGV1PacketTest.java testmessenger/ICQ/ICQCLI_SETICBMPacketTest.java testmessenger/ICQ/ICQCLI_SETSTATUSPacketTest.java testmessenger/ICQ/ICQProtocolTest.java testmessenger/ICQ/ICQSRV_COOKIEPacketTest.java testmessenger/ICQ/ICQSRV_FAMILIES2PacketTest.java testmessenger/ICQ/ICQSRV_FAMILIESPacketTest.java testmessenger/ICQ/ICQSRV_HELLOPacketTest.java testmessenger/ICQ/ICQSRV_RATESPacketTest.java testmessenger/ICQ/ICQSRV_REPLYROSTERPacketTest.java testmessenger/MSN/MSNContactTest.java testmessenger/MSN/MSNIncomingADDPacketTest.java testmessenger/MSN/MSNIncomingCHGPacketTest.java testmessenger/MSN/MSNIncomingCHLPacketTest.java testmessenger/MSN/MSNIncomingFLNPacketTest.java testmessenger/MSN/MSNIncomingILNPacketTest.java testmessenger/MSN/MSNIncomingINFPacketTest.java testmessenger/MSN/MSNIncomingLSTPacketTest.java testmessenger/MSN/MSNIncomingMSGPacketTest.java testmessenger/MSN/MSNIncomingNLNPacketTest.java testmessenger/MSN/MSNIncomingPacketTest.java testmessenger/MSN/MSNIncomingQRYPacketTest.java testmessenger/MSN/MSNIncomingRNGPacketTest.java testmessenger/MSN/MSNIncomingUSRPacketTest.java testmessenger/MSN/MSNIncomingVERPacketTest.java testmessenger/MSN/MSNIncomingXFRPacketTest.java testmessenger/MSN/MSNOutgoingADDPacketTest.java testmessenger/MSN/MSNOutgoingANSPacketTest.java testmessenger/MSN/MSNOutgoingCALPacketTest.java testmessenger/MSN/MSNOutgoingCHGPacketTest.java testmessenger/MSN/MSNOutgoingINFPacketTest.java testmessenger/MSN/MSNOutgoingLSTPacketTest.java testmessenger/MSN/MSNOutgoingMSGPacketTest.java testmessenger/MSN/MSNOutgoingPacketTest.java testmessenger/MSN/MSNOutgoingQRYPacketTest.java testmessenger/MSN/MSNOutgoingUSRIPacketTest.java testmessenger/MSN/MSNOutgoingUSRPacketTest.java testmessenger/MSN/MSNOutgoingUSRSPacketTest.java testmessenger/MSN/MSNOutgoingVERPacketTest.java testmessenger/MSN/MSNOutgoingXFRPacketTest.java testmessenger/MSN/MSNPacketFactoryTest.java testmessenger/MSN/MSNPacketTest.java testmessenger/MSN/MSNProtocolTest.java testmessenger/MSN/MSNSessionTest.java testmessenger/MSN/testMSNMessage.java testmessenger/testAll.java testmessenger/UtilsTest.java testmessenger/Yahoo/YahooContactTest.java testmessenger/Yahoo/YahooSRV_AUTH_RESPPacketTest.java testmessenger/Yahoo/YahooSRV_AUTHPacketTest.java testmessenger/Yahoo/YahooSRV_LISTPacketTest.java testmessenger/Yahoo/YahooSRV_LOGOFFPacketTest.java testmessenger/Yahoo/YahooSRV_LOGONPacketTest.java testmessenger/Yahoo/YahooSRV_MESSAGEPacketTest.java
+gui/AddBuddy.java gui/ContactTableModel.java gui/CustomCellRenderer.java gui/DumpListener.java gui/EditorPane.java gui/EmoticonsAndSounds.java gui/EmoticonSelector.java gui/ImageIconRenderer.java gui/MessageBox.java gui/MessGui.java gui/Preferences.java gui/SimpleAudioPlayer.java gui/TableMap.java gui/TableSorter.java gui/View.java messenger/ABytePacket.java messenger/AContact.java messenger/AProtocol.java messenger/ATextPacket.java messenger/BadArgumentException.java messenger/Buffer.java messenger/CorruptPacketException.java messenger/DataBuffer.java messenger/ICQ/ICQCLI_ACKRATESPacket.java messenger/ICQ/ICQCLI_ADDBUDDYPacket.java messenger/ICQ/ICQCLI_ADDCONTACTPacket.java messenger/ICQ/ICQCLI_ADDENDPacket.java messenger/ICQ/ICQCLI_ADDSTARTPacket.java messenger/ICQ/ICQCLI_COOKIEPacket.java messenger/ICQ/ICQCLI_FAMILIESPacket.java messenger/ICQ/ICQCLI_GOODBYEPacket.java messenger/ICQ/ICQCLI_IDENTPacket.java messenger/ICQ/ICQCLI_KEEPALIVEPacket.java messenger/ICQ/ICQCLI_RATESREQUESTPacket.java messenger/ICQ/ICQCLI_READYPacket.java messenger/ICQ/ICQCLI_REQBOSPacket.java messenger/ICQ/ICQCLI_REQBUDDYPacket.java messenger/ICQ/ICQCLI_REQICBMPacket.java messenger/ICQ/ICQCLI_REQINFOPacket.java messenger/ICQ/ICQCLI_REQLISTSPacket.java messenger/ICQ/ICQCLI_REQLOCATIONPacket.java messenger/ICQ/ICQCLI_REQROSTERPacket.java messenger/ICQ/ICQCLI_SENDMSGPacket.java messenger/ICQ/ICQCLI_SENDMSGV1Packet.java messenger/ICQ/ICQCLI_SETICBMPacket.java messenger/ICQ/ICQCLI_SETSTATUSPacket.java messenger/ICQ/ICQCLI_SETUSERINFOPacket.java messenger/ICQ/ICQCLI_TOICQSERVERPacket.java messenger/ICQ/ICQContact.java messenger/ICQ/ICQExceptions/ICQBadArgumentException.java messenger/ICQ/ICQExceptions/ICQException.java messenger/ICQ/ICQExceptions/ICQIOException.java messenger/ICQ/ICQExceptions/ICQStringIndexOutOfBoundsException.java messenger/ICQ/ICQExceptions/ICQTimeOutException.java messenger/ICQ/ICQExceptions/ICQUnknownPacketException.java messenger/ICQ/ICQOutgoingPacket.java messenger/ICQ/ICQPacket.java messenger/ICQ/ICQPacketFactory.java messenger/ICQ/ICQProtocol.java messenger/ICQ/ICQSRV_ACKMSGPacket.java messenger/ICQ/ICQSRV_CONTACTERRPacket.java messenger/ICQ/ICQSRV_COOKIEPacket.java messenger/ICQ/ICQSRV_FAMILIES2Packet.java messenger/ICQ/ICQSRV_FAMILIESPacket.java messenger/ICQ/ICQSRV_HELLOPacket.java messenger/ICQ/ICQSRV_ICBMERRPacket.java messenger/ICQ/ICQSRV_RATESPacket.java messenger/ICQ/ICQSRV_RECVMSGV1Packet.java messenger/ICQ/ICQSRV_RECVMSGV2Packet.java messenger/ICQ/ICQSRV_REFUSEDPacket.java messenger/ICQ/ICQSRV_REPLYBOSPacket.java messenger/ICQ/ICQSRV_REPLYBUDDYPacket.java messenger/ICQ/ICQSRV_REPLYICBMPacket.java messenger/ICQ/ICQSRV_REPLYINFOPacket.java messenger/ICQ/ICQSRV_REPLYLISTSPacket.java messenger/ICQ/ICQSRV_REPLYLOCATIONPacket.java messenger/ICQ/ICQSRV_REPLYROSTERPacket.java messenger/ICQ/ICQSRV_SRVACKMSGPacket.java messenger/ICQ/ICQSRV_TOICQSRVPacket.java messenger/ICQ/ICQSRV_UPDATEACKPacket.java messenger/ICQ/ICQSRV_USEROFFLINEPacket.java messenger/ICQ/ICQSRV_USERONLINEPacket.java messenger/IllegalConversionException.java messenger/IncomingNullPacketException.java messenger/IPacket.java messenger/IPacketFactory.java messenger/Mess.java messenger/MSN/MSNContact.java messenger/MSN/MSNException.java messenger/MSN/MSNIncomingADDPacket.java messenger/MSN/MSNIncomingBPRPacket.java messenger/MSN/MSNIncomingCALPacket.java messenger/MSN/MSNIncomingCHGPacket.java messenger/MSN/MSNIncomingCHLPacket.java messenger/MSN/MSNIncomingFLNPacket.java messenger/MSN/MSNIncomingILNPacket.java messenger/MSN/MSNIncomingINFPacket.java messenger/MSN/MSNIncomingLSTPacket.java messenger/MSN/MSNIncomingMSGPacket.java messenger/MSN/MSNIncomingNLNPacket.java messenger/MSN/MSNIncomingPacket.java messenger/MSN/MSNIncomingQRYPacket.java messenger/MSN/MSNIncomingRNGPacket.java messenger/MSN/MSNIncomingUSRPacket.java messenger/MSN/MSNIncomingVERPacket.java messenger/MSN/MSNIncomingXFRPacket.java messenger/MSN/MSNOutgoingADDPacket.java messenger/MSN/MSNOutgoingANSPacket.java messenger/MSN/MSNOutgoingBYEPacket.java messenger/MSN/MSNOutgoingCALPacket.java messenger/MSN/MSNOutgoingCHGPacket.java messenger/MSN/MSNOutgoingINFPacket.java messenger/MSN/MSNOutgoingLSTPacket.java messenger/MSN/MSNOutgoingMSGPacket.java messenger/MSN/MSNOutgoingOUTPacket.java messenger/MSN/MSNOutgoingPacket.java messenger/MSN/MSNOutgoingQRYPacket.java messenger/MSN/MSNOutgoingUSRIPacket.java messenger/MSN/MSNOutgoingUSRPacket.java messenger/MSN/MSNOutgoingUSRSPacket.java messenger/MSN/MSNOutgoingVERPacket.java messenger/MSN/MSNOutgoingXFRPacket.java messenger/MSN/MSNPacket.java messenger/MSN/MSNPacketFactory.java messenger/MSN/MSNProtocol.java messenger/MSN/MSNSession.java messenger/MSN/MSNSessionListener.java messenger/PacketFactory.java messenger/ProtocolException.java messenger/Protocols.java messenger/TimeOutException.java messenger/TimeOutSocket.java messenger/Timer.java messenger/UnknownAccountException.java messenger/UnknownContactException.java messenger/UnknownPacketException.java messenger/UnknownProtocolException.java messenger/Utils.java messenger/Yahoo/YahooCLI_0015Packet.java messenger/Yahoo/YahooCLI_AUTH_RESPPacket.java messenger/Yahoo/YahooCLI_AUTHPacket.java messenger/Yahoo/YahooCLI_HELLOPacket.java messenger/Yahoo/YahooCLI_ISAWAYPacket.java messenger/Yahoo/YahooCLI_ISBACKPacket.java messenger/Yahoo/YahooCLI_MESSAGEPacket.java messenger/Yahoo/YahooCLI_PASSTHROUGH2Packet.java messenger/Yahoo/YahooContact.java messenger/Yahoo/YahooEncrypt.java messenger/Yahoo/YahooExceptions/YahooException.java messenger/Yahoo/YahooPacket.java messenger/Yahoo/YahooPacketFactory.java messenger/Yahoo/YahooProtocol.java messenger/Yahoo/YahooSRV_AUTH_RESPPacket.java messenger/Yahoo/YahooSRV_AUTHPacket.java messenger/Yahoo/YahooSRV_HELLOPacket.java messenger/Yahoo/YahooSRV_ISBACKACKPacket.java messenger/Yahoo/YahooSRV_LISTPacket.java messenger/Yahoo/YahooSRV_LOGOFFPacket.java messenger/Yahoo/YahooSRV_LOGONPacket.java messenger/Yahoo/YahooSRV_MESSAGEPacket.java messenger/Yahoo/YahooSRV_NOTIFYPacket.java TestCase.java testmessenger/ICQ/ICQCLI_ACKRATESPacketTest.java testmessenger/ICQ/ICQCLI_ADDBUDDYPacketTest.java testmessenger/ICQ/ICQCLI_ADDCONTACTPacketTest.java testmessenger/ICQ/ICQCLI_CONTACTTest.java testmessenger/ICQ/ICQCLI_COOKIEPacketTest.java testmessenger/ICQ/ICQCLI_FAMILIESPacketTest.java testmessenger/ICQ/ICQCLI_GOODBYEPacketTest.java testmessenger/ICQ/ICQCLI_IDENTPacketTest.java testmessenger/ICQ/ICQCLI_RATESREQUESTPacketTest.java testmessenger/ICQ/ICQCLI_READYPacketTest.java testmessenger/ICQ/ICQCLI_REQBOSPacketTest.java testmessenger/ICQ/ICQCLI_REQBUDDYPacketTest.java testmessenger/ICQ/ICQCLI_REQICBMPacketTest.java testmessenger/ICQ/ICQCLI_REQINFOPacketTest.java testmessenger/ICQ/ICQCLI_REQLISTSPacketTest.java testmessenger/ICQ/ICQCLI_REQLOCATIONPacketTest.java testmessenger/ICQ/ICQCLI_REQROSTERPacketTest.java testmessenger/ICQ/ICQCLI_SENDMSGPacketTest.java testmessenger/ICQ/ICQCLI_SENDMSGV1PacketTest.java testmessenger/ICQ/ICQCLI_SETICBMPacketTest.java testmessenger/ICQ/ICQCLI_SETSTATUSPacketTest.java testmessenger/ICQ/ICQProtocolTest.java testmessenger/ICQ/ICQSRV_COOKIEPacketTest.java testmessenger/ICQ/ICQSRV_FAMILIES2PacketTest.java testmessenger/ICQ/ICQSRV_FAMILIESPacketTest.java testmessenger/ICQ/ICQSRV_HELLOPacketTest.java testmessenger/ICQ/ICQSRV_RATESPacketTest.java testmessenger/ICQ/ICQSRV_REPLYROSTERPacketTest.java testmessenger/MSN/MSNContactTest.java testmessenger/MSN/MSNIncomingADDPacketTest.java testmessenger/MSN/MSNIncomingCHGPacketTest.java testmessenger/MSN/MSNIncomingCHLPacketTest.java testmessenger/MSN/MSNIncomingFLNPacketTest.java testmessenger/MSN/MSNIncomingILNPacketTest.java testmessenger/MSN/MSNIncomingINFPacketTest.java testmessenger/MSN/MSNIncomingLSTPacketTest.java testmessenger/MSN/MSNIncomingMSGPacketTest.java testmessenger/MSN/MSNIncomingNLNPacketTest.java testmessenger/MSN/MSNIncomingPacketTest.java testmessenger/MSN/MSNIncomingQRYPacketTest.java testmessenger/MSN/MSNIncomingRNGPacketTest.java testmessenger/MSN/MSNIncomingUSRPacketTest.java testmessenger/MSN/MSNIncomingVERPacketTest.java testmessenger/MSN/MSNIncomingXFRPacketTest.java testmessenger/MSN/MSNOutgoingADDPacketTest.java testmessenger/MSN/MSNOutgoingANSPacketTest.java testmessenger/MSN/MSNOutgoingCALPacketTest.java testmessenger/MSN/MSNOutgoingCHGPacketTest.java testmessenger/MSN/MSNOutgoingINFPacketTest.java testmessenger/MSN/MSNOutgoingLSTPacketTest.java testmessenger/MSN/MSNOutgoingMSGPacketTest.java testmessenger/MSN/MSNOutgoingPacketTest.java testmessenger/MSN/MSNOutgoingQRYPacketTest.java testmessenger/MSN/MSNOutgoingUSRIPacketTest.java testmessenger/MSN/MSNOutgoingUSRPacketTest.java testmessenger/MSN/MSNOutgoingUSRSPacketTest.java testmessenger/MSN/MSNOutgoingVERPacketTest.java testmessenger/MSN/MSNOutgoingXFRPacketTest.java testmessenger/MSN/MSNPacketFactoryTest.java testmessenger/MSN/MSNPacketTest.java testmessenger/MSN/MSNProtocolTest.java testmessenger/MSN/MSNSessionTest.java testmessenger/MSN/testMSNMessage.java testmessenger/testAll.java testmessenger/UtilsTest.java testmessenger/Yahoo/YahooContactTest.java testmessenger/Yahoo/YahooSRV_AUTH_RESPPacketTest.java testmessenger/Yahoo/YahooSRV_AUTHPacketTest.java testmessenger/Yahoo/YahooSRV_LISTPacketTest.java testmessenger/Yahoo/YahooSRV_LOGOFFPacketTest.java testmessenger/Yahoo/YahooSRV_LOGONPacketTest.java testmessenger/Yahoo/YahooSRV_MESSAGEPacketTest.java
+**
+Scanning: gui/AddBuddy.java
+Scanning: gui/ContactTableModel.java
+Scanning: gui/CustomCellRenderer.java
+Scanning: gui/DumpListener.java
+Scanning: gui/EditorPane.java
+Scanning: gui/EmoticonsAndSounds.java
+Scanning: gui/EmoticonSelector.java
+Scanning: gui/ImageIconRenderer.java
+Scanning: gui/MessageBox.java
+Scanning: gui/MessGui.java
+Scanning: gui/Preferences.java
+Scanning: gui/SimpleAudioPlayer.java
+Scanning: gui/TableMap.java
+Scanning: gui/TableSorter.java
+Scanning: gui/View.java
+Scanning: messenger/ABytePacket.java
+Scanning: messenger/AContact.java
+Scanning: messenger/AProtocol.java
+Scanning: messenger/ATextPacket.java
+Scanning: messenger/BadArgumentException.java
+Scanning: messenger/Buffer.java
+Scanning: messenger/CorruptPacketException.java
+Scanning: messenger/DataBuffer.java
+Scanning: messenger/ICQ/ICQCLI_ACKRATESPacket.java
+Scanning: messenger/ICQ/ICQCLI_ADDBUDDYPacket.java
+Scanning: messenger/ICQ/ICQCLI_ADDCONTACTPacket.java
+Scanning: messenger/ICQ/ICQCLI_ADDENDPacket.java
+Scanning: messenger/ICQ/ICQCLI_ADDSTARTPacket.java
+Scanning: messenger/ICQ/ICQCLI_COOKIEPacket.java
+Scanning: messenger/ICQ/ICQCLI_FAMILIESPacket.java
+Scanning: messenger/ICQ/ICQCLI_GOODBYEPacket.java
+Scanning: messenger/ICQ/ICQCLI_IDENTPacket.java
+Scanning: messenger/ICQ/ICQCLI_KEEPALIVEPacket.java
+Scanning: messenger/ICQ/ICQCLI_RATESREQUESTPacket.java
+Scanning: messenger/ICQ/ICQCLI_READYPacket.java
+Scanning: messenger/ICQ/ICQCLI_REQBOSPacket.java
+Scanning: messenger/ICQ/ICQCLI_REQBUDDYPacket.java
+Scanning: messenger/ICQ/ICQCLI_REQICBMPacket.java
+Scanning: messenger/ICQ/ICQCLI_REQINFOPacket.java
+Scanning: messenger/ICQ/ICQCLI_REQLISTSPacket.java
+Scanning: messenger/ICQ/ICQCLI_REQLOCATIONPacket.java
+Scanning: messenger/ICQ/ICQCLI_REQROSTERPacket.java
+Scanning: messenger/ICQ/ICQCLI_SENDMSGPacket.java
+Scanning: messenger/ICQ/ICQCLI_SENDMSGV1Packet.java
+Scanning: messenger/ICQ/ICQCLI_SETICBMPacket.java
+Scanning: messenger/ICQ/ICQCLI_SETSTATUSPacket.java
+Scanning: messenger/ICQ/ICQCLI_SETUSERINFOPacket.java
+Scanning: messenger/ICQ/ICQCLI_TOICQSERVERPacket.java
+Scanning: messenger/ICQ/ICQContact.java
+Scanning: messenger/ICQ/ICQExceptions/ICQBadArgumentException.java
+Scanning: messenger/ICQ/ICQExceptions/ICQException.java
+Scanning: messenger/ICQ/ICQExceptions/ICQIOException.java
+Scanning: messenger/ICQ/ICQExceptions/ICQStringIndexOutOfBoundsException.java
+Scanning: messenger/ICQ/ICQExceptions/ICQTimeOutException.java
+Scanning: messenger/ICQ/ICQExceptions/ICQUnknownPacketException.java
+Scanning: messenger/ICQ/ICQOutgoingPacket.java
+Scanning: messenger/ICQ/ICQPacket.java
+Scanning: messenger/ICQ/ICQPacketFactory.java
+Scanning: messenger/ICQ/ICQProtocol.java
+Scanning: messenger/ICQ/ICQSRV_ACKMSGPacket.java
+Scanning: messenger/ICQ/ICQSRV_CONTACTERRPacket.java
+Scanning: messenger/ICQ/ICQSRV_COOKIEPacket.java
+Scanning: messenger/ICQ/ICQSRV_FAMILIES2Packet.java
+Scanning: messenger/ICQ/ICQSRV_FAMILIESPacket.java
+Scanning: messenger/ICQ/ICQSRV_HELLOPacket.java
+Scanning: messenger/ICQ/ICQSRV_ICBMERRPacket.java
+Scanning: messenger/ICQ/ICQSRV_RATESPacket.java
+Scanning: messenger/ICQ/ICQSRV_RECVMSGV1Packet.java
+Scanning: messenger/ICQ/ICQSRV_RECVMSGV2Packet.java
+Scanning: messenger/ICQ/ICQSRV_REFUSEDPacket.java
+Scanning: messenger/ICQ/ICQSRV_REPLYBOSPacket.java
+Scanning: messenger/ICQ/ICQSRV_REPLYBUDDYPacket.java
+Scanning: messenger/ICQ/ICQSRV_REPLYICBMPacket.java
+Scanning: messenger/ICQ/ICQSRV_REPLYINFOPacket.java
+Scanning: messenger/ICQ/ICQSRV_REPLYLISTSPacket.java
+Scanning: messenger/ICQ/ICQSRV_REPLYLOCATIONPacket.java
+Scanning: messenger/ICQ/ICQSRV_REPLYROSTERPacket.java
+Scanning: messenger/ICQ/ICQSRV_SRVACKMSGPacket.java
+Scanning: messenger/ICQ/ICQSRV_TOICQSRVPacket.java
+Scanning: messenger/ICQ/ICQSRV_UPDATEACKPacket.java
+Scanning: messenger/ICQ/ICQSRV_USEROFFLINEPacket.java
+Scanning: messenger/ICQ/ICQSRV_USERONLINEPacket.java
+Scanning: messenger/IllegalConversionException.java
+Scanning: messenger/IncomingNullPacketException.java
+Scanning: messenger/IPacket.java
+Scanning: messenger/IPacketFactory.java
+Scanning: messenger/Mess.java
+Scanning: messenger/MSN/MSNContact.java
+Scanning: messenger/MSN/MSNException.java
+Scanning: messenger/MSN/MSNIncomingADDPacket.java
+Scanning: messenger/MSN/MSNIncomingBPRPacket.java
+Scanning: messenger/MSN/MSNIncomingCALPacket.java
+Scanning: messenger/MSN/MSNIncomingCHGPacket.java
+Scanning: messenger/MSN/MSNIncomingCHLPacket.java
+Scanning: messenger/MSN/MSNIncomingFLNPacket.java
+Scanning: messenger/MSN/MSNIncomingILNPacket.java
+Scanning: messenger/MSN/MSNIncomingINFPacket.java
+Scanning: messenger/MSN/MSNIncomingLSTPacket.java
+Scanning: messenger/MSN/MSNIncomingMSGPacket.java
+Scanning: messenger/MSN/MSNIncomingNLNPacket.java
+Scanning: messenger/MSN/MSNIncomingPacket.java
+Scanning: messenger/MSN/MSNIncomingQRYPacket.java
+Scanning: messenger/MSN/MSNIncomingRNGPacket.java
+Scanning: messenger/MSN/MSNIncomingUSRPacket.java
+Scanning: messenger/MSN/MSNIncomingVERPacket.java
+Scanning: messenger/MSN/MSNIncomingXFRPacket.java
+Scanning: messenger/MSN/MSNOutgoingADDPacket.java
+Scanning: messenger/MSN/MSNOutgoingANSPacket.java
+Scanning: messenger/MSN/MSNOutgoingBYEPacket.java
+Scanning: messenger/MSN/MSNOutgoingCALPacket.java
+Scanning: messenger/MSN/MSNOutgoingCHGPacket.java
+Scanning: messenger/MSN/MSNOutgoingINFPacket.java
+Scanning: messenger/MSN/MSNOutgoingLSTPacket.java
+Scanning: messenger/MSN/MSNOutgoingMSGPacket.java
+Scanning: messenger/MSN/MSNOutgoingOUTPacket.java
+Scanning: messenger/MSN/MSNOutgoingPacket.java
+Scanning: messenger/MSN/MSNOutgoingQRYPacket.java
+Scanning: messenger/MSN/MSNOutgoingUSRIPacket.java
+Scanning: messenger/MSN/MSNOutgoingUSRPacket.java
+Scanning: messenger/MSN/MSNOutgoingUSRSPacket.java
+Scanning: messenger/MSN/MSNOutgoingVERPacket.java
+Scanning: messenger/MSN/MSNOutgoingXFRPacket.java
+Scanning: messenger/MSN/MSNPacket.java
+Scanning: messenger/MSN/MSNPacketFactory.java
+Scanning: messenger/MSN/MSNProtocol.java
+Scanning: messenger/MSN/MSNSession.java
+Scanning: messenger/MSN/MSNSessionListener.java
+Scanning: messenger/PacketFactory.java
+Scanning: messenger/ProtocolException.java
+Scanning: messenger/Protocols.java
+Scanning: messenger/TimeOutException.java
+Scanning: messenger/TimeOutSocket.java
+Scanning: messenger/Timer.java
+Scanning: messenger/UnknownAccountException.java
+Scanning: messenger/UnknownContactException.java
+Scanning: messenger/UnknownPacketException.java
+Scanning: messenger/UnknownProtocolException.java
+Scanning: messenger/Utils.java
+Scanning: messenger/Yahoo/YahooCLI_0015Packet.java
+Scanning: messenger/Yahoo/YahooCLI_AUTH_RESPPacket.java
+Scanning: messenger/Yahoo/YahooCLI_AUTHPacket.java
+Scanning: messenger/Yahoo/YahooCLI_HELLOPacket.java
+Scanning: messenger/Yahoo/YahooCLI_ISAWAYPacket.java
+Scanning: messenger/Yahoo/YahooCLI_ISBACKPacket.java
+Scanning: messenger/Yahoo/YahooCLI_MESSAGEPacket.java
+Scanning: messenger/Yahoo/YahooCLI_PASSTHROUGH2Packet.java
+Scanning: messenger/Yahoo/YahooContact.java
+Scanning: messenger/Yahoo/YahooEncrypt.java
+Scanning: messenger/Yahoo/YahooExceptions/YahooException.java
+Scanning: messenger/Yahoo/YahooPacket.java
+Scanning: messenger/Yahoo/YahooPacketFactory.java
+Scanning: messenger/Yahoo/YahooProtocol.java
+Scanning: messenger/Yahoo/YahooSRV_AUTH_RESPPacket.java
+Scanning: messenger/Yahoo/YahooSRV_AUTHPacket.java
+Scanning: messenger/Yahoo/YahooSRV_HELLOPacket.java
+Scanning: messenger/Yahoo/YahooSRV_ISBACKACKPacket.java
+Scanning: messenger/Yahoo/YahooSRV_LISTPacket.java
+Scanning: messenger/Yahoo/YahooSRV_LOGOFFPacket.java
+Scanning: messenger/Yahoo/YahooSRV_LOGONPacket.java
+Scanning: messenger/Yahoo/YahooSRV_MESSAGEPacket.java
+Scanning: messenger/Yahoo/YahooSRV_NOTIFYPacket.java
+Scanning: TestCase.java
+Scanning: testmessenger/ICQ/ICQCLI_ACKRATESPacketTest.java
+Scanning: testmessenger/ICQ/ICQCLI_ADDBUDDYPacketTest.java
+Scanning: testmessenger/ICQ/ICQCLI_ADDCONTACTPacketTest.java
+Scanning: testmessenger/ICQ/ICQCLI_CONTACTTest.java
+Scanning: testmessenger/ICQ/ICQCLI_COOKIEPacketTest.java
+Scanning: testmessenger/ICQ/ICQCLI_FAMILIESPacketTest.java
+Scanning: testmessenger/ICQ/ICQCLI_GOODBYEPacketTest.java
+Scanning: testmessenger/ICQ/ICQCLI_IDENTPacketTest.java
+Scanning: testmessenger/ICQ/ICQCLI_RATESREQUESTPacketTest.java
+Scanning: testmessenger/ICQ/ICQCLI_READYPacketTest.java
+Scanning: testmessenger/ICQ/ICQCLI_REQBOSPacketTest.java
+Scanning: testmessenger/ICQ/ICQCLI_REQBUDDYPacketTest.java
+Scanning: testmessenger/ICQ/ICQCLI_REQICBMPacketTest.java
+Scanning: testmessenger/ICQ/ICQCLI_REQINFOPacketTest.java
+Scanning: testmessenger/ICQ/ICQCLI_REQLISTSPacketTest.java
+Scanning: testmessenger/ICQ/ICQCLI_REQLOCATIONPacketTest.java
+Scanning: testmessenger/ICQ/ICQCLI_REQROSTERPacketTest.java
+Scanning: testmessenger/ICQ/ICQCLI_SENDMSGPacketTest.java
+Scanning: testmessenger/ICQ/ICQCLI_SENDMSGV1PacketTest.java
+Scanning: testmessenger/ICQ/ICQCLI_SETICBMPacketTest.java
+Scanning: testmessenger/ICQ/ICQCLI_SETSTATUSPacketTest.java
+Scanning: testmessenger/ICQ/ICQProtocolTest.java
+Scanning: testmessenger/ICQ/ICQSRV_COOKIEPacketTest.java
+Scanning: testmessenger/ICQ/ICQSRV_FAMILIES2PacketTest.java
+Scanning: testmessenger/ICQ/ICQSRV_FAMILIESPacketTest.java
+Scanning: testmessenger/ICQ/ICQSRV_HELLOPacketTest.java
+Scanning: testmessenger/ICQ/ICQSRV_RATESPacketTest.java
+Scanning: testmessenger/ICQ/ICQSRV_REPLYROSTERPacketTest.java
+Scanning: testmessenger/MSN/MSNContactTest.java
+Scanning: testmessenger/MSN/MSNIncomingADDPacketTest.java
+Scanning: testmessenger/MSN/MSNIncomingCHGPacketTest.java
+Scanning: testmessenger/MSN/MSNIncomingCHLPacketTest.java
+Scanning: testmessenger/MSN/MSNIncomingFLNPacketTest.java
+Scanning: testmessenger/MSN/MSNIncomingILNPacketTest.java
+Scanning: testmessenger/MSN/MSNIncomingINFPacketTest.java
+Scanning: testmessenger/MSN/MSNIncomingLSTPacketTest.java
+Scanning: testmessenger/MSN/MSNIncomingMSGPacketTest.java
+Scanning: testmessenger/MSN/MSNIncomingNLNPacketTest.java
+Scanning: testmessenger/MSN/MSNIncomingPacketTest.java
+Scanning: testmessenger/MSN/MSNIncomingQRYPacketTest.java
+Scanning: testmessenger/MSN/MSNIncomingRNGPacketTest.java
+Scanning: testmessenger/MSN/MSNIncomingUSRPacketTest.java
+Scanning: testmessenger/MSN/MSNIncomingVERPacketTest.java
+Scanning: testmessenger/MSN/MSNIncomingXFRPacketTest.java
+Scanning: testmessenger/MSN/MSNOutgoingADDPacketTest.java
+Scanning: testmessenger/MSN/MSNOutgoingANSPacketTest.java
+Scanning: testmessenger/MSN/MSNOutgoingCALPacketTest.java
+Scanning: testmessenger/MSN/MSNOutgoingCHGPacketTest.java
+Scanning: testmessenger/MSN/MSNOutgoingINFPacketTest.java
+Scanning: testmessenger/MSN/MSNOutgoingLSTPacketTest.java
+Scanning: testmessenger/MSN/MSNOutgoingMSGPacketTest.java
+Scanning: testmessenger/MSN/MSNOutgoingPacketTest.java
+Scanning: testmessenger/MSN/MSNOutgoingQRYPacketTest.java
+Scanning: testmessenger/MSN/MSNOutgoingUSRIPacketTest.java
+Scanning: testmessenger/MSN/MSNOutgoingUSRPacketTest.java
+Scanning: testmessenger/MSN/MSNOutgoingUSRSPacketTest.java
+Scanning: testmessenger/MSN/MSNOutgoingVERPacketTest.java
+Scanning: testmessenger/MSN/MSNOutgoingXFRPacketTest.java
+Scanning: testmessenger/MSN/MSNPacketFactoryTest.java
+Scanning: testmessenger/MSN/MSNPacketTest.java
+Scanning: testmessenger/MSN/MSNProtocolTest.java
+Scanning: testmessenger/MSN/MSNSessionTest.java
+Scanning: testmessenger/MSN/testMSNMessage.java
+Scanning: testmessenger/testAll.java
+Scanning: testmessenger/UtilsTest.java
+Scanning: testmessenger/Yahoo/YahooContactTest.java
+Scanning: testmessenger/Yahoo/YahooSRV_AUTH_RESPPacketTest.java
+Scanning: testmessenger/Yahoo/YahooSRV_AUTHPacketTest.java
+Scanning: testmessenger/Yahoo/YahooSRV_LISTPacketTest.java
+Scanning: testmessenger/Yahoo/YahooSRV_LOGOFFPacketTest.java
+Scanning: testmessenger/Yahoo/YahooSRV_LOGONPacketTest.java
+Scanning: testmessenger/Yahoo/YahooSRV_MESSAGEPacketTest.java
+Waiting for cross-referencing to complete
+Project has been built
+(2/9) Dumping SN database
+* Source Navigator project path check
+	- Source Navigator project path /home/nix/JaarProject/CaseStud/java/anastacia/anastacia exists ... OK
+	- Source Navigator /home/nix/JaarProject/CaseStud/java/anastacia/anastacia/anastacia.proj project file exists ... OK
+	- Source Navigator .snprj dir /home/nix/JaarProject/CaseStud/java/anastacia/anastacia/.snprj exists ... OK
+	- dbdump destination dir /home/nix/JaarProject/CaseStud/java/anastacia/anastacia/dbdump exists ... OK
+	- dbdump utilities' path /opt/sourcenav/bin/dbdump exists ... OK 
+	DONE
+* Dumping SourceNavigator's anastacia database .../home/nix/JaarProject/Fetch07/src/snavtofamix
+ Done
+* Sanitize dumped tables ... Done
+(3/9) Collecting conditional compilation and macro definition directives
+(4/9) Collecting include directives
+(4/9) Collecting namespace declarations and uses
+(5/9) Calculating metrics via Pmccabe
+(7/9) Cleaning temporary files
+(8/9) Running snavtofamix

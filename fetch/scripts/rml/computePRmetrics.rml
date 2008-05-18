@@ -1,0 +1,64 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+*/
+
+/**
+ * Enlists procedural metrics.
+ **/
+
+CBF(f1,f2) := 	EX(fu1,fu2,fu1d,fu2d,
+				Function(fu1,_) &
+				Function(fu2,_) &
+				InvokableEntityBelongsToFile(fu1,f1,_) &
+				InvokableEntityBelongsToFile(fu2,f2,_) &
+				DefinitionForDeclaration(fu1d,fu1) &
+				DefinitionForDeclaration(fu2d,fu2) &
+				(Invokes(_,fu1,fu2) | Invokes(_,fu2,fu1)) &
+				(f1 != f2));
+PRINT CBF(f1,f2);
+/*EX(mc, MethodBelongsToClass(mc,c) & PIM(m1,mc) )
+			  |
+			  EX(ac, AttributeBelongsToClass(ac,c) & Accesses(_,m1,ac) );
+
+uses(c,d) := EX(m1, MethodBelongsToClass(m1,c) & uses(m1,d));
+
+CBO(c,d) := uses(c,d) | uses(d,c);
+
+LCOM(c,m1,m2) := MethodBelongsToClass(m1,c) & MethodBelongsToClass(m2,c) & (m1 != m2)
+				&  !EX(a, Accesses(_,m1,a) & Accesses(_,m2,a) & AttributeBelongsToClass(a,c))
+				& (m1 != m2);
+
+RFC(c,m) := MethodBelongsToClass(m,c) // R1
+			| EX(mc, MethodBelongsToClass(mc,c) & PIM(mc,m));
+
+ParentOnPathToRoot(child,parent) := FALSE(child,parent);*/
+
+PRINT "ID	name	cbo	lcom	noc	rfc	dit",ENDL;
+
+AFile(x) := File(x,_);
+FOR f IN AFile(x) {
+	// CBO(c) := #(CBO(c,x));
+	cbf := #(CBF(f,_));
+
+	FileName(fn) := File(f,fn);
+	FOR fn IN FileName(x) {
+		PRINT f,"	'",fn,"'	",cbf,ENDL;
+	}
+}

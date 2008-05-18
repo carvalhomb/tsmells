@@ -1,0 +1,27 @@
+INTRO
+
+snavtofamix transforms the database SourceNavigator IDE constructs for a parsed 
+software project into the FAMIX Cdif exchange format, for usage in reverse 
+engineering environments and tools such as Moose, CodeCrawler, Van, ...
+
+The latest information can be found on http://snavtofamix.sourceforge.net
+Check out the source out of svn:  
+svn co https://snavtofamix.svn.sourceforge.net/svnroot/snavtofamix snavtofamix
+Bugs: http://sourceforge.net/tracker/?group_id=171074&atid=856579
+
+CONTRIBUTING
+
+some guidelines for contributions ...
+- svn repository is at https://snavtofamix.svn.sourceforge.net/svnroot/snavtofamix
+- todo.txt lists tasks that we identified 
+- We use Eclipse with PyDev extension to develop
+- We incrementally work towards code lines not exceeding 80 chars.
+- We recently introduced pylint, mainly for the Python development guidelines
+  as well as size and complexity metrics warnings.
+- Commonly used abbreviations are explained at the top of snavtofamix.py and 
+  snavJavaTofamix.py
+- Organize imports as (i) system libraries (such as os and sys), (ii) external 
+  libraries (such as log4py) and (iii) local imports
+- We name identifiers by concatenating words or abbreviations, capitalizing the 
+  first letter of each component. We are working to eliminate the _
+- Make methods private (starting with __) when they do not belong to the API

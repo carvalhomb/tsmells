@@ -1,0 +1,97 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Du Bois <bart.dubois@ua.ac.be>
+*/
+
+/**
+ * Generates a system complexity view
+ * as proposed by Michele Lanza.
+ * width - number of attributes
+ * height - number of methods
+ * color - relative complexity (using WLOC)
+ *  In case we don't have the WLOC measures
+ *  for all of the methods of a class,
+ *  the class is colored in a certain red-value
+ *  instead of a grey-value.
+ *
+ * @@TODO@@: Resolve divide by zero error.
+ **/
+
+PRINT "nodedef> name,label,width,height,style,labelvisible,color,NOM INT,NOA INT,WLOC INT,NOMWLOC INT,NOMwithoutLOCperc INT,sourceFile VARCHAR",ENDL;
+
+InheritanceRelatedClass(aClass) := InheritsFrom(_,_,aClass,_) | InheritsFrom(_,_,_,aClass);
+
+LOC(aClass,aMethod,aLoc) := Class(aClass,_) & MethodBelongsToClass(aMethod,aClass) & Measurement(_,aMethod,"LOC",aLoc);
+
+// Calculate the maximum weighted lines of code
+max_wloc := 0;
+FOR theClass IN InheritanceRelatedClass(x) {
+	wloc := SUM(LOC(theClass,_,aLoc));
+	IF ( wloc > max_wloc ) {
+		max_wloc := wloc;
+	}
+}
+
+minWidth := 4;
+minHeight := 4;
+
+FOR theClass IN InheritanceRelatedClass(x) {
+	wloc := SUM(LOC(theClass,_,aLoc));
+	wlocP := (wloc*100) DIV max_wloc;
+	colorValue := 255-((wlocP*255) DIV 100);
+	redValue := colorValue;
+	greenValue := colorValue;
+	blueValue := colorValue;
+
+	nrOfAttributes := #(AttributeBelongsToClass(x,theClass));
+	nrOfMethods := #(MethodBelongsToClass(x,theClass));
+
+	width := nrOfAttributes + minWidth;
+	height := nrOfMethods + minHeight;
+
+	nrOfMethodsWithLOC := #(LOC(theClass,aMethod,_));
+
+	locIncompletenessP := 0;
+
+	IF ( nrOfMethodsWithLOC < nrOfMethods ) {
+		locIncompletenessP := 100-((nrOfMethodsWithLOC*100) DIV nrOfMethods);
+		redValue := 255;
+	}
+
+	DeclaringFile(aFileName) := EX(fileId, ClassBelongsToFile(theClass,fileId,_) & File(fileId,aFileName));
+
+	FOR theDeclaringFile IN DeclaringFile(x) {
+		ClassName(aName) := Class(theClass,aName);
+		FOR theClassName IN ClassName(x) {
+			PRINT "n",theClass,",",theClassName,",",width,",",height,",","1",",","false",",","'",redValue,",",greenValue,",",blueValue,"'",",",nrOfMethods,",",nrOfAttributes,",",wloc,",",nrOfMethodsWithLOC,",",locIncompletenessP,",",theDeclaringFile,ENDL;
+		}
+	}
+}
+
+PRINT "edgedef> node1,node2,directed,color",ENDL;
+
+IsASubClass(aClass) := InheritsFrom(_,_,aClass,_);
+
+FOR theSubClass IN IsASubClass(x) {
+	IsASuperClass(aSuperClass) := InheritsFrom(_,_,theSubClass,aSuperClass);
+
+	FOR theSuperClass IN IsASuperClass(x) {
+		PRINT "n",theSubClass,",","n",theSuperClass,",","true",",","black",ENDL;
+	}
+}

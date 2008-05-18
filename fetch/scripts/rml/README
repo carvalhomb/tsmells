@@ -1,0 +1,8 @@
+Naming Conventions for RML scripts
+----------------------------------
+
+- 'compute' is used for calculations on entities. Mostly used to compute metrics and report them in a table
+- 'generate' is used when the scripts generates an input format for an external tool e.g. a graph visualization tool.
+- 'report' is used for all kind of textual reports, tables, etc. It is as such similar to compute
+- 'write' is used for scripts that produce new RSF relations. As such the output can be appended to the source RSF to create a extended, still sound, model. e.g. the writeAllTestEntities detects relations that belong to test code and marks them as such.
+

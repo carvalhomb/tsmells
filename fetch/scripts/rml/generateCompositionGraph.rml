@@ -1,0 +1,65 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Du Bois <bart.dubois@ua.ac.be>
+*/
+
+/**
+ * Generates graph with:
+ * nodes - classes
+ * edges - aggregation relationship (A <-- B means that class A contains an instance of class B as an attribute).
+ **/
+
+PRINT "nodedef> name,label,style,labelvisible,color",ENDL;
+
+DirectComposition(aContainingClass, aContainedClass) := Class(aContainingClass,_) & Class(aContainedClass,_) & EX(anAttribute, Attribute(anAttribute,_) & AttributeBelongsToClass(anAttribute, aContainingClass) & HasType(anAttribute,aContainedClass));
+
+Inheritance(aSubClass,aSuperClass) := InheritsFrom(_,_,aSubClass,aSuperClass);
+TCInheritance(aSubClass,aSuperClass) := TC(Inheritance(aSubClass,aSuperClass));
+
+IndirectComposition(aContainingClass, aContainedClass) := !DirectComposition(aContainingClass, aContainedClass) & EX(aSuperClass, TCInheritance(aContainingClass,aSuperClass) & DirectComposition(aSuperClass, aContainedClass));
+
+Composition(aContainingClass, aContainedClass) := DirectComposition(aContainingClass, aContainedClass) | IndirectComposition(aContainingClass, aContainedClass);
+
+IsARelevantClass(aClass) := Composition(aClass,_) | Composition(_,aClass);
+
+FOR theClass IN IsARelevantClass(x) {
+	ClassName(aName) := Class(theClass,aName);
+	FOR theName IN ClassName(x) {
+		PRINT "n",theClass,",",theName,",2,true,white",ENDL;
+	}
+}
+
+PRINT "edgedef> node1,node2,directed,color",ENDL;
+
+ContainedClass(aClass) := Composition(_,aClass);
+
+FOR theContainedClass IN ContainedClass(x) {
+	ContainingEntity(aContainingClass) := DirectComposition(aContainingClass,theContainedClass);
+
+	FOR theContainingClass IN ContainingEntity(x) {
+		PRINT "n",theContainedClass,",","n",theContainingClass,",","true",",","black",ENDL;
+	}
+
+	ContainingEntity(aContainingClass) := IndirectComposition(aContainingClass,theContainedClass);
+
+	FOR theContainingClass IN ContainingEntity(x) {
+		PRINT "n",theContainedClass,",","n",theContainingClass,",","true",",","lightgray",ENDL;
+	}
+
+}

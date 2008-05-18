@@ -1,0 +1,427 @@
+TestCase	"testmessenger::ICQ::ICQCLI_ACKRATESPacketTest"	"testmessenger/ICQ/ICQCLI_ACKRATESPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQCLI_ADDBUDDYPacketTest"	"testmessenger/ICQ/ICQCLI_ADDBUDDYPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQCLI_ADDCONTACTPacketTest"	"testmessenger/ICQ/ICQCLI_ADDCONTACTPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQCLI_CONTACTTest"	"testmessenger/ICQ/ICQCLI_CONTACTTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQCLI_COOKIEPacketTest"	"testmessenger/ICQ/ICQCLI_COOKIEPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQCLI_FAMILIESPacketTest"	"testmessenger/ICQ/ICQCLI_FAMILIESPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQCLI_GOODBYEPacketTest"	"testmessenger/ICQ/ICQCLI_GOODBYEPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQCLI_IDENTPacketTest"	"testmessenger/ICQ/ICQCLI_IDENTPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQCLI_RATESREQUESTPacketTest"	"testmessenger/ICQ/ICQCLI_RATESREQUESTPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQCLI_READYPacketTest"	"testmessenger/ICQ/ICQCLI_READYPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQCLI_REQBOSPacketTest"	"testmessenger/ICQ/ICQCLI_REQBOSPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQCLI_REQBUDDYPacketTest"	"testmessenger/ICQ/ICQCLI_REQBUDDYPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQCLI_REQICBMPacketTest"	"testmessenger/ICQ/ICQCLI_REQICBMPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQCLI_REQINFOPacketTest"	"testmessenger/ICQ/ICQCLI_REQINFOPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQCLI_REQLISTSPacketTest"	"testmessenger/ICQ/ICQCLI_REQLISTSPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQCLI_REQLOCATIONPacketTest"	"testmessenger/ICQ/ICQCLI_REQLOCATIONPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQCLI_REQROSTERPacketTest"	"testmessenger/ICQ/ICQCLI_REQROSTERPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQCLI_SENDMSGPacketTest"	"testmessenger/ICQ/ICQCLI_SENDMSGPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQCLI_SENDMSGV1PacketTest"	"testmessenger/ICQ/ICQCLI_SENDMSGV1PacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQCLI_SETICBMPacketTest"	"testmessenger/ICQ/ICQCLI_SETICBMPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQCLI_SETSTATUSPacketTest"	"testmessenger/ICQ/ICQCLI_SETSTATUSPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQProtocolTest"	"testmessenger/ICQ/ICQProtocolTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQSRV_COOKIEPacketTest"	"testmessenger/ICQ/ICQSRV_COOKIEPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQSRV_FAMILIES2PacketTest"	"testmessenger/ICQ/ICQSRV_FAMILIES2PacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQSRV_FAMILIESPacketTest"	"testmessenger/ICQ/ICQSRV_FAMILIESPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQSRV_HELLOPacketTest"	"testmessenger/ICQ/ICQSRV_HELLOPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQSRV_RATESPacketTest"	"testmessenger/ICQ/ICQSRV_RATESPacketTest.java"	0	
+TestCase	"testmessenger::ICQ::ICQSRV_REPLYROSTERPacketTest"	"testmessenger/ICQ/ICQSRV_REPLYROSTERPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNContactTest"	"testmessenger/MSN/MSNContactTest.java"	0	
+TestCase	"testmessenger::MSN::MSNIncomingADDPacketTest"	"testmessenger/MSN/MSNIncomingADDPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNIncomingCHGPacketTest"	"testmessenger/MSN/MSNIncomingCHGPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNIncomingCHLPacketTest"	"testmessenger/MSN/MSNIncomingCHLPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNIncomingFLNPacketTest"	"testmessenger/MSN/MSNIncomingFLNPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNIncomingILNPacketTest"	"testmessenger/MSN/MSNIncomingILNPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNIncomingINFPacketTest"	"testmessenger/MSN/MSNIncomingINFPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNIncomingLSTPacketTest"	"testmessenger/MSN/MSNIncomingLSTPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNIncomingMSGPacketTest"	"testmessenger/MSN/MSNIncomingMSGPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNIncomingNLNPacketTest"	"testmessenger/MSN/MSNIncomingNLNPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNIncomingPacketTest"	"testmessenger/MSN/MSNIncomingPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNIncomingQRYPacketTest"	"testmessenger/MSN/MSNIncomingQRYPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNIncomingRNGPacketTest"	"testmessenger/MSN/MSNIncomingRNGPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNIncomingUSRPacketTest"	"testmessenger/MSN/MSNIncomingUSRPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNIncomingVERPacketTest"	"testmessenger/MSN/MSNIncomingVERPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNIncomingXFRPacketTest"	"testmessenger/MSN/MSNIncomingXFRPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNOutgoingADDPacketTest"	"testmessenger/MSN/MSNOutgoingADDPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNOutgoingANSPacketTest"	"testmessenger/MSN/MSNOutgoingANSPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNOutgoingCALPacketTest"	"testmessenger/MSN/MSNOutgoingCALPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNOutgoingCHGPacketTest"	"testmessenger/MSN/MSNOutgoingCHGPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNOutgoingINFPacketTest"	"testmessenger/MSN/MSNOutgoingINFPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNOutgoingLSTPacketTest"	"testmessenger/MSN/MSNOutgoingLSTPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNOutgoingMSGPacketTest"	"testmessenger/MSN/MSNOutgoingMSGPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNOutgoingPacketTest"	"testmessenger/MSN/MSNOutgoingPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNOutgoingQRYPacketTest"	"testmessenger/MSN/MSNOutgoingQRYPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNOutgoingUSRIPacketTest"	"testmessenger/MSN/MSNOutgoingUSRIPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNOutgoingUSRPacketTest"	"testmessenger/MSN/MSNOutgoingUSRPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNOutgoingUSRSPacketTest"	"testmessenger/MSN/MSNOutgoingUSRSPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNOutgoingVERPacketTest"	"testmessenger/MSN/MSNOutgoingVERPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNOutgoingXFRPacketTest"	"testmessenger/MSN/MSNOutgoingXFRPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNPacketFactoryTest"	"testmessenger/MSN/MSNPacketFactoryTest.java"	0	
+TestCase	"testmessenger::MSN::MSNPacketTest"	"testmessenger/MSN/MSNPacketTest.java"	0	
+TestCase	"testmessenger::MSN::MSNProtocolTest"	"testmessenger/MSN/MSNProtocolTest.java"	0	
+TestCase	"testmessenger::MSN::MSNSessionTest"	"testmessenger/MSN/MSNSessionTest.java"	0	
+TestCase	"testmessenger::MSN::testMSNMessage"	"testmessenger/MSN/testMSNMessage.java"	0	
+TestCase	"testmessenger::UtilsTest"	"testmessenger/UtilsTest.java"	0	
+TestCase	"testmessenger::Yahoo::YahooContactTest"	"testmessenger/Yahoo/YahooContactTest.java"	0	
+TestCase	"testmessenger::Yahoo::YahooSRV_AUTHPacketTest"	"testmessenger/Yahoo/YahooSRV_AUTHPacketTest.java"	0	
+TestCase	"testmessenger::Yahoo::YahooSRV_AUTH_RESPPacketTest"	"testmessenger/Yahoo/YahooSRV_AUTH_RESPPacketTest.java"	0	
+TestCase	"testmessenger::Yahoo::YahooSRV_LISTPacketTest"	"testmessenger/Yahoo/YahooSRV_LISTPacketTest.java"	0	
+TestCase	"testmessenger::Yahoo::YahooSRV_LOGOFFPacketTest"	"testmessenger/Yahoo/YahooSRV_LOGOFFPacketTest.java"	0	
+TestCase	"testmessenger::Yahoo::YahooSRV_LOGONPacketTest"	"testmessenger/Yahoo/YahooSRV_LOGONPacketTest.java"	0	
+TestCase	"testmessenger::Yahoo::YahooSRV_MESSAGEPacketTest"	"testmessenger/Yahoo/YahooSRV_MESSAGEPacketTest.java"	0	
+TestCommand	"testmessenger::ICQ::ICQCLI_ACKRATESPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQCLI_ACKRATESPacketTest.java"	83	"testmessenger::ICQ::ICQCLI_ACKRATESPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_ACKRATESPacketTest.testGetKindOfPacket()"	"testmessenger/ICQ/ICQCLI_ACKRATESPacketTest.java"	75	"testmessenger::ICQ::ICQCLI_ACKRATESPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_ACKRATESPacketTest.testGetLength()"	"testmessenger/ICQ/ICQCLI_ACKRATESPacketTest.java"	90	"testmessenger::ICQ::ICQCLI_ACKRATESPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_ACKRATESPacketTest.testICQCLI_ACKRATESPacket()"	"testmessenger/ICQ/ICQCLI_ACKRATESPacketTest.java"	68	"testmessenger::ICQ::ICQCLI_ACKRATESPacketTest"	3	
+TestCommand	"testmessenger::ICQ::ICQCLI_ADDBUDDYPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQCLI_ADDBUDDYPacketTest.java"	97	"testmessenger::ICQ::ICQCLI_ADDBUDDYPacketTest"	1	
+TestCommand	"testmessenger::ICQ::ICQCLI_ADDBUDDYPacketTest.testGetLength()"	"testmessenger/ICQ/ICQCLI_ADDBUDDYPacketTest.java"	100	"testmessenger::ICQ::ICQCLI_ADDBUDDYPacketTest"	1	
+TestCommand	"testmessenger::ICQ::ICQCLI_ADDCONTACTPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQCLI_ADDCONTACTPacketTest.java"	82	"testmessenger::ICQ::ICQCLI_ADDCONTACTPacketTest"	1	
+TestCommand	"testmessenger::ICQ::ICQCLI_ADDCONTACTPacketTest.testGetKindOfPacket()"	"testmessenger/ICQ/ICQCLI_ADDCONTACTPacketTest.java"	74	"testmessenger::ICQ::ICQCLI_ADDCONTACTPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_ADDCONTACTPacketTest.testGetLength()"	"testmessenger/ICQ/ICQCLI_ADDCONTACTPacketTest.java"	86	"testmessenger::ICQ::ICQCLI_ADDCONTACTPacketTest"	1	
+TestCommand	"testmessenger::ICQ::ICQCLI_ADDCONTACTPacketTest.testICQCLI_ADDCONTACTPacket()"	"testmessenger/ICQ/ICQCLI_ADDCONTACTPacketTest.java"	68	"testmessenger::ICQ::ICQCLI_ADDCONTACTPacketTest"	3	
+TestCommand	"testmessenger::ICQ::ICQCLI_CONTACTTest.testGetIP()"	"testmessenger/ICQ/ICQCLI_CONTACTTest.java"	79	"testmessenger::ICQ::ICQCLI_CONTACTTest"	1	
+TestCommand	"testmessenger::ICQ::ICQCLI_CONTACTTest.testGetNick()"	"testmessenger/ICQ/ICQCLI_CONTACTTest.java"	75	"testmessenger::ICQ::ICQCLI_CONTACTTest"	1	
+TestCommand	"testmessenger::ICQ::ICQCLI_CONTACTTest.testGetUIN()"	"testmessenger/ICQ/ICQCLI_CONTACTTest.java"	71	"testmessenger::ICQ::ICQCLI_CONTACTTest"	1	
+TestCommand	"testmessenger::ICQ::ICQCLI_COOKIEPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQCLI_COOKIEPacketTest.java"	84	"testmessenger::ICQ::ICQCLI_COOKIEPacketTest"	5	
+TestCommand	"testmessenger::ICQ::ICQCLI_COOKIEPacketTest.testGetKindOfPacket()"	"testmessenger/ICQ/ICQCLI_COOKIEPacketTest.java"	75	"testmessenger::ICQ::ICQCLI_COOKIEPacketTest"	5	
+TestCommand	"testmessenger::ICQ::ICQCLI_COOKIEPacketTest.testGetLength()"	"testmessenger/ICQ/ICQCLI_COOKIEPacketTest.java"	94	"testmessenger::ICQ::ICQCLI_COOKIEPacketTest"	5	
+TestCommand	"testmessenger::ICQ::ICQCLI_COOKIEPacketTest.testICQCLI_COOKIEPacket()"	"testmessenger/ICQ/ICQCLI_COOKIEPacketTest.java"	68	"testmessenger::ICQ::ICQCLI_COOKIEPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_FAMILIESPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQCLI_FAMILIESPacketTest.java"	82	"testmessenger::ICQ::ICQCLI_FAMILIESPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_FAMILIESPacketTest.testGetKindOfPacket()"	"testmessenger/ICQ/ICQCLI_FAMILIESPacketTest.java"	74	"testmessenger::ICQ::ICQCLI_FAMILIESPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_FAMILIESPacketTest.testGetLength()"	"testmessenger/ICQ/ICQCLI_FAMILIESPacketTest.java"	90	"testmessenger::ICQ::ICQCLI_FAMILIESPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_FAMILIESPacketTest.testICQCLI_FAMILIESPacket()"	"testmessenger/ICQ/ICQCLI_FAMILIESPacketTest.java"	68	"testmessenger::ICQ::ICQCLI_FAMILIESPacketTest"	3	
+TestCommand	"testmessenger::ICQ::ICQCLI_GOODBYEPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQCLI_GOODBYEPacketTest.java"	65	"testmessenger::ICQ::ICQCLI_GOODBYEPacketTest"	1	
+TestCommand	"testmessenger::ICQ::ICQCLI_GOODBYEPacketTest.testGetKindOfPacket()"	"testmessenger/ICQ/ICQCLI_GOODBYEPacketTest.java"	62	"testmessenger::ICQ::ICQCLI_GOODBYEPacketTest"	1	
+TestCommand	"testmessenger::ICQ::ICQCLI_GOODBYEPacketTest.testGetLength()"	"testmessenger/ICQ/ICQCLI_GOODBYEPacketTest.java"	68	"testmessenger::ICQ::ICQCLI_GOODBYEPacketTest"	1	
+TestCommand	"testmessenger::ICQ::ICQCLI_IDENTPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQCLI_IDENTPacketTest.java"	112	"testmessenger::ICQ::ICQCLI_IDENTPacketTest"	13	
+TestCommand	"testmessenger::ICQ::ICQCLI_IDENTPacketTest.testGetKindOfPacket()"	"testmessenger/ICQ/ICQCLI_IDENTPacketTest.java"	89	"testmessenger::ICQ::ICQCLI_IDENTPacketTest"	13	
+TestCommand	"testmessenger::ICQ::ICQCLI_IDENTPacketTest.testGetLength()"	"testmessenger/ICQ/ICQCLI_IDENTPacketTest.java"	135	"testmessenger::ICQ::ICQCLI_IDENTPacketTest"	7	
+TestCommand	"testmessenger::ICQ::ICQCLI_IDENTPacketTest.testICQCLI_IDENTPacket()"	"testmessenger/ICQ/ICQCLI_IDENTPacketTest.java"	69	"testmessenger::ICQ::ICQCLI_IDENTPacketTest"	11	
+TestCommand	"testmessenger::ICQ::ICQCLI_RATESREQUESTPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQCLI_RATESREQUESTPacketTest.java"	82	"testmessenger::ICQ::ICQCLI_RATESREQUESTPacketTest"	1	
+TestCommand	"testmessenger::ICQ::ICQCLI_RATESREQUESTPacketTest.testGetKindOfPacket()"	"testmessenger/ICQ/ICQCLI_RATESREQUESTPacketTest.java"	74	"testmessenger::ICQ::ICQCLI_RATESREQUESTPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_RATESREQUESTPacketTest.testGetLength()"	"testmessenger/ICQ/ICQCLI_RATESREQUESTPacketTest.java"	85	"testmessenger::ICQ::ICQCLI_RATESREQUESTPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_RATESREQUESTPacketTest.testICQCLI_RATESREQUESTPacket()"	"testmessenger/ICQ/ICQCLI_RATESREQUESTPacketTest.java"	68	"testmessenger::ICQ::ICQCLI_RATESREQUESTPacketTest"	1	
+TestCommand	"testmessenger::ICQ::ICQCLI_RATESREQUESTPacketTest.testSetKindOfPacket()"	"testmessenger/ICQ/ICQCLI_RATESREQUESTPacketTest.java"	71	"testmessenger::ICQ::ICQCLI_RATESREQUESTPacketTest"	1	
+TestCommand	"testmessenger::ICQ::ICQCLI_READYPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQCLI_READYPacketTest.java"	81	"testmessenger::ICQ::ICQCLI_READYPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_READYPacketTest.testGetKindOfPacket()"	"testmessenger/ICQ/ICQCLI_READYPacketTest.java"	74	"testmessenger::ICQ::ICQCLI_READYPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_READYPacketTest.testGetLength()"	"testmessenger/ICQ/ICQCLI_READYPacketTest.java"	89	"testmessenger::ICQ::ICQCLI_READYPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_READYPacketTest.testICQCLI_READYPacket()"	"testmessenger/ICQ/ICQCLI_READYPacketTest.java"	68	"testmessenger::ICQ::ICQCLI_READYPacketTest"	3	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQBOSPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQCLI_REQBOSPacketTest.java"	81	"testmessenger::ICQ::ICQCLI_REQBOSPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQBOSPacketTest.testGetKindOfPacket()"	"testmessenger/ICQ/ICQCLI_REQBOSPacketTest.java"	74	"testmessenger::ICQ::ICQCLI_REQBOSPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQBOSPacketTest.testGetLength()"	"testmessenger/ICQ/ICQCLI_REQBOSPacketTest.java"	89	"testmessenger::ICQ::ICQCLI_REQBOSPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQBOSPacketTest.testICQCLI_REQBOSPacket()"	"testmessenger/ICQ/ICQCLI_REQBOSPacketTest.java"	68	"testmessenger::ICQ::ICQCLI_REQBOSPacketTest"	3	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQBUDDYPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQCLI_REQBUDDYPacketTest.java"	81	"testmessenger::ICQ::ICQCLI_REQBUDDYPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQBUDDYPacketTest.testGetKindOfPacket()"	"testmessenger/ICQ/ICQCLI_REQBUDDYPacketTest.java"	74	"testmessenger::ICQ::ICQCLI_REQBUDDYPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQBUDDYPacketTest.testGetLength()"	"testmessenger/ICQ/ICQCLI_REQBUDDYPacketTest.java"	89	"testmessenger::ICQ::ICQCLI_REQBUDDYPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQBUDDYPacketTest.testICQCLI_REQBUDDYPacket()"	"testmessenger/ICQ/ICQCLI_REQBUDDYPacketTest.java"	68	"testmessenger::ICQ::ICQCLI_REQBUDDYPacketTest"	3	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQICBMPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQCLI_REQICBMPacketTest.java"	80	"testmessenger::ICQ::ICQCLI_REQICBMPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQICBMPacketTest.testGetKindOfPacket()"	"testmessenger/ICQ/ICQCLI_REQICBMPacketTest.java"	73	"testmessenger::ICQ::ICQCLI_REQICBMPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQICBMPacketTest.testGetLength()"	"testmessenger/ICQ/ICQCLI_REQICBMPacketTest.java"	88	"testmessenger::ICQ::ICQCLI_REQICBMPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQICBMPacketTest.testICQCLI_REQICBMPacket()"	"testmessenger/ICQ/ICQCLI_REQICBMPacketTest.java"	67	"testmessenger::ICQ::ICQCLI_REQICBMPacketTest"	3	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQINFOPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQCLI_REQINFOPacketTest.java"	81	"testmessenger::ICQ::ICQCLI_REQINFOPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQINFOPacketTest.testGetKindOfPacket()"	"testmessenger/ICQ/ICQCLI_REQINFOPacketTest.java"	74	"testmessenger::ICQ::ICQCLI_REQINFOPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQINFOPacketTest.testGetLength()"	"testmessenger/ICQ/ICQCLI_REQINFOPacketTest.java"	89	"testmessenger::ICQ::ICQCLI_REQINFOPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQINFOPacketTest.testICQCLI_REQINFOPacket()"	"testmessenger/ICQ/ICQCLI_REQINFOPacketTest.java"	68	"testmessenger::ICQ::ICQCLI_REQINFOPacketTest"	3	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQLISTSPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQCLI_REQLISTSPacketTest.java"	82	"testmessenger::ICQ::ICQCLI_REQLISTSPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQLISTSPacketTest.testGetKindOfPacket()"	"testmessenger/ICQ/ICQCLI_REQLISTSPacketTest.java"	75	"testmessenger::ICQ::ICQCLI_REQLISTSPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQLISTSPacketTest.testGetLength()"	"testmessenger/ICQ/ICQCLI_REQLISTSPacketTest.java"	90	"testmessenger::ICQ::ICQCLI_REQLISTSPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQLISTSPacketTest.testICQCLI_REQLISTSPacket()"	"testmessenger/ICQ/ICQCLI_REQLISTSPacketTest.java"	69	"testmessenger::ICQ::ICQCLI_REQLISTSPacketTest"	3	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQLOCATIONPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQCLI_REQLOCATIONPacketTest.java"	75	"testmessenger::ICQ::ICQCLI_REQLOCATIONPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQLOCATIONPacketTest.testGetLength()"	"testmessenger/ICQ/ICQCLI_REQLOCATIONPacketTest.java"	83	"testmessenger::ICQ::ICQCLI_REQLOCATIONPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQLOCATIONPacketTest.testICQCLI_REQLOCATIONPacket()"	"testmessenger/ICQ/ICQCLI_REQLOCATIONPacketTest.java"	69	"testmessenger::ICQ::ICQCLI_REQLOCATIONPacketTest"	3	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQROSTERPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQCLI_REQROSTERPacketTest.java"	74	"testmessenger::ICQ::ICQCLI_REQROSTERPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQROSTERPacketTest.testGetLength()"	"testmessenger/ICQ/ICQCLI_REQROSTERPacketTest.java"	83	"testmessenger::ICQ::ICQCLI_REQROSTERPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_REQROSTERPacketTest.testICQCLI_REQROSTERPacket()"	"testmessenger/ICQ/ICQCLI_REQROSTERPacketTest.java"	68	"testmessenger::ICQ::ICQCLI_REQROSTERPacketTest"	3	
+TestCommand	"testmessenger::ICQ::ICQCLI_SENDMSGPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQCLI_SENDMSGPacketTest.java"	86	"testmessenger::ICQ::ICQCLI_SENDMSGPacketTest"	5	
+TestCommand	"testmessenger::ICQ::ICQCLI_SENDMSGPacketTest.testGetKindOfPacket()"	"testmessenger/ICQ/ICQCLI_SENDMSGPacketTest.java"	77	"testmessenger::ICQ::ICQCLI_SENDMSGPacketTest"	6	
+TestCommand	"testmessenger::ICQ::ICQCLI_SENDMSGPacketTest.testGetLength()"	"testmessenger/ICQ/ICQCLI_SENDMSGPacketTest.java"	96	"testmessenger::ICQ::ICQCLI_SENDMSGPacketTest"	5	
+TestCommand	"testmessenger::ICQ::ICQCLI_SENDMSGPacketTest.testICQCLI_SENDMSGPacket()"	"testmessenger/ICQ/ICQCLI_SENDMSGPacketTest.java"	70	"testmessenger::ICQ::ICQCLI_SENDMSGPacketTest"	5	
+TestCommand	"testmessenger::ICQ::ICQCLI_SENDMSGV1PacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQCLI_SENDMSGV1PacketTest.java"	84	"testmessenger::ICQ::ICQCLI_SENDMSGV1PacketTest"	5	
+TestCommand	"testmessenger::ICQ::ICQCLI_SENDMSGV1PacketTest.testGetKindOfPacket()"	"testmessenger/ICQ/ICQCLI_SENDMSGV1PacketTest.java"	75	"testmessenger::ICQ::ICQCLI_SENDMSGV1PacketTest"	6	
+TestCommand	"testmessenger::ICQ::ICQCLI_SENDMSGV1PacketTest.testGetLength()"	"testmessenger/ICQ/ICQCLI_SENDMSGV1PacketTest.java"	94	"testmessenger::ICQ::ICQCLI_SENDMSGV1PacketTest"	5	
+TestCommand	"testmessenger::ICQ::ICQCLI_SENDMSGV1PacketTest.testICQCLI_SENDMSGV1Packet()"	"testmessenger/ICQ/ICQCLI_SENDMSGV1PacketTest.java"	68	"testmessenger::ICQ::ICQCLI_SENDMSGV1PacketTest"	5	
+TestCommand	"testmessenger::ICQ::ICQCLI_SETICBMPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQCLI_SETICBMPacketTest.java"	80	"testmessenger::ICQ::ICQCLI_SETICBMPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_SETICBMPacketTest.testGetKindOfPacket()"	"testmessenger/ICQ/ICQCLI_SETICBMPacketTest.java"	73	"testmessenger::ICQ::ICQCLI_SETICBMPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_SETICBMPacketTest.testGetLength()"	"testmessenger/ICQ/ICQCLI_SETICBMPacketTest.java"	87	"testmessenger::ICQ::ICQCLI_SETICBMPacketTest"	4	
+TestCommand	"testmessenger::ICQ::ICQCLI_SETICBMPacketTest.testICQCLI_SETICBMPacket()"	"testmessenger/ICQ/ICQCLI_SETICBMPacketTest.java"	68	"testmessenger::ICQ::ICQCLI_SETICBMPacketTest"	3	
+TestCommand	"testmessenger::ICQ::ICQCLI_SETSTATUSPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQCLI_SETSTATUSPacketTest.java"	93	"testmessenger::ICQ::ICQCLI_SETSTATUSPacketTest"	7	
+TestCommand	"testmessenger::ICQ::ICQCLI_SETSTATUSPacketTest.testGetKindOfPacket()"	"testmessenger/ICQ/ICQCLI_SETSTATUSPacketTest.java"	80	"testmessenger::ICQ::ICQCLI_SETSTATUSPacketTest"	7	
+TestCommand	"testmessenger::ICQ::ICQCLI_SETSTATUSPacketTest.testGetLength()"	"testmessenger/ICQ/ICQCLI_SETSTATUSPacketTest.java"	106	"testmessenger::ICQ::ICQCLI_SETSTATUSPacketTest"	7	
+TestCommand	"testmessenger::ICQ::ICQCLI_SETSTATUSPacketTest.testICQCLI_SETSTATUSPacket()"	"testmessenger/ICQ/ICQCLI_SETSTATUSPacketTest.java"	68	"testmessenger::ICQ::ICQCLI_SETSTATUSPacketTest"	6	
+TestCommand	"testmessenger::ICQ::ICQProtocolTest.testAddContactICQContact()"	"testmessenger/ICQ/ICQProtocolTest.java"	93	"testmessenger::ICQ::ICQProtocolTest"	1	
+TestCommand	"testmessenger::ICQ::ICQProtocolTest.testAddContactString()"	"testmessenger/ICQ/ICQProtocolTest.java"	123	"testmessenger::ICQ::ICQProtocolTest"	1	
+TestCommand	"testmessenger::ICQ::ICQProtocolTest.testAnalyzePacket()"	"testmessenger/ICQ/ICQProtocolTest.java"	132	"testmessenger::ICQ::ICQProtocolTest"	1	
+TestCommand	"testmessenger::ICQ::ICQProtocolTest.testChangeStatus()"	"testmessenger/ICQ/ICQProtocolTest.java"	111	"testmessenger::ICQ::ICQProtocolTest"	1	
+TestCommand	"testmessenger::ICQ::ICQProtocolTest.testConnect()"	"testmessenger/ICQ/ICQProtocolTest.java"	135	"testmessenger::ICQ::ICQProtocolTest"	1	
+TestCommand	"testmessenger::ICQ::ICQProtocolTest.testDisconnect()"	"testmessenger/ICQ/ICQProtocolTest.java"	138	"testmessenger::ICQ::ICQProtocolTest"	1	
+TestCommand	"testmessenger::ICQ::ICQProtocolTest.testGetContactList()"	"testmessenger/ICQ/ICQProtocolTest.java"	117	"testmessenger::ICQ::ICQProtocolTest"	1	
+TestCommand	"testmessenger::ICQ::ICQProtocolTest.testGetContactListFromServer()"	"testmessenger/ICQ/ICQProtocolTest.java"	114	"testmessenger::ICQ::ICQProtocolTest"	1	
+TestCommand	"testmessenger::ICQ::ICQProtocolTest.testGetNumberOfContacts()"	"testmessenger/ICQ/ICQProtocolTest.java"	87	"testmessenger::ICQ::ICQProtocolTest"	1	
+TestCommand	"testmessenger::ICQ::ICQProtocolTest.testGetServer()"	"testmessenger/ICQ/ICQProtocolTest.java"	141	"testmessenger::ICQ::ICQProtocolTest"	1	
+TestCommand	"testmessenger::ICQ::ICQProtocolTest.testGetUIN()"	"testmessenger/ICQ/ICQProtocolTest.java"	81	"testmessenger::ICQ::ICQProtocolTest"	1	
+TestCommand	"testmessenger::ICQ::ICQProtocolTest.testICQProtocolDataBuffer()"	"testmessenger/ICQ/ICQProtocolTest.java"	72	"testmessenger::ICQ::ICQProtocolTest"	1	
+TestCommand	"testmessenger::ICQ::ICQProtocolTest.testICQProtocolStringString()"	"testmessenger/ICQ/ICQProtocolTest.java"	78	"testmessenger::ICQ::ICQProtocolTest"	1	
+TestCommand	"testmessenger::ICQ::ICQProtocolTest.testIsConnected()"	"testmessenger/ICQ/ICQProtocolTest.java"	84	"testmessenger::ICQ::ICQProtocolTest"	1	
+TestCommand	"testmessenger::ICQ::ICQProtocolTest.testLoginStringI()"	"testmessenger/ICQ/ICQProtocolTest.java"	105	"testmessenger::ICQ::ICQProtocolTest"	1	
+TestCommand	"testmessenger::ICQ::ICQProtocolTest.testLoginStringStringStringI()"	"testmessenger/ICQ/ICQProtocolTest.java"	99	"testmessenger::ICQ::ICQProtocolTest"	1	
+TestCommand	"testmessenger::ICQ::ICQProtocolTest.testLogout()"	"testmessenger/ICQ/ICQProtocolTest.java"	126	"testmessenger::ICQ::ICQProtocolTest"	1	
+TestCommand	"testmessenger::ICQ::ICQProtocolTest.testSendMessage()"	"testmessenger/ICQ/ICQProtocolTest.java"	108	"testmessenger::ICQ::ICQProtocolTest"	1	
+TestCommand	"testmessenger::ICQ::ICQProtocolTest.testSendPacket()"	"testmessenger/ICQ/ICQProtocolTest.java"	66	"testmessenger::ICQ::ICQProtocolTest"	1	
+TestCommand	"testmessenger::ICQ::ICQProtocolTest.testShutdown()"	"testmessenger/ICQ/ICQProtocolTest.java"	129	"testmessenger::ICQ::ICQProtocolTest"	1	
+TestCommand	"testmessenger::ICQ::ICQSRV_COOKIEPacketTest.testICQSRV_FAMILIES2Packet()"	"testmessenger/ICQ/ICQSRV_COOKIEPacketTest.java"	58	"testmessenger::ICQ::ICQSRV_COOKIEPacketTest"	6	
+TestCommand	"testmessenger::ICQ::ICQSRV_FAMILIES2PacketTest.testICQSRV_FAMILIES2Packet()"	"testmessenger/ICQ/ICQSRV_FAMILIES2PacketTest.java"	66	"testmessenger::ICQ::ICQSRV_FAMILIES2PacketTest"	1	
+TestCommand	"testmessenger::ICQ::ICQSRV_FAMILIESPacketTest.testICQSRV_FAMILIESPacket()"	"testmessenger/ICQ/ICQSRV_FAMILIESPacketTest.java"	66	"testmessenger::ICQ::ICQSRV_FAMILIESPacketTest"	1	
+TestCommand	"testmessenger::ICQ::ICQSRV_HELLOPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQSRV_HELLOPacketTest.java"	72	"testmessenger::ICQ::ICQSRV_HELLOPacketTest"	1	
+TestCommand	"testmessenger::ICQ::ICQSRV_HELLOPacketTest.testGetKindOfPacket()"	"testmessenger/ICQ/ICQSRV_HELLOPacketTest.java"	69	"testmessenger::ICQ::ICQSRV_HELLOPacketTest"	1	
+TestCommand	"testmessenger::ICQ::ICQSRV_HELLOPacketTest.testGetLength()"	"testmessenger/ICQ/ICQSRV_HELLOPacketTest.java"	75	"testmessenger::ICQ::ICQSRV_HELLOPacketTest"	1	
+TestCommand	"testmessenger::ICQ::ICQSRV_HELLOPacketTest.testICQSRV_HELLOPacket()"	"testmessenger/ICQ/ICQSRV_HELLOPacketTest.java"	65	"testmessenger::ICQ::ICQSRV_HELLOPacketTest"	1	
+TestCommand	"testmessenger::ICQ::ICQSRV_RATESPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQSRV_RATESPacketTest.java"	76	"testmessenger::ICQ::ICQSRV_RATESPacketTest"	3	
+TestCommand	"testmessenger::ICQ::ICQSRV_RATESPacketTest.testGetKindOfPacket()"	"testmessenger/ICQ/ICQSRV_RATESPacketTest.java"	71	"testmessenger::ICQ::ICQSRV_RATESPacketTest"	3	
+TestCommand	"testmessenger::ICQ::ICQSRV_RATESPacketTest.testGetLength()"	"testmessenger/ICQ/ICQSRV_RATESPacketTest.java"	81	"testmessenger::ICQ::ICQSRV_RATESPacketTest"	3	
+TestCommand	"testmessenger::ICQ::ICQSRV_RATESPacketTest.testICQSRV_RATESPacket()"	"testmessenger/ICQ/ICQSRV_RATESPacketTest.java"	67	"testmessenger::ICQ::ICQSRV_RATESPacketTest"	2	
+TestCommand	"testmessenger::ICQ::ICQSRV_REPLYROSTERPacketTest.testGetContentHex()"	"testmessenger/ICQ/ICQSRV_REPLYROSTERPacketTest.java"	104	"testmessenger::ICQ::ICQSRV_REPLYROSTERPacketTest"	9	
+TestCommand	"testmessenger::ICQ::ICQSRV_REPLYROSTERPacketTest.testGetKindOfPacket()"	"testmessenger/ICQ/ICQSRV_REPLYROSTERPacketTest.java"	74	"testmessenger::ICQ::ICQSRV_REPLYROSTERPacketTest"	9	
+TestCommand	"testmessenger::ICQ::ICQSRV_REPLYROSTERPacketTest.testGetLength()"	"testmessenger/ICQ/ICQSRV_REPLYROSTERPacketTest.java"	116	"testmessenger::ICQ::ICQSRV_REPLYROSTERPacketTest"	9	
+TestCommand	"testmessenger::ICQ::ICQSRV_REPLYROSTERPacketTest.testGetList()"	"testmessenger/ICQ/ICQSRV_REPLYROSTERPacketTest.java"	85	"testmessenger::ICQ::ICQSRV_REPLYROSTERPacketTest"	17	
+TestCommand	"testmessenger::ICQ::ICQSRV_REPLYROSTERPacketTest.testICQSRV_REPLYROSTERPacket()"	"testmessenger/ICQ/ICQSRV_REPLYROSTERPacketTest.java"	67	"testmessenger::ICQ::ICQSRV_REPLYROSTERPacketTest"	5	
+TestCommand	"testmessenger::MSN::MSNContactTest.testMSNContact()"	"testmessenger/MSN/MSNContactTest.java"	46	"testmessenger::MSN::MSNContactTest"	6	
+TestCommand	"testmessenger::MSN::MSNIncomingADDPacketTest.testCmd()"	"testmessenger/MSN/MSNIncomingADDPacketTest.java"	44	"testmessenger::MSN::MSNIncomingADDPacketTest"	2	
+TestCommand	"testmessenger::MSN::MSNIncomingADDPacketTest.testContent()"	"testmessenger/MSN/MSNIncomingADDPacketTest.java"	48	"testmessenger::MSN::MSNIncomingADDPacketTest"	2	
+TestCommand	"testmessenger::MSN::MSNIncomingCHGPacketTest.testCmd()"	"testmessenger/MSN/MSNIncomingCHGPacketTest.java"	44	"testmessenger::MSN::MSNIncomingCHGPacketTest"	2	
+TestCommand	"testmessenger::MSN::MSNIncomingCHGPacketTest.testContent()"	"testmessenger/MSN/MSNIncomingCHGPacketTest.java"	48	"testmessenger::MSN::MSNIncomingCHGPacketTest"	2	
+TestCommand	"testmessenger::MSN::MSNIncomingCHLPacketTest.testContent()"	"testmessenger/MSN/MSNIncomingCHLPacketTest.java"	43	"testmessenger::MSN::MSNIncomingCHLPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingFLNPacketTest.testContact()"	"testmessenger/MSN/MSNIncomingFLNPacketTest.java"	54	"testmessenger::MSN::MSNIncomingFLNPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingFLNPacketTest.testContent()"	"testmessenger/MSN/MSNIncomingFLNPacketTest.java"	49	"testmessenger::MSN::MSNIncomingFLNPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingILNPacketTest.testContact()"	"testmessenger/MSN/MSNIncomingILNPacketTest.java"	54	"testmessenger::MSN::MSNIncomingILNPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingILNPacketTest.testContent()"	"testmessenger/MSN/MSNIncomingILNPacketTest.java"	44	"testmessenger::MSN::MSNIncomingILNPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingILNPacketTest.testNick()"	"testmessenger/MSN/MSNIncomingILNPacketTest.java"	59	"testmessenger::MSN::MSNIncomingILNPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingILNPacketTest.testStatus()"	"testmessenger/MSN/MSNIncomingILNPacketTest.java"	49	"testmessenger::MSN::MSNIncomingILNPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingINFPacketTest.testContent()"	"testmessenger/MSN/MSNIncomingINFPacketTest.java"	44	"testmessenger::MSN::MSNIncomingINFPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingINFPacketTest.testEncryption()"	"testmessenger/MSN/MSNIncomingINFPacketTest.java"	49	"testmessenger::MSN::MSNIncomingINFPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingLSTPacketTest.testContact()"	"testmessenger/MSN/MSNIncomingLSTPacketTest.java"	49	"testmessenger::MSN::MSNIncomingLSTPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingLSTPacketTest.testContactNick()"	"testmessenger/MSN/MSNIncomingLSTPacketTest.java"	54	"testmessenger::MSN::MSNIncomingLSTPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingLSTPacketTest.testContent()"	"testmessenger/MSN/MSNIncomingLSTPacketTest.java"	44	"testmessenger::MSN::MSNIncomingLSTPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingLSTPacketTest.testNrOfContacts()"	"testmessenger/MSN/MSNIncomingLSTPacketTest.java"	59	"testmessenger::MSN::MSNIncomingLSTPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingLSTPacketTest.testTotalNrOfContacts()"	"testmessenger/MSN/MSNIncomingLSTPacketTest.java"	64	"testmessenger::MSN::MSNIncomingLSTPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingMSGPacketTest.testContact()"	"testmessenger/MSN/MSNIncomingMSGPacketTest.java"	48	"testmessenger::MSN::MSNIncomingMSGPacketTest"	2	
+TestCommand	"testmessenger::MSN::MSNIncomingMSGPacketTest.testContactNick()"	"testmessenger/MSN/MSNIncomingMSGPacketTest.java"	52	"testmessenger::MSN::MSNIncomingMSGPacketTest"	2	
+TestCommand	"testmessenger::MSN::MSNIncomingMSGPacketTest.testContent()"	"testmessenger/MSN/MSNIncomingMSGPacketTest.java"	43	"testmessenger::MSN::MSNIncomingMSGPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingMSGPacketTest.testType()"	"testmessenger/MSN/MSNIncomingMSGPacketTest.java"	60	"testmessenger::MSN::MSNIncomingMSGPacketTest"	2	
+TestCommand	"testmessenger::MSN::MSNIncomingNLNPacketTest.testContact()"	"testmessenger/MSN/MSNIncomingNLNPacketTest.java"	84	"testmessenger::MSN::MSNIncomingNLNPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingNLNPacketTest.testContent()"	"testmessenger/MSN/MSNIncomingNLNPacketTest.java"	44	"testmessenger::MSN::MSNIncomingNLNPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingNLNPacketTest.testNick()"	"testmessenger/MSN/MSNIncomingNLNPacketTest.java"	89	"testmessenger::MSN::MSNIncomingNLNPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingNLNPacketTest.testStatus()"	"testmessenger/MSN/MSNIncomingNLNPacketTest.java"	49	"testmessenger::MSN::MSNIncomingNLNPacketTest"	27	
+TestCommand	"testmessenger::MSN::MSNIncomingPacketTest.testSomething()"	"testmessenger/MSN/MSNIncomingPacketTest.java"	42	"testmessenger::MSN::MSNIncomingPacketTest"	1	
+TestCommand	"testmessenger::MSN::MSNIncomingQRYPacketTest.testContent()"	"testmessenger/MSN/MSNIncomingQRYPacketTest.java"	44	"testmessenger::MSN::MSNIncomingQRYPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingRNGPacketTest.testCKI()"	"testmessenger/MSN/MSNIncomingRNGPacketTest.java"	65	"testmessenger::MSN::MSNIncomingRNGPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingRNGPacketTest.testContact()"	"testmessenger/MSN/MSNIncomingRNGPacketTest.java"	70	"testmessenger::MSN::MSNIncomingRNGPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingRNGPacketTest.testContent()"	"testmessenger/MSN/MSNIncomingRNGPacketTest.java"	49	"testmessenger::MSN::MSNIncomingRNGPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingRNGPacketTest.testNick()"	"testmessenger/MSN/MSNIncomingRNGPacketTest.java"	75	"testmessenger::MSN::MSNIncomingRNGPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingRNGPacketTest.testSessionID()"	"testmessenger/MSN/MSNIncomingRNGPacketTest.java"	54	"testmessenger::MSN::MSNIncomingRNGPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingRNGPacketTest.testSwitchBoardIP()"	"testmessenger/MSN/MSNIncomingRNGPacketTest.java"	59	"testmessenger::MSN::MSNIncomingRNGPacketTest"	4	
+TestCommand	"testmessenger::MSN::MSNIncomingUSRPacketTest.testContent()"	"testmessenger/MSN/MSNIncomingUSRPacketTest.java"	44	"testmessenger::MSN::MSNIncomingUSRPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingUSRPacketTest.testEncryption()"	"testmessenger/MSN/MSNIncomingUSRPacketTest.java"	49	"testmessenger::MSN::MSNIncomingUSRPacketTest"	5	
+TestCommand	"testmessenger::MSN::MSNIncomingVERPacketTest.testContent()"	"testmessenger/MSN/MSNIncomingVERPacketTest.java"	44	"testmessenger::MSN::MSNIncomingVERPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingXFRPacketTest.testContent()"	"testmessenger/MSN/MSNIncomingXFRPacketTest.java"	49	"testmessenger::MSN::MSNIncomingXFRPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNIncomingXFRPacketTest.testNotificationServer()"	"testmessenger/MSN/MSNIncomingXFRPacketTest.java"	54	"testmessenger::MSN::MSNIncomingXFRPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNOutgoingADDPacketTest.testContent()"	"testmessenger/MSN/MSNOutgoingADDPacketTest.java"	44	"testmessenger::MSN::MSNOutgoingADDPacketTest"	2	
+TestCommand	"testmessenger::MSN::MSNOutgoingANSPacketTest.testContent()"	"testmessenger/MSN/MSNOutgoingANSPacketTest.java"	44	"testmessenger::MSN::MSNOutgoingANSPacketTest"	2	
+TestCommand	"testmessenger::MSN::MSNOutgoingCALPacketTest.testContent()"	"testmessenger/MSN/MSNOutgoingCALPacketTest.java"	44	"testmessenger::MSN::MSNOutgoingCALPacketTest"	2	
+TestCommand	"testmessenger::MSN::MSNOutgoingCHGPacketTest.testContent()"	"testmessenger/MSN/MSNOutgoingCHGPacketTest.java"	44	"testmessenger::MSN::MSNOutgoingCHGPacketTest"	2	
+TestCommand	"testmessenger::MSN::MSNOutgoingINFPacketTest.testContent()"	"testmessenger/MSN/MSNOutgoingINFPacketTest.java"	44	"testmessenger::MSN::MSNOutgoingINFPacketTest"	2	
+TestCommand	"testmessenger::MSN::MSNOutgoingLSTPacketTest.testContent()"	"testmessenger/MSN/MSNOutgoingLSTPacketTest.java"	44	"testmessenger::MSN::MSNOutgoingLSTPacketTest"	2	
+TestCommand	"testmessenger::MSN::MSNOutgoingMSGPacketTest.testContent()"	"testmessenger/MSN/MSNOutgoingMSGPacketTest.java"	44	"testmessenger::MSN::MSNOutgoingMSGPacketTest"	3	
+TestCommand	"testmessenger::MSN::MSNOutgoingPacketTest.testSomething()"	"testmessenger/MSN/MSNOutgoingPacketTest.java"	42	"testmessenger::MSN::MSNOutgoingPacketTest"	1	
+TestCommand	"testmessenger::MSN::MSNOutgoingQRYPacketTest.testContent()"	"testmessenger/MSN/MSNOutgoingQRYPacketTest.java"	44	"testmessenger::MSN::MSNOutgoingQRYPacketTest"	2	
+TestCommand	"testmessenger::MSN::MSNOutgoingUSRIPacketTest.testContent()"	"testmessenger/MSN/MSNOutgoingUSRIPacketTest.java"	44	"testmessenger::MSN::MSNOutgoingUSRIPacketTest"	2	
+TestCommand	"testmessenger::MSN::MSNOutgoingUSRPacketTest.testContent()"	"testmessenger/MSN/MSNOutgoingUSRPacketTest.java"	44	"testmessenger::MSN::MSNOutgoingUSRPacketTest"	2	
+TestCommand	"testmessenger::MSN::MSNOutgoingUSRSPacketTest.testContent()"	"testmessenger/MSN/MSNOutgoingUSRSPacketTest.java"	44	"testmessenger::MSN::MSNOutgoingUSRSPacketTest"	2	
+TestCommand	"testmessenger::MSN::MSNOutgoingVERPacketTest.testContent()"	"testmessenger/MSN/MSNOutgoingVERPacketTest.java"	44	"testmessenger::MSN::MSNOutgoingVERPacketTest"	2	
+TestCommand	"testmessenger::MSN::MSNOutgoingXFRPacketTest.testContent()"	"testmessenger/MSN/MSNOutgoingXFRPacketTest.java"	44	"testmessenger::MSN::MSNOutgoingXFRPacketTest"	2	
+TestCommand	"testmessenger::MSN::MSNPacketFactoryTest.testIncoming()"	"testmessenger/MSN/MSNPacketFactoryTest.java"	70	"testmessenger::MSN::MSNPacketFactoryTest"	11	
+TestCommand	"testmessenger::MSN::MSNPacketFactoryTest.testIncomingErrorCode()"	"testmessenger/MSN/MSNPacketFactoryTest.java"	88	"testmessenger::MSN::MSNPacketFactoryTest"	8	
+TestCommand	"testmessenger::MSN::MSNPacketFactoryTest.testIncomingNullPacketException()"	"testmessenger/MSN/MSNPacketFactoryTest.java"	114	"testmessenger::MSN::MSNPacketFactoryTest"	8	
+TestCommand	"testmessenger::MSN::MSNPacketFactoryTest.testOutgoing()"	"testmessenger/MSN/MSNPacketFactoryTest.java"	49	"testmessenger::MSN::MSNPacketFactoryTest"	13	
+TestCommand	"testmessenger::MSN::MSNPacketFactoryTest.testUnknownPacketException()"	"testmessenger/MSN/MSNPacketFactoryTest.java"	101	"testmessenger::MSN::MSNPacketFactoryTest"	8	
+TestCommand	"testmessenger::MSN::MSNPacketTest.testContent()"	"testmessenger/MSN/MSNPacketTest.java"	43	"testmessenger::MSN::MSNPacketTest"	1	
+TestCommand	"testmessenger::MSN::MSNProtocolTest.testSomething()"	"testmessenger/MSN/MSNProtocolTest.java"	42	"testmessenger::MSN::MSNProtocolTest"	1	
+TestCommand	"testmessenger::MSN::MSNSessionTest.testSomething()"	"testmessenger/MSN/MSNSessionTest.java"	41	"testmessenger::MSN::MSNSessionTest"	1	
+TestCommand	"testmessenger::MSN::testMSNMessage.testAddProtocol()"	"testmessenger/MSN/testMSNMessage.java"	45	"testmessenger::MSN::testMSNMessage"	1	
+TestCommand	"testmessenger::MSN::testMSNMessage.testGetProtocol()"	"testmessenger/MSN/testMSNMessage.java"	49	"testmessenger::MSN::testMSNMessage"	1	
+TestCommand	"testmessenger::MSN::testMSNMessage.testRemoveProtocol()"	"testmessenger/MSN/testMSNMessage.java"	53	"testmessenger::MSN::testMSNMessage"	1	
+TestCommand	"testmessenger::MSN::testMSNMessage.testSendMessage()"	"testmessenger/MSN/testMSNMessage.java"	57	"testmessenger::MSN::testMSNMessage"	1	
+TestCommand	"testmessenger::UtilsTest.testByteToHex()"	"testmessenger/UtilsTest.java"	109	"testmessenger::UtilsTest"	1	
+TestCommand	"testmessenger::UtilsTest.testCharToNibble()"	"testmessenger/UtilsTest.java"	45	"testmessenger::UtilsTest"	1	
+TestCommand	"testmessenger::UtilsTest.testEncryptPass()"	"testmessenger/UtilsTest.java"	159	"testmessenger::UtilsTest"	1	
+TestCommand	"testmessenger::UtilsTest.testFromHexString()"	"testmessenger/UtilsTest.java"	49	"testmessenger::UtilsTest"	36	
+TestCommand	"testmessenger::UtilsTest.testHexFromString()"	"testmessenger/UtilsTest.java"	97	"testmessenger::UtilsTest"	1	
+TestCommand	"testmessenger::UtilsTest.testHexToByte()"	"testmessenger/UtilsTest.java"	105	"testmessenger::UtilsTest"	1	
+TestCommand	"testmessenger::UtilsTest.testHexToInt()"	"testmessenger/UtilsTest.java"	101	"testmessenger::UtilsTest"	1	
+TestCommand	"testmessenger::UtilsTest.testIntToHex()"	"testmessenger/UtilsTest.java"	113	"testmessenger::UtilsTest"	21	
+TestCommand	"testmessenger::UtilsTest.testTwoByteInt2FourCharString()"	"testmessenger/UtilsTest.java"	137	"testmessenger::UtilsTest"	17	
+TestCommand	"testmessenger::UtilsTest.testUIN()"	"testmessenger/UtilsTest.java"	163	"testmessenger::UtilsTest"	1	
+TestCommand	"testmessenger::Yahoo::YahooContactTest.testGetIP()"	"testmessenger/Yahoo/YahooContactTest.java"	71	"testmessenger::Yahoo::YahooContactTest"	1	
+TestCommand	"testmessenger::Yahoo::YahooContactTest.testGetLogin()"	"testmessenger/Yahoo/YahooContactTest.java"	77	"testmessenger::Yahoo::YahooContactTest"	1	
+TestCommand	"testmessenger::Yahoo::YahooContactTest.testGetNick()"	"testmessenger/Yahoo/YahooContactTest.java"	83	"testmessenger::Yahoo::YahooContactTest"	1	
+TestCommand	"testmessenger::Yahoo::YahooContactTest.testGetStatus()"	"testmessenger/Yahoo/YahooContactTest.java"	89	"testmessenger::Yahoo::YahooContactTest"	1	
+TestCommand	"testmessenger::Yahoo::YahooContactTest.testGetUIN()"	"testmessenger/Yahoo/YahooContactTest.java"	68	"testmessenger::Yahoo::YahooContactTest"	1	
+TestCommand	"testmessenger::Yahoo::YahooContactTest.testSetIP()"	"testmessenger/Yahoo/YahooContactTest.java"	74	"testmessenger::Yahoo::YahooContactTest"	1	
+TestCommand	"testmessenger::Yahoo::YahooContactTest.testSetLogin()"	"testmessenger/Yahoo/YahooContactTest.java"	52	"testmessenger::Yahoo::YahooContactTest"	1	
+TestCommand	"testmessenger::Yahoo::YahooContactTest.testSetNick()"	"testmessenger/Yahoo/YahooContactTest.java"	80	"testmessenger::Yahoo::YahooContactTest"	1	
+TestCommand	"testmessenger::Yahoo::YahooContactTest.testSetStatus()"	"testmessenger/Yahoo/YahooContactTest.java"	86	"testmessenger::Yahoo::YahooContactTest"	1	
+TestCommand	"testmessenger::Yahoo::YahooContactTest.testYahooContactString()"	"testmessenger/Yahoo/YahooContactTest.java"	64	"testmessenger::Yahoo::YahooContactTest"	2	
+TestCommand	"testmessenger::Yahoo::YahooContactTest.testYahooContactStringStringString()"	"testmessenger/Yahoo/YahooContactTest.java"	58	"testmessenger::Yahoo::YahooContactTest"	1	
+TestCommand	"testmessenger::Yahoo::YahooSRV_AUTHPacketTest.testGetKindOfPacket()"	"testmessenger/Yahoo/YahooSRV_AUTHPacketTest.java"	71	"testmessenger::Yahoo::YahooSRV_AUTHPacketTest"	3	
+TestCommand	"testmessenger::Yahoo::YahooSRV_AUTHPacketTest.testYahooSRV_AUTHPacket()"	"testmessenger/Yahoo/YahooSRV_AUTHPacketTest.java"	67	"testmessenger::Yahoo::YahooSRV_AUTHPacketTest"	2	
+TestCommand	"testmessenger::Yahoo::YahooSRV_AUTH_RESPPacketTest.testGetContentHex()"	"testmessenger/Yahoo/YahooSRV_AUTH_RESPPacketTest.java"	38	"testmessenger::Yahoo::YahooSRV_AUTH_RESPPacketTest"	3	
+TestCommand	"testmessenger::Yahoo::YahooSRV_AUTH_RESPPacketTest.testGetKindOfPacket()"	"testmessenger/Yahoo/YahooSRV_AUTH_RESPPacketTest.java"	32	"testmessenger::Yahoo::YahooSRV_AUTH_RESPPacketTest"	3	
+TestCommand	"testmessenger::Yahoo::YahooSRV_AUTH_RESPPacketTest.testGetLength()"	"testmessenger/Yahoo/YahooSRV_AUTH_RESPPacketTest.java"	44	"testmessenger::Yahoo::YahooSRV_AUTH_RESPPacketTest"	2	
+TestCommand	"testmessenger::Yahoo::YahooSRV_LISTPacketTest.testGetContentHex()"	"testmessenger/Yahoo/YahooSRV_LISTPacketTest.java"	83	"testmessenger::Yahoo::YahooSRV_LISTPacketTest"	5	
+TestCommand	"testmessenger::Yahoo::YahooSRV_LISTPacketTest.testGetKindOfPacket()"	"testmessenger/Yahoo/YahooSRV_LISTPacketTest.java"	75	"testmessenger::Yahoo::YahooSRV_LISTPacketTest"	5	
+TestCommand	"testmessenger::Yahoo::YahooSRV_LISTPacketTest.testGetLength()"	"testmessenger/Yahoo/YahooSRV_LISTPacketTest.java"	91	"testmessenger::Yahoo::YahooSRV_LISTPacketTest"	4	
+TestCommand	"testmessenger::Yahoo::YahooSRV_LISTPacketTest.testYahooSRV_LISTPacket()"	"testmessenger/Yahoo/YahooSRV_LISTPacketTest.java"	53	"testmessenger::Yahoo::YahooSRV_LISTPacketTest"	10	
+TestCommand	"testmessenger::Yahoo::YahooSRV_LOGOFFPacketTest.testGetContact()"	"testmessenger/Yahoo/YahooSRV_LOGOFFPacketTest.java"	35	"testmessenger::Yahoo::YahooSRV_LOGOFFPacketTest"	3	
+TestCommand	"testmessenger::Yahoo::YahooSRV_LOGOFFPacketTest.testGetContentHex()"	"testmessenger/Yahoo/YahooSRV_LOGOFFPacketTest.java"	50	"testmessenger::Yahoo::YahooSRV_LOGOFFPacketTest"	3	
+TestCommand	"testmessenger::Yahoo::YahooSRV_LOGOFFPacketTest.testGetKindOfPacket()"	"testmessenger/Yahoo/YahooSRV_LOGOFFPacketTest.java"	45	"testmessenger::Yahoo::YahooSRV_LOGOFFPacketTest"	3	
+TestCommand	"testmessenger::Yahoo::YahooSRV_LOGOFFPacketTest.testGetStatus()"	"testmessenger/Yahoo/YahooSRV_LOGOFFPacketTest.java"	40	"testmessenger::Yahoo::YahooSRV_LOGOFFPacketTest"	3	
+TestCommand	"testmessenger::Yahoo::YahooSRV_LOGOFFPacketTest.testYahooSRV_LOGOFFPacket()"	"testmessenger/Yahoo/YahooSRV_LOGOFFPacketTest.java"	32	"testmessenger::Yahoo::YahooSRV_LOGOFFPacketTest"	1	
+TestCommand	"testmessenger::Yahoo::YahooSRV_LOGONPacketTest.testGetContact()"	"testmessenger/Yahoo/YahooSRV_LOGONPacketTest.java"	33	"testmessenger::Yahoo::YahooSRV_LOGONPacketTest"	1	
+TestCommand	"testmessenger::Yahoo::YahooSRV_LOGONPacketTest.testGetContentHex()"	"testmessenger/Yahoo/YahooSRV_LOGONPacketTest.java"	48	"testmessenger::Yahoo::YahooSRV_LOGONPacketTest"	3	
+TestCommand	"testmessenger::Yahoo::YahooSRV_LOGONPacketTest.testGetKindOfPacket()"	"testmessenger/Yahoo/YahooSRV_LOGONPacketTest.java"	42	"testmessenger::Yahoo::YahooSRV_LOGONPacketTest"	3	
+TestCommand	"testmessenger::Yahoo::YahooSRV_LOGONPacketTest.testGetLength()"	"testmessenger/Yahoo/YahooSRV_LOGONPacketTest.java"	54	"testmessenger::Yahoo::YahooSRV_LOGONPacketTest"	3	
+TestCommand	"testmessenger::Yahoo::YahooSRV_LOGONPacketTest.testGetStatus()"	"testmessenger/Yahoo/YahooSRV_LOGONPacketTest.java"	36	"testmessenger::Yahoo::YahooSRV_LOGONPacketTest"	3	
+TestCommand	"testmessenger::Yahoo::YahooSRV_MESSAGEPacketTest.testGetContentHex()"	"testmessenger/Yahoo/YahooSRV_MESSAGEPacketTest.java"	88	"testmessenger::Yahoo::YahooSRV_MESSAGEPacketTest"	5	
+TestCommand	"testmessenger::Yahoo::YahooSRV_MESSAGEPacketTest.testGetKindOfPacket()"	"testmessenger/Yahoo/YahooSRV_MESSAGEPacketTest.java"	78	"testmessenger::Yahoo::YahooSRV_MESSAGEPacketTest"	5	
+TestCommand	"testmessenger::Yahoo::YahooSRV_MESSAGEPacketTest.testGetLogin()"	"testmessenger/Yahoo/YahooSRV_MESSAGEPacketTest.java"	58	"testmessenger::Yahoo::YahooSRV_MESSAGEPacketTest"	5	
+TestCommand	"testmessenger::Yahoo::YahooSRV_MESSAGEPacketTest.testGetMessage()"	"testmessenger/Yahoo/YahooSRV_MESSAGEPacketTest.java"	68	"testmessenger::Yahoo::YahooSRV_MESSAGEPacketTest"	5	
+TestCommand	"testmessenger::Yahoo::YahooSRV_MESSAGEPacketTest.testYahooSRV_MESSAGEPacket()"	"testmessenger/Yahoo/YahooSRV_MESSAGEPacketTest.java"	52	"testmessenger::Yahoo::YahooSRV_MESSAGEPacketTest"	3	
+TestHelper	"testmessenger::MSN::MSNIncomingMSGPacketTest.getNrOfUnreadMsgs()"	"testmessenger/MSN/MSNIncomingMSGPacketTest.java"	56	"testmessenger::MSN::MSNIncomingMSGPacketTest"	2	
+TestHelper	"testmessenger::UtilsTest.testHexString2AsciiString(String)"	"testmessenger/UtilsTest.java"	167	"testmessenger::UtilsTest"	2	
+TestHelper	"testmessenger::UtilsTest.testURLQuoted2PlainText(String)"	"testmessenger/UtilsTest.java"	171	"testmessenger::UtilsTest"	2	
+TestSetup	"testmessenger::ICQ::ICQCLI_ACKRATESPacketTest.setUp()"	"testmessenger/ICQ/ICQCLI_ACKRATESPacketTest.java"	57	"testmessenger::ICQ::ICQCLI_ACKRATESPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQCLI_ADDBUDDYPacketTest.setUp()"	"testmessenger/ICQ/ICQCLI_ADDBUDDYPacketTest.java"	57	"testmessenger::ICQ::ICQCLI_ADDBUDDYPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQCLI_ADDCONTACTPacketTest.setUp()"	"testmessenger/ICQ/ICQCLI_ADDCONTACTPacketTest.java"	57	"testmessenger::ICQ::ICQCLI_ADDCONTACTPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQCLI_CONTACTTest.setUp()"	"testmessenger/ICQ/ICQCLI_CONTACTTest.java"	41	"testmessenger::ICQ::ICQCLI_CONTACTTest"	3	
+TestSetup	"testmessenger::ICQ::ICQCLI_COOKIEPacketTest.setUp()"	"testmessenger/ICQ/ICQCLI_COOKIEPacketTest.java"	53	"testmessenger::ICQ::ICQCLI_COOKIEPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQCLI_FAMILIESPacketTest.setUp()"	"testmessenger/ICQ/ICQCLI_FAMILIESPacketTest.java"	57	"testmessenger::ICQ::ICQCLI_FAMILIESPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQCLI_GOODBYEPacketTest.setUp()"	"testmessenger/ICQ/ICQCLI_GOODBYEPacketTest.java"	51	"testmessenger::ICQ::ICQCLI_GOODBYEPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQCLI_IDENTPacketTest.setUp()"	"testmessenger/ICQ/ICQCLI_IDENTPacketTest.java"	54	"testmessenger::ICQ::ICQCLI_IDENTPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQCLI_RATESREQUESTPacketTest.setUp()"	"testmessenger/ICQ/ICQCLI_RATESREQUESTPacketTest.java"	53	"testmessenger::ICQ::ICQCLI_RATESREQUESTPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQCLI_READYPacketTest.setUp()"	"testmessenger/ICQ/ICQCLI_READYPacketTest.java"	52	"testmessenger::ICQ::ICQCLI_READYPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQCLI_REQBOSPacketTest.setUp()"	"testmessenger/ICQ/ICQCLI_REQBOSPacketTest.java"	53	"testmessenger::ICQ::ICQCLI_REQBOSPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQCLI_REQBUDDYPacketTest.setUp()"	"testmessenger/ICQ/ICQCLI_REQBUDDYPacketTest.java"	53	"testmessenger::ICQ::ICQCLI_REQBUDDYPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQCLI_REQICBMPacketTest.setUp()"	"testmessenger/ICQ/ICQCLI_REQICBMPacketTest.java"	52	"testmessenger::ICQ::ICQCLI_REQICBMPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQCLI_REQINFOPacketTest.setUp()"	"testmessenger/ICQ/ICQCLI_REQINFOPacketTest.java"	53	"testmessenger::ICQ::ICQCLI_REQINFOPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQCLI_REQLISTSPacketTest.setUp()"	"testmessenger/ICQ/ICQCLI_REQLISTSPacketTest.java"	54	"testmessenger::ICQ::ICQCLI_REQLISTSPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQCLI_REQLOCATIONPacketTest.setUp()"	"testmessenger/ICQ/ICQCLI_REQLOCATIONPacketTest.java"	54	"testmessenger::ICQ::ICQCLI_REQLOCATIONPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQCLI_REQROSTERPacketTest.setUp()"	"testmessenger/ICQ/ICQCLI_REQROSTERPacketTest.java"	53	"testmessenger::ICQ::ICQCLI_REQROSTERPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQCLI_SENDMSGPacketTest.setUp()"	"testmessenger/ICQ/ICQCLI_SENDMSGPacketTest.java"	54	"testmessenger::ICQ::ICQCLI_SENDMSGPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQCLI_SENDMSGV1PacketTest.setUp()"	"testmessenger/ICQ/ICQCLI_SENDMSGV1PacketTest.java"	53	"testmessenger::ICQ::ICQCLI_SENDMSGV1PacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQCLI_SETICBMPacketTest.setUp()"	"testmessenger/ICQ/ICQCLI_SETICBMPacketTest.java"	53	"testmessenger::ICQ::ICQCLI_SETICBMPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQCLI_SETSTATUSPacketTest.setUp()"	"testmessenger/ICQ/ICQCLI_SETSTATUSPacketTest.java"	53	"testmessenger::ICQ::ICQCLI_SETSTATUSPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQProtocolTest.setUp()"	"testmessenger/ICQ/ICQProtocolTest.java"	55	"testmessenger::ICQ::ICQProtocolTest"	2	
+TestSetup	"testmessenger::ICQ::ICQSRV_COOKIEPacketTest.setUp()"	"testmessenger/ICQ/ICQSRV_COOKIEPacketTest.java"	85	"testmessenger::ICQ::ICQSRV_COOKIEPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQSRV_FAMILIES2PacketTest.setUp()"	"testmessenger/ICQ/ICQSRV_FAMILIES2PacketTest.java"	51	"testmessenger::ICQ::ICQSRV_FAMILIES2PacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQSRV_FAMILIESPacketTest.setUp()"	"testmessenger/ICQ/ICQSRV_FAMILIESPacketTest.java"	55	"testmessenger::ICQ::ICQSRV_FAMILIESPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQSRV_HELLOPacketTest.setUp()"	"testmessenger/ICQ/ICQSRV_HELLOPacketTest.java"	54	"testmessenger::ICQ::ICQSRV_HELLOPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQSRV_RATESPacketTest.setUp()"	"testmessenger/ICQ/ICQSRV_RATESPacketTest.java"	52	"testmessenger::ICQ::ICQSRV_RATESPacketTest"	2	
+TestSetup	"testmessenger::ICQ::ICQSRV_REPLYROSTERPacketTest.setUp()"	"testmessenger/ICQ/ICQSRV_REPLYROSTERPacketTest.java"	52	"testmessenger::ICQ::ICQSRV_REPLYROSTERPacketTest"	2	
+TestSetup	"testmessenger::MSN::MSNContactTest.setUp()"	"testmessenger/MSN/MSNContactTest.java"	42	"testmessenger::MSN::MSNContactTest"	2	
+TestSetup	"testmessenger::MSN::MSNIncomingADDPacketTest.setUp()"	"testmessenger/MSN/MSNIncomingADDPacketTest.java"	59	"testmessenger::MSN::MSNIncomingADDPacketTest"	3	
+TestSetup	"testmessenger::MSN::MSNIncomingCHGPacketTest.setUp()"	"testmessenger/MSN/MSNIncomingCHGPacketTest.java"	59	"testmessenger::MSN::MSNIncomingCHGPacketTest"	3	
+TestSetup	"testmessenger::MSN::MSNIncomingCHLPacketTest.setUp()"	"testmessenger/MSN/MSNIncomingCHLPacketTest.java"	55	"testmessenger::MSN::MSNIncomingCHLPacketTest"	2	
+TestSetup	"testmessenger::MSN::MSNIncomingFLNPacketTest.setUp()"	"testmessenger/MSN/MSNIncomingFLNPacketTest.java"	66	"testmessenger::MSN::MSNIncomingFLNPacketTest"	4	
+TestSetup	"testmessenger::MSN::MSNIncomingILNPacketTest.setUp()"	"testmessenger/MSN/MSNIncomingILNPacketTest.java"	71	"testmessenger::MSN::MSNIncomingILNPacketTest"	4	
+TestSetup	"testmessenger::MSN::MSNIncomingINFPacketTest.setUp()"	"testmessenger/MSN/MSNIncomingINFPacketTest.java"	61	"testmessenger::MSN::MSNIncomingINFPacketTest"	4	
+TestSetup	"testmessenger::MSN::MSNIncomingLSTPacketTest.setUp()"	"testmessenger/MSN/MSNIncomingLSTPacketTest.java"	76	"testmessenger::MSN::MSNIncomingLSTPacketTest"	4	
+TestSetup	"testmessenger::MSN::MSNIncomingMSGPacketTest.setUp()"	"testmessenger/MSN/MSNIncomingMSGPacketTest.java"	71	"testmessenger::MSN::MSNIncomingMSGPacketTest"	4	
+TestSetup	"testmessenger::MSN::MSNIncomingNLNPacketTest.setUp()"	"testmessenger/MSN/MSNIncomingNLNPacketTest.java"	101	"testmessenger::MSN::MSNIncomingNLNPacketTest"	4	
+TestSetup	"testmessenger::MSN::MSNIncomingPacketTest.setUp()"	"testmessenger/MSN/MSNIncomingPacketTest.java"	53	"testmessenger::MSN::MSNIncomingPacketTest"	2	
+TestSetup	"testmessenger::MSN::MSNIncomingQRYPacketTest.setUp()"	"testmessenger/MSN/MSNIncomingQRYPacketTest.java"	56	"testmessenger::MSN::MSNIncomingQRYPacketTest"	4	
+TestSetup	"testmessenger::MSN::MSNIncomingRNGPacketTest.setUp()"	"testmessenger/MSN/MSNIncomingRNGPacketTest.java"	87	"testmessenger::MSN::MSNIncomingRNGPacketTest"	4	
+TestSetup	"testmessenger::MSN::MSNIncomingUSRPacketTest.setUp()"	"testmessenger/MSN/MSNIncomingUSRPacketTest.java"	64	"testmessenger::MSN::MSNIncomingUSRPacketTest"	4	
+TestSetup	"testmessenger::MSN::MSNIncomingVERPacketTest.setUp()"	"testmessenger/MSN/MSNIncomingVERPacketTest.java"	56	"testmessenger::MSN::MSNIncomingVERPacketTest"	4	
+TestSetup	"testmessenger::MSN::MSNIncomingXFRPacketTest.setUp()"	"testmessenger/MSN/MSNIncomingXFRPacketTest.java"	66	"testmessenger::MSN::MSNIncomingXFRPacketTest"	4	
+TestSetup	"testmessenger::MSN::MSNOutgoingADDPacketTest.setUp()"	"testmessenger/MSN/MSNOutgoingADDPacketTest.java"	55	"testmessenger::MSN::MSNOutgoingADDPacketTest"	7	
+TestSetup	"testmessenger::MSN::MSNOutgoingANSPacketTest.setUp()"	"testmessenger/MSN/MSNOutgoingANSPacketTest.java"	55	"testmessenger::MSN::MSNOutgoingANSPacketTest"	8	
+TestSetup	"testmessenger::MSN::MSNOutgoingCALPacketTest.setUp()"	"testmessenger/MSN/MSNOutgoingCALPacketTest.java"	55	"testmessenger::MSN::MSNOutgoingCALPacketTest"	6	
+TestSetup	"testmessenger::MSN::MSNOutgoingCHGPacketTest.setUp()"	"testmessenger/MSN/MSNOutgoingCHGPacketTest.java"	55	"testmessenger::MSN::MSNOutgoingCHGPacketTest"	6	
+TestSetup	"testmessenger::MSN::MSNOutgoingINFPacketTest.setUp()"	"testmessenger/MSN/MSNOutgoingINFPacketTest.java"	55	"testmessenger::MSN::MSNOutgoingINFPacketTest"	5	
+TestSetup	"testmessenger::MSN::MSNOutgoingLSTPacketTest.setUp()"	"testmessenger/MSN/MSNOutgoingLSTPacketTest.java"	55	"testmessenger::MSN::MSNOutgoingLSTPacketTest"	5	
+TestSetup	"testmessenger::MSN::MSNOutgoingMSGPacketTest.setUp()"	"testmessenger/MSN/MSNOutgoingMSGPacketTest.java"	62	"testmessenger::MSN::MSNOutgoingMSGPacketTest"	6	
+TestSetup	"testmessenger::MSN::MSNOutgoingPacketTest.setUp()"	"testmessenger/MSN/MSNOutgoingPacketTest.java"	53	"testmessenger::MSN::MSNOutgoingPacketTest"	2	
+TestSetup	"testmessenger::MSN::MSNOutgoingQRYPacketTest.setUp()"	"testmessenger/MSN/MSNOutgoingQRYPacketTest.java"	55	"testmessenger::MSN::MSNOutgoingQRYPacketTest"	6	
+TestSetup	"testmessenger::MSN::MSNOutgoingUSRIPacketTest.setUp()"	"testmessenger/MSN/MSNOutgoingUSRIPacketTest.java"	55	"testmessenger::MSN::MSNOutgoingUSRIPacketTest"	7	
+TestSetup	"testmessenger::MSN::MSNOutgoingUSRPacketTest.setUp()"	"testmessenger/MSN/MSNOutgoingUSRPacketTest.java"	55	"testmessenger::MSN::MSNOutgoingUSRPacketTest"	7	
+TestSetup	"testmessenger::MSN::MSNOutgoingUSRSPacketTest.setUp()"	"testmessenger/MSN/MSNOutgoingUSRSPacketTest.java"	55	"testmessenger::MSN::MSNOutgoingUSRSPacketTest"	7	
+TestSetup	"testmessenger::MSN::MSNOutgoingVERPacketTest.setUp()"	"testmessenger/MSN/MSNOutgoingVERPacketTest.java"	55	"testmessenger::MSN::MSNOutgoingVERPacketTest"	5	
+TestSetup	"testmessenger::MSN::MSNOutgoingXFRPacketTest.setUp()"	"testmessenger/MSN/MSNOutgoingXFRPacketTest.java"	55	"testmessenger::MSN::MSNOutgoingXFRPacketTest"	5	
+TestSetup	"testmessenger::MSN::MSNPacketFactoryTest.setUp()"	"testmessenger/MSN/MSNPacketFactoryTest.java"	135	"testmessenger::MSN::MSNPacketFactoryTest"	3	
+TestSetup	"testmessenger::MSN::MSNPacketTest.setUp()"	"testmessenger/MSN/MSNPacketTest.java"	54	"testmessenger::MSN::MSNPacketTest"	2	
+TestSetup	"testmessenger::MSN::MSNProtocolTest.setUp()"	"testmessenger/MSN/MSNProtocolTest.java"	53	"testmessenger::MSN::MSNProtocolTest"	2	
+TestSetup	"testmessenger::MSN::MSNSessionTest.setUp()"	"testmessenger/MSN/MSNSessionTest.java"	52	"testmessenger::MSN::MSNSessionTest"	2	
+TestSetup	"testmessenger::MSN::testMSNMessage.setUp()"	"testmessenger/MSN/testMSNMessage.java"	38	"testmessenger::MSN::testMSNMessage"	1	
+TestSetup	"testmessenger::UtilsTest.setUp()"	"testmessenger/UtilsTest.java"	38	"testmessenger::UtilsTest"	2	
+TestSetup	"testmessenger::Yahoo::YahooSRV_AUTHPacketTest.setUp()"	"testmessenger/Yahoo/YahooSRV_AUTHPacketTest.java"	56	"testmessenger::Yahoo::YahooSRV_AUTHPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQCLI_ACKRATESPacketTest.tearDown()"	"testmessenger/ICQ/ICQCLI_ACKRATESPacketTest.java"	64	"testmessenger::ICQ::ICQCLI_ACKRATESPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQCLI_ADDBUDDYPacketTest.tearDown()"	"testmessenger/ICQ/ICQCLI_ADDBUDDYPacketTest.java"	64	"testmessenger::ICQ::ICQCLI_ADDBUDDYPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQCLI_ADDCONTACTPacketTest.tearDown()"	"testmessenger/ICQ/ICQCLI_ADDCONTACTPacketTest.java"	64	"testmessenger::ICQ::ICQCLI_ADDCONTACTPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQCLI_COOKIEPacketTest.tearDown()"	"testmessenger/ICQ/ICQCLI_COOKIEPacketTest.java"	60	"testmessenger::ICQ::ICQCLI_COOKIEPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQCLI_FAMILIESPacketTest.tearDown()"	"testmessenger/ICQ/ICQCLI_FAMILIESPacketTest.java"	64	"testmessenger::ICQ::ICQCLI_FAMILIESPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQCLI_GOODBYEPacketTest.tearDown()"	"testmessenger/ICQ/ICQCLI_GOODBYEPacketTest.java"	58	"testmessenger::ICQ::ICQCLI_GOODBYEPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQCLI_IDENTPacketTest.tearDown()"	"testmessenger/ICQ/ICQCLI_IDENTPacketTest.java"	61	"testmessenger::ICQ::ICQCLI_IDENTPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQCLI_RATESREQUESTPacketTest.tearDown()"	"testmessenger/ICQ/ICQCLI_RATESREQUESTPacketTest.java"	60	"testmessenger::ICQ::ICQCLI_RATESREQUESTPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQCLI_READYPacketTest.tearDown()"	"testmessenger/ICQ/ICQCLI_READYPacketTest.java"	59	"testmessenger::ICQ::ICQCLI_READYPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQCLI_REQBOSPacketTest.tearDown()"	"testmessenger/ICQ/ICQCLI_REQBOSPacketTest.java"	60	"testmessenger::ICQ::ICQCLI_REQBOSPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQCLI_REQBUDDYPacketTest.tearDown()"	"testmessenger/ICQ/ICQCLI_REQBUDDYPacketTest.java"	60	"testmessenger::ICQ::ICQCLI_REQBUDDYPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQCLI_REQICBMPacketTest.tearDown()"	"testmessenger/ICQ/ICQCLI_REQICBMPacketTest.java"	59	"testmessenger::ICQ::ICQCLI_REQICBMPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQCLI_REQINFOPacketTest.tearDown()"	"testmessenger/ICQ/ICQCLI_REQINFOPacketTest.java"	60	"testmessenger::ICQ::ICQCLI_REQINFOPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQCLI_REQLISTSPacketTest.tearDown()"	"testmessenger/ICQ/ICQCLI_REQLISTSPacketTest.java"	61	"testmessenger::ICQ::ICQCLI_REQLISTSPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQCLI_REQLOCATIONPacketTest.tearDown()"	"testmessenger/ICQ/ICQCLI_REQLOCATIONPacketTest.java"	61	"testmessenger::ICQ::ICQCLI_REQLOCATIONPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQCLI_REQROSTERPacketTest.tearDown()"	"testmessenger/ICQ/ICQCLI_REQROSTERPacketTest.java"	60	"testmessenger::ICQ::ICQCLI_REQROSTERPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQCLI_SENDMSGPacketTest.tearDown()"	"testmessenger/ICQ/ICQCLI_SENDMSGPacketTest.java"	62	"testmessenger::ICQ::ICQCLI_SENDMSGPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQCLI_SENDMSGV1PacketTest.tearDown()"	"testmessenger/ICQ/ICQCLI_SENDMSGV1PacketTest.java"	60	"testmessenger::ICQ::ICQCLI_SENDMSGV1PacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQCLI_SETICBMPacketTest.tearDown()"	"testmessenger/ICQ/ICQCLI_SETICBMPacketTest.java"	60	"testmessenger::ICQ::ICQCLI_SETICBMPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQCLI_SETSTATUSPacketTest.tearDown()"	"testmessenger/ICQ/ICQCLI_SETSTATUSPacketTest.java"	60	"testmessenger::ICQ::ICQCLI_SETSTATUSPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQProtocolTest.tearDown()"	"testmessenger/ICQ/ICQProtocolTest.java"	62	"testmessenger::ICQ::ICQProtocolTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQSRV_COOKIEPacketTest.tearDown()"	"testmessenger/ICQ/ICQSRV_COOKIEPacketTest.java"	92	"testmessenger::ICQ::ICQSRV_COOKIEPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQSRV_FAMILIES2PacketTest.tearDown()"	"testmessenger/ICQ/ICQSRV_FAMILIES2PacketTest.java"	62	"testmessenger::ICQ::ICQSRV_FAMILIES2PacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQSRV_FAMILIESPacketTest.tearDown()"	"testmessenger/ICQ/ICQSRV_FAMILIESPacketTest.java"	62	"testmessenger::ICQ::ICQSRV_FAMILIESPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQSRV_HELLOPacketTest.tearDown()"	"testmessenger/ICQ/ICQSRV_HELLOPacketTest.java"	61	"testmessenger::ICQ::ICQSRV_HELLOPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQSRV_RATESPacketTest.tearDown()"	"testmessenger/ICQ/ICQSRV_RATESPacketTest.java"	59	"testmessenger::ICQ::ICQSRV_RATESPacketTest"	2	
+TestTeardown	"testmessenger::ICQ::ICQSRV_REPLYROSTERPacketTest.tearDown()"	"testmessenger/ICQ/ICQSRV_REPLYROSTERPacketTest.java"	63	"testmessenger::ICQ::ICQSRV_REPLYROSTERPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNContactTest.tearDown()"	"testmessenger/MSN/MSNContactTest.java"	61	"testmessenger::MSN::MSNContactTest"	2	
+TestTeardown	"testmessenger::MSN::MSNIncomingADDPacketTest.tearDown()"	"testmessenger/MSN/MSNIncomingADDPacketTest.java"	67	"testmessenger::MSN::MSNIncomingADDPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNIncomingCHGPacketTest.tearDown()"	"testmessenger/MSN/MSNIncomingCHGPacketTest.java"	67	"testmessenger::MSN::MSNIncomingCHGPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNIncomingCHLPacketTest.tearDown()"	"testmessenger/MSN/MSNIncomingCHLPacketTest.java"	62	"testmessenger::MSN::MSNIncomingCHLPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNIncomingFLNPacketTest.tearDown()"	"testmessenger/MSN/MSNIncomingFLNPacketTest.java"	76	"testmessenger::MSN::MSNIncomingFLNPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNIncomingILNPacketTest.tearDown()"	"testmessenger/MSN/MSNIncomingILNPacketTest.java"	81	"testmessenger::MSN::MSNIncomingILNPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNIncomingINFPacketTest.tearDown()"	"testmessenger/MSN/MSNIncomingINFPacketTest.java"	71	"testmessenger::MSN::MSNIncomingINFPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNIncomingLSTPacketTest.tearDown()"	"testmessenger/MSN/MSNIncomingLSTPacketTest.java"	86	"testmessenger::MSN::MSNIncomingLSTPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNIncomingMSGPacketTest.tearDown()"	"testmessenger/MSN/MSNIncomingMSGPacketTest.java"	89	"testmessenger::MSN::MSNIncomingMSGPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNIncomingNLNPacketTest.tearDown()"	"testmessenger/MSN/MSNIncomingNLNPacketTest.java"	111	"testmessenger::MSN::MSNIncomingNLNPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNIncomingPacketTest.tearDown()"	"testmessenger/MSN/MSNIncomingPacketTest.java"	60	"testmessenger::MSN::MSNIncomingPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNIncomingQRYPacketTest.tearDown()"	"testmessenger/MSN/MSNIncomingQRYPacketTest.java"	66	"testmessenger::MSN::MSNIncomingQRYPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNIncomingRNGPacketTest.tearDown()"	"testmessenger/MSN/MSNIncomingRNGPacketTest.java"	97	"testmessenger::MSN::MSNIncomingRNGPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNIncomingUSRPacketTest.tearDown()"	"testmessenger/MSN/MSNIncomingUSRPacketTest.java"	74	"testmessenger::MSN::MSNIncomingUSRPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNIncomingVERPacketTest.tearDown()"	"testmessenger/MSN/MSNIncomingVERPacketTest.java"	66	"testmessenger::MSN::MSNIncomingVERPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNIncomingXFRPacketTest.tearDown()"	"testmessenger/MSN/MSNIncomingXFRPacketTest.java"	76	"testmessenger::MSN::MSNIncomingXFRPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNOutgoingADDPacketTest.tearDown()"	"testmessenger/MSN/MSNOutgoingADDPacketTest.java"	69	"testmessenger::MSN::MSNOutgoingADDPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNOutgoingANSPacketTest.tearDown()"	"testmessenger/MSN/MSNOutgoingANSPacketTest.java"	70	"testmessenger::MSN::MSNOutgoingANSPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNOutgoingCALPacketTest.tearDown()"	"testmessenger/MSN/MSNOutgoingCALPacketTest.java"	68	"testmessenger::MSN::MSNOutgoingCALPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNOutgoingCHGPacketTest.tearDown()"	"testmessenger/MSN/MSNOutgoingCHGPacketTest.java"	68	"testmessenger::MSN::MSNOutgoingCHGPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNOutgoingINFPacketTest.tearDown()"	"testmessenger/MSN/MSNOutgoingINFPacketTest.java"	66	"testmessenger::MSN::MSNOutgoingINFPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNOutgoingLSTPacketTest.tearDown()"	"testmessenger/MSN/MSNOutgoingLSTPacketTest.java"	67	"testmessenger::MSN::MSNOutgoingLSTPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNOutgoingMSGPacketTest.tearDown()"	"testmessenger/MSN/MSNOutgoingMSGPacketTest.java"	74	"testmessenger::MSN::MSNOutgoingMSGPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNOutgoingPacketTest.tearDown()"	"testmessenger/MSN/MSNOutgoingPacketTest.java"	60	"testmessenger::MSN::MSNOutgoingPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNOutgoingQRYPacketTest.tearDown()"	"testmessenger/MSN/MSNOutgoingQRYPacketTest.java"	68	"testmessenger::MSN::MSNOutgoingQRYPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNOutgoingUSRIPacketTest.tearDown()"	"testmessenger/MSN/MSNOutgoingUSRIPacketTest.java"	69	"testmessenger::MSN::MSNOutgoingUSRIPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNOutgoingUSRPacketTest.tearDown()"	"testmessenger/MSN/MSNOutgoingUSRPacketTest.java"	69	"testmessenger::MSN::MSNOutgoingUSRPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNOutgoingUSRSPacketTest.tearDown()"	"testmessenger/MSN/MSNOutgoingUSRSPacketTest.java"	69	"testmessenger::MSN::MSNOutgoingUSRSPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNOutgoingVERPacketTest.tearDown()"	"testmessenger/MSN/MSNOutgoingVERPacketTest.java"	67	"testmessenger::MSN::MSNOutgoingVERPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNOutgoingXFRPacketTest.tearDown()"	"testmessenger/MSN/MSNOutgoingXFRPacketTest.java"	67	"testmessenger::MSN::MSNOutgoingXFRPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNPacketFactoryTest.tearDown()"	"testmessenger/MSN/MSNPacketFactoryTest.java"	144	"testmessenger::MSN::MSNPacketFactoryTest"	2	
+TestTeardown	"testmessenger::MSN::MSNPacketTest.tearDown()"	"testmessenger/MSN/MSNPacketTest.java"	63	"testmessenger::MSN::MSNPacketTest"	2	
+TestTeardown	"testmessenger::MSN::MSNProtocolTest.tearDown()"	"testmessenger/MSN/MSNProtocolTest.java"	60	"testmessenger::MSN::MSNProtocolTest"	2	
+TestTeardown	"testmessenger::MSN::MSNSessionTest.tearDown()"	"testmessenger/MSN/MSNSessionTest.java"	59	"testmessenger::MSN::MSNSessionTest"	2	
+TestTeardown	"testmessenger::Yahoo::YahooSRV_AUTHPacketTest.tearDown()"	"testmessenger/Yahoo/YahooSRV_AUTHPacketTest.java"	63	"testmessenger::Yahoo::YahooSRV_AUTHPacketTest"	2	

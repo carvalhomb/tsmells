@@ -1,0 +1,32 @@
+/**
+ * Writes a list of ids of OpenGL functions invoked by each method/function
+ **/
+
+openGLmodule := "/GL";
+openGLmoduleAlt := "/gl";
+
+glModule(mid) := Module(mid,openGLmodule) | Module(mid,openGLmoduleAlt);
+
+glFunction(fid) := EX(mid, glModule(mid) 
+							& EX(fileId, FileBelongsToModule(fileId,mid)
+								& InvokableEntityBelongsToFile(fid, fileId,_)
+								& Function(fid,_)
+							  )
+						);
+
+
+InvokeableEntity(x) := (Method(x,_) | Function(x,_)) & EX(aGlFunction, glFunction(aGlFunction) & Invokes(_,x,aGlFunction));
+
+/**
+ * FOR EACH invokeable entity which invokes at least 1 Open GL function:
+ *	print all the invoked openGL functions, separated with "	"
+ **/
+FOR anEntity IN InvokeableEntity(x) {
+	InvokedGLfunction(fid) := glFunction(fid) & Invokes(_,anEntity,fid);
+	
+	FOR anOpenGLFunction IN InvokedGLfunction(x) {
+		PRINT anOpenGLFunction,"	";
+	}
+				
+	PRINT ENDL;
+}

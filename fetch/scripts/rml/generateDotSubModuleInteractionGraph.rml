@@ -1,0 +1,86 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2006,2007 University of Antwerp
+* Author(s):  Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>,
+*                     Bart Du Bois <bart.dubois@ua.ac.be>
+*/
+
+
+/**
+ * Generates a graph indicating dependencies
+ * between modules that are submodules of the given module.
+ **/
+
+RootModuleName := $1;
+
+SubModule(x) := EX(rootModuleIndex, Module(rootModuleIndex,RootModuleName) & ModuleBelongsToModule(x,rootModuleIndex));
+
+// Track all files which transitively belong to a submodule
+ModuleFile(file,module) := FileBelongsToModule(file,module) & SubModule(module);
+TransitiveModuleContainment(childModule, parentModule) := TC(ModuleBelongsToModule(childModule,parentModule));
+ModuleFile(file,module) := ModuleFile(file,module) | EX(childModule, TransitiveModuleContainment(childModule,module) & FileBelongsToModule(file, childModule));
+
+SubModuleEntity(subModule,entity) := EX(file, ModuleFile(file,subModule) & InvokableEntityBelongsToFile(entity,file,_));
+
+DirectedInvocation(clientModule,serverModule,invocation) := SubModule(clientModule)
+															& SubModule(serverModule)
+															& EX(clientEntity, SubModuleEntity(clientModule, clientEntity)
+																& EX(serverEntity, SubModuleEntity(serverModule, serverEntity)
+																	& (	Function(clientEntity,_) |
+																			Method(clientEntity,_) |
+																			EX(z, DefinitionForDeclaration(clientEntity,z) & Function(z,_)) |
+																			EX(z, DefinitionForDeclaration(clientEntity,z) & Method(z,_))
+																		)
+																	& (	Function(serverEntity,_) |
+																			Method(serverEntity,_) |
+																			EX(z, DefinitionForDeclaration(serverEntity,z) & Function(z,_)) |
+																			EX(z, DefinitionForDeclaration(serverEntity,z) & Method(z,_))
+																		)
+																	& Invokes(invocation,clientEntity, serverEntity)
+																)
+															);
+
+/**
+ * First print header
+ **/
+PRINT "digraph submoduleInteractionGraph {",ENDL;
+PRINT "	size='6,6';",ENDL;
+PRINT "	node [color=lightblue2, style=filled];",ENDL;
+
+/**
+ * Then print the edges.
+ **/
+FOR clientModule IN SubModule(x) {
+	ClientModuleName(x) := Module(clientModule,x);
+	FOR clientName IN ClientModuleName(x) {
+		FOR serverModule IN SubModule(x) {
+			ServerModuleName(x) := Module(serverModule,x);
+			FOR serverName IN ServerModuleName(x) {
+				nrOfForwardInvocations := (#(DirectedInvocation(clientModule,serverModule,invocation)));
+				//nrOfReverseInvocations := (#(DirectedInvocation(serverModule,clientModule,invocation)));
+
+				//IF (nrOfForwardInvocations > 0 & clientName != serverName) { // the comparison makes it extremely slow
+				IF (nrOfForwardInvocations > 0) {
+					PRINT "	'",clientName,"' -> '",serverName,"' [label='",nrOfForwardInvocations,"',weight=",nrOfForwardInvocations,"];",ENDL;
+					// style="setlinewidth(3)"
+				}
+			}
+		}
+	}
+}
+PRINT "}",ENDL;

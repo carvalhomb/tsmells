@@ -1,0 +1,72 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+*/
+
+/**
+ * Enlists several system metrics.
+ **/
+
+LOC(m,x) := Measurement(m,_,"LOC",x);
+NOS(m,x) := Measurement(m,_,"NOS",x);
+CC(m,x) := Measurement(m,_,"CC",x);
+
+loc := 0;
+FOR m IN LOC(x,_) {
+	loc := loc + SUM(LOC(m,x));
+}
+
+nos := 0;
+FOR m IN NOS(x,_) {
+	nos := nos + SUM(NOS(m,x));
+}
+
+cc := 0;
+FOR m IN CC(x,_) {
+	cc := cc + SUM(CC(m,x));
+}
+
+//CondComp(x,y) := FALSE(x,y);
+// Header
+//PRINT "Name	Module	File	CondComp	Class	Method	Function	Inv.Ent.w/ Metrics	Attribute	GlobalVar	Measurement	Include	Inheritance	Invocation	Access	LOC	COM	MVG",ENDL;
+PRINT "	",#(Module(x,_)),"	",#(File(x,_)),"	",#(CondComp(x,_)),"	",#(Class(x,_)),"	",#(Method(x,_)),"	",#(Function(x,_)),"	",#(Measurement(x,_,"LOC",_)),"	",#(Attribute(x,_)),"	",#(GlobalVariable(x,_)),"	",#(Measurement(x,_,_,_)),"	",#(Include(x,_,_)),"	",#(InheritsFrom(x,_,_,_)),"	",#(Invokes(x,_,_)),"	",#(Accesses(x,_,_)),"	",loc,"	",nos,"	",cc,"	",ENDL;
+
+/* Vertical Layout
+PRINT "Structural Entities",ENDL;
+PRINT "	Number of modules: ",#(Module(x,_)),ENDL;
+PRINT "	Number of files: ",#(File(x,_)),ENDL;
+PRINT "	Number of conditional nospilation directives: ",#(CondComp(x,_)),ENDL;
+PRINT "	Number of classes: ",#(Class(x,_)),ENDL;
+PRINT "	Number of methods: ",#(Method(x,_)),ENDL;
+PRINT "	Number of functions: ",#(Function(x,_)),ENDL;
+PRINT "	Number of attributes: ",#(Attribute(x,_)),ENDL;
+PRINT "	Number of global variables: ",#(GlobalVariable(x,_)),ENDL;
+PRINT "	Number of measurements: ",#(Measurement(x,_,_,_)),ENDL;
+PRINT ENDL;
+PRINT "Relations",ENDL;
+PRINT "	Number of includes: ",#(Include(x,_,_)),ENDL;
+PRINT "	Number of inheritance relations: ",#(InheritsFrom(x,_,_,_)),ENDL;
+PRINT "	Number of invocations: ",#(Invokes(x,_,_)),ENDL;
+PRINT "	Number of accesses: ",#(Accesses(x,_,_)),ENDL;
+PRINT ENDL;
+PRINT "Metrics",ENDL;
+PRINT "	Total (retrieved) LOC: ",loc,ENDL;
+PRINT "	Total (retrieved) COM: ",nos,ENDL;
+PRINT "	Total (retrieved) MVG: ",cc,ENDL;
+*/

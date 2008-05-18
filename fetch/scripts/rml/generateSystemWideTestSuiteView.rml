@@ -1,0 +1,139 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+*/
+
+/**
+ * Finds all test cases among the classes,
+ * both directly as well as indirectly
+ * inheriting from TestCase
+ *
+ **/
+
+TestMethod(x) := EX(y, TestCase(y,_) & MethodBelongsToClass(x,y));
+ProductionMethod(x) := !TestMethod(x);
+ProductionClass(x) := Class(x,_) & !TestCase(x,_);
+
+// Note 1: Grmbl, resolving invocations has become a lot more difficult now that we have the DefinitionForDeclaration relation.
+// As some invokable entities only have a declaration or definition, you have to check for all combinations here.
+// Note 2: Grmbl^2, this takes too much memory. Should try to postpone more untill the for-loops
+ClassLevelStimulus(c1,c2) := EX(x,y, xd,yd,Class(c1,_)
+								& Class(c2,_)
+								& TestMethod(x)
+								& ProductionMethod(y)
+								& MethodBelongsToClass(x,c1)
+								& MethodBelongsToClass(y,c2)
+								& (Invokes(_,x,y) |
+									DefinitionForDeclaration(xd,x) & DefinitionForDeclaration(yd,y) & Invokes(_,xd,yd) |
+									DefinitionForDeclaration(xd,x) & Invokes(_,xd,y) |
+									DefinitionForDeclaration(yd,y) & Invokes(_,x,yd))
+								);
+
+TestDependency(c1,c2) := EX(x,y, xd,yd,Class(c1,_)
+								& Class(c2,_)
+								& TestMethod(x)
+								& TestMethod(y)
+								& MethodBelongsToClass(x,c1)
+								& MethodBelongsToClass(y,c2)
+								& (Invokes(_,x,y) |
+									DefinitionForDeclaration(xd,x) & DefinitionForDeclaration(yd,y) & Invokes(_,xd,yd) |
+									DefinitionForDeclaration(xd,x) & Invokes(_,xd,y) |
+									DefinitionForDeclaration(yd,y) & Invokes(_,x,yd))
+								);
+
+// node header
+PRINT "nodedef> name,label,color,style,width,height,labelvisible,package VARCHAR(32),ntype VARCHAR(32)", ENDL;
+
+// Modules
+FOR mid IN Module(x,_) {
+	ModuleName(nx) := Module(mid, nx);
+	FOR n IN ModuleName(nx) {
+		PRINT "n",mid,",'",n,"',white,2,10,10,true,",n,",package", ENDL;
+	}
+}
+
+// production types
+FOR pc IN ProductionClass(x) {
+	ProductionClassName(pcn) := Class(pc,pcn);
+	ModuleName(x) := EX(fid,Mid, ClassBelongsToFile(pc,fid,_) & FileBelongsToModule(fid,Mid) & Module(Mid,x));
+	FOR pn IN ProductionClassName(pcn) {
+		FOR mn IN ModuleName(x) {
+			PRINT "n",pc,",'",pn,"',white,2,10,10,false,",mn,",prodtype",ENDL;
+		}
+	}
+}
+
+FOR tc IN TestCase(x,_) {
+	TestCaseName(tcn) := Class(tc,tcn);
+	ModuleName(x) := EX(fid,Mid, ClassBelongsToFile(tc,fid,_) & FileBelongsToModule(fid,Mid) & Module(Mid,x));
+	FOR tn IN TestCaseName(tcn) {
+		FOR mn IN ModuleName(x) {
+			PRINT "n",tc,",'",tn,"',black,2,10,10,false,",mn,",testtype",ENDL;
+		}
+	}
+}
+
+// edge header
+PRINT "edgedef> node1,node2,directed,color,visible,etype VARCHAR(32),spackage VARCHAR(32)", ENDL;
+
+// Modules belongs to modules
+// orgapachetoolsant,orgapachetools,true,"204,204,204",true,containment,orgapachetoolsant
+SourceModule(x) := ModuleBelongsToModule(x,_);
+FOR m1 IN SourceModule(x) {
+	DestModule(y) := ModuleBelongsToModule(m1,y);
+	FOR m2 IN DestModule(y) {
+		PRINT "n",m1,",n",m2,",true,'204,204,204',true,containment,n",m2,ENDL;
+	}
+}
+
+// Class belongs to modules
+// orgapachetoolsant,orgapachetools,true,"204,204,204",true,containment,orgapachetoolsant
+ClassBelongsToModule(x,y) := EX(fid, ClassBelongsToFile(x,fid,_) & FileBelongsToModule(fid,y));
+SrcClasses(x) := ClassBelongsToModule(x,_);
+FOR c IN SrcClasses(x) {
+	DstModules(x) := ClassBelongsToModule(c,x);
+	FOR m IN DstModules(x) {
+		PRINT "n",c,",n",m,",true,'204,204,204',true,containment,n",m,ENDL;
+	}
+}
+
+// Test Coverage
+SrcClass(x) := ClassLevelStimulus(x,_);
+FOR c1 IN SrcClass(x) {
+	DstClass(x) := ClassLevelStimulus(c1,x);
+	FOR c2 IN DstClass(x) {
+		Module(Mid) := EX(fid, ClassBelongsToFile(c2,fid,_) & FileBelongsToModule(fid,Mid));
+		FOR mid IN Module(x) {
+			PRINT "n",c1,",n",c2,",true,black,true,coverage,n",mid,ENDL;
+		}
+	}
+}
+
+// Test Dependency
+SrcClass(x) := TestDependency(x,_);
+FOR c1 IN SrcClass(x) {
+	DstClass(x) := TestDependency(c1,x);
+	FOR c2 IN DstClass(x) {
+		Module(Mid) := EX(fid, ClassBelongsToFile(c2,fid,_) & FileBelongsToModule(fid,Mid));
+		FOR mid IN Module(x) {
+			PRINT "n",c1,",n",c2,",true,'153,153,153',true,testdependency,n",mid,ENDL;
+		}
+	}
+}
+

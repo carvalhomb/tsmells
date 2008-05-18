@@ -1,0 +1,79 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Du Bois <bart.dubois@ua.ac.be>
+*/
+
+/**
+ * Enlists several class metrics.
+ **/
+
+// print header
+PRINT "SourceFile	ClassName	NOM	NOA	NOMwithoutMeasures	WLOC	WMC	WCOM	WLOC%	WMC%	WCOM%",ENDL;
+
+LOC(aClass,aMethod,aLoc) := Class(aClass,_) & MethodBelongsToClass(aMethod,aClass) & Measurement(_,aMethod,"LOC",aLoc);
+cc(aClass,aMethod,acc) := Class(aClass,_) & MethodBelongsToClass(aMethod,aClass) & Measurement(_,aMethod,"CC",acc);
+COM(aClass,aMethod,acc) := Class(aClass,_) & MethodBelongsToClass(aMethod,aClass) & Measurement(_,aMethod,"NOS",acc);
+
+// Calculate the maximum weighted lines of code
+max_wloc := 0;
+max_wcc := 0;
+max_wnos := 0;
+IsAClass(aClass) := Class(aClass,_);
+FOR theClass IN IsAClass(x) {
+	wloc := SUM(LOC(theClass,_,aLoc));
+	IF ( wloc > max_wloc ) {
+		max_wloc := wloc;
+	}
+
+	wcc := SUM(cc(theClass,_,acc));
+	IF ( wcc > max_wcc ) {
+		max_wcc := wcc;
+	}
+
+	wnos := SUM(COM(theClass,_,aCom));
+	IF ( wnos > max_wnos ) {
+		max_wnos := wnos;
+	}
+}
+
+FOR theClass IN IsAClass(x) {
+	nom := #(MethodBelongsToClass(aMethod,theClass));
+	noa := #(AttributeBelongsToClass(anAttribute,theClass));
+
+	nomWithoutMeasures := nom - #(LOC(theClass,aMethod,_));
+
+	wloc := SUM(LOC(theClass,_,aLoc));
+	wlocP := (wloc*100) / max_wloc;
+
+	wcc := SUM(cc(theClass,_,acc));
+	wccP := (wcc*100) / max_wcc;
+
+	wnos := SUM(COM(theClass,_,aCom));
+	wnosP := (wnos*100) / max_wnos;
+
+	DeclaringFile(aFileName) := EX(fileId, ClassBelongsToFile(theClass,fileId) & File(fileId,aFileName));
+
+	FOR theDeclaringFile IN DeclaringFile(x) {
+		ClassName(aName) := Class(theClass,aName);
+
+		FOR theClassName IN ClassName(x) {
+			PRINT "'", theDeclaringFile,"'	'",theClassName,"'	",nom,"	",noa,"	",nomWithoutMeasures,"	",wloc,"	",wcc,"	",wnos,"	",wlocP,"	",wccP,"	",wnosP,ENDL;
+		}
+	}
+}

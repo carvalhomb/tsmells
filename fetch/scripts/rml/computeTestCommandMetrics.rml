@@ -1,0 +1,64 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+*
+*/
+
+/**
+ * Compute PTMI (number of production method invocations,
+ * directly and (indirectly - not yet) invoked from test command) for
+ * all test commands in the system.
+ *
+ **/
+
+TestMethod(x) := 	TestCommand(x,_) | TestSetup(x,_) |
+					TestTeardown(x,_) | TestHelper(x,_);
+ProductionMethod(x) := Method(x,_) & !TestMethod(x,_);
+Stimulus(x,y) := EX(xd,yd, TestMethod(x) & ProductionMethod(y) &
+							DefinitionForDeclaration(xd,x) &
+							DefinitionForDeclaration(yd,y) &
+							Invokes(_,xd,yd));
+
+/* DEBUG
+PRINT "#invocations: ",#(Invokes(x,y,z)), ENDL;
+PRINT "testcommand: ", #(TestCommand(x,_)), ENDL;
+PRINT "testsetup: ", #(TestSetup(x,_)), ENDL;
+PRINT "testteardown: ", #(TestTeardown(x,_)), ENDL;
+PRINT "testhelper: ", #(TestHelper(x,_)), ENDL;
+PRINT "testmethod: ", #(TestMethod(x)), ENDL;
+PRINT "productinmethod: ",#(ProductionMethod(x)), ENDL;
+PRINT "stimulus: ",#(Stimulus(x,y)), ENDL;*/
+
+PRINT "Name	LOC	CC	OUT	DPTMI",ENDL;
+FOR tm IN TestCommand(x,_) {
+	/*PRINT tm,ENDL;
+	PRINT Stimulus(x,y);
+	PRINT Stimulus(tm,y);*/
+	out := #(Invokes(_,tm,_));
+	ptmi := #(Stimulus(tm,y));
+	loc := SUM(Measurement(_,tm,"LOC",x));
+	//com := SUM(Measurement(_,tm,"NOS",x));
+	mvg := SUM(Measurement(_,tm,"CC",x));
+
+	MethodName(mn) := Method(tm,mn);
+	FOR n IN MethodName(mn) {
+		PRINT n,"	",loc,"	",mvg,"	",out,"	",ptmi,"	",ENDL;
+	}
+}
+

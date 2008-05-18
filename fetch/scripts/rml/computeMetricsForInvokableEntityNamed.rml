@@ -1,0 +1,70 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+*/
+
+/**
+ * Enlists several metrics for the given function or method
+ **/
+
+PRINT "Calculating metrics of invokable entity ", $1, ENDL;
+InvokableEntity(x) := Method(x,$1) | Function(x,$1);
+IF( #(InvokableEntity(x)) = 0 ) {
+	PRINT "No such invokable entity in the model", ENDL;
+}
+ELSE {
+	PRINT #(InvokableEntity(x)), " types with that name in the model.",ENDL;
+	PRINT ENDL;
+
+	LOC(anEntity,aValue) := FALSE(anEntity,aValue);
+	MVG(anEntity,aValue) := FALSE(anEntity,aValue);
+	COM(anEntity,aValue) := FALSE(anEntity,aValue);
+
+	FOR theEntityWithMeasures IN InvokableEntity(x) {
+		LOC(anEntity,aValue) := (anEntity = theEntityWithMeasures) & Measurement(_,anEntity,"LOC",aValue);
+		loc := SUM(LOC(theEntityWithMeasures,x));
+
+		MVG(anEntity,aValue) := (anEntity = theEntityWithMeasures) & Measurement(_,anEntity,"MVG",aValue);
+		mvg := SUM(MVG(theEntityWithMeasures,x));
+
+		COM(anEntity,aValue) := (anEntity = theEntityWithMeasures) & Measurement(_,anEntity,"COM",aValue);
+		com := SUM(COM(theEntityWithMeasures,x));
+
+		fanIn := #(Invokes(_,anOtherEntity,theEntityWithMeasures));
+		fanOut := #(Invokes(_,theEntityWithMeasures,anOtherEntity));
+		mpc := #(Invokes(anInvocation,theEntityWithMeasures,anOtherEntity));
+
+		// retrieve the name of m1 as a method
+		// will lead to an empty relation if m1
+		// is not a method
+		MethodName(mn) := Method(theEntityWithMeasures,mn);
+		FOR n IN MethodName(y) {
+			PRINT theEntityWithMeasures, "	", n,"	",loc,"	",mvg,"	",com,"	",fanIn,"	",fanOut,"	",mpc,ENDL;
+		}
+
+		// retrieve the name of m1 as a function
+		// will lead to an empty relation if m1
+		// is not a function
+		FunctionName(fn) := Function(theEntityWithMeasures,fn);
+		FOR n IN FunctionName(y) {
+			PRINT theEntityWithMeasures, "	",n,"	",loc,"	",mvg,"	",com,"	",fanIn,"	",fanOut,"	",mpc,ENDL;
+		}
+	}
+}
+

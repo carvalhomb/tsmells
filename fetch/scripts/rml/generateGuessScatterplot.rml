@@ -1,0 +1,111 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Du Bois <bart.dubois@ua.ac.be>
+*/
+
+/**
+ * Generate data that can be used as an input for Guess to display
+ * a scatterplot view showing classes with their number of methods
+ * (X-axis) and attributes (Y-axis)
+ **/
+
+PRINT "nodedef> name,label,x,y,color,style,labelvisible,NOM INT,NOA INT,sourceFile VARCHAR",ENDL;
+PRINT "scatterplot_visualization_origin,scatterplot_visualization_origin,0,0,black,2,false,0,0",ENDL;
+
+IsAClass(x) := Class(x,_);
+
+maxXpos := 0;
+maxYpos := 0;
+
+margin := 10;
+zoom := 10;
+
+FOR c IN IsAClass(x) {
+	// count the total number of methods
+	// belonging to class c
+	ClassMethod(m) := MethodBelongsToClass(m,c);
+	mc := #(ClassMethod(m));
+	xpos := margin + mc*zoom;
+
+	ClassAttribute(a) := AttributeBelongsToClass(a,c);
+	ac := #(ClassAttribute(a));
+	ypos := margin + ac*zoom;
+
+	FileName(fn) := EX(f, ClassBelongsToFile(c,f,_) & File(f,fn));
+
+	FOR fn IN FileName(x) {
+		// retrieve the name of c as a class
+		// will lead to a relation with 1 element
+		ClassName(cn) := Class(c,cn);
+		FOR n IN ClassName(y) {
+			PRINT c,",",n,",",xpos,",",ypos,",blue,1,true,",mc,",",ac,",'",fn,"'",ENDL;
+		}
+	}
+
+	// calculate maximum x and y position
+	IF (xpos > maxXpos) {
+		maxXpos := xpos;
+	}
+
+	IF ( ypos > maxYpos) {
+		maxYpos := ypos;
+	}
+}
+
+// X-axis points
+maxXval := maxXpos - margin;
+
+fqXpos := maxXval / 4;
+fqXval := fqXpos / zoom;
+PRINT "scatterplot_visualization_x_first_quarter,",fqXval,",",fqXpos,",0,black,2,true,0,0",ENDL;
+
+sqXpos := maxXval / 2;
+sqXval := sqXpos / zoom;
+PRINT "scatterplot_visualization_x_axis_midst,",sqXval,",",sqXpos,",0,black,2,true,0,0",ENDL;
+
+tqXpos := 3*(maxXval / 4);
+tqXval := tqXpos / zoom;
+PRINT "scatterplot_visualization_x_third_quarter,",tqXval,",",tqXpos,",0,black,2,true,0,0",ENDL;
+
+xAxisEnd := 2*margin + maxXval;
+PRINT "scatterplot_visualization_x_axis_end,",xAxisEnd,",",xAxisEnd,",0,black,2,false,0,0",ENDL;
+
+// Y-axis points
+maxYval := maxYpos - margin;
+
+fqYpos := maxYval / 4;
+fqYval := fqYpos / zoom;
+PRINT "scatterplot_visualization_y_first_quarter,",fqYval,",0,",fqYpos,",black,2,true,0,0",ENDL;
+
+sqYpos := maxYval / 2;
+sqYval := sqYpos / zoom;
+PRINT "scatterplot_visualization_y_axis_midst,",sqYval,",0,",sqYpos,",black,2,true,0,0",ENDL;
+
+tqYpos := 3*(maxYval / 4);
+tqYval := tqYpos / zoom;
+PRINT "scatterplot_visualization_y_third_quarter,",tqYval,",0,",tqYpos,",black,2,true,0,0",ENDL;
+
+yAxisEnd := 2*margin + maxYval;
+PRINT "scatterplot_visualization_y_axis_end,",yAxisEnd,",0,",yAxisEnd,",black,2,false,0,0",ENDL;
+
+
+// dummy ending, required for Guess
+PRINT "edgedef> node1,node2,label,directed,color",ENDL;
+PRINT "scatterplot_visualization_origin,scatterplot_visualization_x_axis_end,nrOfMethodsAxis,true,black",ENDL;
+PRINT "scatterplot_visualization_origin,scatterplot_visualization_y_axis_end,nrOfAttributesAxis,true,black",ENDL;

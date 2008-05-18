@@ -1,0 +1,61 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+*/
+
+/**
+ * Enlists entities by their unique name
+ * Intent:
+ *  - list what structural changes happened two versions of a system for
+ *    the purpose of understanding
+ *  - identify testing need after changes
+ *  - identify move operations
+ *  - understand evolution of the system at a model level
+ **/
+
+FOR mn IN Module(_,x) {
+	PRINT "Module ",mn,ENDL;
+}
+
+FOR fn IN File(_,x) {
+	PRINT "File ",fn,ENDL;
+}
+
+FOR cn IN Class(_,x) {
+	PRINT "Class ",cn,ENDL;
+
+}
+
+FOR mn IN Method(_,x) {
+	PRINT "Method ",mn,ENDL;
+}
+
+FOR fn IN Function(_,x) {
+	PRINT "Function ",fn,ENDL;
+}
+
+FOR aname IN Attribute(_,x) {
+	PRINT "Attribute ",aname,ENDL;
+}
+
+/* FOR gvName in GlobalVariable(_,x) {
+	PRINT "GlobalVariable ",gvName,ENDL;
+}*/
+
+

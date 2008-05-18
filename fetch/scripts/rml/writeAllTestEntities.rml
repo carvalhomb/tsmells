@@ -1,0 +1,113 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+*/
+
+/**
+ * Finds all test cases among the classes,
+ * both directly as well as indirectly
+ * inheriting from TestCase
+ *
+ **/
+
+// retrieve the test framework generic TestCase class
+IsTestCase(y) := Class(y,"CppUnit::TestCase") | Class(y,"TestCase");
+//IsTestCase(y) := Class(y,"TestCase");
+DTestCase(x,y) := IsTestCase(y) & InheritsFrom(_,_,x,y);
+ITestCase(z,y) := EX(x, IsTestCase(y) & InheritsFrom(_,_,x,y) & TC(InheritsFrom(_,_,z,x)));
+
+TestCase(x) := 	EX(y, DTestCase(x,y) | ITestCase(x,y))
+						|
+						EX(a, m, 	Class(x,_) & Annotation(a,"@Test") & Method(m,_) &
+										AnnotationBelongsToEntity(a,m)  & MethodBelongsToClass(m,x)
+							);
+PRINT EX(y, Method(x,_) & Annotation(y,"@Test") & AnnotationBelongsToEntity(y,x) & MethodBelongsToClass(x,z)),ENDL;
+//& MethodBelongsToClass(m,x) & Class(x,xn));
+
+// print test cases
+FOR tc IN TestCase(x) {
+	ClassName(cn) := Class(tc,cn);
+
+	// retrieve the name of c as a class
+	// will lead to a relation with 1 element
+	FOR n IN ClassName(cn) {
+		PRINT "TestCase", "	", tc,"	'",n,"'",ENDL;
+	}
+}
+
+TestMethod(x) := EX(y, TestCase(y) & MethodBelongsToClass(x,y));
+TestCommand(x) := EX(mn, 	TestMethod(x) & Method(x,mn) & (	@"[.]test"(mn) & @"[()]"(mn)))
+							|
+							EX(y, Method(x,_) & Annotation(y,"@Test") & AnnotationBelongsToEntity(y,x));
+
+TestSetup(x) := 		EX(mn, TestMethod(x) & Method(x,mn) & @"[.]setUp"(mn) & @"[()]"(mn))
+							|
+							EX(y, Method(x,_) & Annotation(y,"@Before") & AnnotationBelongsToEntity(y,x));
+TestTeardown(x) := EX(mn, TestMethod(x) & Method(x,mn) & @"[.]tearDown"(mn) & @"[()]"(mn))
+							|
+							EX(y, Method(x,_) & Annotation(y,"@After") & AnnotationBelongsToEntity(y,x));
+TestHelper(x) := TestMethod(x) & !TestCommand(x) & !TestSetup(x) & !TestTeardown(x);
+ProductionMethod(x) := Method(x,_) & !TestMethod(x);
+FOR tc IN TestCommand(x) {
+	MethodName(mn) := Method(tc,mn);
+	FOR n IN MethodName(mn) {
+		PRINT "TestCommand", "	", tc, "	", n, ENDL;
+	}
+}
+
+FOR tc IN TestSetup(x) {
+	MethodName(mn) := Method(tc,mn);
+	FOR n IN MethodName(mn) {
+		PRINT "TestSetup", "	", tc, "	'", n, "'",ENDL;
+	}
+}
+
+FOR tc IN TestTeardown(x) {
+	MethodName(mn) := Method(tc,mn);
+	FOR n IN MethodName(mn) {
+		PRINT "TestTeardown", "	", tc, "	'", n, "'",ENDL;
+	}
+}
+
+FOR tc IN TestHelper(x) {
+	MethodName(mn) := Method(tc,mn);
+	FOR n IN MethodName(mn) {
+		PRINT "TestHelper", "	", tc, "	'", n, "'",ENDL;
+	}
+}
+
+/*PRINT #(Method(x,_)),ENDL;
+PRINT #(TestMethod(x)),ENDL;
+PRINT #(!TestMethod(x)),ENDL;
+PRINT #(Method(x,_) & !TestMethod(x)),ENDL;
+PRINT #(ProductionMethod(x)),ENDL;*/
+Stimulus(aStimulus) := EX(x,y, TestMethod(x) & ProductionMethod(y) & Invokes(aStimulus,x,y));
+//PRINT #(Stimulus(x)),ENDL;
+FOR zid IN Stimulus(z) {
+	SrcMethod(x) := Invokes(zid,x,_);
+	DstMethod(y) := Invokes(zid,_,y);
+	FOR xid IN SrcMethod(x) {
+		FOR yid IN DstMethod(y) {
+			SrcMethodName(srcMn) := Method(xid, srcMn);
+			DstMethodName(dstMn) := Method(yid, dstMn);
+			PRINT "Stimulates", "	", zid, "	", xid, "	", yid,  ENDL;
+		}
+	}
+}
+

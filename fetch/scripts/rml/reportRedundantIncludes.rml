@@ -1,0 +1,38 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+*/
+
+/**
+ * Prints a list of redundant includes.
+ **/
+
+Includes(x,y) := Include(_,x,y);
+
+TCIncludes(x,y) := TC(Includes(x,y));
+
+/**
+ * X --------------> Z
+ * |-----> Y ------|		=> X --> Z = redundant
+ **/
+RedundantInclude(x,z) := EX(y, Includes(x,z) & TCIncludes(x,y) & TCIncludes(y,z));
+
+RedundantIncludeFileNames(xn,yn) := EX(x,y, RedundantInclude(x,y) & File(x,xn) & File(y,yn));
+
+PRINT ["Includes"] RedundantIncludeFileNames(xn,yn);

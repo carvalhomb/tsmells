@@ -1,0 +1,141 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+*/
+
+/*
+ * Reports about uses of type MyType (given as first parameter)
+ * ../../bin/crocopat-linux-ppc reportOnClassUsage.rml MyType < path/to/model.rsf
+ */
+
+PRINT "Looking up use of ", $1, ENDL;
+TypeId(x) := Class(x,$1);
+IF( #(TypeId(x)) = 0 ) {
+	PRINT "No such type in the model", ENDL;
+}
+ELSE {
+	PRINT #(TypeId(x)), " types with that name in the model.",ENDL;
+	PRINT ENDL;
+
+	// compute four resulting sets
+	FOR tId IN TypeId(x) {
+		FileName(xname) := EX(x, File(x,xname) & ClassBelongsToFile(tId,x));
+		FOR name IN FileName(xname) {
+			PRINT "For ",$1," in file ", name, ENDL;
+		}
+		FunctionAccessingTypeData(x,y) := Function(x,_) & Accesses(_,x,y) & AttributeBelongsToClass(y,tId);
+		MethodAccessingTypeData(x, y) := Method(x,_) & Accesses(_,x,y) & AttributeBelongsToClass(y,tId);
+		FunctionInvokingTypeMember(x,y) := Function(x,_) & Invokes(_,x,y) & MethodBelongsToClass(y,tId);
+		MethodInvokingTypeMember(x,y) := Method(x,_) & Invokes(_,x,y) & MethodBelongsToClass(y,tId);
+
+		// from here on, printing
+		fa := #(FunctionAccessingTypeData(x,y));
+		ma := #(MethodAccessingTypeData(x,y));
+		fi := #(FunctionInvokingTypeMember(x,y));
+		mi := #(MethodInvokingTypeMember(x,y));
+
+		PRINT "  Function to data access:",ENDL;
+		AccessingFunctions(x) := FunctionAccessingTypeData(x,_);
+		FOR fid IN AccessingFunctions(x) {
+			FunctionName(fn) := Function(fid,fn);
+			FileName(filn) := EX(filid, Function(fid,_) & FunctionBelongsToFile(fid,filid) & File(filid,filn));
+			TargetData(y) := FunctionAccessingTypeData(fid,y);
+			FOR did IN TargetData(td) {
+				DataName(dn) := Attribute(did,dn);
+				FOR m IN DataName(dn) {
+					FOR n IN FunctionName(fn) {
+						FOR filn IN FileName(x) {
+								PRINT "   ", filn, ":", n, " -> ", m, ENDL;
+						}
+					}
+				}
+			}
+		}
+		PRINT ENDL;
+
+		PRINT "  Method to data access:",ENDL;
+		AccessingMethods(x) := MethodAccessingTypeData(x,_);
+		FOR fid IN AccessingMethods(x) {
+			MethodName(fn) := Method(fid,fn);
+			FileName(mfiln) := EX(cid,filid, Method(fid,_) & MethodBelongsToClass(fid,cid) & ClassBelongsToFile(cid,filid) & File(filid,mfiln));
+			TargetData(y) := MethodAccessingTypeData(fid,y);
+			FOR did IN TargetData(td) {
+				DataName(dn) := Attribute(did,dn);
+				FOR m IN DataName(dn) {
+					FOR n IN MethodName(fn) {
+						FOR mfiln IN FileName(x) {
+							PRINT "   ", mfiln, ":", n, " -> ", m, ENDL;
+						}
+					}
+				}
+			}
+		}
+		PRINT ENDL;
+
+		PRINT "  Function to member invocation:",ENDL;
+		InvokingFunctions(x) := FunctionInvokingTypeMember(x,_);
+		FOR fid IN InvokingFunctions(x) {
+			FunctionName(fn) := Function(fid,fn);
+			FileName(fln) := EX(filid, Function(fid,_) & FunctionBelongsToFile(fid,filid) & File(filid,fln));
+			TargetMember(y) := FunctionInvokingTypeMember(fid,y);
+			FOR did IN TargetMember(td) {
+				DstName(dn) := Method(did,dn);
+				FOR m IN DstName(dn) {
+					FOR n IN FunctionName(fn) {
+						FOR fln IN FileName(x) {
+								PRINT "   ", fln, ":", n, " -> ", m, ENDL;
+						}
+					}
+				}
+			}
+		}
+		PRINT ENDL;
+
+		PRINT "  Method to member invocation:",ENDL;
+		InvokingMethods(x) := MethodInvokingTypeMember(x,_);
+		FOR fid IN InvokingMethods(x) {
+			MethodName(fn) := Method(fid,fn);
+			FileName(mfiln2) := EX(cid,filid, Method(fid,_) & MethodBelongsToClass(fid,cid) & ClassBelongsToFile(cid,filid) & File(filid,mfiln2));
+			TargetMember(y) := MethodInvokingTypeMember(fid,y);
+			FOR did IN TargetMember(td) {
+				DstName(dn) := Method(did,dn);
+				FOR m IN DstName(dn) {
+					FOR n IN MethodName(fn) {
+						FOR mfiln2 IN FileName(x) {
+							PRINT "   ", mfiln2, ":", n, " -> ", m, ENDL;
+						}
+					}
+				}
+			}
+		}
+		PRINT ENDL;
+		PRINT ENDL;
+
+		PRINT "  Summary:",ENDL;
+		PRINT "   - ", fa, " functions access ", $1, " data.",ENDL;
+		PRINT "   - ", ma, " methods access ", $1, " data.",ENDL;
+		PRINT "   - ", fi, " functions invoke ", $1, " members.", ENDL;
+		PRINT "   - ", mi, " methods invoke ", $1, " members.", ENDL;
+		PRINT "   ", fa+ma+fi+mi, " in total.", ENDL;
+		PRINT ENDL;
+		PRINT ENDL;
+		PRINT ENDL;
+	}
+}
+

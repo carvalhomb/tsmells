@@ -1,0 +1,41 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+*/
+
+/**
+ * Enlists test suite metrics
+ **/
+
+loc := SUM(EX(y, Measurement(_,y,"LOC",x) & (TestCommand(y,_) | TestSetup(y,_) | TestTearDown(y,_))));
+mvg := SUM(EX(y, Measurement(_,y,"MVG",x) & (TestCommand(y,_) | TestSetup(y,_) | TestTearDown(y,_))));
+com := SUM(EX(y, Measurement(_,y,"COM",x) & (TestCommand(y,_) | TestSetup(y,_) | TestTearDown(y,_))));
+
+//PRINT "Metrics",ENDL;
+//PRINT "	Total (retrieved) LOC: ",loc,ENDL;
+//PRINT "	Total (retrieved) COM: ",com,ENDL;
+//PRINT "	Total (retrieved) MVG: ",mvg,ENDL;
+
+// header
+// PRINT "Test Cases	Test Commands	Test Setup	Test TearDown	Stimuli	Asserts",ENDL;
+PRINT "	",#(TestCase(x,_)),"	",#(TestSetup(x,_)),"	",#(TestCommand(x,_)),"	",loc,"	",com, "	", mvg,ENDL;
+
+
+
+

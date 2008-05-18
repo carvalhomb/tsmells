@@ -1,0 +1,3 @@
+fileId	fileName	nrOfEntities	nrOfClasses
+1	'A/a.cpp'	185	10
+8	'A/b.cpp'	70	0

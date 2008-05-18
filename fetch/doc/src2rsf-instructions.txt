@@ -1,0 +1,43 @@
+**************************************************************************
+* src -> rsf for teamspirit                                              *
+**************************************************************************
+
+to be executed in the root folder of fetch
+results:
+	- teamspirit.cdif
+	- teamspirit.rsf
+
+STEP 1: Source Navigator
+------------------------
+$ [path/to/]snavigator
+SNGui: New Project 
+- Project File: [path/to/]fetch/sample/teamspirit/teamspirit.proj
+- Add Directory: [path/to/]fetch/sample/teamspirit/spreadsheet
+- More ... Add Directory: [path/to/]fetch/sample/teamspirit/src/cppunit-1.6.2/include (if interested in tests)
+- Keep "Include Subdirectories" and "Build Cross-References database" options
+- OK
+- File -> Project Editor
+	- Select "Category"
+	- "Unload" all categories not C/C++ (or another language of interest)
+	- Close Source Navigator
+
+STEP 2: cccc
+------------
+$ mkdir sample/teamspirit/dbdump
+$ find sample/teamspirit/ \( -name "*.cpp" -o -name "*.c" -o -name "*.cc" -o -name "*.cxx" -o -name "*.hpp" -o -name "*.h" -o -name "*.hh" -o -name "*.hxx" \) | /bin/cccc-[platform] --db_outfile=sample/teamspirit/dbdump/cccc.db -
+
+STEP 3: snavtofamix
+-------------------
+Change the path for the Source Navigator dbdump binary if working needed within src/snavtofamix/snav_dbdumps.sh
+$ src/snavtofamix/snav_dbdumps.sh sample/teamspirit/ teamspirit sample/teamspirit/dbdump
+$ python src/snavtofamix/src/snavtofamix.py sample/teamspirit/dbdump/ teamspirit teamspirit.cdif
+
+STEP 4: CDIF2RSF
+----------------
+$ cd src/CDIF2RSF; ./cdif2rsf.sh ../../teamspirit.cdif ../../teamspirit.rsf; cd ..
+
+STEP X: cleaning intermediate results
+-------------------------------------
+$ rm -rf .cccc
+$ rm -rf sample/teamspirit/teamspirit.proj
+$ rm -rf sample/teamspirit/.snprj

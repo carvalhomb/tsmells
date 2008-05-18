@@ -1,0 +1,64 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+*/
+
+/**
+ * Rml script to generate a matrix of test cases and production classes,
+ * indicating their interrelationship. Can subsequently be used to generated
+ * colored matrices in a spreadsheet.
+ *
+ **/
+
+TestMethod(x,y) := TestCommand(x,y) | TestHelper(x,y) | TestSetup(x,y) | TestTeardown(x,y);
+ProductionClass(x,y) := Class(x,y) & !TestCase(x,y);
+
+PRINT "	";
+TestCaseName(tcn) := EX(m,TestCase(m,tcn));
+FOR tcn IN TestCaseName(x) {
+	PRINT tcn,"	";
+}
+PRINT ENDL;
+
+
+
+StimulatesTestCaseClass(x,tc,c) := EX(tm, m, Stimulates(x,tm,m) & TestMethod(tm,_) & MethodBelongsToClass(tm,tc) & TestCase(tc,_) & Method(m,_) & MethodBelongsToClass(m,c) & ProductionClass(c,_));
+
+FOR c IN ProductionClass(x,_) {
+	ClassName(mn) := ProductionClass(c,mn);
+	FOR mn IN ClassName(x) {
+		PRINT mn,"	";
+	}
+
+	FOR t IN TestCase(x,_) {
+		i := 0;
+
+		FOR as IN StimulatesTestCaseClass(x,t,c) {
+			i := i + 1;
+		}
+		IF i > 0 {
+			PRINT i,"	";
+		}
+		ELSE {
+			PRINT " ","	";
+		}
+	}
+	PRINT ENDL;
+}
+

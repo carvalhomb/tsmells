@@ -1,0 +1,72 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2006,2007 University of Antwerp
+* Author(s):  Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>,
+*                     Bart Du Bois <bart.dubois@ua.ac.be>
+*/
+
+/**
+ * Clarifies the includes between two modules.
+ **/
+
+// Store arguments as module names
+clientModuleName := $1;
+serverModuleName := $2;
+
+// Translate the given module names to ids.
+ModuleId(id) := Module(id,clientModuleName);
+clientModule := "-1";
+FOR clientModuleId IN ModuleId(x) {
+	clientModule := clientModuleId;
+}
+
+ModuleId(id) := Module(id,serverModuleName);
+serverModule := "-1";
+FOR serverModuleId IN ModuleId(x) {
+	serverModule := serverModuleId;
+}
+
+// Track all files which transitively belong to a submodule
+ClientFile(file) := FileBelongsToModule(file,clientModule);
+
+ServerFile(file) := FileBelongsToModule(file,serverModule);
+
+TransitiveModuleContainment(childModule, parentModule) := TC(ModuleBelongsToModule(childModule,parentModule));
+
+
+ClientFile(file) := ClientFile(file) | EX(childModule, TransitiveModuleContainment(childModule,clientModule) & FileBelongsToModule(file, childModule));
+ServerFile(file) := ServerFile(file) | EX(childModule, TransitiveModuleContainment(childModule,serverModule) & FileBelongsToModule(file, childModule));
+
+DirectInclude(clientName,serverName,include) := EX(clientFile, ClientFile(clientFile) & File(clientFile,clientName)
+															 & EX(serverFile, ServerFile(serverFile) & File(serverFile,serverName)
+															 	& Include(include, clientFile, serverFile)
+															 )
+															);
+
+PRINT "Includes from module ",clientModuleName," to ",serverModuleName,":",ENDL;
+
+ClientEntityName(entityName) := DirectInclude(entityName,_,_);
+FOR clientEntity IN ClientEntityName(x) {
+	CurrentServerEntity(x) := DirectInclude(clientEntity,x,_);
+
+	FOR serverEntity IN CurrentServerEntity(x) {
+		nrOfIncludes := #(DirectInclude(clientEntity,serverEntity,x));
+
+		PRINT clientEntity,"	",serverEntity,"	", nrOfIncludes,ENDL;
+	}
+}

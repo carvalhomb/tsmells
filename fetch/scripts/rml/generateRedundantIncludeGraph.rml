@@ -1,0 +1,72 @@
+/*
+* This file is part of Fetch (the Fact Extraction Tool CHain).
+*
+* Fetch is free software; you can redistribute it and/or modify it under the
+* terms of the GNU General Public License as published by the Free Software
+* Foundation; either version 2 of the License, or (at your option) any later
+* version.
+*
+* Fetch is distributed in the hope that it will be useful, but WITHOUT ANY
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+* details.
+*
+* You should have received a copy of the GNU General Public License along
+* with Fetch; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*
+* Copyright 2007 University of Antwerp
+* Author(s):  Bart Du Bois <bart.dubois@ua.ac.be>
+*/
+
+/**
+ * Generates a graph with
+ * 	nodes = files
+ *	edges = include relations, colored in red if redundant
+ **/
+
+// node header
+PRINT "nodedef> name,label,color,labelvisible,labelcolor", ENDL;
+
+RelevantFile(x) := Include(_,x,_) | Include(_,_,x);
+
+FOR theFileId IN RelevantFile(x) {
+	FileName(fileName) := File(theFileId,fileName);
+
+	FOR theFileName IN FileName(x) {
+		PRINT "n",theFileId,",'",theFileName,"',lskyblue,false,black",ENDL;
+	}
+}
+
+Includes(x,y) := Include(_,x,y);
+TCIncludes(x,y) := TC(Includes(x,y));
+
+/**
+ * X --------------> Z
+ * |-----> Y ------|		=> X --> Z = redundant
+ **/
+RedundantInclude(i) := EX(x,y,z, Include(i,x,z) & TCIncludes(x,y) & TCIncludes(y,z));
+
+
+// edge header
+PRINT "edgedef> node1,node2,directed,visible,color", ENDL;
+IncludeRelation(x) := Include(x,_,_);
+
+FOR theInclude IN IncludeRelation(x) {
+	IncludingFile(x) := Include(theInclude,x,_);
+
+	FOR theIncludingFile IN IncludingFile(x) {
+		IncludedFile(x) := Include(theInclude,theIncludingFile,x);
+
+		FOR theIncludedFile IN IncludedFile(x) {
+			PRINT "n",theIncludingFile,",n",theIncludedFile,",true,true,";
+
+			IF ( RedundantInclude(theInclude) ) {
+				PRINT "red",ENDL;
+			}
+			ELSE {
+				PRINT "green",ENDL;
+			}
+		}
+	}
+}
