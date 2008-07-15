@@ -49,21 +49,21 @@ ifdef(`DUMP_TEST_ENTITIES',
 EXEC "ECHO xUnit dumped to file TIMER";
 
 ifdef(`DUPLICATED_CODE',
-    `PRINT "(05) DuplicatedCode ... ", ENDL TO STDERR;'
+    `PRINT "(03) DuplicatedCode ... ", ENDL TO STDERR;'
     `include(DUMP_DIR`computeDuplicatedCode.rml')'
     EXEC "ECHO DuplicatedCode TIMER";
 ,
     `')
 
 ifdef(`ASSERTIONLESS',
-    `PRINT "(03) AssertionLess ... ", ENDL TO STDERR;'
+    `PRINT "(04) AssertionLess ... ", ENDL TO STDERR;'
     `include(DUMP_DIR`computeAssertionLess.rml')'
     EXEC "ECHO AssertionLess TIMER";
 ,
     `')
 
 ifdef(`ASSERTION_ROULETTE',
-    `PRINT "(04) AssertionRoulette ... ", ENDL TO STDERR;'
+    `PRINT "(05) AssertionRoulette ... ", ENDL TO STDERR;'
     `include(DUMP_DIR`computeAssertionRoulette.rml')'
     EXEC "ECHO AssertionRoulette TIMER";
 ,

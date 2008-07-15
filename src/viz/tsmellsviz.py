@@ -151,7 +151,7 @@ class Loader(Runnable):
         execfile(TSMELLS_VIZ + '/gui/ToSourceContext.py')
         execfile(TSMELLS_VIZ + '/gui/TestSuiteTree.py')
         execfile(TSMELLS_VIZ + '/gui/RescalePanel.py')
-        execfile(TSMELLS_VIZ + '/gui/SmellHitLists.py')
+        execfile(TSMELLS_VIZ + '/gui/StinkParade.py')
 
     #
     # Initialize the GUI
@@ -168,7 +168,7 @@ class Loader(Runnable):
         RescalePanel()
         TestSuitePanel()
         SmellIdentiKitPanel(srcDict, metricDict)
-        SmellHitLists()
+        StinkParade()
 
     def __constructContextActions(self):
         global srcDict
@@ -179,7 +179,7 @@ class Loader(Runnable):
         addDumpDupliAction()
         addWriteMetricsAction()
         addViewCaseAction()
-        addViewCase2Action()
+        #addViewCase2Action()
 
 #-----------------------------------------------------------------------
 #--  entry point

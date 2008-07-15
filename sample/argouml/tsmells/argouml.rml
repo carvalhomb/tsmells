@@ -1,0 +1,1766 @@
+/**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+/**
+ * Main script. Select the smells scripts by passing
+ * '-DSMELL_NAME' to m4. Be sure to adapt the '/home/nix/JaarProject/SmellsGgl'
+ * variable correctly. These macros are desribed in MACROS.
+ *
+ **/
+
+
+
+
+
+
+
+
+
+
+
+PRINT "(01) RSF model in memory ... ", ENDL TO STDERR;
+EXEC "echo '->'  RSF loaded  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp) s] >> tsmells.log";
+
+PRINT "(02) extracting xUnit entities ... ", ENDL TO STDERR;
+/**
+ * This file is part of Fetch (the Fact Extraction Tool CHain).
+ *
+ * Fetch is free software; you can redistribute it and/or modify it under the 
+ * terms of the GNU General Public License as published by the Free Software 
+ * Foundation; either version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * Fetch is distributed in the hope that it will be useful, but WITHOUT ANY 
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with Fetch; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+ * Extensivly modified by:
+ *                Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ **/
+
+
+/**
+ * Finds all test cases among the classes,
+ * both directly as well as indirectly 
+ * inheriting from TestCase
+ * 
+ **/
+
+// retrieve the test framework generic TestCase class
+IsTestCase(y) := 
+        Class(y,"junit::framework::TestCase");
+
+/**
+ * Assertions
+ * @col : denotes if this assertion has a failure message
+ * @col : assertion signature
+ **/
+
+CheckerSignature("0","junit::framework::Assert.assertEquals(Object,Object)");
+CheckerSignature("0","junit::framework::Assert.assertEquals(String,String)");
+CheckerSignature("0","junit::framework::Assert.assertEquals(double,double,double)");
+CheckerSignature("0","junit::framework::Assert.assertEquals(float,float,float)");
+CheckerSignature("0","junit::framework::Assert.assertEquals(long,long)");
+CheckerSignature("0","junit::framework::Assert.assertEquals(boolean,boolean)");
+CheckerSignature("0","junit::framework::Assert.assertEquals(byte,byte)");
+CheckerSignature("0","junit::framework::Assert.assertEquals(char,char)");
+CheckerSignature("0","junit::framework::Assert.assertEquals(int,int)");
+CheckerSignature("0","junit::framework::Assert.assertEquals(short,short)");
+CheckerSignature("0","junit::framework::Assert.assertFalse(boolean)");
+CheckerSignature("0","junit::framework::Assert.assertNotNull(Object)");
+CheckerSignature("0","junit::framework::Assert.assertNull(Object)");
+CheckerSignature("0","junit::framework::Assert.fail()");
+
+CheckerSignature("1","junit::framework::Assert.assertEquals(String,Object,Object)");
+CheckerSignature("1","junit::framework::Assert.assertEquals(String,String,String)");
+CheckerSignature("1","junit::framework::Assert.assertEquals(String,double,double,double)");
+CheckerSignature("1","junit::framework::Assert.assertEquals(String,float,float,float)");
+CheckerSignature("1","junit::framework::Assert.assertEquals(String,long,long)");
+CheckerSignature("1","junit::framework::Assert.assertEquals(String,boolean,boolean)");
+CheckerSignature("1","junit::framework::Assert.assertEquals(String,byte,byte)");
+CheckerSignature("1","junit::framework::Assert.assertEquals(String,char,char)");
+CheckerSignature("1","junit::framework::Assert.assertEquals(String,short,short)");
+CheckerSignature("1","junit::framework::Assert.assertEquals(String,int,int)");
+CheckerSignature("1","junit::framework::Assert.assertFalse(String,boolean)");
+CheckerSignature("1","junit::framework::Assert.assertNotNull(String,Object)");
+CheckerSignature("1","junit::framework::Assert.assertNotSame(String,Object,Object)");
+CheckerSignature("1","junit::framework::Assert.assertNotSame(Object,Object)");
+CheckerSignature("1","junit::framework::Assert.assertNull(String,Object)");
+CheckerSignature("1","junit::framework::Assert.assertSame(String,Object,Object)");
+CheckerSignature("1","junit::framework::Assert.assertSame(Object,Object)");
+CheckerSignature("1","junit::framework::Assert.assertTrue(String,boolean)");
+CheckerSignature("1","junit::framework::Assert.assertTrue(boolean)");
+CheckerSignature("1","junit::framework::Assert.fail(String)");
+CheckerSignature("1","junit::framework::Assert.failNotEquals(String,Object,Object)");
+CheckerSignature("1","junit::framework::Assert.failNotSame(String,Object,Object)");
+CheckerSignature("1","junit::framework::Assert.failSame(String)");
+
+/**
+ * This file is part of Fetch (the Fact Extraction Tool CHain).
+ *
+ * Fetch is free software; you can redistribute it and/or modify it under the 
+ * terms of the GNU General Public License as published by the Free Software 
+ * Foundation; either version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * Fetch is distributed in the hope that it will be useful, but WITHOUT ANY 
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with Fetch; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+ * Extensivly modified by:
+ *                Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ **/
+
+
+/**
+ * Initialize test entities for JUnit suites
+ * 
+ * This is an abstract module, provide:
+ *  - root test case: 
+ *         IsTestCase(id)
+ *  - assertions: 
+ *         CheckerSignature(has_msg,signature)
+ **/
+
+Yes("1");
+No("0");
+
+TestCaseId(tcid) :=
+     EX(root,
+         IsTestCase(root) &
+         (InheritsFrom(_,_,tcid,root) |
+          TC(InheritsFrom(_,_,tcid,root))));
+
+TestMethodId(x) := 
+    EX(y, 
+        TestCaseId(y) & 
+        MethodBelongsToClass(x,y));
+
+TestConstructor(x) :=
+   EX(mn,
+       TestMethodId(x) &
+       Method(x, mn) &
+       @"^.*(::)?(.*)\.\2[(].*[)]$"(mn));
+
+TestDestructor(x) :=
+   EX(mn,
+       TestMethodId(x) &
+       Method(x, mn) &
+       @"^.*(::)?(.*)\.~\2[(][)]$"(mn));
+
+TestSuiteMethod(x) := 
+    EX(mn,
+        TestMethodId(x) &
+        Method(x, mn) & 
+        @"\.suite[(][)]$"(mn));
+
+TestMain(x) :=
+   EX(mn,
+       TestMethodId(x) &
+       Method(x, mn) &
+       @"main[(]String\[\][)]$"(mn));
+
+TestCommandId(x) := 
+    EX(mn, 
+        TestMethodId(x) & 
+        Method(x,mn) & 
+        @"[.]test.*[(][)]$"(mn));
+
+TestSetupId(x) := 
+    EX(mn, 
+        TestMethodId(x) & 
+        Method(x,mn) & 
+        @"[.]setUp[(][)]$"(mn));
+
+TestTeardownId(x) := 
+    EX(mn,
+        TestMethodId(x) & 
+        Method(x,mn) & 
+        @"[.]tearDown[(][)]$"(mn));
+
+TestHelperId(x) := 
+        TestMethodId(x) & 
+        !TestCommandId(x) & 
+        !TestSetupId(x) & 
+        !TestTeardownId(x) &
+        !TestConstructor(x) &
+        !TestDestructor(x) &
+        !TestSuiteMethod(x) &
+        !TestMain(x);
+
+TestChecker(x) := 
+    EX(y, 
+        Method(x, y) & 
+        CheckerSignature(_,y));
+
+ProductionMethodId(x) := 
+        Method(x,_) & 
+        !TestMethodId(x) & 
+        !TestChecker(x);
+
+// Some backward relations
+/**
+ * This file is part of Fetch
+ *
+ * Fetch is free software; you can redistribute it and/or modify it under the 
+ * terms of the GNU General Public License as published by the Free Software 
+ * Foundation; either version 2 of the License, or (at your option) any later 
+ * version.
+ *
+ * Fetch is distributed in the hope that it will be useful, but WITHOUT ANY 
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with Fetch; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+ *
+ * Extensivly modified by:
+ *                Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ **/
+
+// these are needed for backwards compatibility.
+// prolly they'll vanish for good, one day
+TestCase(x,y) := 
+        TestCaseId(x) & 
+        Class(x,y);
+TestCommand(x,y) := 
+        TestCommandId(x) & 
+        Method(x,y);
+TestSetup(x,y) := 
+        TestSetupId(x) & 
+        Method(x,y);
+TestTeardown(x,y) := 
+        TestTeardownId(x) & 
+        Method(x,y);
+TestHelper(x,y) := 
+        TestHelperId(x) & 
+        Method(x,y);
+
+
+
+
+EXEC "echo '->'  xUnit initialized  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp) s] >> tsmells.log";
+// this a bit clumsy. done because crocopat doesnt allow 
+// to add items (eg size of a relation) to the universe dynamicly
+// with this little trick, it can be added.
+count("0","0");
+count("1","1");
+count("2","2");
+count("3","3");
+count("4","4");
+count("5","5");
+count("6","6");
+count("7","7");
+count("8","8");
+count("9","9");
+count("10","10");
+count("11","11");
+count("12","12");
+count("13","13");
+count("14","14");
+count("15","15");
+count("16","16");
+count("17","17");
+count("18","18");
+count("19","19");
+count("20","20");
+count("21","21");
+count("22","22");
+count("23","23");
+count("24","24");
+count("25","25");
+count("26","26");
+count("27","27");
+count("28","28");
+count("29","29");
+count("30","30");
+count("31","31");
+count("32","32");
+count("33","33");
+count("34","34");
+count("35","35");
+count("36","36");
+count("37","37");
+count("38","38");
+count("39","39");
+count("40","40");
+count("41","41");
+count("42","42");
+count("43","43");
+count("44","44");
+count("45","45");
+count("46","46");
+count("47","47");
+count("48","48");
+count("49","49");
+count("50","50");
+count("51","51");
+count("52","52");
+count("53","53");
+count("54","54");
+count("55","55");
+count("56","56");
+count("57","57");
+count("58","58");
+count("59","59");
+count("60","60");
+count("alot", "-1");
+COUNT_MAX := 60;
+
+/**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+EXEC "date +%s > _now_tmp_2";
+
+/**
+ * Some helper relations
+ **/
+
+/**
+ * contains a cleaned invoke relation. gets rid of the DefinitionForDeclaration step
+ * @col id: invoke ID
+ * @col x:  x caller
+ * @col y:  y callee
+ */
+// PureInvokes(id,x,y) := 
+//     EX(u, 
+//         DefinitionForDeclaration(u,x) & 
+//         Invokes(id,u,y));
+// PRINT ["PureInvokes"] PureInvokes(o,p,q);
+
+PureInvokez(id,y,x) := 
+    EX(u, 
+        Invokes(id,u,y) &
+        DefinitionForDeclaration(u,x));
+
+
+
+/**
+ * contains a cleaned accesses relation. gets rid of the DefinitionForDeclaration step
+ * @col id: invoke ID
+ * @col x:  x caller
+ * @col y:  y attribute
+ */
+// PureAccesses(id,x,y) := 
+//     EX(u, 
+//         DefinitionForDeclaration(u,x) & 
+//         Accesses(id,u,y));
+
+PureAccessez(id,y,x) := 
+    EX(u,
+        Accesses(id,u,y) &
+        DefinitionForDeclaration(u,x)
+      );
+
+
+
+EXEC "echo '    ->' Pure{Invokes,Accesses}  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp_2) s] >> tsmells.log";
+
+Stimulates(id,x,y) := 
+        PureInvokez(id,y,x) & 
+        TestMethodId(x) &  
+        (ProductionMethodId(y) | ProductionFunctionId(y));
+// PRINT ["Stimulates"] Stimulates(o,p,q);
+
+
+/**
+ *  Predicate which denotes wheter an assertion has a failure message
+ *  @col x: testchecker ID
+ */
+NoFailureMessage(x) := 
+    EX(y,z, 
+        TestChecker(x) & 
+        (Function(x, y)|Method(x,y)) & 
+        CheckerSignature(z,y) & No(z));
+
+/**
+ * Checkers invoked in TestCommands/TestHelpers
+ * @col z:  invocation ID
+ * @col y:  testcommand/helper ID
+ * @col x:  testchecker ID
+ */
+CheckerInvoke(z,y,x) := 
+        TestChecker(x) & 
+        (TestCommandId(y)|TestHelperId(y)) & 
+        PureInvokez(z,x,y);
+
+// TestCheck(x,nm) := TestChecker(x) & Method(x, nm);
+// PRINT ["TestChecker"] TestCheck(x,y) TO "checkers";
+// PRINT "#CheckerInvoke ", #(CheckerInvoke(o,p,q)), ENDL TO "checkers";
+// CheckerInvo(o,p) := 
+//         EX(invId, cId, //declId,
+//             CheckerInvoke(_, invId, cId) &
+//            // DefinitionForDeclaration(invId, declId) &
+//             Method(invId, o) &
+//             Method(cId, p));
+// PRINT ["CheckerInvoke"] CheckerInvo(o,p) TO "checkers";
+
+EXEC "echo '    ->' Evrything before TestEntityInfo computed  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp_2) s] >> tsmells.log";
+
+/**
+ * Test Command & Helper information.
+ * Prebuilt sinced used extensivly when dumping smell stats
+ *
+ * @col tid:  test command or helper id
+ * @col name: fully qualified method name
+ * @col file: sourcefile this method is defined in
+ * @col line: starting linenumber of the method definition
+ **/
+// TestEntityInfo(tid, name, file, line) :=
+//     EX(def, fid,
+//             TestMethodId(tid) &
+//             Method(tid, name) &
+//             DefinitionForDeclaration(def, tid) &
+//             InvokableEntityBelongsToFile(def, fid, line) &
+//             File(fid, file)
+//       );
+
+TestEntityInfo(tid, name, file, line) :=
+    EX(def, fid,
+            TestMethodId(tid) &
+            Method(tid, name) &
+            DefinitionForDeclaration(def, tid) &
+            File(fid, file) &
+            InvokableEntityBelongsToFile(def, fid, line)
+      );
+
+
+EXEC "echo '    ->' TestEntityInfo computed  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp_2) s] >> tsmells.log";
+
+/**
+ * Extended test command, helper & fixture information
+ * with the owner test case
+ *
+ * @col tid:  test command or helper id
+ * @col name: qualified method name
+ * @col file: sourcefile this method is defined in
+ * @col line: starting linenumber of the method definition
+ * @col tcid: owner testcase id
+ * @col case: owner testcase fully qualified name
+ * @col loc : lines of code
+ **/
+// since PMCCabe tends to forget a few methods, a default LOC is used ....
+// default = 10 LOC
+TestEntityInfoWithOwner(tid, name, file, line, tcid, case, loc) :=
+    TestEntityInfo(tid, name, file, line) &
+    MethodBelongsToClass(tid, tcid) &
+    Class(tcid, case) &
+    ( Measurement(_, tid, "LOC", loc) | 
+      ( !Measurement(_,tid,"LOC", _) & 
+        count("10", loc)));
+
+EXEC "echo '    ->' TestEntityInfoWithOwner  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp_2) s] >> tsmells.log";
+
+TestCaseDefinitionFile("",""); // without this -> crocopat: relYacc.y:232: int yyparse(): Assertion gVariables.find(*yyvsp[-6].rel_String) == gVariables.end() failed.
+
+TestCaseDefinitionFile(tcid_gf, fid) :=
+    EX(mtdid, def,
+        TestCaseId(tcid_gf) &
+        MethodBelongsToClass(mtdid, tcid_gf) &
+        DefinitionForDeclaration(def, mtdid) &
+        InvokableEntityBelongsToFile(def, fid, _));
+
+/**
+ * All helpers thid invoked directly from command tcid
+ **/
+ComHelpers(tcid, thid) :=
+    TestCommandId(tcid) & TestHelperId(thid) & PureInvokez(_,thid,tcid);
+TestHelperInvoke(thid1, thid2) :=
+    TestHelperId(thid1) & PureInvokez(_,thid2,thid1) & TestHelperId(thid2);
+
+/**
+ * All helpers thid invoked from tcid, directly & indirectly
+ * where tcid is a testcommand id
+ **/
+TransComHelper(tcid, thid) :=
+    ComHelpers(tcid, thid) |
+    EX(z, ComHelpers(tcid,z) & TC(TestHelperInvoke(z, thid)));
+
+EXEC "echo '    ->' The rest  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp_2) s] >> tsmells.log";
+
+EXEC "echo '->'  auxiliary relations  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp) s] >> tsmells.log";
+//
+//TestModule(name) := 
+//   EX(tcid, modid, fid,
+//       TestCaseId(tcid) & 
+//        ClassBelongsToFile(tcid, fid, _) &
+//        FileBelongsToModule(fid, modid) &
+//        Module(modid,name));
+//
+//PRINT ["TestModule"] TestModule(x);
+//
+
+// TestConstr(nm) := 
+//     EX(x, 
+//         TestConstructor(x) &
+//         TestEntityInfo(x, nm, _, _));
+// PRINT ["TestConstr"] TestConstr(x);
+// 
+// TestDestr(nm) := 
+//     EX(x, 
+//         TestDestructor(x) &
+//         TestEntityInfo(x, nm, _, _));
+// PRINT ["TestDestr"] TestDestr(x);
+// 
+// SuiteMethod(nm) := 
+//     EX(x, 
+//         CppUnitSuiteMethod(x) &
+//         TestEntityInfo(x, nm, _, _));
+// PRINT ["Sutie"] SuiteMethod(x);
+
+EXEC "rm -f tsmells/argouml.testsuite";
+
+/**
+ * Name, file & linenumber of testcases
+ *
+ * @col name: qualified testcase name
+ * @col file: file this testcase is declared in
+ * @col line: linenumber of the declaration
+ **/
+TestCaseInfo(name, file, line) :=
+    EX(tcid, fid,
+        TestCaseId(tcid) &
+        Class(tcid, name) &
+        //ClassBelongsToFile(tcid, fid, line) &
+        TestCaseDefinitionFile(tcid, fid) &
+        File(fid, file) &
+        count("0", line));
+
+PRINT "ALLO" TO STDERR;
+PRINT TestCaseDefinitionFile(x,y) TO STDERR;
+PRINT "ALLO2" TO STDERR;
+
+PRINT ["TestCase"] TestCaseInfo(x,y,z) TO "tsmells/argouml.testsuite";
+
+/**
+ * Name, file, linenumber & owner testcase of testcommands
+ * 
+ * @col name: qualified testcommand name
+ * @col file: filename this command is defined in
+ * @col case: qualified testcase name which owns the command
+ **/
+TestCommandInfo(name, file, line, case, loc) :=
+    EX(comid,
+        TestCommandId(comid) &
+        TestEntityInfoWithOwner(comid, name, file, line, _, case, loc)
+      );
+
+PRINT ["TestCommand"] TestCommandInfo(u,v,w,x,y) TO "tsmells/argouml.testsuite";
+
+/**
+ * Name, file, linenumber & owner testcase of testhelpers
+ * 
+ * @col name: qualified testhelper name
+ * @col file: filename this helper is defined in
+ * @col case: qualified testcase name which owns the helper
+ **/
+TestHelperInfo(name, file, line, case, loc) :=
+    EX(helid, 
+        TestHelperId(helid) &
+        TestEntityInfoWithOwner(helid, name, file, line, _, case, loc)
+      );
+
+PRINT ["TestHelper"] TestHelperInfo(u,v,w,x,y) TO "tsmells/argouml.testsuite";
+
+
+/**
+ * Name, file, linenumber & owner testcase of testsetup
+ *
+ * @col name: qualified testsetup name
+ * @col file: filename this setup is defined in
+ * @col case: qualified testcase owner name
+ **/
+TestSetupInfo(name, file, line, case, loc) :=
+    EX(fixid, 
+        TestSetupId(fixid) &
+        TestEntityInfoWithOwner(fixid, name, file, line, _, case, loc)
+      );
+
+PRINT ["TestSetup"] TestSetupInfo(u,v,w,x,y) TO "tsmells/argouml.testsuite";
+
+/**
+ * Name, file, linenumber & owner testcase of testteardown
+ *
+ * @col name: qualified testteardown name
+ * @col file: filename this teardown is defined in
+ * @col case: qualified testcase owner name
+ **/
+TestTeardownInfo(name, file, line, case, loc) :=
+    EX(fixid, 
+        TestTeardownId(fixid) &
+        TestEntityInfoWithOwner(fixid, name, file, line, _, case, loc)
+      );
+
+PRINT ["TestTeardown"] TestTeardownInfo(u,v,w,x,y) TO "tsmells/argouml.testsuite";
+ 
+EXEC "echo '->'  xUnit dumped to file  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp) s] >> tsmells.log";
+
+PRINT "(05) DuplicatedCode ... ", ENDL TO STDERR;
+    /**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+EXEC "date +%s > _now_tmp_2";
+
+/**
+ * Duplication in tests is nefast, introduce helpers or 
+ * move to fixture.
+ **/
+
+TestMethodNoGarb(id_) :=
+        TestCommandId(id_) |
+        TestHelperId(id_) |
+        TestSetupId(id_) |
+        TestTeardownId(id_);
+EXEC "echo '    ->' TestMethodNoGarb computed  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp_2) s] >> tsmells.log";
+
+/**
+ * The invocations of a testmethod with
+ * filename and linenumber.
+ *
+ * @col tcid:   invoker test method id
+ * @col iid:    invocation id
+ * @col invid:  invokee id
+ * @col line:   invocation line number
+ * @col tc:     qualified testmethod name
+ * @col inv:    qualified invokee name
+ * @col file:   filename
+ **/
+ComInvoke(iid, tcid_, invid, line_, inv, tcx, file_) :=
+    PureInvokez(iid,invid,tcid_) & 
+    TestMethodNoGarb(tcid_) &
+    LineNo(iid, _, line_) &
+    (Method(invid, inv) | Function(invid, inv)) &
+    TestEntityInfo(tcid_, tcx, file_, _) &
+    !TestChecker(invid);
+
+
+EXEC "echo '    ->' ComInvoke computed  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp_2) s] >> tsmells.log";
+EXEC "rm -rf tmp_duplic_code__";
+PRINT ["ComInvoke"] ComInvoke(a_dc,b_dc,c_dc,d_dc,e_dc,f_dc,g_dc) TO "tmp_duplic_code__";
+EXEC "echo '    ->' ComInvoke printed  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp_2) s] >> tsmells.log";
+
+/**
+ * The accesses of a testmethod, with
+ * filename and linenumber.
+ *
+ * @col tcid:  accessor test method id
+ * @col aid:   access id
+ * @col attid: attribute type id (was attribute id)
+ * @col line:  access line number
+ * @col tc:    qualified testmethod name
+ * @col att:   qualified attribute name
+ * @col file:  filename
+ **/
+
+ComAccess(aid, tcid_ca, attid, line2, att, tc2, file2) := 
+   EX(attrid,
+        PureAccessez(aid,attrid,tcid_ca) &
+        TestMethodNoGarb(tcid_ca) &
+        LineNo(aid, _, line2) &
+        Attribute(attrid, att) &
+        HasType(attrid, attid) &
+        TestEntityInfo(tcid_ca, tc2, file2, _)
+   );
+
+EXEC "echo '    ->' ComAccess computed  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp_2) s] >> tsmells.log";
+PRINT ["ComAccess"] ComAccess(a_dc,b_dc,c_dc,d_dc,e_dc,f_dc,g_dc) TO "tmp_duplic_code__";
+EXEC "echo '    ->' ComAccess printed  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp_2) s] >> tsmells.log";
+
+// now execute a python script which computes the clones
+EXEC "python /home/nix/JaarProject/SmellsGgl/src/dump/DuplicatedCode.py tmp_duplic_code__ 6 &";
+//EXEC "rm -rf tmp_duplic_code__";
+EXEC "echo '    ->' DuplicatedCode.py executed  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp_2) s] >> tsmells.log";
+
+    EXEC "echo '->'  DuplicatedCode  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp) s] >> tsmells.log";
+
+
+PRINT "(03) AssertionLess ... ", ENDL TO STDERR;
+    /**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+/**
+ * A test command is said to be AssertionLess if it doesnt invoke
+ * any checker methods (assertions).
+ *
+ * For a formal description see formspec.pdf
+ **/
+
+// TODO dont recompute the closure here but use 'TransComHelper' relation
+
+/**
+ * All invocations of entity y in test command/helper x
+ **/
+TestInvokes(x,y) := PureInvokez(_,y,x) & (TestCommandId(x) | TestHelperId(x));
+
+/**
+ * All invocations, direct and indirect
+ **/
+TCTestInvokes(x,y) := TC(TestInvokes(x,y));
+
+/**
+ * All checker invocations in a nested testhelper for tcid
+ **/
+CheckerInvokeHelper(invid, tcid) := 
+    EX(y, CheckerInvoke(invid, y, _) & TCTestInvokes(tcid,y) & TestHelperId(y));
+
+AssertionLessId("0"); // without this line crocopat spews an assertion
+// crocopat: relYacc.y:232: int yyparse(): Assertion gVariables.find(*yyvsp[-6].rel_String) == gVariables.end() failed.
+
+
+FOR tc IN TestCommandId(x) {
+    IF ((#(CheckerInvoke(x_al,tc,y_al)) = 0) & 
+        (#(CheckerInvokeHelper(x_al,tc)) = 0)) {
+        // this command has no direct or indirect assertion invocations
+        AssertionLessId(x_al3) := AssertionLessId(x_al3) | x_al3 = tc;
+    }
+}
+
+/**
+ * Get the command name, the sourcefile its declared in plus linenumber
+ **/
+AssertionLess(tcnm, file, line) :=
+    EX(tcid,
+            AssertionLessId(tcid) &
+            TestEntityInfo(tcid, tcnm, file, line) );
+
+PRINT ["AssertionLess"] AssertionLess(x,y,z);
+
+    EXEC "echo '->'  AssertionLess  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp) s] >> tsmells.log";
+
+
+PRINT "(04) AssertionRoulette ... ", ENDL TO STDERR;
+    /**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+
+/**
+ * A test command or helper has AssertionRoulette if it
+ * invokes a high number of descriptionless checker methods.
+ * This treshold is configurable through the 
+ * '6' macro
+ *
+ * For a formal description see formspec.pdf
+ **/
+
+
+/**
+ * holds test commands with message-less checker methods
+ * @col id:  invocation ID
+ * @col x:   test command ID
+ * @col y:   message-less assert ID
+ */
+NoDescAssertDirect(id,x,y) := 
+    NoFailureMessage(y) & 
+    CheckerInvoke(id,x,y) & 
+    (TestCommandId(x));
+NoDescAssertInHelper(id,x,y) := 
+    NoFailureMessage(y) & 
+    EX(thid, TransComHelper(x, thid) &
+             CheckerInvoke(id,thid,y));
+NoDescAssert(id,x,y) := 
+    NoDescAssertDirect(id,x,y) | 
+    NoDescAssertInHelper(id,x,y);
+
+AssertionRouletteId("", "", ""); // without this crocopat borks
+
+FOR tc IN NoDescAssert(_,x,_) {
+    cnt := #(NoDescAssert(a,tc,b));
+    tot := #(CheckerInvoke(a,tc,b) | 
+             EX(th,
+                TransComHelper(tc,th) & 
+                CheckerInvoke(a,th,b)));
+    IF ( cnt >= 6) {
+        // got one, append it
+        IF ( (cnt <= COUNT_MAX) & (tot <=COUNT_MAX)) {
+            AssertionRouletteId(x, all, num) := 
+                AssertionRouletteId(x,all,num) |
+                (x = tc & 
+                count(STRING(cnt), num) & 
+                count(STRING(tot), all));
+        } ELSE {
+            // too high a number of assertions, log as 'alot'
+            // wee bit clumsy but ok
+            AssertionRouletteId(x, all, num) := 
+                AssertionRouletteId(x,all,num) |
+                (x = tc & count("alot", num) & count("alot", all));
+        }
+    }
+}
+
+RouletteType("0","TC"); // roulette in test command
+//RouletteType("1","TH"); // roulette in test helper
+
+/**
+ * Grab the command name, source file linenumber and more
+ **/
+AssertionRoulette(type, rltNm, total, num, file, line) :=
+    EX(rltId,
+            AssertionRouletteId(rltId, total, num) &
+            //((TestCommandId(rltId) & RouletteType("0", type)) |
+            // (TestHelperId(rltId)  & RouletteType("1", type))) &
+            RouletteType("0", type) &
+            TestEntityInfo(rltId, rltNm, file, line)
+      );
+
+PRINT ["AssertionRoulette"] AssertionRoulette(a,b,c,d,e,f);
+
+    EXEC "echo '->'  AssertionRoulette  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp) s] >> tsmells.log";
+
+
+PRINT "(06) EagerTest ... ", ENDL TO STDERR;
+    /**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+
+/**
+ * Contains the different production methods a test command 
+ * invokes a method from. Used for the Production Type Method 
+ * Invocations aka PTMI
+ *
+ * @col tcid_et: test command id
+ * @col mtdid: invoked class
+ **/
+DProdMtdInvocation(tcid_et, mtdid) :=
+		TestCommandId(tcid_et) &
+		PureInvokez(_,mtdid,tcid_et) &
+		ProductionMethodId(mtdid);
+
+IProdMtdInvocation(tcid_et, mtdid) :=
+	EX(thid,
+		TransComHelper(tcid_et, thid) &
+		PureInvokez(_,mtdid,thid) &
+		ProductionMethodId(mtdid));
+
+ProdMtdInvocation(tcid_et, mtdid) :=
+		DProdMtdInvocation(tcid_et, mtdid) |
+		IProdMtdInvocation(tcid_et, mtdid);
+
+
+/**
+ * TestCommand id's which are flagged as 
+ * eager test, as well as their PTMI
+ **/
+EagerTestId("", "");
+
+FOR tcid_et IN TestCommandId(x) {
+	ptmi := #(ProdMtdInvocation(tcid_et, x));
+	IF ( ptmi >= 7) {
+		// got one, append
+		EagerTestId(x, num) := 
+			EagerTestId(x,num) |
+			(
+				x = tcid_et & 
+				(count(STRING(ptmi), num))
+			);
+	}
+}
+
+/**
+ * Contains full eager test information
+ * 
+ * @col tcnm: test command name
+ * @col tres: treshold for PMTI
+ * @col ptmi: number of production type method invocations
+ * @col file: sourcefile with tcnm's implementation
+ * @col line: line this test command is defined on
+ **/
+EagerTest(tcnm, tres, ptmi_et, file, line) :=
+	EX(tcid_idx,
+		EagerTestId(tcid_idx, ptmi_et) &
+		tres = "7" &
+		TestEntityInfo(tcid_idx, tcnm, file, line)
+		);
+
+PRINT ["EagerTest"] EagerTest(aa,bb,cc,dd,ee);
+
+    EXEC "echo '->'  EagerTest  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp) s] >> tsmells.log";
+
+
+PRINT "(07) EmptyTest ... ", ENDL TO STDERR;
+    /**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+EmptyTest(tcid__) :=
+    TestCommandId(tcid__) &
+    !EX(x, PureInvokez(_,x,tcid__)) &
+    !EX(x, PureAccessez(_,x,tcid__));
+
+EmptyTestInfo(tcnm, file, line) :=
+    EX(tcid__,
+        EmptyTest(tcid__) &
+        TestEntityInfo(tcid__, tcnm, file, line)
+        );
+
+PRINT ["EmptyTest"] EmptyTestInfo(aa,bb,cc);
+
+    EXEC "echo '->'  EmptyTest  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp) s] >> tsmells.log";
+
+
+PRINT "(08) ForTestersOnly ... ", ENDL TO STDERR;
+    /**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+
+// TODO add a whitelist for library functions
+
+/**
+ * Contains invokable entity ids {methods, functions} 
+ * of production methods which get called in a 
+ * test command/helper but not in production code.
+ * 
+ * @col x : method, function ID
+ **/
+ForTestersOnlyId(x) :=
+    Stimulates(_,_,x) & 
+    !EX(y,z, ProductionMethodId(y) & !=(x,y) & 
+    PureInvokez(z,x,y));
+
+/**
+ * Contains invokable entity ids {methods, functions} 
+ * of production methods which get called in a 
+ * test command/helper but not in production code.
+ * 
+ * @col ent : qualified method or function name
+ * @col file: file this entity is defined in
+ * @col line: starting linenumber (of definition)
+ **/
+ForTestersOnly(ent,file,line) :=
+	EX(id, def, fid,
+		ForTestersOnlyId(id) &
+		Method(id, ent) &
+		DefinitionForDeclaration(def, id) &
+		InvokableEntityBelongsToFile(def, fid, line) &
+		File(fid, file));
+
+PRINT ["ForTestersOnly"] ForTestersOnly(x,y,z);
+
+
+    EXEC "echo '->'  ForTestersOnly  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp) s] >> tsmells.log";
+
+
+PRINT "(09) GeneralFixture ... ", ENDL TO STDERR;
+    /**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Adapted version of $FETCH/scripts/rml/computeTestCaseMetrics.rml
+ * Original author: Bart Van Rompaey <bart.vanrompaey2@ua.ac.be>
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+
+//GeneralFixture	TestCase	NFOB	NFPT	NOBU	File			LineNr
+//GeneralFixture	"FooTest"		5		5		"FooTest.java"	3
+//PRINT "GeneralFixture	FooTest	5	5	5	FooTest.java	3", ENDL;
+
+/**
+ * The test commands of a testcase
+ *
+ * @col tcid_gf: test case id
+ * @col tmid: test command id
+ **/
+ChildTestCommand(tcid_gf, tmid) := 
+		TestCommandId(tmid) & 
+		TestCaseId(tcid_gf) & 
+		MethodBelongsToClass(tmid,tcid_gf);
+
+
+/**
+ * compute the transitive set of super classes of test case
+ *
+ * @col tcid_gf: test case id
+ * @col super: super class id
+ **/
+// test cases directly inhered by tc
+DTestCase(tcid_gf,super) := 
+		TestCaseId(tcid_gf) & 
+		InheritsFrom(_,_,tcid_gf,super);
+
+// test cases indirectly inherited by tc
+ITestCase(tcid_gf,super) := 
+	EX(y, 
+		TestCaseId(tcid_gf) &
+		InheritsFrom(_,_,tcid_gf,y) & 
+		TC(InheritsFrom(_,_,y,super)));
+
+// both indirect & direct
+InheritedTestCase(tcid_gf, super) := 
+		DTestCase(tcid_gf,super) | 
+		ITestCase(tcid_gf,super);
+
+
+/**
+ * compute the transitive set of test helpers of test setup ts
+ * 
+ * broken & not used
+ *
+ * @col tcid_gf: test case id
+ * @col thid: test helper id
+ **/
+// InheritedTestHelpers(tcid_gf, thid) := 
+// 	EX(y, TestHelper(x,_) & InheritedTestCase(y) & MethodBelongsToClass(x,y));
+
+
+/**
+ * various helper relations for metrics computation
+ **/
+
+DirectFixtureObject(tcid_gf, x) := 
+		TestCaseId(tcid_gf) &
+		Attribute(x,_) & 
+		AttributeBelongsToClass(x,tcid_gf);
+
+IndirectFixtureObject(tcid_gf, x) := 
+	EX(y, 
+		Attribute(x,_) & 
+		InheritedTestCase(tcid_gf, y) & 
+		AttributeBelongsToClass(x,y));
+
+FixtureObject(tcid_gf, x) := 
+		DirectFixtureObject(tcid_gf, x) | 
+		IndirectFixtureObject(tcid_gf, x);
+
+ProductionClassId(x) := !TestCaseId(x);
+
+DirectFixturePType(tcid_gf, x) := 
+	EX(y, 
+		TestCaseId(tcid_gf) &
+		Attribute(y,_) & 
+		ProductionClassId(x) & 
+		HasType(y,x) & 
+		AttributeBelongsToClass(y,tcid_gf));
+
+IndirectFixturePType(tcid_gf, x) := 
+	EX(y,z, 
+		Attribute(y,_) & 
+		ProductionClassId(x) & 
+		HasType(y,x)  & 
+		InheritedTestCase(tcid_gf, z) & 
+		AttributeBelongsToClass(y,z));
+
+FixturePType(tcid_gf, x) := 
+		DirectFixturePType(tcid_gf, x) | 
+		IndirectFixturePType(tcid_gf, x);
+
+
+HasSetup(tcid_gf) := 
+	EX(setid, 
+		TestSetupId(setid) & 
+		TestCaseId(tcid_gf) &
+		MethodBelongsToClass(setid,tcid_gf)
+		);
+
+TrTestSetup(tcid_gf, x) := 
+		TestSetupId(x) & 
+		TestCaseId(tcid_gf) &
+		( 
+			MethodBelongsToClass(x,tcid_gf) | 
+			EX(y, 
+				InheritedTestCase(tcid_gf, y) & 
+				MethodBelongsToClass(x,y))
+		);
+
+
+// doesn't seem to work ...
+// InvocationOnObjectInSetup(x) :=
+// 	EX(y,z,yd,zd, 
+// 		TrTestSetup(y) & 
+// 		(
+// 			MethodBelongsToClass(y,tc) |
+// 			EX(q, 
+// 				InheritedTestCase(q) & 
+// 				MethodBelongsToClass(y,q))
+// 		) & 
+// 		ProductionMethod(z) & 
+// 		DefinitionForDeclaration(yd,y) & 
+// 		DefinitionForDeclaration(zd,z) & 
+// 		Invokes(x,yd,zd)
+// 	);
+
+AccessOnObjectInSetup(tcid_gf, accid) :=
+	EX(setup,attr,prod, setupdef,
+		TestCaseId(tcid_gf) &
+		TestSetupId(setup) &
+		//TrTestSetup(tcid_gf, setup) & 
+		MethodBelongsToClass(setup,tcid_gf) & 
+		Attribute(attr,_) & 
+		ProductionClassId(prod) & 
+		HasType(attr,prod) & 
+		DefinitionForDeclaration(setupdef, setup) &
+		Accesses(accid,setupdef,attr));
+
+//PRINT AccessOnObjectInSetup(x,y);
+
+
+ObjectUsesInSetup(tcid_gf, x) := 
+//		InvocationOnObjectInSetup(x) |
+		AccessOnObjectInSetup(tcid_gf, x);
+
+//PRINT ObjectUsesInSetup(x,y);
+
+/**
+ * @col tcid_gf: test case id
+ * @col nfob: number of attributes
+ * @col nfpt: number of production types
+ * @col nobu: number of object uses in setup [just access for now]
+ **/
+GeneralFixtureData("", "", "", "");
+
+FOR tcid_x IN HasSetup(x) {
+	//notc := #(ChildTestCommand(tcid, tm));
+	nfob := #(FixtureObject(tcid_x, x));
+	nfpt := #(FixturePType(tcid_x, x)); // correlation was to weak to report about
+	nobu := #(ObjectUsesInSetup(tcid_x, x));
+	// need to know attribute type for that...
+
+	//PRINT tcid_x, "	nfob: ", nfob, "	nfpt:", nfpt, "	nobu:", nobu, ENDL;
+
+	IF ( (nfob >= 5) |
+		 (nfpt >= 5) | 
+		 (nobu >= 5)) {
+		GeneralFixtureData(tcid_, nfob_, nfpt_, nobu_) :=
+			GeneralFixtureData(tcid_, nfob_, nfpt_, nobu_) |
+			(
+				tcid_ = tcid_x &
+				count(STRING(nfob), nfob_) &
+				count(STRING(nfpt), nfpt_) &
+				count(STRING(nobu), nobu_)
+			);
+	}
+}
+
+//PRINT ["GeneralFixtureData"] GeneralFixtureData(x,y,z,a);
+//PRINT ["TestCaseDefinitionFile"] TestCaseDefinitionFile(x,y);
+
+GeneralFixture(tc_nm, nfob2, nfpt2, nobu2, file, line) :=
+	EX(tcid_gf, fid,
+		GeneralFixtureData(tcid_gf, nfob2, nfpt2, nobu2) &
+		Class(tcid_gf, tc_nm) &
+		TestCaseDefinitionFile(tcid_gf, fid) &
+		File(fid, file) &
+		count("0", line));
+
+PRINT ["GeneralFixture"] GeneralFixture(o,p,q,r,s,t);
+
+    EXEC "echo '->'  GeneralFixture  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp) s] >> tsmells.log";
+
+
+PRINT "(10) IndentedTest ...", ENDL TO STDERR;
+    /**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+/**
+ * Unittests shouldnt be riddled with control structures.
+ **/
+
+IndentedTestType("0", "TC");
+IndentedTestType("1", "TH");
+
+/**
+ * CtrlStructCount(tid, type ,cnt)
+ *
+ * @col tid:  test method id {command, helper}
+ * @col type: "TC" if found in a command, "TH" if found in a helper
+ * @col cnt:  number of control structures
+ **/
+CtrlStructCount("","",""); // without initialization crocopat crashes
+
+LoopCount(id, cntx) := TestCommandId(id) & Measurement(_,id, "LOOP", cntx);
+CondCount(id, cntx) := TestCommandId(id) & Measurement(_,id, "COND", cntx);
+
+//PRINT ["CondCount"] CondCount(o,p);
+
+FOR sid IN TestCommandId(x) {
+    cnt := SUM(LoopCount(sid,x)) + SUM(CondCount(sid, y));
+    IF (cnt > 0) {
+        CtrlStructCount(x,y,z) := CtrlStructCount(x,y,z) |
+            x = sid & IndentedTestType("0", y) & count(STRING(cnt), z);
+    }
+}
+
+LoopCount(id, cnt2) := TestHelperId(id) & Measurement(_,id, "LOOP", cnt2);
+CondCount(id, cnt2) := TestHelperId(id) & Measurement(_,id, "COND", cnt2);
+FOR id IN TestHelperId(x) {
+    cnt2 := SUM(LoopCount(id,x)) + SUM(CondCount(id, y));
+    IF (cnt2 > 0) {
+        CtrlStructCount(x,y,z) := CtrlStructCount(x,y,z) |
+            x = id & IndentedTestType("1", y) & count(STRING(cnt2), z);
+    }
+}
+
+//PRINT ["CtrlStructCount"] CtrlStructCount(o,p,q);
+
+/**
+ * Fetch the number of conditionals and 
+ * loops for all test commands and helpers
+ * 
+ * @col type:  "TC" or "TH", denoting the type
+ * @col tnm:  test command/helper qualified name
+ * @col num:  number of control structures used in tid
+ * @col file: sourcefile the method is implemented in
+ * @col line: startline of method definition
+ **/
+IndentedTest(type, tnm, num, file, line) := 
+    EX(tid,
+            CtrlStructCount(tid,type,num) &
+            TestEntityInfo(tid,tnm,file,line)
+      );
+
+PRINT ["IndentedTest"] IndentedTest(a,b,c,d,e);
+
+    EXEC "echo '->'  IndentedTest  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp) s] >> tsmells.log";
+
+
+PRINT "(12) IndirectTest ... ", ENDL TO STDERR;
+    /**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+/**
+ * Indirect test is somewhat fuzzy described in litarature.
+ * A heuristic is used; a treshold on the number of
+ * different classes a TC invokes/accesses (aka NPTU). 
+ * This treshold is configurable.
+ *
+ * For a formal definition see formspec.pdf
+ **/
+
+
+/**
+ * Contains the different classes a test command accesses. 
+ * Not counting itself, nor other Test Commands.
+ *
+ * @col tcidd: testcommand id
+ * @col clazz: accessed class
+ **/
+diffClassAccess(tcidd, clazz) := 
+    EX(y_dca,
+              TestCommandId(tcidd) & 
+              PureAccessez(_,y_dca,tcidd) & 
+              AttributeBelongsToClass(y_dca,clazz) & 
+              !TestCaseId(clazz));
+diffClassAccessHelper(tcidd,clazz) :=
+    EX(y, thid, 
+              TransComHelper(tcidd, thid) &
+              PureAccess(_, thid, y) &
+              AttributeBelongsToClass(y, clazz) &
+              !TestCaseId(clazz));
+
+/**
+ * Contains the different production classes a test command 
+ * invokes a method from.
+ * @col tcidd: test command id
+ * @col clazz: invoked class
+ **/
+diffClassInvokes(tcidd, clazz) :=
+    EX(y,
+              TestCommandId(tcidd) &
+              PureInvokez(_,y,tcidd) &
+              ProductionMethodId(y) &
+              MethodBelongsToClass(y, clazz));
+diffClassInvokesHelper(tcidd, clazz) :=
+    EX(y, thid,
+              TransComHelper(tcidd, thid) &
+              PureInvokez(_,y,thid) &
+              ProductionMethodId(y) &
+              MethodBelongsToClass(y, clazz));
+
+//PRINT ["diffClassAccess"] diffClassAccess(x,y);
+//PRINT ["diffClassInvokes"] diffClassInvokes(x,y);
+
+/**
+ * TestCommand id's which are flagged as 
+ * indirect test, as well as the NPTU
+ **/
+IndirectTestId("", "");
+
+FOR tcid_idt IN TestCommandId(x) {
+    nptu := #(diffClassInvokes(tcid_idt,c) | diffClassInvokesHelper(tcid_idt,c) |
+              diffClassAccess(tcid_idt,c)  | diffClassAccessHelper(tcid_idt,c));
+    IF ( nptu >= 7) {
+        // got one, append
+        IF (nptu <= COUNT_MAX) {
+            IndirectTestId(x, num) := 
+                IndirectTestId(x,num) |
+                (
+                    x = tcid_idt & 
+                    ( count(STRING(nptu), num) )
+                );
+        } ELSE {
+            // larger then the count relation. log this is as 'A LOT'
+            IndirectTestId(x, num) := 
+                IndirectTestId(x,num) |
+                (x = tcid_idt & 
+                    ( count("alot", num) )
+                );
+        }
+    }
+}
+
+/**
+ * Contains full indirect test information
+ * 
+ * @col tcnm: test command name
+ * @col tres: treshold for ptmi
+ * @col nptu: number of production type uses
+ * @col file: sourcefile with tcnm's implementation
+ * @col line: line this test command is defined on
+ **/
+IndirectTest(tcnm, tres, nptu_x, file, line) :=
+    EX(tcid_idx,
+            IndirectTestId(tcid_idx, nptu_x) &
+            tres = "7" &
+            TestEntityInfo(tcid_idx, tcnm, file, line)
+      );
+
+PRINT ["IndirectTest"] IndirectTest(aa,bb,cc,dd,ee);
+
+    EXEC "echo '->'  IndirectTest  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp) s] >> tsmells.log";
+
+
+PRINT "(13) MysteryGuest ... ", ENDL TO STDERR;
+    /**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+
+/**
+ * fetches the IDs of blacklisted methods
+ * @col x: mystery type
+ * @col y: methodname
+ * @col z: methodid
+ */
+Blacklist(x,y,z) := MysteryBlacklist(x,y) & (Method(z,y) | Function(z,y));
+BlackID(x) := EX(y, MysteryBlacklist(_,y) & (Method(x,y) | Function(x,y)));
+
+/**
+ * holds all testcommands containing a direct mystery invoke
+ * @col a: TestCommand ID
+ * @col b: Blacklisted method ID
+ */
+MysteryInTc(a,b) := TestCommand(a,_) & Stimulates(_,a,b) & Blacklist(_,_,b);
+
+// TODO rewrite this with instant dump instead of looping. 
+// right now this is way too inefficient. (and ugly)
+FOR tc IN MysteryInTc(x,_) {
+    FOR myst IN MysteryInTc(tc,x) {
+        MethodName(mn) := Method(tc, mn); 
+        MystType(mt) := Blacklist(mt,_,myst);
+        MystEnt(mn) := Blacklist(_,mn,myst);
+        Definition(tcDef) := DefinitionForDeclaration(tcDef, tc);
+        FOR def IN Definition(x) {
+            FileName(x) := EX(y, InvokableEntityBelongsToFile(def,y,_) & File(y,x));
+            LineNr(x) := InvokableEntityBelongsToFile(def, _, x);
+        }
+
+        FOR meth IN MethodName(mn) { // singleton
+        FOR type IN MystType(mt)   { // singleton
+        FOR myst IN MystEnt(mn)    { // singleton
+        FOR file IN FileName(x)    { // singleton
+        FOR line IN LineNr(x)      { // singleton
+            // print twice since smell in tc itself
+            PRINT "MysteryGuest	", meth, "	", file, "	", line, "	",
+                  meth, "	", file, "	", line, "	", type, "	", myst, ENDL;
+        }}}}}
+    }
+}
+
+/**
+ * holds all methods with smelly invokes
+ * @col a: TestCommand ID
+ * @col b: Method ID which invokes the blacklisted
+ * @col c: Blacklisted method ID
+ **/
+TransInvokes(x,y) := TC(PureInvokez(_,y,x));
+MysteryInM(a,b,c) :=  (Method(b,_) | Function(b,_)) & PureInvokez(_,c,b) & BlackID(c) & TestCommand(a,_) & TransInvokes(a,b);
+
+// print result
+// TODO same remark as above, rewrite this as a 
+// single relation + DUMP
+FOR tc IN MysteryInM(x,_,_) {
+    FOR th IN MysteryInM(tc,x,_) {
+        FOR myst IN MysteryInM(tc,th,x) {
+            CommandName(mn) := Method(tc, mn);
+            MethodName(hn) := Method(th, hn);
+            MystType(mt) := Blacklist(mt,_,myst); 
+            MystEnt(mn) := Blacklist(_,mn,myst);
+            IF (#(MethodName(hn)) = 0) { 
+                // function, not a method
+                MethodName(hn) := Function(th, hn);
+            }
+            FileName(x) := EX(y, InvokableEntityBelongsToFile(tc,y,_) & File(y,x));
+            LineNr(x) := InvokableEntityBelongsToFile(tc, _, x);
+            MFileName(x) := EX(y, InvokableEntityBelongsToFile(th,y,_) & File(y,x));
+            MLineNr(x) := InvokableEntityBelongsToFile(th, _, x);
+
+            FOR cmd  IN CommandName(mn) { // singleton
+            FOR meth IN MethodName(hn)  { // singleton
+            FOR type IN MystType(mt)    { // singleton
+            FOR myst IN MystEnt(mn)     { // singleton
+            FOR file IN FileName(x)     { // singleton
+            FOR line IN LineNr(x)       { // singleton
+            FOR mfil IN MFileName(x)    { // singleton
+            FOR mlin IN MLineNr(x)      { // singleton
+                PRINT "MysteryGuest	", cmd, "	", file, "	", line, "	",
+                      meth, "	", mfil, "	", mlin, "	", type, "	", myst, ENDL;
+            }}}}}}}}
+        }
+    }
+}
+
+    EXEC "echo '->'  MysteryGuest  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp) s] >> tsmells.log";
+
+
+PRINT "(14) SensitiveEquality ... ", ENDL TO STDERR;
+    /**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ */
+
+/**
+ * Detection of 'toString' in test commands and helpers
+ **/
+
+// TODO parameterize this with a blacklist
+ToStringId(x):=EX(y,Method(x,y) & @"[.]toString()"(y));
+
+/**
+ * To string invocations of a testmethod {command,helper}
+ *
+ * @invId: invocation ID
+ * @tmId:  testmethod ID
+ **/
+ToStringInv(invId, tmId) := 
+    EX(toStr,
+        PureInvokez(invId,toStr,tmId) & 
+        (TestCommandId(tmId) | TestHelperId(tmId)) &
+        ToStringId(toStr)
+      );
+
+/**
+ * Number of toString invocations in a test command or helper
+ *
+ * @col x: test method ID
+ * @col y: nrof toStrings
+ **/
+NrofToStringInv("","");
+
+FOR tmId IN (TestCommandId(x)|TestHelperId(x)) {
+    nrof := #(ToStringInv(x,tmId));
+    NrofToStringInv(id_, nr) :=
+        NrofToStringInv(id_, nr) |
+        ( id_ = tmId & count(nr, STRING(nrof)));
+}
+
+//PRINT NrofToStringInv(a,b);
+Empty("TC");
+
+SensitiveEquality(e, tm, nrof_, file_, line_) :=
+    EX(tmId_,
+        Empty(e) &
+        TestEntityInfo(tmId_, tm, file_, line_) &
+        NrofToStringInv(tmId_, nrof_) &
+        !count(nrof_, "0")
+    );
+
+PRINT ["SensitiveEquality"] SensitiveEquality(aa,bb,cc,dd,ee);
+PRINT "## NrofToStrings ##",ENDL,"method name;# tostring invocations",ENDL TO "DUMP_TEST_METRICS";
+PRINT EX(x, Method(x, n) & NrofToStringInv(x, nrof_)) TO "DUMP_TEST_METRICS";
+
+
+    EXEC "echo '->'  SensitiveEquality  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp) s] >> tsmells.log";
+
+
+PRINT "(15) VerboseTest ... ", ENDL TO STDERR;
+    /**
+ * This file is part of TSmells
+ *
+ * TSmells is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License as published by the 
+ * Free Software Foundation; either version 2 of the License, or (at your 
+ * option) any later version.
+ *
+ * TSmells is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along 
+ * with TSmells; if not, write to the Free Software Foundation, Inc., 
+ * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA 
+ *
+ * Copyright 2007 Manuel Breugelmans <manuel.breugelmans@student.ua.ac.be>
+ **/
+
+// fake it
+//PRINT "VerboseTest    FooTest.testFoo()    21    TestFoo.java    6", ENDL;
+//                    testcommand        SLOC     file         linenr
+
+/**
+ * Test should be compact, long test are hard 
+ * to read. Has a bad influence on the documentational
+ * value of the test.
+ *
+ * @col tcid: testcommand ID
+ * @col loc: source lines of code of tcid
+ **/
+VerboseTest(tcid__, loc) :=
+    TestCommandId(tcid__) &
+    Measurement(_, tcid__, "LOC", loc); //&
+   // loc >= "15";
+   // >=(NUMBER(loc), NUMBER(15)); //<- RML doesnt seem to allow this:
+   // Program parser error at line 538: 'loc'. syntax error'
+
+VerboseTestTresh("", ""); // without this crocopat asserts
+//crocopat: relYacc.y:232: int yyparse(): Assertion gVariables.find(*yyvsp[-6].rel_String) == gVariables.end() failed.
+FOR tcid IN TestCommandId(x) {
+    loc := SUM(VerboseTest(tcid, x)); // summing over a single element ...
+    IF (loc >= 15) {
+        VerboseTestTresh(x,y) :=
+            VerboseTestTresh(x,y) |
+            x = tcid & y = STRING(loc);
+    }
+}
+
+VerboseTestInfo(tcName, loc_2, file__, line__) :=
+    EX(tcid_,
+        VerboseTestTresh(tcid_, loc_2) &
+        TestEntityInfo(tcid_, tcName, file__, line__)
+    );
+
+PRINT ["VerboseTest"] VerboseTestInfo(a,b,c,d);
+
+    EXEC "echo '->'  VerboseTest  [$(/home/nix/JaarProject/SmellsGgl/scripts/timer.sh _now_tmp) s] >> tsmells.log";
+
+
+EXEC "rm -f _now_tmp _now_tmp_2";

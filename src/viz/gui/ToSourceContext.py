@@ -21,12 +21,30 @@
 import os
 from time import sleep
 
+def exeExists(exe):
+    found = 0
+    for dir in os.getenv("PATH").split(':'):
+        if os.path.exists(os.path.join(dir, exe)):
+            found = 1
+            break
+    return found
+
 def openEditor(file, line):
     ''' spawn an external source code viewer and open the given file + jump
         to line '''
-    toExec = "kwrite " + file + " --line " + str(line)
-    #toExec = "kate -u " + file + " --line " + str(line)
-    print "executing " + toExec
+    toExec = ""
+    if exeExists("kwrite"):
+        toExec = "kwrite " + file + " --line " + str(line)
+    elif exeExists("gvim"):
+        toExec = "gvim +" + str(line) + " " + file
+    elif exeExists("gedit"):
+        toExec = "gedit +" + str(line) + " " + file
+    elif os.name == "mac":
+        toExec = "open " + file
+    if toExec == "":
+        print "No decent editor found. Failed to open source."
+        return
+    print "Executing `" + toExec + "'"
     Runtime.getRuntime().exec(toExec)
 
 def getLocations(target):

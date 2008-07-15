@@ -1,8 +1,13 @@
 #!/bin/bash
+#
+# tiny wrapper around the guess.sh script
+# loads the gui extensions from tsmellsviz.py
+#
 
 if [[ "$1" == "" ]]
 then
     echo "usage: $0 <source root>"
+    exit -1
 fi
 
 if [[ "$2" == "" ]]
@@ -16,4 +21,4 @@ else
     export TSMELLS_METRICPICKLE="$3"
 fi
 
-guess --nowarn $TSMELLS/src/viz/tsmellsviz.py
+guess.sh --nowarn $TSMELLS/src/viz/tsmellsviz.py

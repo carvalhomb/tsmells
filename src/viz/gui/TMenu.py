@@ -20,7 +20,7 @@
 
 from com.hp.hpl.guess        import Guess
 from com.hp.hpl.guess.layout import GEM, BinPack
-from com.hp.hpl.guess.ui     import GuessColor, Colors
+from com.hp.hpl.guess.ui     import GuessColor, Colors, GMenuBar
 from javax.swing             import JMenu, JMenuItem
 from javax.swing.event       import ChangeListener
 from java.awt.event          import ActionListener
@@ -96,10 +96,9 @@ def addViewCase2Action():
     casev = NodeEditorPopup.addItem("viewCase2")
     casev.menuEvent = openCaseView2
 
-
 def initMenu():
     global glzz
-    tmenu = JMenu("tsmells")
+    tmenu = JMenu("testQ")
 
     smellv = JMenuItem("smell view")
     smellv.actionPerformed = lambda event : SmellView(glzz).go()
@@ -122,6 +121,7 @@ def initMenu():
 
     gbar = Guess.getMainUIWindow().getGMenuBar()
     gbar.add(tmenu)
+    gbar.getMenu(3).removeAll() # deface the layout menu
     gbar.revalidate()
     gbar.repaint()
 
