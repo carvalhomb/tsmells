@@ -1,0 +1,95 @@
+#summary Polymetric views of some test suites
+#labels Featured
+
+= Introduction =
+
+[http://www.iam.unibe.ch/~scg/Archive/Papers/Lanz03dTSEPolymetric.pdf Polymetric views] visualize software compisition and metrics. The graphs below show testsuite modules and their testcases.
+
+The testcase nodes, the leaves of the graph, use 3 metrics:
+
+  * NrofTc: number of testcommands contained in a testcase
+  * SlocTc: source lines of code in a testcase
+  * The presence of helpers and fixture methods
+
+Actual metric-node mapping:
+  * height ~ NrofTc
+  * width  ~ SlocTc / NrofTc
+  * color:  
+            * white: absence of helpers and fixture
+            * blue: only fixture methods present
+            * green: only helper methods present
+            * red: both fixture and helpers
+
+Such a view contains a wealth of information on the topology of the testsuite. In the tsmells-gui you can interact with this, eg view the source or get more information on the testcases.
+
+= Projects =
+
+== Anastacia ==
+
+  * JUnit 3
+  * 8 KSLOC production
+  * 2.75 KSLOC test
+  * 71 testcases
+  * 226 testcommands
+
+[http://fenix.cmi.ua.ac.be/~p035120/GglCode/PolySuite/AnastaciaSuitePoly_cropped.jpg http://fenix.cmi.ua.ac.be/~p035120/GglCode/PolySuite/AnastaciaSuitePoly_small.jpg]
+
+== ArgoUML 0.20 ==
+
+  * JUnit 3
+  * 105 KSLOC production
+  * 10 KSLOC test
+  * 120 testcases
+  * 311 testcommands
+
+[http://fenix.cmi.ua.ac.be/~p035120/GglCode/PolySuite/ArgoUml020SuitePoly_cropped.jpg http://fenix.cmi.ua.ac.be/~p035120/GglCode/PolySuite/ArgoUml020SuitePoly_small.jpg]
+
+== CheckStyle ==
+
+  * JUnit 3
+  * 21.5 KSLOC production
+  * 10 KSLOC test
+  * testcases
+  * testcommands
+
+[http://fenix.cmi.ua.ac.be/~p035120/GglCode/PolySuite/CheckStyle44SuitePoly_cropped.jpg http://fenix.cmi.ua.ac.be/~p035120/GglCode/PolySuite/CheckStyle44SuitePoly_small.jpg]
+
+== Poco ==
+
+  * CppUnit (forked)
+  * 210 KSLOC production
+  * 25 KSLOC test
+  * 178 testcases
+  * 1094 testcommands
+
+[http://fenix.cmi.ua.ac.be/~p035120/GglCode/PolySuite/PocoTrunkSuitePoly_cropped.jpg http://fenix.cmi.ua.ac.be/~p035120/GglCode/PolySuite/PocoTrunkSuitePoly_small.jpg]
+
+== JFreeChart ==
+
+  * JUnit 3
+  * 81 KSLOC production
+  * 43 KSLOC test
+  * 357 testcases
+  * 1805 testcommands
+
+[http://fenix.cmi.ua.ac.be/~p035120/GglCode/PolySuite/JfreeChart1009SuitePoly_cropped.jpg http://fenix.cmi.ua.ac.be/~p035120/GglCode/PolySuite/JfreeChart1009SuitePoly_small.jpg]
+
+== Junit 3.8 ==
+
+  * JUnit 3
+  * 3.75 KSLOC production
+  * 1.2 KSLOC test
+  * 31 testcases
+  * 97 testcommands
+
+[http://fenix.cmi.ua.ac.be/~p035120/GglCode/PolySuite/Junit38SuitePoly_cropped.jpg http://fenix.cmi.ua.ac.be/~p035120/GglCode/PolySuite/Junit38SuitePoly_small.jpg]
+
+== Pmd 3.5 ==
+
+  * JUnit 3
+  * 24 KSLOC production
+  * 16 KSLOC test
+  * 253 testcases
+  * 629 testcommands
+
+[http://fenix.cmi.ua.ac.be/~p035120/GglCode/PolySuite/Pmd35SuitePoly_cropped.jpg http://fenix.cmi.ua.ac.be/~p035120/GglCode/PolySuite/Pmd35SuitePoly_small.jpg]

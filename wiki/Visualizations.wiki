@@ -1,0 +1,42 @@
+#labels Featured
+Some preliminary visualizations of smells in test suites. The 'flowers' represent the different test cases. Nodes connected directly to the center are test commands, red or green colored nodes represent test smells. The edge relation stands for containment;
+ * test cases contain test commands
+ * test commands contain smells
+
+In the guess-gui one can zoom, investigate extra information and jump to source code.
+
+= Pmd =
+
+A java code style checker with 257 test cases good for 629 commands.
+
+http://fenix.cmi.ua.ac.be/~p035120/FetchWiki/pmd-3.5-uiview_small.png
+
+A view of the guess GUI with pmd-3.5 loaded. Actually a fair share of of those
+red dots are false positives and should be rooted out ...
+
+= Poco =
+
+[http://pocoproject.org/ Poco] is an open source C++ library good for 240KLOC, of which 50LOC are unit tests.
+
+http://fenix.cmi.ua.ac.be/~p035120/GglCode/pocoUISmall.png
+
+http://fenix.cmi.ua.ac.be/~p035120/GglCode/pocoPolyMetricSmall.jpg
+
+http://fenix.cmi.ua.ac.be/~p035120/GglCode/pocoRadialSmall.jpg
+
+= Anastacia =
+
+A java project with 71 test cases, totalling 228 test commands.
+
+http://fenix.cmi.ua.ac.be/~p035120/GglCode/suiteview.jpg
+
+http://fenix.cmi.ua.ac.be/~p035120/GglCode/anastacia_small_cut.jpg
+
+
+= Aria2 =
+
+A c++ project which contains 100 test cases with 500 commands.
+
+http://fenix.cmi.ua.ac.be/~p035120/GglCode/aria2_small_cut.jpg
+
+The upper right cluster is actually a group of test cases with loads of duplicated code between them (green nodes). The single red nodes are all For Testers Only smell instances. 

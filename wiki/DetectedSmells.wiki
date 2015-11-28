@@ -1,0 +1,30 @@
+#labels Featured,Phase-Requirements
+A short description of the smells that are currently supported. A formal, set based specification can be found in formspec.pdf, distributed with each release.
+
+= Assertionless =
+A test command is assertionless if it does not invoke framework checker methods, either direct or indirect. These commands are useless and potentially misleading, thus should be avoided, tagged or at least enumerated. 
+
+= Assertion Roulette =
+High numbers of descriptionless checker invocations make for hard to read tests. In case of failure manual intervention and (a) rerun(s) might be required. These descriptionless assertions are counted for a test command and all its helpers. 
+
+= Duplicated Code =
+Code clones in unit tests have a bad effect on maintainability, since modifications to the UUT might result in a multitude of changes. Duplication is considered a strong smell since regression testing is the main goal of automation. Duplicate statements should be refactored to setup, teardown or helper methods.
+
+Detecting clones is accomplished by comparing the contents of (test) methods against one another. Each method gets partitioned in sequences of adjacent accesses and invocations. These accesses and invocations are identified on the type and declaration level, no name tokens or anything involved. Common partitions between methods are reported. The minimum size of these reported partitions is configurable.
+
+Control structure information is not taken into account. However, false positives are a non-issue since loops and conditionals should be rare in test code. Variable declaration statements are not used either. Describing this smell with the current formalism is impossible since there's no ordering on invocations and accesses.
+
+= For Testers Only =
+Methods only used by test code do not belong in the production class. One can move these methods to a subclass in test code. Detecting FTO can result in a fair share of false positives, eg when the UUT is itself a library. A modifiable whitelist $WL$ of methods should be used.
+
+= Indented Test =
+Loops and conditionals break the linear character of a test, and might make it too complex. Who's going to test the test? To fight duplication Indented Test is flagged for commands and helpers seperatly.
+
+= Indirect Test =
+Testing bussiness logic through the presentation layer is an example of Indirect Test. A test case should test its counterpart in the production code. However, pinpointing the 'tested class' is not trivial. Instead a heuristic based on the number of production types used aka NPTU is employed.
+
+= Mystery Guest =
+The use of external resources in unit tests is considered not done. It lowers a tests documentational value. Also, the extra dependency might introduce subtle circumstancial failures. And last but not least I/O has a negative effect on speed. Examples include file access, database connections. To make static detection feasible the system should be learned which methods are not wanted. Direct or indirect invocations of such blacklisted methods in commands and helpers will be flagged.
+
+= Sensitive Equality =
+Verification by dumping an object's characteristics to string is easy and fast. However by doing so a dependancy on irrelevant details like formatting characters is created. Whenever the toString implementation changes, tests will start failing. Detecting this in Java code boils down to the usage of 'toString' in a test framework checker method, either nested or indirect. For other languages a method blacklist is needed. As a heuristic for 'linked to a checker method' all invocations in a helper or command are taken into account, which obviously results in false positives.

@@ -1,0 +1,17 @@
+#summary Installation howto
+#labels Phase-Deploy
+
+Both Fetch and Guess are now included in the TestQ distribution (from v0.6 onwards)
+
+TestQ v0.6 tarball is available [http://www.lore.ua.ac.be/Research/Artefacts/testQ/testQ-0.6.tgz here]
+
+TestQ includes 3 samples projects: Poco (forked CppUnit), 
+ArgoUML (JUnit 3.8) and Anastacia (JUnit 3.8).
+
+Both the Poco and ArgoUML samples require no external tools, other than an up-to-date Shell, Python and Java runtime. Simply run their `./testQ.sh' scripts distributed in sample/$PROJ.
+
+Anastacia however completes a full cycle (as opposed to starting
+from a generated model) and thus requires both SourceNavigator and 
+CrocoPat executables to be present on your PATH. Please refer to the
+excellent [http://lore.cmi.ua.ac.be/fetchWiki/index.php/Installation installation page] on the Fetch wiki for additional 
+instructions.

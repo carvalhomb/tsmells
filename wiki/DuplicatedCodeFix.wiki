@@ -1,0 +1,11 @@
+#summary Some pictures of the effects of this fix
+
+Code clones used to be reported in pairs, so if a piece of code is repeated x times this would result in sum[1..x-1] reports. A horrible case of duplication.
+This is fixed now, n-ary code clones get reported only once.
+
+Below is the result of this fix. The first screenshot was taken before, the second after. Both are from the same test suite, obviously. 
+You'll have to admit the pre-fix one is visually appealing though.
+
+http://fenix.cmi.ua.ac.be/~p035120/FetchWiki/pdm_duplic_prefix.jpg
+
+http://fenix.cmi.ua.ac.be/~p035120/FetchWiki/pdm_duplic_postfix.jpg
