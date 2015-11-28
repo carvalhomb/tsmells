@@ -4,3 +4,23 @@ There's 3 steps involved:
 + Extract facts into an RSF model, eg with Fetch. Be sure to add xUnit framework stubs.
 + Detect test code smells with crocopat
 + Transform into GDF and visualize with Guess
+
+-----
+
+Unit testing is the industry standard testing methodology with great impact on software quality. However, testing has an associated cost, not only when coding the tests but also caused by maintenance due to an evolving unit under test. Several authors have identified so called test smells which negativly influence the maintainability & readability of xUnit code.
+
+TestQ (formerly Tsmells) is a reengineering tool which detects and visualizes these bad practices, through static analysis. Test engineers and regular developers alike can use this information to spot refactor opportunities. TestQ does not assess how well a suite tests a system (eg coverage statistics.)
+
+It is built on a framework and language independent model, cdif. For now CppUnit and JUnit are supported. TestQ is being developed as a student year project at the University of Antwerp and currently in alpha.
+
+Building blocks used:
+
+    Fetch [http://lore.cmi.ua.ac.be/fetchWiki/index.php/Main_Page] - Fact Extraction Tool Chain
+    Crocopat [http://www.cs.sfu.ca/~dbeyer/CrocoPat/] - Logical/relational language implementation
+    Guess [http://graphexploration.cond.org/] - Graph visualization 
+
+Some references:
+
+    Refactoring Test Code [http://homepages.cwi.nl/~leon/papers/xp2001/]
+    xUnitPatterns.com [http://xunitpatterns.com/]
+    TestLint [http://smallwiki.unibe.ch/stefanreichhart/testsmells/]
